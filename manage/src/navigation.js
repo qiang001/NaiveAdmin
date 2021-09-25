@@ -49,6 +49,14 @@ function buildRouter() {
 }
 
 function buildPages(configuration) {
+  // 动态引入神坑
+  
+  // 1.开发没问题，打包搞死人
+  // ()=>import(`./views/pages/${item.path}/index.vue`)
+
+  // 解决方案：import.meta.glob
+  const modules = import.meta.glob('./views/pages/**/*.vue')
+
   let pages = []
   return recursion(configuration)
   function recursion(arr, expandedKeys) {
@@ -68,7 +76,7 @@ function buildPages(configuration) {
     return {
       path: item.path,
       name: item.name,
-      component: () => import(`./views/pages/${item.path}/index.vue`),
+      component: modules[`./views/pages/${item.path}/index.vue`],
       meta: {
         menuKey:item.belongsTo||item.name,
         expandedKey: [
