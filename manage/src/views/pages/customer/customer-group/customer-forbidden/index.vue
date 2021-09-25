@@ -1,9 +1,11 @@
 <template>
-	<div>黑名单</div>
+  <page-panel>
+    <div>黑名单</div>
+  </page-panel>
 </template>
 
-<script>
+<script setup>
+import PagePanel from '@/components/PagePanel.vue'
 </script>
 
-<style>
-</style>
+<style></style>

@@ -5,7 +5,7 @@
         <img src="@/assets/logo.svg" alt="" style="width: 36px" />
       </div>
       <div class="ml-2" style="font-size: 18px; font-weight: bold">
-        自定义后台管理系统
+        通用后台管理系统
       </div>
       <div class="ml-auto">
         <theme-toggle/>
