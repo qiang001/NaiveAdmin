@@ -1,7 +1,7 @@
 <template>
-  <page-panel>
-    <div>用户管理</div>
-  </page-panel>
+  <page-panel :title="'客户详情'">
+	
+	</page-panel>
 </template>
 
 <script setup>

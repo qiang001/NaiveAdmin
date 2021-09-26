@@ -1,7 +1,7 @@
 import { createStore } from 'vuex'
 import { darkTheme } from 'naive-ui'
 import { buildRouter, buildPages, buildMenuOptions } from './navigation.js'
-import { configuration,getAllAuthKeys } from './configuration.js'
+import { configuration, getAllAuthKeys } from './configuration.js'
 // all auth keys
 const ALL_AUTH_KEYS = getAllAuthKeys()
 
@@ -22,7 +22,7 @@ const store = createStore({
       const themeOverrides = {
         common: {
           fontFamily:
-            '-apple-system, BlinkMacSystemFont, Helvetica Neue, Helvetica, PingFang SC, Noto Sans, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif',
+            '-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol',
         },
         Menu: {
           arrowColor: '#333639FF',
@@ -53,9 +53,11 @@ const store = createStore({
       state.menuOptions = buildMenuOptions(configuration, AUTH_KEYS)
     },
   },
-  actions: {},
+  actions: {
+    login({commit},data){
+      commit('SET_AUTH', ALL_AUTH_KEYS)
+    }
+  },
 })
-
-store.commit('SET_AUTH',ALL_AUTH_KEYS)
-
+store.commit('SET_AUTH', ['Console','System','OperationRecording','AccessControl'])
 export { router, store }

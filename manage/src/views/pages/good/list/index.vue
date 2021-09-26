@@ -1,6 +1,6 @@
 <template>
-	<page-panel>
-		<div>课程列表</div>
+	<page-panel :title="'商品列表'">
+	
 	</page-panel>
 </template>
 

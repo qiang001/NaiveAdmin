@@ -1,7 +1,7 @@
 <template>
   <n-layout-header bordered class="nav">
     <div class="d-flex a-center header">
-      <div class="d-flex a-center j-center">
+      <div class="d-flex a-center j-center logo">
         <img src="@/assets/logo.svg" alt="" style="width: 36px" />
       </div>
       <div class="ml-2" style="font-size: 18px; font-weight: bold">
@@ -23,9 +23,11 @@ import ThemeToggle from './components/theme-toggle.vue'
 .nav {
   height: 64px;
 }
-
 .header {
-  padding: 0 32px 0 32px;
+  padding: 0 24px 0 24px;
   height: 100%;
+}
+.logo{
+  margin-left: 5px;
 }
 </style>

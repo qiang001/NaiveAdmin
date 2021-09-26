@@ -1,7 +1,7 @@
 <template>
-  <page-panel>
-    <div>会员类型</div>
-  </page-panel>
+  <page-panel :title="'商品详情'">
+	
+	</page-panel>
 </template>
 
 <script setup>

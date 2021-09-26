@@ -1,17 +1,15 @@
 <template>
   <div class="wrapper-404 d-flex a-center j-center">
-    <n-button type="primary" @click="backToHome">立即登录</n-button>
+    <n-button type="primary" size="large" @click="login">立即登录</n-button>
   </div>
 </template>
 
 <script setup>
 import { NButton } from 'naive-ui'
-import { useRouter } from 'vue-router'
-const router = useRouter()
-const backToHome = () => {
-  router.push({
-    path: '/',
-  })
+import { useStore } from 'vuex'
+const store = useStore()
+const login = () => {
+  store.dispatch('login',{})
 }
 </script>
 

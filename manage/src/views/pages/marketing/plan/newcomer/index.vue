@@ -1,7 +1,7 @@
 <template>
-  <page-panel>
-    <div>订单管理</div>
-  </page-panel>
+ <page-panel :title="'新人专享'">
+	
+	</page-panel>
 </template>
 
 <script setup>

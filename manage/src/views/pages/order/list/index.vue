@@ -1,7 +1,7 @@
 <template>
-  <page-panel>
-    <div>普通VIP</div>
-  </page-panel>
+  <page-panel :title="'订单列表'">
+	
+	</page-panel>
 </template>
 
 <script setup>

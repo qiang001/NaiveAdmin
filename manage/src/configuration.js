@@ -2,88 +2,133 @@ export const configuration = [
   {
     name: 'Console',
     path: 'console',
-    label: '控制台',
+    label: '主控台',
   },
   {
-    name: 'Course',
-    label: '课程管理',
+    name: 'Good',
+    label: '商品管理',
     children: [
       {
-        name: 'CourseList',
-        path: 'course/course-list',
-        label: '课程列表',
+        name: 'GoodList',
+        path: 'good/list',
+        label: '商品列表',
       },
       {
-        name: 'CourseTemplate',
-        path: 'course/course-template',
-        label: '课程模板',
-      },
-    ],
-  },
-  {
-    name: 'Customer',
-    label: '会员管理',
-    children: [
-      {
-        name: 'CustomerGroup',
-        label: '会员分组',
-        children: [
-          {
-            name: 'CustomerNormal',
-            path: 'customer/customer-group/customer-normal',
-            label: '普通会员',
-          },
-          {
-            name: 'CustomerDetails',
-            path: 'customer/customer-group/customer-details',
-            label: '会员详情',
-            ifHide: true,
-            belongsTo:'CustomerNormal'
-          },
-          {
-            name: 'CustomerSpecial',
-            label: '特殊关注',
-            children: [
-              {
-                name: 'CustomerVip',
-                path: 'customer/customer-group/customer-special/customer-vip',
-                label: '普通VIP',
-              },
-              {
-                name: 'CustomerSuperVip',
-                path: 'customer/customer-group/customer-special/customer-super-vip',
-                label: '超级VIP',
-              },
-            ],
-          },
-          {
-            name: 'CustomerForbidden',
-            path: 'customer/customer-group/customer-forbidden',
-            label: '黑名单',
-          },
-        ],
+        name: 'GoodDetails',
+        path: 'good/details',
+        label: '商品详情',
+        ifHide:true,
+        belongsTo:'GoodList'
       },
       {
-        name: 'CustomerType',
-        path: 'customer/customer-type',
-        label: '会员类型',
+        name: 'GoodCategory',
+        path: 'good/category',
+        label: '商品分类',
       },
     ],
   },
   {
     name: 'Order',
-    path: 'order',
     label: '订单管理',
+    children: [
+      {
+        name: 'OrderList',
+        path: 'order/list',
+        label: '订单列表',
+      },
+      {
+        name: 'OrderDetails',
+        path: 'order/details',
+        label: '订单详情',
+        ifHide:true,
+        belongsTo:'OrderList'
+      },
+    ],
   },
   {
     name: 'Marketing',
-    path: 'marketing',
     label: '营销管理',
+    children: [
+      {
+        name: 'Overview',
+        path: 'marketing/overview',
+        label: '概况总览',
+      },
+      {
+        name: 'Plan',
+        label: '策略模块',
+        children: [
+          {
+            name: 'BillionsAssistance',
+            path: 'marketing/plan/billions-assistance',
+            label: '百亿补贴',
+          },
+          {
+            name: 'Newcomer',
+            path: 'marketing/plan/newcomer',
+            label: '新人专享'
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'Customer',
+    path: 'customer',
+    label: '客户管理',
+    children:[
+      {
+        name:'CustomerList',
+        path:'customer/list',
+        label:'客户列表'
+      },
+      {
+        name: 'CustomerDetails',
+        path: 'customer/details',
+        label: '客户详情',
+        ifHide:true,
+        belongsTo:'CustomerList'
+      },
+      {
+        name:'CustomerType',
+        path:'customer/type',
+        label:'客户类型'
+      },
+    ]
   },
   {
     name: 'User',
     path: 'user',
     label: '用户管理',
+    children:[
+      {
+        name:'UserList',
+        path:'user/list',
+        label:'用户列表'
+      },
+      {
+        name:'Authorization',
+        path:'user/authorization',
+        label:'权限管理'
+      },
+    ]
+  },
+  {
+    name: 'System',
+    path: 'system',
+    label: '系统信息',
+    children:[
+      {
+        name:'OperationRecording',
+        path:'system/operation-recording',
+        label:'操作记录'
+      },
+      {
+        name:'AccessControl',
+        path:'system/access-control',
+        label:'访问控制'
+      },
+    ]
   },
 ]
 

@@ -1,7 +1,7 @@
 <template>
-  <page-panel>
-    <div>营销管理</div>
-  </page-panel>
+  <page-panel :title="'商品分类'">
+	
+	</page-panel>
 </template>
 
 <script setup>

@@ -1,3 +1,7 @@
+@font-face {
+  font-family: Youshe Biaotihei;
+  src: url(../assets//fonts/Youshe-Biaotihei.ttf);
+}
 .d-flex {
   display: flex;
 }

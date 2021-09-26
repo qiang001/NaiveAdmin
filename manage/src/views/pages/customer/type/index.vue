@@ -1,7 +1,7 @@
 <template>
-  <page-panel>
-    <div>课程模板</div>
-  </page-panel>
+  <page-panel :title="'客户类型'">
+	
+	</page-panel>
 </template>
 
 <script setup>

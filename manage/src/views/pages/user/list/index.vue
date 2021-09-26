@@ -1,7 +1,7 @@
 <template>
-  <page-panel>
-    <div>普通会员</div>
-  </page-panel>
+  <page-panel :title="'用户列表'">
+	
+	</page-panel>
 </template>
 
 <script setup>

@@ -1,7 +1,7 @@
 <template>
-  <page-panel>
-    <div>黑名单</div>
-  </page-panel>
+  <page-panel :title="'操作记录'">
+	
+	</page-panel>
 </template>
 
 <script setup>
