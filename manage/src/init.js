@@ -14,6 +14,7 @@ const store = createStore({
     return {
       ifDark: false,
       menuOptions: [],
+      menuOptionsWithoutIcon: [],
     }
   },
   getters: {
@@ -33,8 +34,8 @@ const store = createStore({
         themeOverrides,
       }
     },
-    getMenu(state) {
-      return state.menuOptions
+    getMenu: (state) => (ifHideIcon) => {
+      return !ifHideIcon ? state.menuOptions : state.menuOptionsWithoutIcon
     },
   },
   mutations: {
@@ -50,14 +51,25 @@ const store = createStore({
         }
       })
       router.replace('/')
-      state.menuOptions = buildMenuOptions(configuration, AUTH_KEYS)
+      state.menuOptions = buildMenuOptions(configuration, {
+        AUTH_KEYS,
+        ifHideIcon: false,
+      })
+      state.menuOptionsWithoutIcon = buildMenuOptions(configuration, {
+        AUTH_KEYS,
+        ifHideIcon: true,
+      })
     },
   },
   actions: {
-    login({commit},data){
+    login({ commit }, data) {
       commit('SET_AUTH', ALL_AUTH_KEYS)
-    }
+    },
   },
 })
-store.commit('SET_AUTH', ['Console','System','OperationRecording','AccessControl'])
+
+let initAuth = ['Console', 'System', 'OperationRecording', 'AccessControl']
+initAuth = ALL_AUTH_KEYS
+store.commit('SET_AUTH', initAuth)
+
 export { router, store }

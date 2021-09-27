@@ -10,7 +10,7 @@ function buildRouter() {
         component: () => import('./views/layout/index.vue'),
         children: [],
         meta: {
-          menuKey:'',
+          menuKey: '',
           expandedKey: '',
         },
       },
@@ -24,7 +24,7 @@ function buildRouter() {
         name: 'Login',
         component: () => import('./views/login.vue'),
         meta: {
-          menuKey:'',
+          menuKey: '',
           expandedKey: '',
         },
       },
@@ -33,7 +33,7 @@ function buildRouter() {
         name: '404',
         component: () => import('./views/404.vue'),
         meta: {
-          menuKey:'',
+          menuKey: '',
           expandedKey: '',
         },
       },
@@ -50,7 +50,7 @@ function buildRouter() {
 
 function buildPages(configuration) {
   // 动态引入神坑
-  
+
   // 1.开发没问题，打包搞死人
   // ()=>import(`./views/pages/${item.path}/index.vue`)
 
@@ -78,7 +78,7 @@ function buildPages(configuration) {
       name: item.name,
       component: modules[`./views/pages/${item.path}/index.vue`],
       meta: {
-        menuKey:item.belongsTo||item.name,
+        menuKey: item.belongsTo || item.name,
         expandedKey: [
           ...expandedKeys,
           item.ifHide ? item.belongsTo : item.name,
@@ -88,13 +88,17 @@ function buildPages(configuration) {
   }
 }
 
-function buildMenuOptions(configuration, AUTH_KEYS) {
+import { h } from 'vue'
+import { NIcon } from 'naive-ui'
+import { iconCollection } from '@/assets/icons/xicons.js'
+
+function buildMenuOptions(configuration, { AUTH_KEYS, ifHideIcon }) {
   return recursion(configuration, [])
   function recursion(arr, expandedKeys) {
     return arr
       .filter((v) => !v.ifHide && AUTH_KEYS.includes(v.name))
       .map((item) => {
-        let option = mapMenuOption(item, expandedKeys)
+        let option = mapMenuOption(item, expandedKeys, ifHideIcon)
         if (
           item.children &&
           item.children.some((c) => !c.ifHide && AUTH_KEYS.includes(c.name))
@@ -108,11 +112,23 @@ function buildMenuOptions(configuration, AUTH_KEYS) {
       })
   }
 
-  function mapMenuOption(item, expandedKeys) {
+  function mapMenuOption(item, expandedKeys, ifHideIcon) {
     return {
+      icon: item.icon && !ifHideIcon ? renderIcon(item.icon) : undefined,
       label: item.label,
       key: item.name,
       expandedKey: [...expandedKeys, item.name].join(','),
+    }
+    function renderIcon(icon) {
+      return () => {
+        return h(
+          NIcon,
+          { size: 16 },
+          {
+            default: () => h(iconCollection[icon]),
+          }
+        )
+      }
     }
   }
 }

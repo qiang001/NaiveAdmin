@@ -1,6 +1,7 @@
 <template>
   <div
     style="width: 100%"
+    class="page-panel"
     :class="`${store.state.ifDark ? 'page-panel-dark' : 'page-panel-light'}`"
   >
     <div class="title" v-if="title">{{ title }}</div>
@@ -11,7 +12,7 @@
 <script setup>
 import { useStore } from 'vuex'
 const store = useStore()
-import { defineProps, toRefs } from 'vue'
+import { toRefs } from 'vue'
 const props = defineProps({
   title: String,
 })
@@ -19,14 +20,20 @@ const { title } = toRefs(props)
 </script>
 
 <style scoped>
-.page-panel-light,
-.page-panel-dark {
+.page-panel {
   min-height: calc(100vh - 112px);
   padding: 35px 20px 20px 20px;
   box-sizing: border-box;
   border-radius: 3px;
   position: relative;
 }
+
+@media only screen and (max-width: 720px) {
+  .page-panel {
+    display: none;
+  }
+}
+
 .page-panel-light {
   background: white;
   box-shadow: 0 0 30px #eee;
@@ -42,10 +49,10 @@ const { title } = toRefs(props)
   background: #333333;
   color: #f8f8f8;
   position: absolute;
-  padding-left: 15px;
+  /* padding-left: 15px; */
   left: -9px;
   top: -9px;
-  border-radius: 30px 0 15px 15px;
+  border-radius: 2px 0 2px 2px;
 }
 .title:after {
   content: '';

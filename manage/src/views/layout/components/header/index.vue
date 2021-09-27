@@ -4,11 +4,14 @@
       <div class="d-flex a-center j-center logo">
         <img src="@/assets/logo.svg" alt="" style="width: 36px" />
       </div>
-      <div class="ml-2" style="font-size: 18px; font-weight: bold">
-        通用后台管理系统
+      <div class="ml-2">
+        <div style="font-size: 18px; font-weight: bold">通用后台管理系统</div>
+        <div style="font-size: 12px; font-family: PingFang SC, Segoe UI">
+          Common Content Manage System
+        </div>
       </div>
       <div class="ml-auto">
-        <theme-toggle/>
+        <theme-toggle />
       </div>
     </div>
   </n-layout-header>
@@ -27,7 +30,7 @@ import ThemeToggle from './components/theme-toggle.vue'
   padding: 0 24px 0 24px;
   height: 100%;
 }
-.logo{
+.logo {
   margin-left: 5px;
 }
 </style>

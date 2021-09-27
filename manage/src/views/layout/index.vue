@@ -7,10 +7,12 @@
         show-trigger="bar"
         collapse-mode="width"
         :collapsed-width="0"
-        :width="240"
+        :width="width"
+        :inverted="inverted"
         :native-scrollbar="false"
       >
-        <Menu></Menu>
+        <Menu @invertedChange="invertedChange"></Menu>
+        <handle-bar @widthChange="widthChange"></handle-bar>
       </n-layout-sider>
       <n-layout-content
         :native-scrollbar="false"
@@ -27,7 +29,20 @@
 import { NLayout, NLayoutSider, NLayoutContent } from 'naive-ui'
 import Header from './components/header/index.vue'
 import Menu from './components/menu.vue'
+import HandleBar from './components/handle-bar.vue'
 import Page from './components/page.vue'
+import { ref, provide, readonly } from 'vue'
+
+const width = ref(240)
+provide('section-width', readonly(width))
+
+const widthChange = (val) => {
+  width.value = val
+}
+const inverted = ref(false)
+const invertedChange = (val) => {
+  inverted.value = val
+}
 </script>
 
 <style scoped>
