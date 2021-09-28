@@ -10,7 +10,8 @@
           Common Content Manage System
         </div>
       </div>
-      <div class="ml-auto">
+      <div class="ml-auto d-flex a-center">
+        <main-color />
         <theme-toggle />
       </div>
     </div>
@@ -20,6 +21,7 @@
 <script setup>
 import { NLayoutHeader } from 'naive-ui'
 import ThemeToggle from './components/theme-toggle.vue'
+import MainColor from './components/main-color.vue'
 </script>
 
 <style scoped>

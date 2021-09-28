@@ -7,7 +7,7 @@
     </div>
     <div class="animation"></div>
     <div class="d-flex a-center j-center">
-      <n-button type="info" size="large" @click="backToHome">回到主页</n-button>
+      <n-button size="large" @click="backToHome">回到主页</n-button>
     </div>
   </div>
 </template>

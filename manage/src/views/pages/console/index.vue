@@ -7,7 +7,7 @@
         @click="goToView('Login')"
         >登录页</n-button
       >
-      <n-button size="small" type="info" class="ml-2" @click="goToView('404')"
+      <n-button size="small" class="ml-2" @click="goToView('404')"
         >404页面</n-button
       >
     </div>

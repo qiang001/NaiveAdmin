@@ -1,9 +1,17 @@
 import { createStore } from 'vuex'
 import { darkTheme } from 'naive-ui'
-import { buildRouter, buildPages, buildMenuOptions } from './navigation.js'
-import { configuration, getAllAuthKeys } from './configuration.js'
+import {
+  buildRouter,
+  buildPages,
+  buildMenuOptions,
+  buildMenuAuthTree,
+  getAuthKeys,
+} from './navigation.js'
+import { configuration, getColors, themeOverrides } from './configuration.js'
+// menu auth tree
+const menuAuthTree = buildMenuAuthTree(configuration)
 // all auth keys
-const ALL_AUTH_KEYS = getAllAuthKeys()
+const { ALL_AUTH_KEYS, HIDE_AUTH_KEYS } = getAuthKeys(configuration)
 
 // init router
 const router = buildRouter()
@@ -12,33 +20,38 @@ const router = buildRouter()
 const store = createStore({
   state() {
     return {
+      mainColor: 'blue',
       ifDark: false,
       menuOptions: [],
       menuOptionsWithoutIcon: [],
     }
   },
   getters: {
+    getMainColors(state) {
+      return getColors(state.ifDark)
+    },
     getTheme(state) {
       const theme = state.ifDark ? darkTheme : null
-      const themeOverrides = {
-        common: {
-          fontFamily:
-            '-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol',
-        },
-        Menu: {
-          arrowColor: '#333639FF',
-        },
-      }
+      const overrides = themeOverrides(state.mainColor, state.ifDark)
       return {
         theme,
-        themeOverrides,
+        overrides,
       }
     },
     getMenu: (state) => (ifHideIcon) => {
       return !ifHideIcon ? state.menuOptions : state.menuOptionsWithoutIcon
     },
+    getMenuAuthTree(state) {
+      return menuAuthTree
+    },
+    getHideAuthKeys(state) {
+      return HIDE_AUTH_KEYS
+    },
   },
   mutations: {
+    SET_MAINCOLOR(state, key) {
+      state.mainColor = key
+    },
     SET_IFDARK(state, bool) {
       state.ifDark = bool
     },
@@ -68,7 +81,7 @@ const store = createStore({
   },
 })
 
-let initAuth = ['Console', 'System', 'OperationRecording', 'AccessControl']
+let initAuth = ['Console']
 initAuth = ALL_AUTH_KEYS
 store.commit('SET_AUTH', initAuth)
 

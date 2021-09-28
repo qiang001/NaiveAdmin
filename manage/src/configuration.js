@@ -1,3 +1,4 @@
+// 路由-菜单
 export const configuration = [
   {
     name: 'Console',
@@ -152,16 +153,103 @@ export const configuration = [
   },
 ]
 
-export const getAllAuthKeys = () => {
-  let keys = []
-  return extractKeys(configuration)
-  function extractKeys(arr) {
-    arr.forEach((item) => {
-      keys = [...keys, item.name]
-      if (item.children) {
-        return extractKeys(item.children)
-      }
-    })
-    return keys
+// 主题色预设
+export const getColors = (ifDark) => {
+  const colorCollection = {
+    blue: {
+      key: 'blue',
+      name: '拂晓蓝',
+      common: {
+        baseColor: '#fff',
+        primaryColor: !ifDark ? '#1890ff' : '#177ddc',
+        primaryColorHover: !ifDark ? '#40a9ff' : '#096dd9',
+        primaryColorPressed: !ifDark ? '#096dd9' : '#1890ff',
+        primaryColorSuppl: !ifDark ? '#40a9ff' : '#096dd9',
+      },
+      Menu: {
+        // 箭头原色
+        arrowColor: !ifDark ? '#333639' : '#ffffffd1',
+        // 箭头激活
+        arrowColorHover: !ifDark ? '#1890FFFF' : '#6DB4F6FF',
+        arrowColorChildActive: !ifDark ? '#1890FFFF' : '#6DB4F6FF',
+        arrowColorActive: !ifDark ? '#1890FFFF' : '#6DB4F6FF',
+        // 背景激活
+        itemColorActive: !ifDark ? '#1890FF1A' : '#000000FF',
+        // 内容激活
+        itemTextColorActive: !ifDark ? '#1890FFFF' : '#6DB4F6FF',
+        itemIconColorActive: !ifDark ? '#1890FFFF' : '#6DB4F6FF',
+        itemTextColorChildActive: !ifDark ? '#1890FFFF' : '#6DB4F6FF',
+        itemIconColorChildActive: !ifDark ? '#1890FFFF' : '#6DB4F6FF',
+        itemTextColorHover: !ifDark ? '#1890FFFF' : '#6DB4F6FF',
+        itemIconColorHover: !ifDark ? '#1890FFFF' : '#6DB4F6FF',
+      },
+      Checkbox: {
+        checkMarkColor: !ifDark ? '#fff' : '#CDCDD4FF',
+      },
+    },
+    purple: {
+      key: 'purple',
+      name: '基佬紫',
+      common: {
+        baseColor: '#fff',
+        primaryColor: !ifDark ? '#722ed1' : '#722ed1',
+        primaryColorHover: !ifDark ? '#9254de' : '#9254de',
+        primaryColorPressed: !ifDark ? '#531dab' : '#531dab',
+        primaryColorSuppl: !ifDark ? '#9254de' : '#9254de',
+      },
+      Menu: {
+        arrowColor: !ifDark ? '#333639' : '#ffffffd1',
+        arrowColorHover: !ifDark ? '#722ED1FF' : '#BE92FCFF',
+        arrowColorChildActive: !ifDark ? '#722ED1FF' : '#BE92FCFF',
+        arrowColorActive: !ifDark ? '#722ED1FF' : '#BE92FCFF',
+        itemColorActive: !ifDark ? '#722ED11A' : '#000000FF',
+        itemTextColorActive: !ifDark ? '#722ED1FF' : '#BE92FCFF',
+        itemIconColorActive: !ifDark ? '#722ED1FF' : '#BE92FCFF',
+        itemTextColorChildActive: !ifDark ? '#722ED1FF' : '#BE92FCFF',
+        itemIconColorChildActive: !ifDark ? '#722ED1FF' : '#BE92FCFF',
+        itemTextColorHover: !ifDark ? '#722ED1FF' : '#BE92FCFF',
+        itemIconColorHover: !ifDark ? '#722ED1FF' : '#BE92FCFF',
+      },
+      Checkbox: {
+        checkMarkColor: !ifDark ? '#fff' : '#CDCDD4FF',
+      },
+    },
+    yellow: {
+      key: 'yellow',
+      name: '美团黄',
+      common: {
+        primaryColor: !ifDark ? '#ffd429' : '#ffd429',
+        primaryColorHover: !ifDark ? '#ffe252' : '#ffc300',
+        primaryColorPressed: !ifDark ? '#ffc300' : '#ffed7a',
+        primaryColorSuppl: !ifDark ? '#ffe252' : '#ffc300',
+      },
+      Menu: {
+        arrowColor: !ifDark ? '#333639' : '#ffffffd1',
+      },
+    },
+  }
+  return colorCollection
+}
+
+// 主题覆盖
+export const themeOverrides = (mainColor, ifDark) => {
+  const setting = getColors(ifDark)[mainColor]
+
+  let common = {
+    fontFamily:
+      '-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,Hiragino Sans GB,Microsoft YaHei,Helvetica Neue,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol',
+  }
+  if (setting.common) common = { ...common, ...setting.common }
+
+  let Menu = {}
+  if (setting.Menu) Menu = { ...Menu, ...setting.Menu }
+
+  let Checkbox = {}
+  if (setting.Checkbox) Checkbox = { ...Checkbox, ...setting.Checkbox }
+
+  return {
+    common,
+    Menu,
+    Checkbox,
   }
 }

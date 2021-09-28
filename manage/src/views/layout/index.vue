@@ -26,7 +26,7 @@
 </template>
 
 <script setup>
-import { NLayout, NLayoutSider, NLayoutContent } from 'naive-ui'
+import { NLayout, NLayoutSider, NLayoutContent, useLoadingBar } from 'naive-ui'
 import Header from './components/header/index.vue'
 import Menu from './components/menu.vue'
 import HandleBar from './components/handle-bar.vue'
@@ -43,6 +43,17 @@ const inverted = ref(false)
 const invertedChange = (val) => {
   inverted.value = val
 }
+
+import { useRouter } from 'vue-router'
+const router = useRouter()
+const loadingBar = useLoadingBar()
+router.beforeEach((to, from, next) => {
+  loadingBar.start()
+  next()
+})
+router.afterEach((to, from, failure) => {
+  failure ? loadingBar.error() : loadingBar.finish()
+})
 </script>
 
 <style scoped>

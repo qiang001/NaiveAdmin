@@ -92,6 +92,7 @@ import { h } from 'vue'
 import { NIcon } from 'naive-ui'
 import { iconCollection } from '@/assets/icons/xicons.js'
 
+// 渲染菜单
 function buildMenuOptions(configuration, { AUTH_KEYS, ifHideIcon }) {
   return recursion(configuration, [])
   function recursion(arr, expandedKeys) {
@@ -133,4 +134,61 @@ function buildMenuOptions(configuration, { AUTH_KEYS, ifHideIcon }) {
   }
 }
 
-export { buildRouter, buildPages, buildMenuOptions }
+// 渲染菜单权限树
+function buildMenuAuthTree(configuration) {
+  return recursion(configuration, [])
+  function recursion(arr, expandedKeys) {
+    return arr.map((item) => {
+      let auth = mapMenuAuth(item, expandedKeys)
+      if (item.children) {
+        auth.children = recursion(item.children, auth.expandedKey.split(','))
+      }
+      return auth
+    })
+  }
+
+  function mapMenuAuth(item, expandedKeys) {
+    return {
+      label: item.label,
+      key: item.name,
+      belongsTo: item.belongsTo,
+      expandedKey: [...expandedKeys, item.name].join(','),
+    }
+  }
+}
+
+// 路由权限拍平
+function getAuthKeys(configuration) {
+  let keys = []
+  let hides = []
+  extractKeys(configuration)
+  function extractKeys(arr) {
+    arr.forEach((item) => {
+      keys = [...keys, item.name]
+      if (item.ifHide) {
+        hides = [
+          ...hides,
+          {
+            name: item.name,
+            belongsTo: item.belongsTo,
+          },
+        ]
+      }
+      if (item.children) {
+        extractKeys(item.children)
+      }
+    })
+  }
+  return {
+    ALL_AUTH_KEYS: keys,
+    HIDE_AUTH_KEYS: hides,
+  }
+}
+
+export {
+  buildRouter,
+  buildPages,
+  buildMenuOptions,
+  buildMenuAuthTree,
+  getAuthKeys,
+}

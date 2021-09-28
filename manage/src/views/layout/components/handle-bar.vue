@@ -55,6 +55,7 @@ onMounted(() => {
   right: 0;
   top: 0;
   bottom: 0;
+  user-select: none;
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
