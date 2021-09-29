@@ -2,10 +2,14 @@
   <n-layout-header bordered class="nav">
     <div class="d-flex a-center header">
       <div class="d-flex a-center j-center logo">
-        <img src="@/assets/logo.svg" alt="" style="width: 36px" />
+        <img src="@/assets/logo.png" alt="" style="width: 36px" />
       </div>
       <div class="ml-2">
-        <div style="font-size: 18px; font-weight: bold">通用后台管理系统</div>
+        <div
+          style="font-size: 18px; font-weight: bold; font-family: PingFang SC"
+        >
+          ilky 通用后台管理系统
+        </div>
         <div style="font-size: 12px; font-family: PingFang SC, Segoe UI">
           Common Content Manage System
         </div>

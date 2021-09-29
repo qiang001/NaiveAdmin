@@ -7,8 +7,8 @@
         show-trigger="bar"
         collapse-mode="width"
         :collapsed-width="0"
-        :width="width"
-        :inverted="inverted"
+        :width="sectionWidth"
+        :inverted="outInverted"
         :native-scrollbar="false"
       >
         <Menu @invertedChange="invertedChange"></Menu>
@@ -31,18 +31,12 @@ import Header from './components/header/index.vue'
 import Menu from './components/menu.vue'
 import HandleBar from './components/handle-bar.vue'
 import Page from './components/page.vue'
-import { ref, provide, readonly } from 'vue'
-
-const width = ref(240)
-provide('section-width', readonly(width))
-
-const widthChange = (val) => {
-  width.value = val
-}
-const inverted = ref(false)
-const invertedChange = (val) => {
-  inverted.value = val
-}
+import { provide, readonly } from 'vue'
+import { initController } from './initController'
+const { outInverted, invertedChange, sectionWidth, widthChange } =
+  initController()
+  
+provide('section-width', readonly(sectionWidth))
 
 import { useRouter } from 'vue-router'
 const router = useRouter()

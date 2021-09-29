@@ -161,10 +161,10 @@ export const getColors = (ifDark) => {
       name: '拂晓蓝',
       common: {
         baseColor: '#fff',
-        primaryColor: !ifDark ? '#1890ff' : '#177ddc',
-        primaryColorHover: !ifDark ? '#40a9ff' : '#096dd9',
+        primaryColor: !ifDark ? '#1890ff' : '#6DB4F6FF',
+        primaryColorHover: !ifDark ? '#40a9ff' : '#6DB4F6FF',
         primaryColorPressed: !ifDark ? '#096dd9' : '#1890ff',
-        primaryColorSuppl: !ifDark ? '#40a9ff' : '#096dd9',
+        primaryColorSuppl: !ifDark ? '#40a9ff' : '#6DB4F6FF',
       },
       Menu: {
         // 箭头原色
@@ -192,10 +192,10 @@ export const getColors = (ifDark) => {
       name: '基佬紫',
       common: {
         baseColor: '#fff',
-        primaryColor: !ifDark ? '#722ed1' : '#722ed1',
-        primaryColorHover: !ifDark ? '#9254de' : '#9254de',
-        primaryColorPressed: !ifDark ? '#531dab' : '#531dab',
-        primaryColorSuppl: !ifDark ? '#9254de' : '#9254de',
+        primaryColor: !ifDark ? '#722ed1' : '#BE92FCFF',
+        primaryColorHover: !ifDark ? '#9254de' : '#BE92FCFF',
+        primaryColorPressed: !ifDark ? '#531dab' : '#722ed1',
+        primaryColorSuppl: !ifDark ? '#9254de' : '#BE92FCFF',
       },
       Menu: {
         arrowColor: !ifDark ? '#333639' : '#ffffffd1',

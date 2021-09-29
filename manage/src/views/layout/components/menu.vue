@@ -41,8 +41,6 @@
 </template>
 
 <script setup>
-const emit = defineEmits(['invertedChange'])
-
 // 基本 Naive UI
 import { NMenu, NSwitch, NSpace } from 'naive-ui'
 
@@ -111,6 +109,7 @@ const handleSelected = (key) => {
   }
 }
 // 通知外部改样式
+const emit = defineEmits(['invertedChange'])
 const invertedChange = (val) => {
   inverted.value = val
   emit('invertedChange', val)
