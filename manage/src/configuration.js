@@ -4,6 +4,7 @@ export const configuration = [
     name: 'Console',
     path: 'console',
     label: '主控台',
+    labelPinYin:'zhukongtai_zkt',
     icon: 'ConsoleIcon',
   },
   {
@@ -15,6 +16,7 @@ export const configuration = [
         name: 'GoodList',
         path: 'good/list',
         label: '商品列表',
+        labelPinYin:'shangpinliebiao_splb',
         icon: 'GoodListIcon',
       },
       {
@@ -28,6 +30,7 @@ export const configuration = [
         name: 'GoodCategory',
         path: 'good/category',
         label: '商品分类',
+        labelPinYin:'shangpinfenlei_spfl',
         icon: 'GoodCategoryIcon',
       },
     ],
@@ -41,6 +44,7 @@ export const configuration = [
         name: 'OrderList',
         path: 'order/list',
         label: '订单列表',
+        labelPinYin:'dingdanliebiao_ddlb',
         icon: 'OrderListIcon',
       },
       {
@@ -61,6 +65,7 @@ export const configuration = [
         name: 'Overview',
         path: 'marketing/overview',
         label: '概况总览',
+        labelPinYin:'gaikuangzonglan_gkzl',
         icon: 'OverviewIcon',
       },
       {
@@ -72,12 +77,14 @@ export const configuration = [
             name: 'BillionsAssistance',
             path: 'marketing/plan/billions-assistance',
             label: '百亿补贴',
+            labelPinYin:'baiyibutie_bybt',
             icon: 'BillionsAssistanceIcon',
           },
           {
             name: 'Newcomer',
             path: 'marketing/plan/newcomer',
             label: '新人专享',
+            labelPinYin:'xinrenzhuanxiang_xrzx',
             icon: 'NewcomerIcon',
           },
         ],
@@ -94,6 +101,7 @@ export const configuration = [
         name: 'CustomerList',
         path: 'customer/list',
         label: '客户列表',
+        labelPinYin:'kehuliebiao_khlb',
         icon: 'CustomerListIcon',
       },
       {
@@ -107,6 +115,7 @@ export const configuration = [
         name: 'CustomerType',
         path: 'customer/type',
         label: '客户类型',
+        labelPinYin:'kehuleixing_khlx',
         icon: 'CustomerTypeIcon',
       },
     ],
@@ -121,12 +130,14 @@ export const configuration = [
         name: 'UserList',
         path: 'user/list',
         label: '用户列表',
+        labelPinYin:'yonghuliebiao_yhlb',
         icon: 'UserListIcon',
       },
       {
         name: 'Authorization',
         path: 'user/authorization',
         label: '权限管理',
+        labelPinYin:'quanxianguanli_qxgl',
         icon: 'AuthorizationIcon',
       },
     ],
@@ -141,12 +152,14 @@ export const configuration = [
         name: 'OperationRecording',
         path: 'system/operation-recording',
         label: '操作记录',
+        labelPinYin:'caozuojilu_czjl',
         icon: 'OperationRecordingIcon',
       },
       {
         name: 'AccessControl',
         path: 'system/access-control',
         label: '访问控制',
+        labelPinYin:'fangwenkongzhi_fwkz',
         icon: 'AccessControlIcon',
       },
     ],
@@ -161,10 +174,10 @@ export const getColors = (ifDark) => {
       name: '拂晓蓝',
       common: {
         baseColor: '#fff',
-        primaryColor: !ifDark ? '#1890ff' : '#6DB4F6FF',
-        primaryColorHover: !ifDark ? '#40a9ff' : '#6DB4F6FF',
-        primaryColorPressed: !ifDark ? '#096dd9' : '#1890ff',
-        primaryColorSuppl: !ifDark ? '#40a9ff' : '#6DB4F6FF',
+        primaryColor: !ifDark ? '#1890ff' : '#1c8aef',
+        primaryColorHover: !ifDark ? '#40a9ff' : '#1890ff',
+        primaryColorPressed: !ifDark ? '#096dd9' : '#6DB4F6FF',
+        primaryColorSuppl: !ifDark ? '#40a9ff' : '#1890ff',
       },
       Menu: {
         // 箭头原色
@@ -192,10 +205,10 @@ export const getColors = (ifDark) => {
       name: '基佬紫',
       common: {
         baseColor: '#fff',
-        primaryColor: !ifDark ? '#722ed1' : '#BE92FCFF',
-        primaryColorHover: !ifDark ? '#9254de' : '#BE92FCFF',
-        primaryColorPressed: !ifDark ? '#531dab' : '#722ed1',
-        primaryColorSuppl: !ifDark ? '#9254de' : '#BE92FCFF',
+        primaryColor: !ifDark ? '#722ed1' : '#9951ff',
+        primaryColorHover: !ifDark ? '#9254de' : '#722ed1',
+        primaryColorPressed: !ifDark ? '#531dab' : '#BE92FCFF',
+        primaryColorSuppl: !ifDark ? '#9254de' : '#722ed1',
       },
       Menu: {
         arrowColor: !ifDark ? '#333639' : '#ffffffd1',
@@ -246,10 +259,13 @@ export const themeOverrides = (mainColor, ifDark) => {
 
   let Checkbox = {}
   if (setting.Checkbox) Checkbox = { ...Checkbox, ...setting.Checkbox }
-
+  let Spin = {
+    sizeTiny:'18px'
+  }
   return {
     common,
     Menu,
     Checkbox,
+    Spin
   }
 }

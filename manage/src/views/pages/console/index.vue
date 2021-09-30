@@ -1,10 +1,7 @@
 <template>
   <page-panel :title="'主控台'">
     <div class="d-flex a-center">
-      <n-button
-        type="primary"
-        size="small"
-        @click="goToView('Login')"
+      <n-button type="primary" size="small" @click="goToView('Login')"
         >登录页</n-button
       >
       <n-button size="small" class="ml-2" @click="goToView('404')"

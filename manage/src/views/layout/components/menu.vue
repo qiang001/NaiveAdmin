@@ -1,5 +1,16 @@
 <template>
   <div>
+    <div class="p-1">
+      <n-auto-complete
+        :options="options"
+        v-model:value="keyword"
+        placeholder="快捷搜索"
+        clear-after-select
+        blur-after-select
+        clearable
+        :on-select="handleSelected"
+      />
+    </div>
     <n-menu
       :inverted="inverted"
       :options="menu"
@@ -11,7 +22,13 @@
     <div class="p-1">
       <div
         class="invert-control d-flex a-center j-center p-2"
-        :class="`${store.state.ifDark ? 'invert-control-dark' : (inverted?'invert-control-mix':'invert-control-light')}`"
+        :class="`${
+          store.state.ifDark
+            ? 'invert-control-dark'
+            : inverted
+            ? 'invert-control-mix'
+            : 'invert-control-light'
+        }`"
       >
         <n-space vertical>
           <n-switch
@@ -42,7 +59,7 @@
 
 <script setup>
 // 基本 Naive UI
-import { NMenu, NSwitch, NSpace } from 'naive-ui'
+import { NMenu, NSwitch, NSpace, NAutoComplete } from 'naive-ui'
 
 // 基本 Vue API
 import { ref, computed, watch } from 'vue'
@@ -51,6 +68,28 @@ const store = useStore()
 import { useRouter, useRoute } from 'vue-router'
 const router = useRouter()
 const route = useRoute()
+
+// 快捷搜索
+const keyword = ref('')
+const options = computed(() => {
+  return fuzzyQuery(store.getters.getSearchOptions, keyword.value)
+  function fuzzyQuery(list, keyWord) {
+    if (!keyWord) {
+      return []
+    }
+    keyWord = keyWord.replace(/\s*/g, '').toLowerCase()
+    var arr = []
+    for (var i = 0; i < list.length; i++) {
+      if (
+        list[i].label.match(keyWord) != null ||
+        list[i].labelPinYin.match(keyWord) != null
+      ) {
+        arr.push(list[i])
+      }
+    }
+    return arr
+  }
+})
 
 // 渲染菜单
 const inverted = ref(false)
@@ -73,14 +112,16 @@ const keyMap = computed(() => {
   }
 })
 
-// 初始化菜单状态并配合当前路由实时选中、展开
+// 初始化菜单状态并配合当前路由实时选中、展开、修改网页标题
 const defaultMenu = computed(() => route.meta.menuKey)
 const expandedKeys = ref(route.meta.expandedKey.split(','))
 watch(
   () => route.name,
   () => {
+    document.title = route.meta.label + ' - 通用后台管理系统 Common Content Manage System'
     expandedKeys.value = route.meta.expandedKey.split(',')
-  }
+  },
+  {immediate:true}
 )
 
 // 菜单展开

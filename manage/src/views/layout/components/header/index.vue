@@ -8,7 +8,7 @@
         <div
           style="font-size: 18px; font-weight: bold; font-family: PingFang SC"
         >
-          ilky 通用后台管理系统
+          通用后台管理系统
         </div>
         <div style="font-size: 12px; font-family: PingFang SC, Segoe UI">
           Common Content Manage System

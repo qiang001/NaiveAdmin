@@ -21,7 +21,7 @@ const { title } = toRefs(props)
 
 <style scoped>
 .page-panel {
-  min-height: calc(100vh - 112px);
+  min-height: calc(100vh - 147px);
   padding: 35px 20px 20px 20px;
   box-sizing: border-box;
   border-radius: 3px;

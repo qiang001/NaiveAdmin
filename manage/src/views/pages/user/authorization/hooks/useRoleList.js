@@ -1,14 +1,12 @@
-import { ref, onMounted } from 'vue'
-export const useRoleList = (getRoles, openAuthSettingModal) => {
-  const roles = ref([])
-  onMounted(() => {
-    roles.value = getRoles(10)
+import { onMounted } from 'vue'
+export const useRoleList = ({ getRoles, openEditModal }) => {
+  onMounted(async () => {
+    await getRoles(5)
   })
   const edit = (row) => {
-    openAuthSettingModal(row)
+    openEditModal({ data: row, type: 'edit' })
   }
   return {
-    roles,
     edit,
   }
 }

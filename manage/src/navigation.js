@@ -8,8 +8,20 @@ function buildRouter() {
         path: '/layout',
         name: 'Layout',
         component: () => import('./views/layout/index.vue'),
-        children: [],
+        children: [
+          {
+            path: 'redirect',
+            name: 'Redirect',
+            component: () => import('./views/pages/redirect/index.vue'),
+            meta: {
+              label: '跳转中...',
+              menuKey: '',
+              expandedKey: '',
+            },
+          },
+        ],
         meta: {
+          label: '主页',
           menuKey: '',
           expandedKey: '',
         },
@@ -24,6 +36,7 @@ function buildRouter() {
         name: 'Login',
         component: () => import('./views/login.vue'),
         meta: {
+          label: '登录',
           menuKey: '',
           expandedKey: '',
         },
@@ -33,6 +46,7 @@ function buildRouter() {
         name: '404',
         component: () => import('./views/404.vue'),
         meta: {
+          label: '404',
           menuKey: '',
           expandedKey: '',
         },
@@ -78,6 +92,7 @@ function buildPages(configuration) {
       name: item.name,
       component: modules[`./views/pages/${item.path}/index.vue`],
       meta: {
+        label: item.label,
         menuKey: item.belongsTo || item.name,
         expandedKey: [
           ...expandedKeys,
@@ -90,7 +105,7 @@ function buildPages(configuration) {
 
 import { h } from 'vue'
 import { NIcon } from 'naive-ui'
-import { iconCollection } from '@/assets/icons/xicons.js'
+import { iconCollection } from '@/assets/icons/menu.js'
 
 // 渲染菜单
 function buildMenuOptions(configuration, { AUTH_KEYS, ifHideIcon }) {
@@ -161,6 +176,7 @@ function buildMenuAuthTree(configuration) {
 function getAuthKeys(configuration) {
   let keys = []
   let hides = []
+  let shows = []
   extractKeys(configuration)
   function extractKeys(arr) {
     arr.forEach((item) => {
@@ -176,12 +192,24 @@ function getAuthKeys(configuration) {
       }
       if (item.children) {
         extractKeys(item.children)
+      } else {
+        if (!item.ifHide) {
+          shows = [
+            ...shows,
+            {
+              label: item.label,
+              labelPinYin: item.labelPinYin,
+              value: item.name,
+            },
+          ]
+        }
       }
     })
   }
   return {
     ALL_AUTH_KEYS: keys,
     HIDE_AUTH_KEYS: hides,
+    searchOptions: shows,
   }
 }
 

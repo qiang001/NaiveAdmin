@@ -1,6 +1,20 @@
 <template>
   <n-modal v-model:show="showModal" :mask-closable="false">
     <n-card :style="`max-width: 600px;`">
+      <n-form
+        label-placement="left"
+        :label-width="80"
+        :model="role"
+        :rules="rules"
+        ref="formRef"
+      >
+        <n-form-item label="角色名称" path="name" rule-path="role.name">
+          <n-input v-model:value="role.name" placeholder="输入名称" />
+        </n-form-item>
+        <n-form-item label="描述" path="desc" rule-path="role.desc">
+          <n-input v-model:value="role.desc" placeholder="输入描述" />
+        </n-form-item>
+      </n-form>
       <n-tabs type="line">
         <n-tab-pane name="menu" tab="菜单页面级权限">
           <div>
@@ -32,12 +46,14 @@
         </n-tab-pane>
       </n-tabs>
       <template #action>
-        <div class="d-flex a-center j-center pt-auto">
+        <div class="d-flex a-center j-center">
           <n-space>
-            <n-button @click="cancel" size="small">取消</n-button>
-            <n-button @click="save" type="primary" size="small"
-              >保存当前设置</n-button
-            >
+            <n-button @click="cancel">取消</n-button>
+            <n-spin :show="loading" size="tiny">
+              <n-button @click="save" type="primary">
+                {{ ifEdit ? '保存当前设置' : '确认创建' }}
+              </n-button>
+            </n-spin>
           </n-space>
         </div>
       </template>
@@ -46,8 +62,9 @@
 </template>
 
 <script setup>
-import { ref, inject, watch } from 'vue'
+import { ref, inject, watch, unref } from 'vue'
 import {
+  NInput,
   NTree,
   NButton,
   NTabs,
@@ -56,18 +73,53 @@ import {
   NModal,
   NCard,
   NSpace,
+  NForm,
+  NFormItem,
+  NSpin,
 } from 'naive-ui'
 
-// 页面核心数据
-const showModal = inject('authSettingModal')
+// 状态数据
+const ifEdit = inject('ifEdit')
+const showModal = inject('editModal')
+const loading = inject('saveLoading')
+const role = inject('role')
+
+// 表单相关
+const formRef = ref(null)
+const rules = {
+  role: {
+    name: {
+      required: true,
+      message: '请输入名称',
+      trigger: ['input', 'blur'],
+    },
+    desc: {
+      required: true,
+      message: '请输入描述',
+      trigger: ['input', 'blur'],
+    },
+  },
+}
+const validation = () => {
+  return new Promise((res) => {
+    formRef.value.validate((errors) => {
+      if (!errors) {
+        res(true)
+      } else {
+        console.log(errors)
+        res(false)
+      }
+    })
+  })
+}
+
+// 菜单权限树相关
 const getMenuAuthTree = inject('getMenuAuthTree')
 const menuAuthTree = ref(getMenuAuthTree)
 const checkedKeys = ref([])
 
-// 临时数据
 const hideAuthKeys = inject('getHideAuthKeys')
 
-// 核心方法
 const updateCheckedKeys = (keys) => {
   checkedKeys.value = keys
   let relatedKeys = []
@@ -94,12 +146,12 @@ const updateCheckedKeys = (keys) => {
   }
 }
 
-const saveAuthKeys = () => {
-  let authKeys = Array.from(checkedKeys.value)
-  addNodes(Array.from(menuAuthTree.value))
+const getAuthKeys = () => {
+  let authKeys = unref(checkedKeys)
+  addNodes(unref(menuAuthTree))
   return {
     authKeys,
-    checkedKeys:Array.from(checkedKeys.value)
+    checkedKeys: [...unref(checkedKeys)],
   }
 
   function addNodes(children) {
@@ -121,7 +173,7 @@ const saveAuthKeys = () => {
 // 数据重载
 watch(showModal, (val) => {
   if (val) {
-    updateCheckedKeys([])
+    updateCheckedKeys(role.tags)
   }
 })
 
@@ -131,8 +183,12 @@ const cancel = () => {
   emit('cancel')
 }
 
-const save = () => {
-  const authKeys = saveAuthKeys()
+const save = async () => {
+  const ifValid = await validation()
+  if (!ifValid) {
+    return
+  }
+  const authKeys = getAuthKeys()
   emit('save', authKeys)
 }
 </script>
