@@ -171,7 +171,7 @@ export const getColors = (ifDark) => {
   const colorCollection = {
     blue: {
       key: 'blue',
-      name: '拂晓蓝',
+      label: '拂晓蓝',
       common: {
         baseColor: '#fff',
         primaryColor: !ifDark ? '#1890ff' : '#1c8aef',
@@ -202,7 +202,7 @@ export const getColors = (ifDark) => {
     },
     purple: {
       key: 'purple',
-      name: '基佬紫',
+      label: '基佬紫',
       common: {
         baseColor: '#fff',
         primaryColor: !ifDark ? '#722ed1' : '#9951ff',
@@ -229,7 +229,7 @@ export const getColors = (ifDark) => {
     },
     yellow: {
       key: 'yellow',
-      name: '美团黄',
+      label: '美团黄',
       common: {
         primaryColor: !ifDark ? '#ffd429' : '#ffd429',
         primaryColorHover: !ifDark ? '#ffe252' : '#ffc300',

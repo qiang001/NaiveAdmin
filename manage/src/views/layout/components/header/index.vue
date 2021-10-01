@@ -15,8 +15,8 @@
         </div>
       </div>
       <div class="ml-auto d-flex a-center">
-        <main-color />
         <theme-toggle />
+        <main-color />
       </div>
     </div>
   </n-layout-header>

@@ -1,6 +1,6 @@
 <template>
   <page-panel :title="'主控台'">
-    <div class="d-flex a-center">
+    <div class="d-flex a-center mt-2">
       <n-button type="primary" size="small" @click="goToView('Login')"
         >登录页</n-button
       >

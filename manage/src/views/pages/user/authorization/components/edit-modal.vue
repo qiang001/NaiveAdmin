@@ -1,87 +1,73 @@
 <template>
-  <n-modal v-model:show="showModal" :mask-closable="false">
-    <n-card :style="`max-width: 600px;`">
-      <n-form
-        label-placement="left"
-        :label-width="80"
-        :model="role"
-        :rules="rules"
-        ref="formRef"
-      >
-        <n-form-item label="角色名称" path="name" rule-path="role.name">
-          <n-input v-model:value="role.name" placeholder="输入名称" />
-        </n-form-item>
-        <n-form-item label="描述" path="desc" rule-path="role.desc">
-          <n-input v-model:value="role.desc" placeholder="输入描述" />
-        </n-form-item>
-      </n-form>
-      <n-tabs type="line">
-        <n-tab-pane name="menu" tab="菜单页面级权限">
-          <div>
-            <n-tree
-              block-line
-              cascade
-              checkable
-              :data="menuAuthTree"
-              :checked-keys="checkedKeys"
-              @update:checked-keys="updateCheckedKeys"
-            />
-          </div>
-        </n-tab-pane>
-        <n-tab-pane name="content" tab="内容显示级权限">
-          <n-result
-            status="404"
-            title="还没做"
-            description="应该是隐藏相关信息"
-          >
-          </n-result>
-        </n-tab-pane>
-        <n-tab-pane name="operation" tab="(按钮)操作级权限">
-          <n-result
-            status="403"
-            title="还没做"
-            description="不隐藏, 但是点击或触发后会提示"
-          >
-          </n-result>
-        </n-tab-pane>
-      </n-tabs>
-      <template #action>
-        <div class="d-flex a-center j-center">
-          <n-space>
-            <n-button @click="cancel">取消</n-button>
-            <n-spin :show="loading" size="tiny">
-              <n-button @click="save" type="primary">
-                {{ ifEdit ? '保存当前设置' : '确认创建' }}
-              </n-button>
-            </n-spin>
-          </n-space>
+  <common-modal
+    :showModal="editModal"
+    :title="ifEdit ? '编辑角色' : '添加新角色'"
+    cancelBtnText="取消"
+    :confirmBtnText="ifEdit ? '确认保存' : '确认添加'"
+    :confirmLoading="confirmLoading"
+    @cancel="cancel"
+    @confirm="confirm"
+  >
+    <n-form
+      label-placement="left"
+      :label-width="80"
+      :model="role"
+      :rules="rules"
+      ref="formRef"
+    >
+      <n-form-item label="角色名称" path="name" rule-path="role.name">
+        <n-input v-model:value="role.name" placeholder="输入名称" />
+      </n-form-item>
+      <n-form-item label="描述" path="desc" rule-path="role.desc">
+        <n-input v-model:value="role.desc" placeholder="输入描述" />
+      </n-form-item>
+    </n-form>
+    <n-tabs type="line">
+      <n-tab-pane name="menu" tab="菜单页面级权限">
+        <div>
+          <n-tree
+            block-line
+            cascade
+            checkable
+            :data="menuAuthTree"
+            :checked-keys="checkedKeys"
+            @update:checked-keys="updateCheckedKeys"
+          />
         </div>
-      </template>
-    </n-card>
-  </n-modal>
+      </n-tab-pane>
+      <n-tab-pane name="content" tab="内容显示级权限">
+        <n-result status="404" title="还没做" description="应该是隐藏相关信息">
+        </n-result>
+      </n-tab-pane>
+      <n-tab-pane name="operation" tab="(按钮)操作级权限">
+        <n-result
+          status="403"
+          title="还没做"
+          description="不隐藏, 但是点击或触发后会提示"
+        >
+        </n-result>
+      </n-tab-pane>
+    </n-tabs>
+  </common-modal>
 </template>
 
 <script setup>
+import CommonModal from '@/components/CommonModal.vue'
 import { ref, inject, watch, unref } from 'vue'
 import {
   NInput,
   NTree,
-  NButton,
   NTabs,
   NTabPane,
   NResult,
-  NModal,
-  NCard,
-  NSpace,
   NForm,
-  NFormItem,
-  NSpin,
+  NFormItem
 } from 'naive-ui'
 
-// 状态数据
+// 注入状态数据以进行 UI渲染 UX交互
 const ifEdit = inject('ifEdit')
-const showModal = inject('editModal')
-const loading = inject('saveLoading')
+const editModal = inject('editModal')
+const confirmLoading = inject('confirmLoading')
 const role = inject('role')
 
 // 表单相关
@@ -171,26 +157,41 @@ const getAuthKeys = () => {
 }
 
 // 数据重载
-watch(showModal, (val) => {
+watch(editModal, (val) => {
   if (val) {
     updateCheckedKeys(role.tags)
   }
 })
 
 // 暴露事件
-const emit = defineEmits(['cancel', 'save'])
+const emit = defineEmits(['cancel', 'confirm'])
 const cancel = () => {
   emit('cancel')
 }
 
-const save = async () => {
+const confirm = async () => {
   const ifValid = await validation()
   if (!ifValid) {
     return
   }
   const authKeys = getAuthKeys()
-  emit('save', authKeys)
+  emit('confirm', authKeys)
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.close-btn {
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  background-color: transparent;
+  cursor: pointer;
+  transform: rotate(0);
+  transition: all 0.5s ease;
+}
+.close-btn:hover {
+  background-color: var(--border-color);
+  transform: rotate(180deg);
+  transition: all 0.5s ease;
+}
+</style>

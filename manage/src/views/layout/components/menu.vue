@@ -118,10 +118,13 @@ const expandedKeys = ref(route.meta.expandedKey.split(','))
 watch(
   () => route.name,
   () => {
-    document.title = route.meta.label + ' - 通用后台管理系统 Common Content Manage System'
-    expandedKeys.value = route.meta.expandedKey.split(',')
+    document.title =
+      route.meta.label + ' - 通用后台管理系统 Common Content Manage System'
+    if (route.name != 'Redirect') {
+      expandedKeys.value = route.meta.expandedKey.split(',')
+    }
   },
-  {immediate:true}
+  { immediate: true }
 )
 
 // 菜单展开

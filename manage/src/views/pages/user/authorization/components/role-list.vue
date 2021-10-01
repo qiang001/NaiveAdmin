@@ -15,7 +15,7 @@ import { NTag, NDataTable } from 'naive-ui'
 import { EditNoteOutlined as EditIcon } from '@vicons/material'
 import { useIconButton } from '@/hooks/useIconButton.js'
 import { useTableResponsive } from '@/hooks/useTableResponsive.js'
-const { maxHeight } = useTableResponsive(291)
+const { maxHeight } = useTableResponsive(276)
 const data = inject('roles')
 const columns = createColumns()
 function createColumns() {
@@ -65,7 +65,7 @@ function createColumns() {
       render(row) {
         return useIconButton(EditIcon, '编辑', () => emit('edit', row))
       },
-      width: 120,
+      width: 124,
       fixed: 'right',
       ellipsis: {
         tooltip: true,

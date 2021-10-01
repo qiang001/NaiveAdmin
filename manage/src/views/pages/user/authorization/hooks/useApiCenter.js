@@ -4,7 +4,7 @@ export const useApiCenter = (roles) => {
     console.log('加载中...')
     return new Promise((res) => {
       setTimeout(() => {
-        console.log('导出了')
+        $message.success('恭喜你，导出成功！')
         res()
       }, 1500)
     })
@@ -54,6 +54,7 @@ export const useApiCenter = (roles) => {
     console.log(`${type}...`)
     return new Promise((res) => {
       setTimeout(() => {
+        $message.success(`恭喜你，${type}成功！`)
         console.log(`${type}完成`, data)
         res()
       }, 1500)

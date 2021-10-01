@@ -1,39 +1,31 @@
 import { ref, reactive } from 'vue'
 export const useEditModal = ({ getRoles, saveToDB }) => {
+  // 维护状态数据
   const ifEdit = ref(false)
-  const showModal = ref(false)
+  const editModal = ref(false)
+  const confirmLoading = ref(false)
   const role = reactive({
     name: '',
     desc: '',
     tags: [],
   })
-  const setRole = (data) => {
-    role.name = data.name
-    role.desc = data.desc
-    role.tags = data.tags
-  }
-  const resetRole = () => {
-    role.name = ''
-    role.desc = ''
-    role.tags = []
-  }
+  // 核心方法
   const open = ({ data, type }) => {
     if (type == 'edit') {
       setRole(data)
-      ifEdit.value = true
     } else {
       resetRole()
-      ifEdit.value = false
     }
-    showModal.value = true
+    editModal.value = true
   }
+
   const close = () => {
     resetRole()
-    showModal.value = false
+    editModal.value = false
   }
-  const loading = ref(false)
-  const save = async ({ authKeys, checkedKeys }) => {
-    loading.value = true
+
+  const confirm = async ({ authKeys, checkedKeys }) => {
+    confirmLoading.value = true
     await saveToDB({
       data: {
         name: role.name,
@@ -43,17 +35,29 @@ export const useEditModal = ({ getRoles, saveToDB }) => {
       },
       type: ifEdit.value ? 'edit' : 'create',
     })
-    loading.value = false
+    confirmLoading.value = false
     close()
-    await getRoles(6)
+    // await getRoles(6)
   }
+
+  function setRole(data) {
+    role.name = data.name
+    role.desc = data.desc
+    role.tags = data.tags
+    ifEdit.value = true
+  }
+
+  function resetRole() {
+    role.name = ''
+    role.desc = ''
+    role.tags = []
+    ifEdit.value = false
+  }
+  // 最终对外暴露
+  const data = { ifEdit, editModal, confirmLoading, role }
+  const methods = { open, close, confirm }
   return {
-    ifEdit,
-    showModal,
-    role,
-    open,
-    close,
-    loading,
-    save,
+    ...data,
+    ...methods,
   }
 }

@@ -2,7 +2,7 @@
   <page-panel :title="'权限管理'">
     <action-header @exportExcel="exportExcel" @add="addRole"></action-header>
     <role-list @edit="editRole"></role-list>
-    <edit-modal @cancel="closeEditModal" @save="saveEditModal"></edit-modal>
+    <edit-modal @cancel="closeEditModal" @confirm="confirmEditModal"></edit-modal>
   </page-panel>
 </template>
 
@@ -21,9 +21,9 @@ const {
   ifEdit,
   editModal,
   role,
-  saveLoading,
+  confirmLoading,
   closeEditModal,
-  saveEditModal,
+  confirmEditModal,
 } = initController()
 
 import PagePanel from '@/components/PagePanel.vue'
@@ -40,7 +40,7 @@ provide('getHideAuthKeys', store.getters.getHideAuthKeys)
 provide('ifEdit', readonly(ifEdit))
 provide('editModal', readonly(editModal))
 provide('role', role)
-provide('saveLoading', readonly(saveLoading))
+provide('confirmLoading', readonly(confirmLoading))
 </script>
 
 <style scoped></style>

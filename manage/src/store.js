@@ -25,7 +25,7 @@ export const buildStore = (router) => {
     },
     getters: {
       getMainColors(state) {
-        return getColors(state.ifDark)
+        return Object.values(getColors(state.ifDark))
       },
       getTheme(state) {
         const theme = state.ifDark ? darkTheme : null

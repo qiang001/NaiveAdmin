@@ -5,19 +5,27 @@
     :locale="zhCN"
   >
     <!-- <n-theme-editor> -->
-      <n-loading-bar-provider>
+    <n-loading-bar-provider>
+      <n-message-provider>
         <router-view></router-view>
-      </n-loading-bar-provider>
+      </n-message-provider>
+    </n-loading-bar-provider>
     <!-- </n-theme-editor> -->
     <n-global-style />
   </n-config-provider>
 </template>
 
 <script setup>
-import { NConfigProvider, NGlobalStyle, NThemeEditor,NLoadingBarProvider, zhCN } from 'naive-ui'
+import {
+  NConfigProvider,
+  NGlobalStyle,
+  NThemeEditor,
+  NLoadingBarProvider,
+  NMessageProvider,
+  zhCN,
+} from 'naive-ui'
 import { useStore } from 'vuex'
 const store = useStore()
-
 </script>
 
 <style>

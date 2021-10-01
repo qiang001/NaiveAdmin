@@ -1,16 +1,18 @@
 <template>
-  <div
-    class="handle-bar"
+  <n-element
+    tag="div"
+    class="resize-bar"
     @mousedown="mouseDown"
     unselectable="on"
     onselectstart="return false"
-  ></div>
+  ></n-element>
 </template>
 
 <script setup>
 const emit = defineEmits(['widthChange'])
 
 import { ref, onMounted, inject } from 'vue'
+import { NElement } from 'naive-ui'
 
 const lastX = ref(null)
 const lastWidth = ref(null)
@@ -48,9 +50,9 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.handle-bar {
+.resize-bar {
   cursor: col-resize;
-  width: 5px;
+  width: 3px;
   background-color: transparent;
   position: absolute;
   right: 0;
@@ -60,5 +62,10 @@ onMounted(() => {
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
+  transition: all 0.3s ease;
+}
+.resize-bar:hover {
+  background-color: var(--primary-color);
+  transition: all 0.3s ease;
 }
 </style>

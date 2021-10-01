@@ -15,13 +15,20 @@
         <resize-bar @widthChange="widthChange"></resize-bar>
       </n-layout-sider>
       <n-layout-content :native-scrollbar="false">
-        <n-layout-header class="handle-bar-wrapper" v-if="route.name!='Layout'">
-          <handle-bar @refreshPage="refreshRoute"></handle-bar>
+        <n-layout-header
+          class="handle-bar-wrapper"
+          v-if="route.name != 'Layout'"
+        >
+          <handle-bar
+            @gotoTab="gotoTab"
+            @deleteTab="deleteTab"
+            @refreshPage="refreshRoute"
+          ></handle-bar>
         </n-layout-header>
         <n-layout-content
           :native-scrollbar="false"
           embedded
-          :content-style="`${route.name!='Layout'?'padding: 24px;':''}`"
+          :content-style="`${route.name != 'Layout' ? 'padding: 24px;' : ''}`"
         >
           <Page></Page>
         </n-layout-content>
@@ -31,10 +38,34 @@
 </template>
 
 <script setup>
-import { provide, readonly, unref } from 'vue'
+import { provide, readonly } from 'vue'
+
+import {
+  NLayout,
+  NLayoutHeader,
+  NLayoutSider,
+  NLayoutContent,
+  useLoadingBar,
+  useMessage,
+} from 'naive-ui'
+
+window.$message = useMessage()
+
+const loadingBar = useLoadingBar()
+
 import { initController } from './initController'
-const { outInverted, invertedChange, widthSpan, sectionWidth, widthChange } =
-  initController()
+const {
+  outInverted,
+  widthSpan,
+  sectionWidth,
+  route,
+  history,
+  widthChange,
+  invertedChange,
+  gotoTab,
+  deleteTab,
+  refreshRoute,
+} = initController(loadingBar)
 
 import Header from './components/header/index.vue'
 
@@ -45,49 +76,9 @@ provide('sectionWidth', readonly(sectionWidth))
 provide('widthSpan', readonly(widthSpan))
 
 import HandleBar from './components/handle-bar.vue'
+provide('history', readonly(history))
 
 import Page from './components/page.vue'
-
-import {
-  NLayout,
-  NLayoutHeader,
-  NLayoutSider,
-  NLayoutContent,
-  useLoadingBar,
-} from 'naive-ui'
-import { useRouter,useRoute } from 'vue-router'
-const route = useRoute()
-const router = useRouter()
-const loadingBar = useLoadingBar()
-router.beforeEach((to, from, next) => {
-  loadingBar.start()
-  next()
-})
-router.afterEach((to, from, failure) => {
-  failure ? loadingBar.error() : loadingBar.finish()
-})
-const refreshRoute = () => {
-  router.push({
-    name: 'Redirect',
-    query: getTarget(),
-  })
-  function getTarget() {
-    const { currentRoute } = router
-    const { path, query } = unref(currentRoute)
-    let obj = {
-      targetPath: path,
-      targetQuery: '',
-    }
-    let queryString = ''
-    Object.keys(query).forEach((key) => {
-      queryString += `!@#$${key}=${query[key]}`
-    })
-    if (queryString) {
-      obj.targetQuery = queryString
-    }
-    return obj
-  }
-}
 </script>
 
 <style scoped>

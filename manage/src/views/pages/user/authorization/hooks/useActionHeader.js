@@ -1,16 +1,16 @@
 import { ref } from 'vue'
 export const useActionHeader = ({ exportData, openEditModal }) => {
-  const loading = ref(false)
+  const exportLoading = ref(false)
   const exportExcel = async () => {
-    loading.value = true
+    exportLoading.value = true
     await exportData()
-    loading.value = false
+    exportLoading.value = false
   }
   const add = () => {
     openEditModal({ type: 'create' })
   }
   return {
-    loading,
+    exportLoading,
     exportExcel,
     add,
   }

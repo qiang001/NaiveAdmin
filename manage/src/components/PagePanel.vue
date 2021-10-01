@@ -22,7 +22,7 @@ const { title } = toRefs(props)
 <style scoped>
 .page-panel {
   min-height: calc(100vh - 147px);
-  padding: 35px 20px 20px 20px;
+  padding: 20px 20px 20px 20px;
   box-sizing: border-box;
   border-radius: 3px;
   position: relative;
@@ -30,7 +30,10 @@ const { title } = toRefs(props)
 
 @media only screen and (max-width: 720px) {
   .page-panel {
-    display: none;
+    pointer-events: none;
+    cursor: default;
+    opacity: 0;
+    user-select: none;
   }
 }
 
@@ -52,8 +55,19 @@ const { title } = toRefs(props)
   /* padding-left: 15px; */
   left: -9px;
   top: -9px;
-  border-radius: 2px 0 2px 2px;
+  border-radius: 2px 0 2px 0;
 }
+.title:before {
+  content: '';
+  width: 0px;
+  height: 0px;
+  border-bottom: 6px solid transparent;
+  border-right: 9px solid #4b4b4b;
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+}
+
 .title:after {
   content: '';
   width: 0px;

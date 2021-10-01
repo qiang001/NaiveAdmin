@@ -1,13 +1,21 @@
 import { useInverted } from './hooks/useInverted'
 import { useSectionWidth } from './hooks/useSectionWidth'
-export const initController = () => {
+import { useHandleBar } from './hooks/useHandleBar'
+export const initController = (loadingBar) => {
   const { outInverted, invertedChange } = useInverted()
-  const { widthSpan,sectionWidth, widthChange } = useSectionWidth()
-  return {
-    outInverted,
+  const { widthSpan, sectionWidth, widthChange } = useSectionWidth()
+  const { route, history, gotoTab, deleteTab, refreshRoute } =
+    useHandleBar(loadingBar)
+  const data = { outInverted, widthSpan, sectionWidth, route, history }
+  const methods = {
     invertedChange,
-    widthSpan,
-    sectionWidth,
     widthChange,
+    gotoTab,
+    deleteTab,
+    refreshRoute,
+  }
+  return {
+    ...data,
+    ...methods,
   }
 }
