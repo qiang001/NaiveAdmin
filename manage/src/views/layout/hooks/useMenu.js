@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-export const useMenu = () => {
+export const useMenu = ({refreshRoute,router}) => {
   const collapsed = ref(false)
   const inverted = ref(false)
   const collapsedChange = (val) => {
@@ -8,10 +8,14 @@ export const useMenu = () => {
   const invertedChange = (val) => {
     inverted.value = val
   }
+  const navigateTo = ({ name, ifCurrent }) => {
+    !ifCurrent ? router.push({ name }) : refreshRoute()
+  }
   return {
     collapsed,
     inverted,
     collapsedChange,
     invertedChange,
+    navigateTo
   }
 }

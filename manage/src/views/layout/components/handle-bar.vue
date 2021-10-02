@@ -245,7 +245,7 @@ const emit = defineEmits(['gotoTab', 'deleteTab', 'refreshPage', 'setFullpage'])
 
 // 切换tab
 const gotoTab = (name, ifCurrent) => {
-  history.value.length > 1 && !ifCurrent ? emit('gotoTab', name) : refresh()
+  emit('gotoTab', {name, ifCurrent})
 }
 
 // 删除tab
@@ -254,13 +254,9 @@ const deleteTab = (name, ifCurrent) => {
 }
 
 // 刷新页面
-const refreshing = ref(false)
+const refreshing = inject('refreshing')
 const refresh = () => {
-  refreshing.value = true
   emit('refreshPage')
-  setTimeout(() => {
-    refreshing.value = false
-  }, 500)
 }
 
 // 设置全屏

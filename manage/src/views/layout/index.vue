@@ -31,7 +31,7 @@
         @collapse="collapsedChange(true)"
         @expand="collapsedChange(false)"
       >
-        <Menu @invertedChange="invertedChange"></Menu>
+        <Menu @invertedChange="invertedChange" @navigateTo="navigateTo"></Menu>
         <resize-bar @widthChange="widthChange"></resize-bar>
       </n-layout-sider>
       <n-layout-content :native-scrollbar="false">
@@ -85,9 +85,11 @@ const {
   sectionWidth,
   history,
   ifFullpage,
+  refreshing,
   widthChange,
   collapsedChange,
   invertedChange,
+  navigateTo,
   gotoTab,
   deleteTab,
   refreshRoute,
@@ -111,6 +113,7 @@ provide('widthSpan', readonly(widthSpan))
 import HandleBar from './components/handle-bar.vue'
 provide('history', history)
 provide('ifFullpage', readonly(ifFullpage))
+provide('refreshing', readonly(refreshing))
 
 import Page from './components/page.vue'
 </script>

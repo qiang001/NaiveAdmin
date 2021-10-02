@@ -1,6 +1,7 @@
 import { unref, ref } from 'vue'
 export const useHandleBar = ({ loadingBar, router, route }) => {
   const ifFullpage = ref(false)
+  const refreshing = ref(false)
   const history = ref([])
 
   addHistory(route.name, route.meta.label)
@@ -41,8 +42,10 @@ export const useHandleBar = ({ loadingBar, router, route }) => {
     })
   }
 
-  const gotoTab = (name) => {
-    router.push({ name })
+  const gotoTab = ({ name, ifCurrent }) => {
+    history.value.length > 1 && !ifCurrent
+      ? router.push({ name })
+      : refreshRoute()
   }
 
   const deleteTab = ({ name, ifCurrent }) => {
@@ -52,13 +55,17 @@ export const useHandleBar = ({ loadingBar, router, route }) => {
       if (ifCurrent) {
         let tailItem = history.value.pop()
         if (tailItem) {
-          gotoTab(tailItem.name)
+          router.push({ name: tailItem.name })
         }
       }
     }
   }
 
   const refreshRoute = () => {
+    refreshing.value = true
+    setTimeout(() => {
+      refreshing.value = false
+    }, 500)
     router.push({
       name: 'Redirect',
       query: getTarget(),
@@ -88,6 +95,7 @@ export const useHandleBar = ({ loadingBar, router, route }) => {
 
   return {
     ifFullpage,
+    refreshing,
     route,
     history,
     gotoTab,

@@ -7,10 +7,22 @@ export const initController = (loadingBar) => {
   const store = useStore()
   const router = useRouter()
   const route = useRoute()
-  const { collapsed, inverted, collapsedChange, invertedChange } = useMenu()
+
   const { widthSpan, sectionWidth, widthChange } = useSectionWidth()
-  const { ifFullpage, history, gotoTab, deleteTab, refreshRoute, setFullpage } =
-    useHandleBar({ loadingBar, router, route })
+
+  const {
+    ifFullpage,
+    refreshing,
+    history,
+    gotoTab,
+    deleteTab,
+    refreshRoute,
+    setFullpage,
+  } = useHandleBar({ loadingBar, router, route })
+
+  const { collapsed, inverted, collapsedChange, invertedChange, navigateTo } =
+    useMenu({ refreshRoute, router })
+
   const data = {
     store,
     router,
@@ -21,15 +33,17 @@ export const initController = (loadingBar) => {
     sectionWidth,
     history,
     ifFullpage,
+    refreshing,
   }
   const methods = {
-    collapsedChange,
-    invertedChange,
     widthChange,
     gotoTab,
     deleteTab,
     refreshRoute,
     setFullpage,
+    collapsedChange,
+    invertedChange,
+    navigateTo,
   }
   return {
     ...data,

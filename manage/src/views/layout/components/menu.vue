@@ -61,7 +61,7 @@
 <script setup>
 import { NMenu, NSwitch, NSpace, NAutoComplete } from 'naive-ui'
 
-import { ref, computed, watch ,inject} from 'vue'
+import { ref, computed, watch, inject } from 'vue'
 
 // 注入公共数据
 const store = inject('store')
@@ -140,20 +140,12 @@ const handleExpanded = (keys) => {
   }
 }
 
+const emit = defineEmits(['navigateTo', 'invertedChange'])
 // 菜单选中
 const handleSelected = (key) => {
-  try {
-    router.push({
-      name: key,
-    })
-  } catch (error) {
-    router.push({
-      name: '404',
-    })
-  }
+  emit('navigateTo', { name: key, ifCurrent: key == route.name })
 }
 // 通知外部改样式
-const emit = defineEmits(['invertedChange'])
 const invertedChange = (val) => {
   emit('invertedChange', val)
 }
