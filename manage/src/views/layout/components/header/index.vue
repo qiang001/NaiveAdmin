@@ -16,7 +16,7 @@
       </div>
       <div class="ml-auto d-flex a-center">
         <theme-toggle />
-        <main-color />
+        <main-color class="main-color" />
       </div>
     </div>
   </n-layout-header>
@@ -38,5 +38,14 @@ import MainColor from './components/main-color.vue'
 }
 .logo {
   margin-left: 5px;
+}
+
+@media only screen and (max-width: 450px) {
+  .header {
+    padding: 0 10px 0 10px;
+  }
+  .main-color {
+    display: none;
+  }
 }
 </style>
