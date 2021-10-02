@@ -17,7 +17,10 @@
             class="tab tab-current d-flex a-center"
             v-if="tab.ifCurrent"
           >
-            <div class="tab-text d-flex a-center" @click="gotoTab(tab.name)">
+            <div
+              class="tab-text d-flex a-center"
+              @click="gotoTab(tab.name, tab.ifCurrent)"
+            >
               {{ tab.label }}
             </div>
             <div
@@ -31,7 +34,10 @@
             </div>
           </n-element>
           <n-element class="tab d-flex a-center" v-else>
-            <div class="tab-text d-flex a-center" @click="gotoTab(tab.name)">
+            <div
+              class="tab-text d-flex a-center"
+              @click="gotoTab(tab.name, tab.ifCurrent)"
+            >
               {{ tab.label }}
             </div>
             <div
@@ -56,7 +62,7 @@
         <right-icon />
       </n-icon>
     </n-element>
-    <div class="ml-auto d-flex a-center j-center" id="refresh-btn">
+    <div class="ml-auto d-flex a-center j-center refresh-btn">
       <n-spin :show="refreshing" size="tiny">
         <n-button @click="refresh" size="tiny">
           <template #icon>
@@ -68,6 +74,17 @@
         </n-button>
       </n-spin>
     </div>
+    <div class="ml-1 d-flex a-center j-center fullpage-btn">
+      <n-button @click="setFullpage" size="tiny">
+        <template #icon>
+          <n-icon>
+            <fullpage-icon v-if="!ifFullpage" />
+            <normal-page-icon v-else />
+          </n-icon>
+        </template>
+        {{ ifFullpage ? '退出全屏' : '页面全屏' }}
+      </n-button>
+    </div>
   </div>
 </template>
 
@@ -77,11 +94,13 @@ import {
   ChevronRightRound as RightIcon,
   RefreshRound as RefreshIcon,
   CloseOutlined as CloseIcon,
+  FullscreenFilled as FullpageIcon,
+  FullscreenExitFilled as NormalPageIcon,
 } from '@vicons/material'
 import { NIcon, NSpin, NButton, NElement } from 'naive-ui'
-import { ref, inject, watch, nextTick, onMounted,onUnmounted } from 'vue'
+import { ref, inject, watch, nextTick, onMounted, onBeforeUnmount } from 'vue'
 const history = inject('history')
-const tabBarWidth = ref(0)
+const ifFullpage = inject('ifFullpage')
 const arrowWidth = ref(0)
 watch(
   history.value,
@@ -91,28 +110,32 @@ watch(
   { immediate: true }
 )
 
+let resizeObserver = null
+let tabWrapper = null
+let tabBar = null
+
 onMounted(() => {
-  window.addEventListener('resize', updateTabBar)
+  tabWrapper = document.getElementById('tab-wrapper')
+  tabBar = document.getElementById('tab-bar')
+  const ResizeObserver = window.ResizeObserver
+  resizeObserver = new ResizeObserver(() => {
+    updateTabBar()
+  })
+  resizeObserver.observe(tabWrapper)
 })
 
-onUnmounted(()=>{
-  window.removeEventListener('resize', updateTabBar)
+onBeforeUnmount(() => {
+  resizeObserver.unobserve(tabWrapper)
 })
 
 function updateTabBar() {
   nextTick(() => {
-    tabBarWidth.value = 0
-    let tabs = document.querySelectorAll('.tab-box')
-    tabs.forEach((tab) => {
-      tabBarWidth.value += tab.getBoundingClientRect().width
-    })
-    let tabBarWrapperWidth = document
-      .getElementById('tab-wrapper')
-      .getBoundingClientRect().width
-    if (tabBarWidth.value > tabBarWrapperWidth) {
+    const tabBarWidth = getTabBarWidth()
+    const tabWrapperWidth = getTabWrapperWidth()
+    if (tabBarWidth > tabWrapperWidth) {
       arrowWidth.value = 30
       setTimeout(() => {
-        onRight()
+        onShift()
       }, 350)
     } else {
       arrowWidth.value = 0
@@ -123,28 +146,67 @@ function updateTabBar() {
   })
 }
 
-function getShift() {
-  let tabBarWrapperWidth = document
-    .getElementById('tab-wrapper')
-    .getBoundingClientRect().width
-  return tabBarWrapperWidth - tabBarWidth.value - 2
+function getTabBarWidth() {
+  return Array.from(document.querySelectorAll('.tab-box')).reduce((a, c) => {
+    a += c.getBoundingClientRect().width
+    return a
+  }, 0)
 }
 
-const onLeft = () => {
-  let tabBar = document.getElementById('tab-bar')
-  tabBar.style.setProperty('left', `2px`, 'important')
+function getTabCurrentWidth() {
+  let currentIdx = history.value.findIndex((v) => v.ifCurrent)
+  return Array.from(document.querySelectorAll('.tab-box')).reduce(
+    (a, c, idx) => {
+      let curWidth = c.getBoundingClientRect().width
+      a.head += idx < currentIdx ? curWidth : 0
+      a.tail += idx > currentIdx ? curWidth : 0
+      if (idx === currentIdx) {
+        a.head += curWidth * 0.5
+        a.tail += curWidth * 0.5
+      }
+      return a
+    },
+    {
+      head: 0,
+      tail: 0,
+    }
+  )
 }
-const onRight = () => {
-  let tabBar = document.getElementById('tab-bar')
-  const shift = getShift()
+
+function getTabWrapperWidth() {
+  return tabWrapper.getBoundingClientRect().width
+}
+
+function onShift() {
+  const tabBarWidth = getTabCurrentWidth()
+  const tabWrapperWidth = getTabWrapperWidth()
+  let shift = tabWrapperWidth * 0.5 - tabBarWidth.head
+  const over = tabWrapperWidth * 0.5 - tabBarWidth.tail
+  if (shift < 0 && over > 0) {
+    shift += over - 4
+  }
+  if (shift > 0 && shift < tabWrapperWidth) {
+    shift = 4
+  }
   tabBar.style.setProperty('left', `${shift}px`, 'important')
 }
 
-const refreshing = ref(false)
-const emit = defineEmits(['gotoTab', 'deleteTab', 'refreshPage'])
+const onLeft = () => {
+  tabBar.style.setProperty('left', `4px`, 'important')
+}
+const onRight = () => {
+  tabBar.style.setProperty(
+    'left',
+    `${getTabWrapperWidth() - getTabBarWidth() - 4}px`,
+    'important'
+  )
+}
 
-const gotoTab = (name) => {
-  history.value.length > 1 ? emit('gotoTab', name) : refresh()
+const refreshing = ref(false)
+const emit = defineEmits(['gotoTab', 'deleteTab', 'refreshPage', 'setFullpage'])
+
+const gotoTab = (name, ifCurrent) => {
+  history.value.length > 1 && !ifCurrent ? emit('gotoTab', name) : refresh()
 }
 const deleteTab = (name, ifCurrent) => {
   emit('deleteTab', { name, ifCurrent })
@@ -156,6 +218,10 @@ const refresh = () => {
   setTimeout(() => {
     refreshing.value = false
   }, 500)
+}
+
+const setFullpage = () => {
+  emit('setFullpage', !ifFullpage.value)
 }
 </script>
 
@@ -190,7 +256,6 @@ const refresh = () => {
 }
 
 .tab-wrapper {
-  padding: 0 4px;
   overflow: hidden;
   position: relative;
   flex: 1;
@@ -251,9 +316,7 @@ const refresh = () => {
   background-color: var(--primary-color-pressed);
   transition: all 0.1s ease;
 }
-#refresh-btn {
-  right: 24px;
-  height: 100%;
-  padding-top: 1px;
+.refresh-btn {
+  padding-top: 2px;
 }
 </style>

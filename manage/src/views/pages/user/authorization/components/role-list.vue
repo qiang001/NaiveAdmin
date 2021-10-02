@@ -14,8 +14,7 @@ import { h, inject } from 'vue'
 import { NTag, NDataTable } from 'naive-ui'
 import { EditNoteOutlined as EditIcon } from '@vicons/material'
 import { useIconButton } from '@/hooks/useIconButton.js'
-import { useTableResponsive } from '@/hooks/useTableResponsive.js'
-const { maxHeight } = useTableResponsive(276)
+const maxHeight = inject('maxHeight')
 const data = inject('roles')
 const columns = createColumns()
 function createColumns() {

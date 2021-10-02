@@ -4,7 +4,7 @@
       :options="colors"
       :render-icon="renderDropdownIcon"
       placement="bottom-start"
-      trigger="hover"
+      trigger="click"
       :on-select="(key) => store.commit('SET_MAINCOLOR', key)"
     >
       <n-button size="small">主题切换</n-button>

@@ -12,6 +12,7 @@
       />
     </div>
     <n-menu
+      :collapsed="collapsed"
       :inverted="inverted"
       :options="menu"
       :value="defaultMenu"
@@ -62,7 +63,7 @@
 import { NMenu, NSwitch, NSpace, NAutoComplete } from 'naive-ui'
 
 // 基本 Vue API
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch ,inject} from 'vue'
 import { useStore } from 'vuex'
 const store = useStore()
 import { useRouter, useRoute } from 'vue-router'
@@ -92,7 +93,8 @@ const options = computed(() => {
 })
 
 // 渲染菜单
-const inverted = ref(false)
+const inverted = inject('inverted')
+const collapsed = inject('collapsed')
 const ifHideIcon = ref(false)
 const menu = computed(() => store.getters.getMenu(ifHideIcon.value))
 
@@ -155,7 +157,6 @@ const handleSelected = (key) => {
 // 通知外部改样式
 const emit = defineEmits(['invertedChange'])
 const invertedChange = (val) => {
-  inverted.value = val
   emit('invertedChange', val)
 }
 </script>

@@ -1,8 +1,11 @@
 <template>
-  <page-panel :title="'权限管理'">
+  <page-panel :title="'权限管理'" @resize="setMaxHeight">
     <action-header @exportExcel="exportExcel" @add="addRole"></action-header>
     <role-list @edit="editRole"></role-list>
-    <edit-modal @cancel="closeEditModal" @confirm="confirmEditModal"></edit-modal>
+    <edit-modal
+      @cancel="closeEditModal"
+      @confirm="confirmEditModal"
+    ></edit-modal>
   </page-panel>
 </template>
 
@@ -17,6 +20,8 @@ const {
   exportExcel,
   addRole,
   roles,
+  maxHeight,
+  setMaxHeight,
   editRole,
   ifEdit,
   editModal,
@@ -32,6 +37,7 @@ import ActionHeader from './components/action-header.vue'
 provide('exportLoading', readonly(exportLoading))
 
 import RoleList from './components/role-list.vue'
+provide('maxHeight', readonly(maxHeight))
 provide('roles', readonly(roles))
 
 import EditModal from './components/edit-modal.vue'

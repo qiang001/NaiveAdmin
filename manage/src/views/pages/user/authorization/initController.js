@@ -29,16 +29,29 @@ export const initController = () => {
     openEditModal,
   })
   // 表格逻辑
-  const { edit: editRole } = useRoleList({
+  const {
+    maxHeight,
+    setMaxHeight,
+    edit: editRole,
+  } = useRoleList({
     getRoles,
     openEditModal,
   })
 
   // 最终对外暴露
-  const data = { roles, ifEdit, editModal, confirmLoading, role, exportLoading }
+  const data = {
+    roles,
+    ifEdit,
+    editModal,
+    confirmLoading,
+    role,
+    exportLoading,
+    maxHeight,
+  }
   const methods = {
     exportExcel,
     addRole,
+    setMaxHeight,
     editRole,
     closeEditModal,
     confirmEditModal,

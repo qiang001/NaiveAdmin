@@ -1,5 +1,5 @@
 <template>
-  <n-layout-header bordered class="nav">
+  <n-layout-header bordered position="absolute" class="nav">
     <div class="d-flex a-center header">
       <div class="d-flex a-center j-center logo">
         <img src="@/assets/logo.png" alt="" style="width: 36px" />

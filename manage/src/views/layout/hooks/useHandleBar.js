@@ -1,6 +1,7 @@
 import { useRouter, useRoute } from 'vue-router'
 import { unref, ref } from 'vue'
-export const useHandleBar = (loadingBar) => {
+export const useHandleBar = ({ loadingBar, collapsedChange }) => {
+  const ifFullpage = ref(false)
   const history = ref([])
   const route = useRoute()
   const router = useRouter()
@@ -67,6 +68,10 @@ export const useHandleBar = (loadingBar) => {
     })
   }
 
+  const setFullpage = (bool) => {
+    ifFullpage.value = bool
+  }
+
   function getTarget() {
     const { currentRoute } = router
     const { path, query } = unref(currentRoute)
@@ -85,10 +90,12 @@ export const useHandleBar = (loadingBar) => {
   }
 
   return {
+    ifFullpage,
     route,
     history,
     gotoTab,
     deleteTab,
     refreshRoute,
+    setFullpage,
   }
 }
