@@ -99,11 +99,12 @@ const validation = () => {
 }
 
 // 菜单权限树相关
-const getMenuAuthTree = inject('getMenuAuthTree')
-const menuAuthTree = ref(getMenuAuthTree)
+const store = inject('store')
+const menuAuthTree = ref([])
+menuAuthTree.value = store.getters.getMenuAuthTree
 const checkedKeys = ref([])
 
-const hideAuthKeys = inject('getHideAuthKeys')
+const hideAuthKeys = store.getters.getHideAuthKeys
 
 const updateCheckedKeys = (keys) => {
   checkedKeys.value = keys

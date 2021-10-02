@@ -11,8 +11,6 @@
 
 <script setup>
 import { provide, readonly } from 'vue'
-
-
 import { initController } from './initController'
 const {
   store,
@@ -31,6 +29,8 @@ const {
   confirmEditModal,
 } = initController()
 
+provide('store',store)
+
 import PagePanel from '@/components/PagePanel.vue'
 
 import ActionHeader from './components/action-header.vue'
@@ -41,8 +41,6 @@ provide('maxHeight', readonly(maxHeight))
 provide('roles', readonly(roles))
 
 import EditModal from './components/edit-modal.vue'
-provide('getMenuAuthTree', store.getters.getMenuAuthTree)
-provide('getHideAuthKeys', store.getters.getHideAuthKeys)
 provide('ifEdit', readonly(ifEdit))
 provide('editModal', readonly(editModal))
 provide('role', role)
