@@ -11,11 +11,11 @@
 
 <script setup>
 import { provide, readonly } from 'vue'
-import { useStore } from 'vuex'
-const store = useStore()
+
 
 import { initController } from './initController'
 const {
+  store,
   exportLoading,
   exportExcel,
   addRole,

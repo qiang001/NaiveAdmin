@@ -13,10 +13,9 @@
 </template>
 
 <script setup>
-import { h } from 'vue'
 import { NDropdown,NButton } from 'naive-ui'
-import { useStore } from 'vuex'
-const store = useStore()
+import { h ,inject} from 'vue'
+const store = inject('store')
 const colors = store.getters.getMainColors
 const renderDropdownIcon = (option) => {
   return h(

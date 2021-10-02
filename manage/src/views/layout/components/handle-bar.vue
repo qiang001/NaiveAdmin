@@ -12,44 +12,61 @@
     </n-element>
     <div class="d-flex a-center tab-wrapper" id="tab-wrapper">
       <div class="d-flex a-center" id="tab-bar">
-        <div v-for="(tab, index) in history" :key="tab.name" class="tab-box">
-          <n-element
-            class="tab tab-current d-flex a-center"
-            v-if="tab.ifCurrent"
-          >
-            <div
-              class="tab-text d-flex a-center"
-              @click="gotoTab(tab.name, tab.ifCurrent)"
-            >
-              {{ tab.label }}
+        <draggable
+          class="d-flex a-center"
+          tag="transition-group"
+          :component-data="{
+            tag: 'div',
+            type: 'transition-group',
+            name: !drag ? 'flip-list' : null,
+          }"
+          v-model="history"
+          v-bind="dragOptions"
+          @start="setDrag(true)"
+          @end="setDrag(false)"
+          item-key="name"
+        >
+          <template #item="{ element: tab }">
+            <div class="tab-box">
+              <n-element
+                class="tab tab-current d-flex a-center"
+                v-if="tab.ifCurrent"
+              >
+                <div
+                  class="tab-text d-flex a-center"
+                  @click="gotoTab(tab.name, tab.ifCurrent)"
+                >
+                  {{ tab.label }}
+                </div>
+                <div
+                  class="d-flex a-center j-center close-btn"
+                  @click="deleteTab(tab.name, tab.ifCurrent)"
+                  v-if="history.length > 1"
+                >
+                  <n-icon size="12">
+                    <close-icon />
+                  </n-icon>
+                </div>
+              </n-element>
+              <n-element class="tab d-flex a-center" v-else>
+                <div
+                  class="tab-text d-flex a-center"
+                  @click="gotoTab(tab.name, tab.ifCurrent)"
+                >
+                  {{ tab.label }}
+                </div>
+                <div
+                  class="d-flex a-center j-center close-btn"
+                  @click="deleteTab(tab.name, tab.ifCurrent)"
+                >
+                  <n-icon size="12">
+                    <close-icon />
+                  </n-icon>
+                </div>
+              </n-element>
             </div>
-            <div
-              class="d-flex a-center j-center close-btn"
-              @click="deleteTab(tab.name, tab.ifCurrent)"
-              v-if="history.length > 1"
-            >
-              <n-icon size="12">
-                <close-icon />
-              </n-icon>
-            </div>
-          </n-element>
-          <n-element class="tab d-flex a-center" v-else>
-            <div
-              class="tab-text d-flex a-center"
-              @click="gotoTab(tab.name, tab.ifCurrent)"
-            >
-              {{ tab.label }}
-            </div>
-            <div
-              class="d-flex a-center j-center close-btn"
-              @click="deleteTab(tab.name, tab.ifCurrent)"
-            >
-              <n-icon size="12">
-                <close-icon />
-              </n-icon>
-            </div>
-          </n-element>
-        </div>
+          </template>
+        </draggable>
       </div>
     </div>
     <n-element
@@ -98,9 +115,29 @@ import {
   FullscreenExitFilled as NormalPageIcon,
 } from '@vicons/material'
 import { NIcon, NSpin, NButton, NElement } from 'naive-ui'
-import { ref, inject, watch, nextTick, onMounted, onBeforeUnmount } from 'vue'
+import draggable from 'vuedraggable/src/vuedraggable'
+import {
+  ref,
+  reactive,
+  inject,
+  watch,
+  nextTick,
+  onMounted,
+  onBeforeUnmount,
+} from 'vue'
+// 拖动tab
+const drag = ref(false)
+const dragOptions = reactive({
+  animation: 200,
+  group: 'tabs',
+  disabled: false,
+  ghostClass: 'ghost',
+})
+const setDrag = (bool) => {
+  drag.value = bool
+}
+// 渲染 tabs 以及交互动画
 const history = inject('history')
-const ifFullpage = inject('ifFullpage')
 const arrowWidth = ref(0)
 watch(
   history.value,
@@ -194,6 +231,7 @@ function onShift() {
 const onLeft = () => {
   tabBar.style.setProperty('left', `4px`, 'important')
 }
+
 const onRight = () => {
   tabBar.style.setProperty(
     'left',
@@ -202,16 +240,21 @@ const onRight = () => {
   )
 }
 
-const refreshing = ref(false)
+// 暴露事件
 const emit = defineEmits(['gotoTab', 'deleteTab', 'refreshPage', 'setFullpage'])
 
+// 切换tab
 const gotoTab = (name, ifCurrent) => {
   history.value.length > 1 && !ifCurrent ? emit('gotoTab', name) : refresh()
 }
+
+// 删除tab
 const deleteTab = (name, ifCurrent) => {
   emit('deleteTab', { name, ifCurrent })
 }
 
+// 刷新页面
+const refreshing = ref(false)
 const refresh = () => {
   refreshing.value = true
   emit('refreshPage')
@@ -220,6 +263,8 @@ const refresh = () => {
   }, 500)
 }
 
+// 设置全屏
+const ifFullpage = inject('ifFullpage')
 const setFullpage = () => {
   emit('setFullpage', !ifFullpage.value)
 }
@@ -316,6 +361,17 @@ const setFullpage = () => {
   background-color: var(--primary-color-pressed);
   transition: all 0.1s ease;
 }
+
+.flip-list-move {
+  transition: transform 0.5s;
+}
+.no-move {
+  transition: transform 0s;
+}
+.ghost {
+  opacity: 0.5;
+}
+
 .refresh-btn {
   padding-top: 2px;
 }

@@ -11,8 +11,8 @@
 <script setup>
 const emit = defineEmits(['widthChange'])
 
-import { ref, onMounted, inject } from 'vue'
 import { NElement } from 'naive-ui'
+import { ref, onMounted, inject } from 'vue'
 
 const lastX = ref(null)
 const lastWidth = ref(null)

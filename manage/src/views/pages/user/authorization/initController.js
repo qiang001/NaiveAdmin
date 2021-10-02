@@ -1,3 +1,4 @@
+import { useStore } from 'vuex'
 import { ref } from 'vue'
 import { useActionHeader } from './hooks/useActionHeader'
 import { useApiCenter } from './hooks/useApiCenter'
@@ -6,6 +7,7 @@ import { useEditModal } from './hooks/useEditModal'
 
 export const initController = () => {
   // 公共状态数据
+  const store = useStore()
   const roles = ref([])
   // 接口层
   const { exportData, getRoles, saveToDB } = useApiCenter(roles)
@@ -40,6 +42,7 @@ export const initController = () => {
 
   // 最终对外暴露
   const data = {
+    store,
     roles,
     ifEdit,
     editModal,

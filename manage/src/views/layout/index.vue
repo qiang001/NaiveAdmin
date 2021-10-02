@@ -76,11 +76,13 @@ const loadingBar = useLoadingBar()
 
 import { initController } from './initController'
 const {
+  store,
+  router,
+  route,
   collapsed,
   inverted,
   widthSpan,
   sectionWidth,
-  route,
   history,
   ifFullpage,
   widthChange,
@@ -91,6 +93,10 @@ const {
   refreshRoute,
   setFullpage,
 } = initController(loadingBar)
+
+provide('store', readonly(store))
+provide('router', readonly(router))
+provide('route', readonly(route))
 
 import Header from './components/header/index.vue'
 
@@ -103,7 +109,7 @@ provide('sectionWidth', readonly(sectionWidth))
 provide('widthSpan', readonly(widthSpan))
 
 import HandleBar from './components/handle-bar.vue'
-provide('history', readonly(history))
+provide('history', history)
 provide('ifFullpage', readonly(ifFullpage))
 
 import Page from './components/page.vue'

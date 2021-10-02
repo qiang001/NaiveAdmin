@@ -52,8 +52,6 @@
 </template>
 
 <script setup>
-import CommonModal from '@/components/CommonModal.vue'
-import { ref, inject, watch, unref } from 'vue'
 import {
   NInput,
   NTree,
@@ -61,9 +59,10 @@ import {
   NTabPane,
   NResult,
   NForm,
-  NFormItem
+  NFormItem,
 } from 'naive-ui'
-
+import CommonModal from '@/components/CommonModal.vue'
+import { ref, inject, watch, unref } from 'vue'
 // 注入状态数据以进行 UI渲染 UX交互
 const ifEdit = inject('ifEdit')
 const editModal = inject('editModal')

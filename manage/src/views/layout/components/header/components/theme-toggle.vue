@@ -24,8 +24,8 @@
 </template>
 
 <script setup>
-import { useStore } from 'vuex'
-const store = useStore()
+import { inject } from 'vue'
+const store = inject('store')
 const switchTheme = () => {
   store.state.ifDark ? enableLightMode() : enableDarkMode()
 

@@ -1,10 +1,7 @@
-import { useRouter, useRoute } from 'vue-router'
 import { unref, ref } from 'vue'
-export const useHandleBar = ({ loadingBar, collapsedChange }) => {
+export const useHandleBar = ({ loadingBar, router, route }) => {
   const ifFullpage = ref(false)
   const history = ref([])
-  const route = useRoute()
-  const router = useRouter()
 
   addHistory(route.name, route.meta.label)
 

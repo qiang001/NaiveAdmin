@@ -59,16 +59,14 @@
 </template>
 
 <script setup>
-// 基本 Naive UI
 import { NMenu, NSwitch, NSpace, NAutoComplete } from 'naive-ui'
 
-// 基本 Vue API
 import { ref, computed, watch ,inject} from 'vue'
-import { useStore } from 'vuex'
-const store = useStore()
-import { useRouter, useRoute } from 'vue-router'
-const router = useRouter()
-const route = useRoute()
+
+// 注入公共数据
+const store = inject('store')
+const router = inject('router')
+const route = inject('route')
 
 // 快捷搜索
 const keyword = ref('')
