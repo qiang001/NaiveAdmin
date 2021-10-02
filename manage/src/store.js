@@ -21,6 +21,7 @@ export const buildStore = (router) => {
         ifDark: false,
         menuOptions: [],
         menuOptionsWithoutIcon: [],
+        authKeys:[]
       }
     },
     getters: {
@@ -45,7 +46,7 @@ export const buildStore = (router) => {
         return HIDE_AUTH_KEYS
       },
       getSearchOptions(state) {
-        return searchOptions
+        return searchOptions.filter(item=>state.authKeys.some(key=>key==item.value))
       },
     },
     mutations: {
@@ -56,6 +57,7 @@ export const buildStore = (router) => {
         state.ifDark = bool
       },
       SET_AUTH(state, AUTH_KEYS) {
+        state.authKeys = [...AUTH_KEYS]
         const pages = buildPages(configuration)
         pages.forEach((page) => {
           const removeRoute = router.addRoute('Layout', page)
