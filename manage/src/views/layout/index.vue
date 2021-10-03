@@ -47,6 +47,7 @@
           ></handle-bar>
         </n-layout-header>
         <n-layout-content
+          id="page"
           :native-scrollbar="false"
           embedded
           :content-style="`${route.name != 'Layout' ? 'padding: 24px;' : ''}`"

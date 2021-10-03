@@ -24,8 +24,25 @@ import {
   NMessageProvider,
   zhCN,
 } from 'naive-ui'
+import { onMounted } from 'vue'
 import { useStore } from 'vuex'
 const store = useStore()
+// 本地持久化
+onMounted(() => {
+  const themeSetting = localStorage.getItem('themeSetting')
+  if (themeSetting) {
+    let { _mainColor, _ifDark } = JSON.parse(themeSetting)
+    store.commit('SET_MAINCOLOR', _mainColor)
+    store.commit('SET_IFDARK', _ifDark)
+  }
+  window.addEventListener('beforeunload', () => {
+    const themeSetting = {
+      _mainColor: store.state.mainColor,
+      _ifDark: store.state.ifDark,
+    }
+    localStorage.setItem('themeSetting', JSON.stringify(themeSetting))
+  })
+})
 </script>
 
 <style>

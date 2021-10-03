@@ -1,5 +1,11 @@
 import { unref, ref } from 'vue'
-export const useHandleBar = ({ loadingBar, router, route }) => {
+export const useHandleBar = ({
+  loadingBar,
+  router,
+  route,
+  launchFullscreen,
+  exitFullscreen,
+}) => {
   const ifFullpage = ref(false)
   const refreshing = ref(false)
   const history = ref([])
@@ -72,10 +78,6 @@ export const useHandleBar = ({ loadingBar, router, route }) => {
     })
   }
 
-  const setFullpage = (bool) => {
-    ifFullpage.value = bool
-  }
-
   function getTarget() {
     const { currentRoute } = router
     const { path, query } = unref(currentRoute)
@@ -91,6 +93,11 @@ export const useHandleBar = ({ loadingBar, router, route }) => {
       obj.targetQuery = queryString
     }
     return obj
+  }
+
+  const setFullpage = (bool) => {
+    bool ? launchFullscreen(document.body) : exitFullscreen()
+    ifFullpage.value = bool
   }
 
   return {

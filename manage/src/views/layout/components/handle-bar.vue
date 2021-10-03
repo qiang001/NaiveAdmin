@@ -222,7 +222,7 @@ function onShift() {
   if (shift < 0 && over > 0) {
     shift += over - 4
   }
-  if (shift > 0 && shift < tabWrapperWidth) {
+  if (shift > 0) {
     shift = 4
   }
   tabBar.style.setProperty('left', `${shift}px`, 'important')
@@ -245,7 +245,7 @@ const emit = defineEmits(['gotoTab', 'deleteTab', 'refreshPage', 'setFullpage'])
 
 // 切换tab
 const gotoTab = (name, ifCurrent) => {
-  emit('gotoTab', {name, ifCurrent})
+  emit('gotoTab', { name, ifCurrent })
 }
 
 // 删除tab

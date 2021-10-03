@@ -36,16 +36,24 @@
         </div>
       </n-tab-pane>
       <n-tab-pane name="content" tab="内容显示级权限">
-        <n-result status="404" title="还没做" description="应该是隐藏相关信息">
-        </n-result>
+        <div class="mt-3">
+          <n-result
+            status="404"
+            title="还没做"
+            description="应该是隐藏相关信息"
+          >
+          </n-result>
+        </div>
       </n-tab-pane>
-      <n-tab-pane name="operation" tab="(按钮)操作级权限">
-        <n-result
-          status="403"
-          title="还没做"
-          description="不隐藏, 但是点击或触发后会提示"
-        >
-        </n-result>
+      <n-tab-pane name="operation" tab="逻辑操作级权限">
+        <div class="mt-3">
+          <n-result
+            status="403"
+            title="还没做"
+            description="不隐藏, 但是点击或触发后会提示"
+          >
+          </n-result>
+        </div>
       </n-tab-pane>
     </n-tabs>
   </common-modal>

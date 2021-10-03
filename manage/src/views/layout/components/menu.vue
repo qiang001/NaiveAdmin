@@ -65,7 +65,6 @@ import { ref, computed, watch, inject } from 'vue'
 
 // 注入公共数据
 const store = inject('store')
-const router = inject('router')
 const route = inject('route')
 
 // 快捷搜索

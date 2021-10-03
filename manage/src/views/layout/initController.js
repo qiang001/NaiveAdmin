@@ -1,5 +1,6 @@
 import { useStore } from 'vuex'
 import { useRouter, useRoute } from 'vue-router'
+import { useFullscreen } from '@/hooks/useFullscreen'
 import { useMenu } from './hooks/useMenu'
 import { useSectionWidth } from './hooks/useSectionWidth'
 import { useHandleBar } from './hooks/useHandleBar'
@@ -7,7 +8,7 @@ export const initController = (loadingBar) => {
   const store = useStore()
   const router = useRouter()
   const route = useRoute()
-
+  const { launchFullscreen, exitFullscreen } = useFullscreen()
   const { widthSpan, sectionWidth, widthChange } = useSectionWidth()
 
   const {
@@ -18,7 +19,13 @@ export const initController = (loadingBar) => {
     deleteTab,
     refreshRoute,
     setFullpage,
-  } = useHandleBar({ loadingBar, router, route })
+  } = useHandleBar({
+    loadingBar,
+    router,
+    route,
+    launchFullscreen,
+    exitFullscreen,
+  })
 
   const { collapsed, inverted, collapsedChange, invertedChange, navigateTo } =
     useMenu({ refreshRoute, router })

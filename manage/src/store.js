@@ -21,7 +21,7 @@ export const buildStore = (router) => {
         ifDark: false,
         menuOptions: [],
         menuOptionsWithoutIcon: [],
-        authKeys:[]
+        authKeys: [],
       }
     },
     getters: {
@@ -46,7 +46,9 @@ export const buildStore = (router) => {
         return HIDE_AUTH_KEYS
       },
       getSearchOptions(state) {
-        return searchOptions.filter(item=>state.authKeys.some(key=>key==item.value))
+        return searchOptions.filter((item) =>
+          state.authKeys.some((key) => key == item.value)
+        )
       },
     },
     mutations: {
@@ -82,6 +84,7 @@ export const buildStore = (router) => {
       },
     },
   })
+
   // 初始化权限
   let initAuth = ['Console']
   initAuth = ALL_AUTH_KEYS
