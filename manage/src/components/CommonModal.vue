@@ -84,7 +84,7 @@ const ifFullscreen = ref(false)
 const handleFullscrenn = () => {
   !ifFullscreen.value
     ? launchFullscreen(
-        document.getElementById('common-modal').parentNode.parentNode
+        document.body
       )
     : exitFullscreen()
   ifFullscreen.value = !ifFullscreen.value
@@ -93,6 +93,7 @@ const handleFullscrenn = () => {
 watch(showModal, () => {
   if (!showModal.value) {
     ifFullscreen.value = false
+    exitFullscreen()
   }
 })
 

@@ -188,18 +188,5 @@ const confirm = async () => {
 </script>
 
 <style scoped>
-.close-btn {
-  height: 32px;
-  width: 32px;
-  border-radius: 50%;
-  background-color: transparent;
-  cursor: pointer;
-  transform: rotate(0);
-  transition: all 0.5s ease;
-}
-.close-btn:hover {
-  background-color: var(--border-color);
-  transform: rotate(180deg);
-  transition: all 0.5s ease;
-}
+
 </style>

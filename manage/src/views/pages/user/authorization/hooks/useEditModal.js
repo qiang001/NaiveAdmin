@@ -37,7 +37,7 @@ export const useEditModal = ({ getRoles, saveToDB }) => {
     })
     confirmLoading.value = false
     close()
-    // await getRoles(6)
+    await getRoles()
   }
 
   function setRole(data) {

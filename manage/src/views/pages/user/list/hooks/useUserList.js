@@ -1,10 +1,11 @@
 import { ref } from 'vue'
-export const useRoleList = ({ openEditModal, deleteFromDB }) => {
+export const useUserList = ({ openEditModal, deleteFromDB,initUsers }) => {
   const maxHeight = ref(0)
-  const otherTotalHeight = 126
+  const otherTotalHeight = 208
   const setMaxHeight = ({ width, height }) => {
     maxHeight.value = height - otherTotalHeight
   }
+
   const edit = (row) => {
     openEditModal({ data: row, type: 'edit' })
   }
@@ -17,7 +18,8 @@ export const useRoleList = ({ openEditModal, deleteFromDB }) => {
       maskClosable: false,
       onPositiveClick: async () => {
         d.loading = true
-        return await deleteFromDB({ data: row })
+        await deleteFromDB({ data: row })
+        return await initUsers()
       },
     })
   }
@@ -25,6 +27,6 @@ export const useRoleList = ({ openEditModal, deleteFromDB }) => {
     maxHeight,
     setMaxHeight,
     edit,
-    _delete,
+    _delete
   }
 }

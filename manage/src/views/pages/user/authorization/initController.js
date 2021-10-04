@@ -1,5 +1,5 @@
 import { useStore } from 'vuex'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useActionHeader } from './hooks/useActionHeader'
 import { useApiCenter } from './hooks/useApiCenter'
 import { useRoleList } from './hooks/useRoleList'
@@ -10,7 +10,11 @@ export const initController = () => {
   const store = useStore()
   const roles = ref([])
   // 接口层
-  const { exportData, getRoles, saveToDB,deleteFromDB } = useApiCenter(roles)
+  const { exportData, getRoles, saveToDB, deleteFromDB } = useApiCenter(roles)
+  // 初始化数据
+  onMounted(async () => {
+    await getRoles()
+  })
   // 编辑框逻辑
   const {
     ifEdit,
@@ -35,11 +39,11 @@ export const initController = () => {
     maxHeight,
     setMaxHeight,
     edit: editRole,
-    _delete:deleteRole
+    _delete: deleteRole,
   } = useRoleList({
     getRoles,
     openEditModal,
-    deleteFromDB
+    deleteFromDB,
   })
 
   // 最终对外暴露
