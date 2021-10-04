@@ -69,10 +69,11 @@ import {
   NLayoutContent,
   useLoadingBar,
   useMessage,
+  useDialog
 } from 'naive-ui'
 
 window.$message = useMessage()
-
+window.$dialog = useDialog()
 const loadingBar = useLoadingBar()
 
 import { initController } from './initController'

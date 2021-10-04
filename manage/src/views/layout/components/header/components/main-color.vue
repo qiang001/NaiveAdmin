@@ -7,7 +7,7 @@
       trigger="click"
       :on-select="(key) => store.commit('SET_MAINCOLOR', key)"
     >
-      <n-button size="small">主题切换</n-button>
+      <n-button size="small" :text="true">主题切换</n-button>
     </n-dropdown>
   </div>
 </template>

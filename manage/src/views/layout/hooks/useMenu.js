@@ -9,12 +9,14 @@ export const useMenu = ({ refreshRoute, router }) => {
       collapsed.value = _collapsed
       inverted.value = _inverted
     }
-    window.addEventListener('beforeunload', () => {
-      const menuSetting = {
-        _collapsed: collapsed.value,
-        _inverted: inverted.value,
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'hidden') {
+        const menuSetting = {
+          _collapsed: collapsed.value,
+          _inverted: inverted.value,
+        }
+        localStorage.setItem('menuSetting', JSON.stringify(menuSetting))
       }
-      localStorage.setItem('menuSetting', JSON.stringify(menuSetting))
     })
   })
   const collapsedChange = (val) => {

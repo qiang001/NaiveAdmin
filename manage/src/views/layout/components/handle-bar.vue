@@ -79,27 +79,30 @@
         <right-icon />
       </n-icon>
     </n-element>
-    <div class="ml-auto d-flex a-center j-center refresh-btn">
-      <n-spin :show="refreshing" size="tiny">
-        <n-button @click="refresh" size="tiny">
-          <template #icon>
-            <n-icon>
-              <refresh-icon />
-            </n-icon>
-          </template>
-          刷新
-        </n-button>
-      </n-spin>
+    <div class="ml-1 d-flex a-center j-center refresh-btn">
+      <n-button
+        @click="refresh"
+        size="small"
+        :text="true"
+        :loading="refreshing"
+        :disabled="refreshing"
+      >
+        <template #icon>
+          <n-icon>
+            <refresh-icon />
+          </n-icon>
+        </template>
+      </n-button>
     </div>
-    <div class="ml-1 d-flex a-center j-center fullpage-btn">
-      <n-button @click="setFullpage" size="tiny">
+    <div class="mx-1 d-flex a-center j-center fullpage-btn">
+      <n-button @click="setFullpage" size="small" :text="true">
         <template #icon>
           <n-icon>
             <fullpage-icon v-if="!ifFullpage" />
             <normal-page-icon v-else />
           </n-icon>
         </template>
-        {{ ifFullpage ? '退出全屏' : '页面全屏' }}
+        <!-- {{ ifFullpage ? '退出全屏' : '页面全屏' }} -->
       </n-button>
     </div>
   </div>
@@ -107,14 +110,14 @@
 
 <script setup>
 import {
-  ChevronLeftRound as LeftIcon,
-  ChevronRightRound as RightIcon,
-  RefreshRound as RefreshIcon,
+  DoubleArrowRound as LeftIcon,
+  DoubleArrowRound as RightIcon,
+  RefreshSharp as RefreshIcon,
   CloseOutlined as CloseIcon,
   FullscreenFilled as FullpageIcon,
   FullscreenExitFilled as NormalPageIcon,
 } from '@vicons/material'
-import { NIcon, NSpin, NButton, NElement } from 'naive-ui'
+import { NIcon, NButton, NElement } from 'naive-ui'
 import draggable from 'vuedraggable/src/vuedraggable'
 import {
   ref,
@@ -269,12 +272,12 @@ const setFullpage = () => {
 <style scoped>
 .handle-bar {
   border-bottom: 1px solid var(--border-color);
-  padding-right: 10px;
   position: relative;
   height: 34px;
 }
 
 #left-arrow {
+  transform: rotate(180deg);
   overflow: hidden;
   height: 100%;
   cursor: pointer;
@@ -285,7 +288,6 @@ const setFullpage = () => {
 }
 
 #right-arrow {
-  margin-right: 10px;
   border-right: 1px solid var(--border-color);
   overflow: hidden;
   height: 100%;
@@ -366,9 +368,5 @@ const setFullpage = () => {
 }
 .ghost {
   opacity: 0.5;
-}
-
-.refresh-btn {
-  padding-top: 2px;
 }
 </style>

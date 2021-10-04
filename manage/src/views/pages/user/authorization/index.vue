@@ -1,7 +1,7 @@
 <template>
   <page-panel :title="'权限管理'" @resize="setMaxHeight">
     <action-header @exportExcel="exportExcel" @add="addRole"></action-header>
-    <role-list @edit="editRole"></role-list>
+    <role-list @edit="editRole" @_delete="deleteRole"></role-list>
     <edit-modal
       @cancel="closeEditModal"
       @confirm="confirmEditModal"
@@ -21,6 +21,7 @@ const {
   maxHeight,
   setMaxHeight,
   editRole,
+  deleteRole,
   ifEdit,
   editModal,
   role,
@@ -29,7 +30,7 @@ const {
   confirmEditModal,
 } = initController()
 
-provide('store',store)
+provide('store', store)
 
 import PagePanel from '@/components/PagePanel.vue'
 

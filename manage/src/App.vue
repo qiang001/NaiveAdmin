@@ -7,7 +7,9 @@
     <!-- <n-theme-editor> -->
     <n-loading-bar-provider>
       <n-message-provider>
-        <router-view></router-view>
+        <n-dialog-provider>
+          <router-view></router-view>
+        </n-dialog-provider>
       </n-message-provider>
     </n-loading-bar-provider>
     <!-- </n-theme-editor> -->
@@ -22,6 +24,7 @@ import {
   NThemeEditor,
   NLoadingBarProvider,
   NMessageProvider,
+  NDialogProvider,
   zhCN,
 } from 'naive-ui'
 import { onMounted } from 'vue'
@@ -35,12 +38,14 @@ onMounted(() => {
     store.commit('SET_MAINCOLOR', _mainColor)
     store.commit('SET_IFDARK', _ifDark)
   }
-  window.addEventListener('beforeunload', () => {
-    const themeSetting = {
-      _mainColor: store.state.mainColor,
-      _ifDark: store.state.ifDark,
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') {
+      const themeSetting = {
+        _mainColor: store.state.mainColor,
+        _ifDark: store.state.ifDark,
+      }
+      localStorage.setItem('themeSetting', JSON.stringify(themeSetting))
     }
-    localStorage.setItem('themeSetting', JSON.stringify(themeSetting))
   })
 })
 </script>

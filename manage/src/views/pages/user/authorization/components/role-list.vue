@@ -9,10 +9,13 @@
 </template>
 
 <script setup>
-const emit = defineEmits(['edit'])
+const emit = defineEmits(['edit', '_delete'])
 import { h, inject } from 'vue'
-import { NTag, NDataTable } from 'naive-ui'
-import { EditNoteOutlined as EditIcon } from '@vicons/material'
+import { NTag, NDataTable, NSpace } from 'naive-ui'
+import {
+  EditNoteOutlined as EditIcon,
+  DeleteFilled as DeleteIcon,
+} from '@vicons/material'
 import { useIconButton } from '@/hooks/useIconButton.js'
 const maxHeight = inject('maxHeight')
 const data = inject('roles')
@@ -62,13 +65,26 @@ function createColumns() {
       title: '操作',
       key: 'actions',
       render(row) {
-        return useIconButton(EditIcon, '编辑', () => emit('edit', row))
+        return h(NSpace, null, {
+          default: () => [
+            useIconButton({
+              type: 'default',
+              icon: EditIcon,
+              text: '编辑',
+              event: () => emit('edit', row),
+            }),
+            useIconButton({
+              type: 'default',
+              dashed: true,
+              icon: DeleteIcon,
+              text: '删除',
+              event: () => emit('_delete', row),
+            }),
+          ],
+        })
       },
-      width: 124,
+      width: 240,
       fixed: 'right',
-      ellipsis: {
-        tooltip: true,
-      },
     },
   ]
 }

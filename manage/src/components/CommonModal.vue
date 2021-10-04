@@ -23,11 +23,14 @@
         <div class="d-flex a-center j-center">
           <n-space>
             <n-button @click="cancel">{{ cancelBtnText }}</n-button>
-            <n-spin :show="confirmLoading" size="tiny">
-              <n-button @click="confirm" type="primary">
-                {{ confirmBtnText }}
-              </n-button>
-            </n-spin>
+            <n-button
+              @click="confirm"
+              type="primary"
+              :loading="confirmLoading"
+              :disabled="confirmLoading"
+            >
+              {{ confirmBtnText }}
+            </n-button>
           </n-space>
         </div>
       </template>
@@ -42,7 +45,7 @@ import {
   FullscreenExitFilled as NormalscreenIcon,
 } from '@vicons/material'
 import { NIcon } from 'naive-ui'
-import { toRefs, ref, computed,watch } from 'vue'
+import { toRefs, ref, computed, watch } from 'vue'
 
 import { NButton, NModal, NCard, NSpace, NSpin } from 'naive-ui'
 
@@ -87,8 +90,8 @@ const handleFullscrenn = () => {
   ifFullscreen.value = !ifFullscreen.value
 }
 
-watch(showModal,()=>{
-  if(!showModal.value){
+watch(showModal, () => {
+  if (!showModal.value) {
     ifFullscreen.value = false
   }
 })

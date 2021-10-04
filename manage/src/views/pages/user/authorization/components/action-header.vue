@@ -2,16 +2,19 @@
   <div class="d-flex a-center pb-1">
     <div class="ml-auto">
       <n-space>
-        <n-spin :show="exportLoading" size="tiny">
-          <n-button @click="exportExcel" size="small">
-            <template #icon>
-              <n-icon>
-                <excel-icon />
-              </n-icon>
-            </template>
-            {{ exportLoading ? '云端下载中...' : '导出Excel' }}
-          </n-button>
-        </n-spin>
+        <n-button
+          @click="exportExcel"
+          size="small"
+          :loading="exportLoading"
+          :disabled="exportLoading"
+        >
+          <template #icon>
+            <n-icon>
+              <excel-icon />
+            </n-icon>
+          </template>
+          {{ exportLoading ? '云端下载中...' : '导出Excel' }}
+        </n-button>
         <n-button @click="add" type="primary" size="small">
           <template #icon>
             <n-icon>
@@ -26,7 +29,7 @@
 </template>
 
 <script setup>
-import { NButton, NSpace, NIcon, NSpin } from 'naive-ui'
+import { NButton, NSpace, NIcon } from 'naive-ui'
 import { AddSharp as AddIcon } from '@vicons/material'
 import { FileExcelOutlined as ExcelIcon } from '@vicons/antd'
 import { inject } from 'vue'

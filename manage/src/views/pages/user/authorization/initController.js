@@ -10,7 +10,7 @@ export const initController = () => {
   const store = useStore()
   const roles = ref([])
   // 接口层
-  const { exportData, getRoles, saveToDB } = useApiCenter(roles)
+  const { exportData, getRoles, saveToDB,deleteFromDB } = useApiCenter(roles)
   // 编辑框逻辑
   const {
     ifEdit,
@@ -35,9 +35,11 @@ export const initController = () => {
     maxHeight,
     setMaxHeight,
     edit: editRole,
+    _delete:deleteRole
   } = useRoleList({
     getRoles,
     openEditModal,
+    deleteFromDB
   })
 
   // 最终对外暴露
@@ -56,6 +58,7 @@ export const initController = () => {
     addRole,
     setMaxHeight,
     editRole,
+    deleteRole,
     closeEditModal,
     confirmEditModal,
   }

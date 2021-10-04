@@ -1,10 +1,12 @@
 import { NButton, NIcon } from 'naive-ui'
 import { h } from 'vue'
-export const useIconButton = (icon, text, event) => {
+export const useIconButton = ({ type = 'default', dashed = false,icon, text, event }) => {
   return h(
     NButton,
     {
       size: 'small',
+      type,
+      dashed,
       onClick: event,
     },
     {

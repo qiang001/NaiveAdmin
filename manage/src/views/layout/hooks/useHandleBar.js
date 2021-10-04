@@ -13,14 +13,18 @@ export const useHandleBar = ({
   addHistory(route.name, route.meta.label)
 
   router.beforeEach((to, from, next) => {
-    loadingBar.start()
+    if(to.name!='Redirect'){
+      loadingBar.start()
+    }
     next()
   })
 
   router.afterEach((to, from, failure) => {
     failure ? loadingBar.error() : success()
     function success() {
-      loadingBar.finish()
+      if(to.name!='Redirect'){
+        loadingBar.finish()
+      }
       addHistory(to.name, to.meta.label)
     }
   })

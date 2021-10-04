@@ -60,9 +60,21 @@ export const useApiCenter = (roles) => {
       }, 1500)
     })
   }
+  // 删除数据
+  const deleteFromDB = async ({ data }) => {
+    console.log(`删除...`)
+    return new Promise((res) => {
+      setTimeout(() => {
+        $message.success(`恭喜你，删除成功！`)
+        console.log(`删除完成`, data)
+        res()
+      }, 1500)
+    })
+  }
   return {
     exportData,
     getRoles,
     saveToDB,
+    deleteFromDB
   }
 }

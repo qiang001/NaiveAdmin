@@ -198,7 +198,7 @@ export const getColors = (ifDark) => {
       },
       Checkbox: {
         checkMarkColor: !ifDark ? '#fff' : '#CDCDD4FF',
-      },
+      }
     },
     purple: {
       key: 'purple',
@@ -259,6 +259,7 @@ export const themeOverrides = (mainColor, ifDark) => {
 
   let Checkbox = {}
   if (setting.Checkbox) Checkbox = { ...Checkbox, ...setting.Checkbox }
+
   let Spin = {
     sizeTiny:'18px'
   }
