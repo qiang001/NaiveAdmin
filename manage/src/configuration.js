@@ -200,9 +200,45 @@ export const getColors = (ifDark) => {
         checkMarkColor: !ifDark ? '#fff' : '#CDCDD4FF',
       }
     },
+    luckin: {
+      key: 'luckin',
+      label: '瑞幸蓝',
+      common: {
+        baseColor: '#fff',
+        primaryColor: !ifDark ? '#172991' : '#402db6',
+        primaryColorHover: !ifDark ? '#33469e' : '#281d8f',
+        primaryColorPressed: !ifDark ? '#0c176b' : '#634fc2',
+        primaryColorSuppl: !ifDark ? '#33469e' : '#281d8f',
+      },
+      Menu: {
+        // 箭头原色
+        arrowColor: !ifDark ? '#333639' : '#ffffffd1',
+        // 箭头激活
+        arrowColorHover: !ifDark ? '#172991FF' : '#634fc2',
+        arrowColorChildActive: !ifDark ? '#172991FF' : '#634fc2',
+        arrowColorActive: !ifDark ? '#172991FF' : '#634fc2',
+        // 背景激活
+        itemColorActive: !ifDark ? '#1729911A' : '#000000FF',
+        // 内容激活
+        itemTextColorActive: !ifDark ? '#172991FF' : '#634fc2',
+        itemIconColorActive: !ifDark ? '#172991FF' : '#634fc2',
+        itemTextColorChildActive: !ifDark ? '#172991FF' : '#634fc2',
+        itemIconColorChildActive: !ifDark ? '#172991FF' : '#634fc2',
+        itemTextColorHover: !ifDark ? '#172991FF' : '#634fc2',
+        itemIconColorHover: !ifDark ? '#172991FF' : '#634fc2',
+      },
+      Checkbox: {
+        checkMarkColor: !ifDark ? '#fff' : '#CDCDD4FF',
+      },
+      Tabs:{
+        tabTextColorActiveLine:!ifDark ? '#172991' : '#8873ee',
+        tabTextColorHoverLine:!ifDark ? '#172991' : '#8873ee',
+        barColor:!ifDark ? '#172991' : '#8873ee',
+      }
+    },
     purple: {
       key: 'purple',
-      label: '基佬紫',
+      label: '薰衣草紫',
       common: {
         baseColor: '#fff',
         primaryColor: !ifDark ? '#722ed1' : '#9951ff',
@@ -260,6 +296,9 @@ export const themeOverrides = (mainColor, ifDark) => {
   let Checkbox = {}
   if (setting.Checkbox) Checkbox = { ...Checkbox, ...setting.Checkbox }
 
+  let Tabs = {}
+  if (setting.Tabs) Tabs = { ...Tabs, ...setting.Tabs }
+
   let Spin = {
     sizeTiny:'18px'
   }
@@ -267,6 +306,7 @@ export const themeOverrides = (mainColor, ifDark) => {
     common,
     Menu,
     Checkbox,
+    Tabs,
     Spin
   }
 }

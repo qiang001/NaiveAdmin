@@ -20,7 +20,6 @@ export const useEditModal = ({ getRoles, saveToDB }) => {
   }
 
   const close = () => {
-    resetRole()
     editModal.value = false
   }
 

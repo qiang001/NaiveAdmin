@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-export const useUserList = ({ openEditModal, deleteFromDB,initUsers }) => {
+export const useUserList = ({ openEditModal, deleteFromDB,queryUsers }) => {
   const maxHeight = ref(0)
   const otherTotalHeight = 208
   const setMaxHeight = ({ width, height }) => {
@@ -19,7 +19,7 @@ export const useUserList = ({ openEditModal, deleteFromDB,initUsers }) => {
       onPositiveClick: async () => {
         d.loading = true
         await deleteFromDB({ data: row })
-        return await initUsers()
+        return await queryUsers()
       },
     })
   }

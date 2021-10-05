@@ -21,7 +21,12 @@
       <n-form-item label="用户名" path="username" rule-path="user.username">
         <n-input v-model:value="user.username" placeholder="输入用户名" />
       </n-form-item>
-      <n-form-item label="密码" path="password" rule-path="user.password" v-if="!ifEdit">
+      <n-form-item
+        label="密码"
+        path="password"
+        rule-path="user.password"
+        v-if="!ifEdit"
+      >
         <n-input
           v-model:value="user.password"
           placeholder="输入密码"
@@ -38,14 +43,20 @@
           clearable
         />
       </n-form-item>
+      <n-form-item label="当前状态">
+        <n-switch v-model:value="user.ifActive">
+          <template #checked>已激活</template>
+          <template #unchecked>已离职</template>
+        </n-switch>
+      </n-form-item>
     </n-form>
   </common-modal>
 </template>
 
 <script setup>
-import { NInput, NForm, NFormItem,NSelect } from 'naive-ui'
+import { NInput, NForm, NFormItem, NSelect, NSwitch } from 'naive-ui'
 import CommonModal from '@/components/CommonModal.vue'
-import { ref, inject, watch, unref } from 'vue'
+import { ref, inject } from 'vue'
 // 注入状态数据以进行 UI渲染 UX交互
 const ifEdit = inject('ifEdit')
 const editModal = inject('editModal')

@@ -2,6 +2,7 @@
   <page-panel :title="'用户列表'" @resize="setMaxHeight">
     <action-header
       @add="addUser"
+      @changeStatus="changeStatus"
       @clear="clearConditions"
       @changeSort="changeSort"
       @search="searchUsers"
@@ -27,6 +28,7 @@ const {
   sort,
   searching,
   addUser,
+  changeStatus,
   clearConditions,
   searchUsers,
   changeSort,
@@ -58,7 +60,7 @@ provide('searching', readonly(searching))
 provide('sort', sort)
 
 import UserList from './components/user-list.vue'
-provide('users', readonly(users))
+provide('users', users)
 provide('loading', readonly(loading))
 provide('maxHeight', readonly(maxHeight))
 

@@ -3,20 +3,42 @@
     :max-height="maxHeight"
     :columns="columns"
     :data="data"
-    :scroll-x="960"
+    :scroll-x="1080"
     :loading="loading"
-  />
+  >
+    <template #empty>
+      <div>
+        <img
+          src="../../../../../assets/images/user.svg"
+          alt=""
+          style="width: 360px"
+          v-if="!store.state.ifDark"
+        />
+        <img
+          src="../../../../../assets/images/user-dark.svg"
+          alt=""
+          style="width: 360px"
+          v-else
+        />
+        <div class="d-flex a-center j-center">
+          <n-gradient-text type="primary" :size="18">无数据</n-gradient-text>
+        </div>
+      </div>
+    </template>
+  </n-data-table>
 </template>
 
 <script setup>
 const emit = defineEmits(['edit', '_delete'])
 import { h, inject } from 'vue'
-import { NTag, NDataTable, NSpace } from 'naive-ui'
+import { NTag, NDataTable, NSpace, NGradientText } from 'naive-ui'
 import {
   EditNoteOutlined as EditIcon,
   DeleteFilled as DeleteIcon,
 } from '@vicons/material'
 import { useIconButton } from '@/hooks/useIconButton.js'
+import { useStatusTag } from '@/hooks/useStatusTag.js'
+const store = inject('store')
 const maxHeight = inject('maxHeight')
 const data = inject('users')
 const loading = inject('loading')
@@ -39,9 +61,9 @@ function createColumns() {
     },
     {
       title: '角色列表',
-      key: 'tags',
+      key: 'roles',
       render(row) {
-        const tags = row.tags.map((tagKey) => {
+        const tags = row.roles.map((tagKey) => {
           return h(
             NTag,
             {
@@ -57,6 +79,29 @@ function createColumns() {
         })
         return tags
       },
+      ellipsis: {
+        tooltip: true,
+      },
+    },
+    {
+      title: '当前状态',
+      key: 'ifActive',
+      render(row) {
+        return row.ifActive
+          ? useStatusTag({
+              type: 'success',
+              text: '已激活',
+              ifBorder: true,
+              ifDark: store.state.ifDark,
+            })
+          : useStatusTag({
+              type: 'disabled',
+              text: '已离职',
+              ifBorder: true,
+              ifDark: store.state.ifDark,
+            })
+      },
+      align: 'center',
       ellipsis: {
         tooltip: true,
       },
@@ -83,7 +128,7 @@ function createColumns() {
           ],
         })
       },
-      width: 240,
+      width: 180,
       fixed: 'right',
     },
   ]

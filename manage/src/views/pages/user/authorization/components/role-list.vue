@@ -5,18 +5,39 @@
     :data="data"
     virtual-scroll
     :scroll-x="800"
-  />
+  >
+    <template #empty>
+      <div>
+        <img
+          src="../../../../../assets/images/auth.svg"
+          alt=""
+          style="width: 360px"
+          v-if="!store.state.ifDark"
+        />
+        <img
+          src="../../../../../assets/images/auth-dark.svg"
+          alt=""
+          style="width: 360px"
+          v-else
+        />
+        <div class="d-flex a-center j-center">
+          <n-gradient-text type="primary" :size="18">无数据</n-gradient-text>
+        </div>
+      </div>
+    </template>
+  </n-data-table>
 </template>
 
 <script setup>
 const emit = defineEmits(['edit', '_delete'])
 import { h, inject } from 'vue'
-import { NTag, NDataTable, NSpace } from 'naive-ui'
+import { NTag, NDataTable, NSpace, NGradientText } from 'naive-ui'
 import {
   EditNoteOutlined as EditIcon,
   DeleteFilled as DeleteIcon,
 } from '@vicons/material'
 import { useIconButton } from '@/hooks/useIconButton.js'
+const store = inject('store')
 const maxHeight = inject('maxHeight')
 const data = inject('roles')
 const columns = createColumns()

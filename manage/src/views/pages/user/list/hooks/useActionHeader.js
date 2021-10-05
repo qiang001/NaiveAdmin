@@ -2,32 +2,42 @@ import { ref } from 'vue'
 export const useActionHeader = ({
   openEditModal,
   resetFilters,
+  setStatus,
   resetSort,
   setSort,
-  initUsers,
+  resetPage,
+  queryUsers,
 }) => {
   const add = () => {
     openEditModal({ type: 'create' })
   }
-
+  const changeStatus = async (val) => {
+    setStatus(val)
+    resetPage()
+    await queryUsers()
+  }
   const clear = async () => {
     resetFilters()
     resetSort()
-    await initUsers()
+    resetPage()
+    await queryUsers()
   }
   const searching = ref(false)
   const search = async () => {
     searching.value = true
-    await initUsers()
+    resetPage()
+    await queryUsers()
     searching.value = false
   }
 
   const changeSort = async (val) => {
     setSort(val)
-    await initUsers()
+    resetPage()
+    await queryUsers()
   }
   return {
     add,
+    changeStatus,
     clear,
     searching,
     search,

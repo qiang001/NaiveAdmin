@@ -41,9 +41,17 @@
               </n-icon>
             </template>
           </n-input>
+          <div class="d-flex a-center" style="line-height: 0;height: 100%;">
+            <n-radio-group v-model:value="filters.ifActive" name="status" :on-update:value="changeStatus">
+            <n-space>
+              <n-radio :value="'true'"> 已激活 </n-radio>
+              <n-radio :value="'false'"> 已离职 </n-radio>
+            </n-space>
+          </n-radio-group>
+          </div>
         </n-space>
       </div>
-      <div class="mx-1">
+      <div class="mx-1" style="flex-shrink: 0">
         <n-space>
           <n-button @click="clear">重置</n-button>
           <n-button
@@ -79,7 +87,7 @@
 </template>
 
 <script setup>
-import { NInput, NButton, NSpace, NIcon } from 'naive-ui'
+import { NInput, NButton, NSpace, NIcon,NRadio,NRadioGroup } from 'naive-ui'
 import { AddSharp as AddIcon } from '@vicons/material'
 import { SearchOutlined as SearchIcon } from '@vicons/antd'
 import {
@@ -93,10 +101,14 @@ const searching = inject('searching')
 const sort = inject('sort')
 
 // 暴露事件
-const emit = defineEmits(['add', 'clear', 'search', 'changeSort'])
+const emit = defineEmits(['add', 'changeStatus','clear', 'search', 'changeSort'])
 
 const add = () => {
   emit('add')
+}
+
+const changeStatus = (val) => {
+  emit('changeStatus',val)
 }
 
 const clear = () => {

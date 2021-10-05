@@ -19,13 +19,15 @@ export const initController = () => {
   const {
     filters,
     resetFilters,
+    setStatus,
     sort,
     resetSort,
     setSort,
     pagination,
     changePage,
     changePageSize,
-    initUsers,
+    resetPage,
+    queryUsers,
   } = useFilters(getUsers)
 
   // 编辑框
@@ -38,11 +40,12 @@ export const initController = () => {
     open: openEditModal,
     close: closeEditModal,
     confirm: confirmEditModal,
-  } = useEditModal({ getRoleOptions, saveToDB, initUsers })
+  } = useEditModal({ getRoleOptions, saveToDB, resetPage, queryUsers })
 
   // Action 页面
   const {
     add: addUser,
+    changeStatus,
     clear: clearConditions,
     searching,
     search: searchUsers,
@@ -50,9 +53,11 @@ export const initController = () => {
   } = useActionHeader({
     openEditModal,
     resetFilters,
+    setStatus,
     resetSort,
     setSort,
-    initUsers,
+    resetPage,
+    queryUsers,
   })
 
   // 表格
@@ -64,7 +69,7 @@ export const initController = () => {
   } = useUserList({
     openEditModal,
     deleteFromDB,
-    initUsers,
+    queryUsers,
   })
 
   // 最终对外暴露
@@ -89,6 +94,7 @@ export const initController = () => {
     closeEditModal,
     confirmEditModal,
     addUser,
+    changeStatus,
     clearConditions,
     searchUsers,
     changeSort,

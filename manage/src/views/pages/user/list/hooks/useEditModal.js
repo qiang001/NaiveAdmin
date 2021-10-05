@@ -1,10 +1,16 @@
 import { ref, reactive, unref } from 'vue'
-export const useEditModal = ({ getRoleOptions, saveToDB, initUsers }) => {
+export const useEditModal = ({
+  getRoleOptions,
+  saveToDB,
+  resetPage,
+  queryUsers,
+}) => {
   // 维护状态数据
   const ifEdit = ref(false)
   const editModal = ref(false)
   const confirmLoading = ref(false)
   const user = reactive({
+    id: null,
     name: '',
     username: '',
     password: '',
@@ -24,30 +30,35 @@ export const useEditModal = ({ getRoleOptions, saveToDB, initUsers }) => {
   }
 
   const close = () => {
-    resetUser()
     editModal.value = false
   }
 
   const confirm = async () => {
     confirmLoading.value = true
-    await saveToDB({
-      data: unref(user),
+    let obj = {
+      data: { ...unref(user) },
       type: ifEdit.value ? 'edit' : 'create',
-    })
+    }
+    await saveToDB(obj)
     confirmLoading.value = false
     close()
-    await initUsers()
+    if (obj.type == 'create') {
+      resetPage()
+    }
+    await queryUsers()
   }
 
   function setUser(data) {
+    user.id = data.id
     user.name = data.name
     user.username = data.username
-    user.roles = data.tags
+    user.roles = [...data.roles]
     user.ifActive = data.ifActive
     ifEdit.value = true
   }
 
   function resetUser() {
+    user.id = null
     user.name = ''
     user.username = ''
     user.password = ''
@@ -57,7 +68,7 @@ export const useEditModal = ({ getRoleOptions, saveToDB, initUsers }) => {
   }
 
   // 最终对外暴露
-  const data = { ifEdit, editModal, confirmLoading, user,roleOptions }
+  const data = { ifEdit, editModal, confirmLoading, user, roleOptions }
   const methods = { open, close, confirm }
   return {
     ...data,

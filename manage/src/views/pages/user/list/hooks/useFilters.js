@@ -3,6 +3,7 @@ export const useFilters = (getUsers) => {
   const filters = reactive({
     name: '',
     username: '',
+    ifActive: null,
   })
   const sort = ref('')
   const pagination = reactive({
@@ -12,25 +13,33 @@ export const useFilters = (getUsers) => {
     sizes: [5, 10, 15, 20],
   })
 
-  function resetFilters(){
+  function resetFilters() {
     filters.name = ''
     filters.username = ''
+    filters.ifActive = null
   }
 
-  function resetSort(){
+  function setStatus(val) {
+    filters.ifActive = val
+  }
+
+  function resetSort() {
     sort.value = ''
   }
 
-  function setSort(val){
+  function setSort(val) {
     sort.value = val
   }
 
+  function resetPage(){
+    pagination.page = 1
+  }
+
   onMounted(async () => {
-    await initUsers()
+    await queryUsers()
   })
 
-  const initUsers = async () => {
-    pagination.page = 1
+  const queryUsers = async () => {
     const { total } = await getUsers({
       filters: unref(filters),
       sort: unref(sort),
@@ -51,16 +60,19 @@ export const useFilters = (getUsers) => {
 
   const changePageSize = async (num) => {
     pagination.pageSize = num
-    await initUsers()
+    resetPage()
+    await queryUsers()
   }
   return {
     filters,
     resetFilters,
+    setStatus,
     sort,
     resetSort,
     setSort,
     pagination,
-    initUsers,
+    resetPage,
+    queryUsers,
     changePage,
     changePageSize,
   }
