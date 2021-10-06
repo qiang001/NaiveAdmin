@@ -32,7 +32,7 @@ module.exports = {
          }
         let skip = (parseInt(page)-1)*parseInt(pageSize)
         let limit = parseInt(pageSize)
-         let [total,payload] = await Services.getUsers(query,skip,limit)
+         let [total,payload] = await Services.getUsers({query,skip,limit,sort})
          ctx.body = {
              total,
              payload

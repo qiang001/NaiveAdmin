@@ -1,3 +1,4 @@
+import request from '@/api/index.js'
 export const useApiCenter = (roles) => {
   // 导出表格
   const exportData = async () => {
@@ -9,74 +10,39 @@ export const useApiCenter = (roles) => {
       }, 1500)
     })
   }
-  // mockdata
-  const samples = [
-    {
-      key: 0,
-      name: '管理员',
-      desc: '最高级别权限',
-      tags: [
-        'Good',
-        'GoodList',
-        'GoodDetails',
-        'GoodCategory',
-        'Overview',
-        'Customer',
-        'CustomerList',
-        'CustomerDetails',
-        'CustomerType',
-      ],
-    },
-    {
-      key: 1,
-      name: '运营人员',
-      desc: '市场销售相关权限',
-      tags: ['Customer', 'CustomerList', 'CustomerDetails', 'CustomerType'],
-    },
-    {
-      key: 2,
-      name: '仓库管理员',
-      desc: '管理仓库流程相关权限管理仓库流程相关权限',
-      tags: ['BillionsAssistance'],
-    },
-  ]
-  const totalData = Array.apply(null, { length: 100 }).map((_, index) => ({
-    key: index,
-    name: `${samples[index % 3].name} ${index}`,
-    desc: samples[index % 3].desc,
-    tags: samples[index % 3].tags,
-  }))
+
   // 拉取角色列表
   const getRoles = async () => {
-    roles.value = totalData
-    return console.log('数据加载完成')
+    try {
+      roles.value = await request.get('/v1/roles')
+    } catch (error) {
+      console.log(error)
+    }
   }
   // 保存编辑后的数据
   const saveToDB = async ({ data, type }) => {
-    console.log(`${type}...`)
-    return new Promise((res) => {
-      setTimeout(() => {
-        $message.success(`恭喜你，${type}成功！`)
-        console.log(`${type}完成`, data)
-        res()
-      }, 1500)
-    })
+    try {
+      type == 'edit'
+      ? await request.put(`/v1/roles/${data._id}`, data)
+      : await request.post('/v1/roles', data)
+      $message.success(`恭喜你，${type}成功！`)
+    } catch (error) {
+      throw new Error(error)
+    }
   }
   // 删除数据
   const deleteFromDB = async ({ data }) => {
-    console.log(`删除...`)
-    return new Promise((res) => {
-      setTimeout(() => {
-        $message.success(`恭喜你，删除成功！`)
-        console.log(`删除完成`, data)
-        res()
-      }, 1500)
-    })
+    try {
+      await request.delete(`/v1/roles/${data._id}`)
+      $message.success(`恭喜你，删除成功！`)
+    } catch (error) {
+      $message.error(error)
+    }
   }
   return {
     exportData,
     getRoles,
     saveToDB,
-    deleteFromDB
+    deleteFromDB,
   }
 }

@@ -1,13 +1,15 @@
-import { ref, reactive } from 'vue'
+import { ref, reactive, unref } from 'vue'
 export const useEditModal = ({ getRoles, saveToDB }) => {
   // 维护状态数据
   const ifEdit = ref(false)
   const editModal = ref(false)
   const confirmLoading = ref(false)
   const role = reactive({
+    _id: null,
     name: '',
     desc: '',
-    tags: [],
+    pageAuths: [],
+    pageCheckedAuths: [],
   })
   // 核心方法
   const open = ({ data, type }) => {
@@ -23,33 +25,37 @@ export const useEditModal = ({ getRoles, saveToDB }) => {
     editModal.value = false
   }
 
-  const confirm = async ({ authKeys, checkedKeys }) => {
-    confirmLoading.value = true
-    await saveToDB({
-      data: {
-        name: role.name,
-        desc: role.desc,
-        authKeys,
-        checkedKeys,
-      },
-      type: ifEdit.value ? 'edit' : 'create',
-    })
-    confirmLoading.value = false
-    close()
-    await getRoles()
+  const confirm = async ({ pageAuths, pageCheckedAuths }) => {
+    try {
+      confirmLoading.value = true
+      await saveToDB({
+        data: { ...unref(role), pageAuths, pageCheckedAuths },
+        type: ifEdit.value ? 'edit' : 'create',
+      })
+      confirmLoading.value = false
+      close()
+      await getRoles()
+    } catch (error) {
+      confirmLoading.value = false
+      $message.error(error.message)
+    }
   }
 
   function setRole(data) {
+    role._id = data._id
     role.name = data.name
     role.desc = data.desc
-    role.tags = data.tags
+    role.pageAuths = data.pageAuths
+    role.pageCheckedAuths = data.pageCheckedAuths
     ifEdit.value = true
   }
 
   function resetRole() {
+    role._id = null
     role.name = ''
     role.desc = ''
-    role.tags = []
+    role.pageAuths = []
+    role.pageCheckedAuths = []
     ifEdit.value = false
   }
   // 最终对外暴露

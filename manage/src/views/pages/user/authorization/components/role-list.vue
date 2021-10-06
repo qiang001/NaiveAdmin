@@ -59,10 +59,16 @@ function createColumns() {
       },
     },
     {
+      title: '包含人数',
+      key: 'usersCount',
+      width: 100,
+      align:'center'
+    },
+    {
       title: '权限列表',
-      key: 'tags',
+      key: 'pageCheckedAuths',
       render(row) {
-        const tags = row.tags.map((tagKey) => {
+        const tags = row.pageCheckedAuths.map((key) => {
           return h(
             NTag,
             {
@@ -72,7 +78,7 @@ function createColumns() {
               size: 'small',
             },
             {
-              default: () => tagKey,
+              default: () => key,
             }
           )
         })
@@ -86,23 +92,25 @@ function createColumns() {
       title: '操作',
       key: 'actions',
       render(row) {
-        return h(NSpace, null, {
-          default: () => [
-            useIconButton({
-              type: 'default',
-              icon: EditIcon,
-              text: '编辑',
-              event: () => emit('edit', row),
-            }),
-            useIconButton({
-              type: 'default',
-              dashed: true,
-              icon: DeleteIcon,
-              text: '删除',
-              event: () => emit('_delete', row),
-            }),
-          ],
-        })
+        return row.name == '超级管理员'
+          ? ''
+          : h(NSpace, null, {
+              default: () => [
+                useIconButton({
+                  type: 'default',
+                  icon: EditIcon,
+                  text: '编辑',
+                  event: () => emit('edit', row),
+                }),
+                useIconButton({
+                  type: 'default',
+                  dashed: true,
+                  icon: DeleteIcon,
+                  text: '删除',
+                  event: () => emit('_delete', row),
+                }),
+              ],
+            })
       },
       width: 240,
       fixed: 'right',

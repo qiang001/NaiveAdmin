@@ -140,12 +140,12 @@ const updateCheckedKeys = (keys) => {
   }
 }
 
-const getAuthKeys = () => {
+const getPageAuthKeys = () => {
   let authKeys = unref(checkedKeys)
   addNodes(unref(menuAuthTree))
   return {
-    authKeys,
-    checkedKeys: [...unref(checkedKeys)],
+    pageAuths:authKeys,
+    pageCheckedAuths: [...unref(checkedKeys)],
   }
 
   function addNodes(children) {
@@ -167,7 +167,7 @@ const getAuthKeys = () => {
 // 数据重载
 watch(editModal, (val) => {
   if (val) {
-    updateCheckedKeys(role.tags)
+    updateCheckedKeys(role.pageCheckedAuths)
   }
 })
 
@@ -182,7 +182,7 @@ const confirm = async () => {
   if (!ifValid) {
     return
   }
-  const authKeys = getAuthKeys()
+  const authKeys = getPageAuthKeys()
   emit('confirm', authKeys)
 }
 </script>

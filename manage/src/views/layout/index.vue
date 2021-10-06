@@ -137,7 +137,7 @@ import Page from './components/page.vue'
 .handle-bar-wrapper {
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 999;
 }
 
 .n-layout-sider,

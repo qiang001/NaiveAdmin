@@ -1,5 +1,5 @@
-import { ref } from 'vue'
-export const useRoleList = ({ openEditModal, deleteFromDB }) => {
+import { ref,unref } from 'vue'
+export const useRoleList = ({ getRoles,openEditModal, deleteFromDB }) => {
   const maxHeight = ref(0)
   const otherTotalHeight = 126
   const setMaxHeight = ({ height }) => {
@@ -19,7 +19,8 @@ export const useRoleList = ({ openEditModal, deleteFromDB }) => {
       maskClosable: false,
       onPositiveClick: async () => {
         d.loading = true
-        return await deleteFromDB({ data: row })
+        await deleteFromDB({ data: {...unref(row)} })
+        return await getRoles()
       },
     })
   }

@@ -63,7 +63,7 @@ function createColumns() {
       title: '角色列表',
       key: 'roles',
       render(row) {
-        const tags = row.roles.map((tagKey) => {
+        const tags = row.roles.map((role) => {
           return h(
             NTag,
             {
@@ -73,7 +73,7 @@ function createColumns() {
               size: 'small',
             },
             {
-              default: () => tagKey,
+              default: () => role.name,
             }
           )
         })

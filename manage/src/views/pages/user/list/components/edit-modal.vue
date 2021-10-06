@@ -15,7 +15,7 @@
       :rules="rules"
       ref="formRef"
     >
-      <n-form-item label="用户名称" path="name" rule-path="user.name">
+      <n-form-item label="昵称" path="name" rule-path="user.name">
         <n-input v-model:value="user.name" placeholder="输入名称" />
       </n-form-item>
       <n-form-item label="用户名" path="username" rule-path="user.username">

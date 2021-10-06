@@ -10,7 +10,7 @@ export const useEditModal = ({
   const editModal = ref(false)
   const confirmLoading = ref(false)
   const user = reactive({
-    id: null,
+    _id: null,
     name: '',
     username: '',
     password: '',
@@ -34,31 +34,36 @@ export const useEditModal = ({
   }
 
   const confirm = async () => {
-    confirmLoading.value = true
-    let obj = {
-      data: { ...unref(user) },
-      type: ifEdit.value ? 'edit' : 'create',
+    try {
+      confirmLoading.value = true
+      let obj = {
+        data: { ...unref(user), roles: [ ...unref(user).roles ] },
+        type: ifEdit.value ? 'edit' : 'create',
+      }
+      await saveToDB(obj)
+      confirmLoading.value = false
+      close()
+      if (obj.type == 'create') {
+        resetPage()
+      }
+      await queryUsers()
+    } catch (error) {
+      confirmLoading.value = false
+      $message.error(error.message)
     }
-    await saveToDB(obj)
-    confirmLoading.value = false
-    close()
-    if (obj.type == 'create') {
-      resetPage()
-    }
-    await queryUsers()
   }
 
   function setUser(data) {
-    user.id = data.id
+    user._id = data._id
     user.name = data.name
     user.username = data.username
-    user.roles = [...data.roles]
+    user.roles = data.roles.map((r) => r._id)
     user.ifActive = data.ifActive
     ifEdit.value = true
   }
 
   function resetUser() {
-    user.id = null
+    user._id = null
     user.name = ''
     user.username = ''
     user.password = ''

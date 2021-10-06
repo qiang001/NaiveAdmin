@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken')
 
 module.exports = {
     getRoles: async () => {
-        return await Role.aggregate([
+        let data = await Role.aggregate([
             {
                 $match: {
                     name: {
@@ -19,6 +19,12 @@ module.exports = {
                 }
             }
         ])
+        return data.map(r=>{
+            return {
+                label:r.name,
+                value:r._id
+            }
+        })
     },
     createUser: async (payload) => {
         let ifExist_username = await User.findOne({ username: payload.username })
@@ -29,7 +35,7 @@ module.exports = {
         }
         let ifExist_name = await User.findOne({ name: payload.name })
         if (ifExist_name) {
-            const err = new Error('名称已被占用')
+            const err = new Error('昵称已被占用')
             err.code = 409
             throw err
         }
@@ -43,14 +49,14 @@ module.exports = {
         }
         return newUser
     },
-    getUsers: async (query, skip, limit) => {
+    getUsers: async ({query,skip,limit,sort}) => {
         let total = await User.countDocuments(query)
         if (total <= 0) {
             const err = new Error('员工列表为空')
             err.code = 404
             throw err
         }
-        let payload = await User.find(query).sort({ _id: -1 }).skip(skip).limit(limit).select('-password').populate({ path: 'roles', select: 'name' })
+        let payload = await User.find(query).sort(sort).skip(skip).limit(limit).select('-password').populate({ path: 'roles', select: 'name' })
         return [total, payload]
     },
     updateUser: async (id, payload) => {

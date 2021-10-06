@@ -36,10 +36,10 @@ watch(height, () => {
       'min-height',
       `calc(100vh - ${otherHeight}px)`
     )
-    container.value.style.setProperty(
-      'max-height',
-      `calc(100vh - ${otherHeight}px)`
-    )
+    // container.value.style.setProperty(
+    //   'max-height',
+    //   `calc(100vh - ${otherHeight}px)`
+    // )
   })
   emit('resize', { width: width.value, height: height.value })
 },{ immediate: true })
@@ -52,7 +52,7 @@ watch(width, () => {
 <style scoped>
 .page-panel {
   min-height: calc(100vh - 147px);
-  max-height: calc(100vh - 147px);
+  /* max-height: calc(100vh - 147px); */
   padding: 20px 20px 20px 20px;
   box-sizing: border-box;
   border-radius: 3px;
