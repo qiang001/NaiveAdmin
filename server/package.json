@@ -1,0 +1,39 @@
+{
+  "name": "s-server",
+  "version": "1.0.0",
+  "description": "common content management system server",
+  "main": "index.js",
+  "scripts": {
+    "start": "set NODE_ENV=dev&&nodemon app.js"
+  },
+  "keywords": [],
+  "author": "zhouqiang",
+  "license": "ISC",
+  "dependencies": {
+    "@koa/multer": "^2.0.0",
+    "chalk": "^2.4.2",
+    "cnchar": "^2.0.8",
+    "cnchar-order": "^2.0.8",
+    "cnchar-poly": "^2.0.8",
+    "cnchar-trad": "^2.0.8",
+    "crypto-js": "^3.1.9-1",
+    "glob": "^7.1.4",
+    "jsonwebtoken": "^8.5.1",
+    "koa": "^2.7.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-router": "^7.4.0",
+    "koa2-cors": "^2.0.6",
+    "lodash": "^4.17.15",
+    "mongoose": "^5.5.7",
+    "multer": "^1.4.2",
+    "node-schedule": "^2.0.0",
+    "nodemailer": "^6.4.2",
+    "protobufjs": "^3.8.2",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6",
+    "util": "^0.10.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
+}
