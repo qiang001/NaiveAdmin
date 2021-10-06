@@ -45,9 +45,9 @@ import {
   FullscreenExitFilled as NormalscreenIcon,
 } from '@vicons/material'
 import { NIcon } from 'naive-ui'
-import { toRefs, ref, computed, watch } from 'vue'
+import { toRefs, ref, computed } from 'vue'
 
-import { NButton, NModal, NCard, NSpace, NSpin } from 'naive-ui'
+import { NButton, NModal, NCard, NSpace } from 'naive-ui'
 
 // 核心属性
 const props = defineProps({
@@ -78,24 +78,10 @@ const confirm = async () => {
 }
 
 // 组件全屏
-import { useFullscreen } from '@/hooks/useFullscreen.js'
-const { launchFullscreen, exitFullscreen } = useFullscreen()
 const ifFullscreen = ref(false)
 const handleFullscrenn = () => {
-  !ifFullscreen.value
-    ? launchFullscreen(
-        document.body
-      )
-    : exitFullscreen()
   ifFullscreen.value = !ifFullscreen.value
 }
-
-watch(showModal, () => {
-  if (!showModal.value) {
-    ifFullscreen.value = false
-    exitFullscreen()
-  }
-})
 
 // 组件宽度
 const cardWidth = computed(() => {

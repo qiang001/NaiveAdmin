@@ -1,16 +1,16 @@
 <template>
-  <n-element
-    tag="div"
-    class="resize-bar"
-    @mousedown="mouseDown"
-    unselectable="on"
-    onselectstart="return false"
-  ></n-element>
+  <div>
+    <n-element
+      tag="div"
+      class="resize-bar"
+      @mousedown="mouseDown"
+      unselectable="on"
+      onselectstart="return false"
+    ></n-element>
+  </div>
 </template>
 
 <script setup>
-const emit = defineEmits(['widthChange'])
-
 import { NElement } from 'naive-ui'
 import { ref, onMounted, inject } from 'vue'
 
@@ -25,9 +25,14 @@ const mouseDown = (event) => {
   document.addEventListener('mousemove', mouseMove)
 }
 
+onMounted(() => {
+  document.addEventListener('mouseup', mouseUp)
+})
+
+const emit = defineEmits(['widthChange','widthChangeDone'])
+
 const mouseMove = (event) => {
   const movement = event.screenX - lastX.value
-  console.log(movement)
   let width = lastWidth.value + movement
   if (width < widthSpan.min) {
     width = widthSpan.min
@@ -42,11 +47,8 @@ const mouseUp = () => {
   lastX.value = null
   lastWidth.value = null
   document.removeEventListener('mousemove', mouseMove)
+  emit('widthChangeDone')
 }
-
-onMounted(() => {
-  document.addEventListener('mouseup', mouseUp)
-})
 </script>
 
 <style scoped>
@@ -68,4 +70,5 @@ onMounted(() => {
   background-color: var(--primary-color);
   transition: all 0.3s ease;
 }
+
 </style>

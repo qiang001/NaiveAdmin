@@ -2,8 +2,10 @@ import { ref } from 'vue'
 export const useRoleList = ({ openEditModal, deleteFromDB }) => {
   const maxHeight = ref(0)
   const otherTotalHeight = 126
-  const setMaxHeight = ({ width, height }) => {
-    maxHeight.value = height - otherTotalHeight
+  const setMaxHeight = ({ height }) => {
+    if(height){
+      maxHeight.value = height - otherTotalHeight
+    }
   }
   const edit = (row) => {
     openEditModal({ data: row, type: 'edit' })

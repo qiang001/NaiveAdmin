@@ -1,9 +1,23 @@
-import { ref } from 'vue'
-export const useUserList = ({ openEditModal, deleteFromDB,queryUsers }) => {
+import { ref, watch } from 'vue'
+import { useResizeContainer } from '@/hooks/useResizeContainer'
+export const useUserList = ({ openEditModal, deleteFromDB, queryUsers }) => {
   const maxHeight = ref(0)
-  const otherTotalHeight = 208
-  const setMaxHeight = ({ width, height }) => {
-    maxHeight.value = height - otherTotalHeight
+  let panelHeight = 0
+  const otherTotalHeight = ref(0)
+  const { height: actionHeaderHeight } = useResizeContainer('action-header')
+  watch(
+    actionHeaderHeight,
+    () => {
+      otherTotalHeight.value = 125 + actionHeaderHeight.value
+      maxHeight.value = panelHeight - otherTotalHeight.value
+    },
+    { immediate: true }
+  )
+  const setMaxHeight = ({ height }) => {
+    if (height) {
+      panelHeight = height
+      maxHeight.value = panelHeight - otherTotalHeight.value
+    }
   }
 
   const edit = (row) => {
@@ -27,6 +41,6 @@ export const useUserList = ({ openEditModal, deleteFromDB,queryUsers }) => {
     maxHeight,
     setMaxHeight,
     edit,
-    _delete
+    _delete,
   }
 }

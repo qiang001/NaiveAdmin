@@ -13,44 +13,40 @@
 <script setup>
 import { useStore } from 'vuex'
 const store = useStore()
-import { toRefs, onMounted, onBeforeUnmount, inject } from 'vue'
-const ifFullpage = inject('ifFullpage')
+import { toRefs, watch, inject } from 'vue'
+
 const props = defineProps({
   title: String,
 })
 const { title } = toRefs(props)
 
-const emit = defineEmits(['resize'])
-let resizeObserver = null
-let container = null
-onMounted(() => {
-  container = document.getElementById('page-panel')
-  const ResizeObserver = window.ResizeObserver
-  resizeObserver = new ResizeObserver(() => {
-    const width = container.getBoundingClientRect().width
-    const height = container.getBoundingClientRect().height
-    let otherHeight = 147
-    if (ifFullpage.value) {
-      otherHeight -= 64
-    }
-    setTimeout(() => {
-      container.style.setProperty(
-        'min-height',
-        `calc(100vh - ${otherHeight}px)`
-      )
-      container.style.setProperty(
-        'max-height',
-        `calc(100vh - ${otherHeight}px)`
-      )
-    }, 500)
-    emit('resize', { width, height })
-  })
-  resizeObserver.observe(container)
-})
+import { useResizeContainer } from '../hooks/useResizeContainer'
+const { width, height, container } = useResizeContainer('page-panel')
 
-onBeforeUnmount(() => {
-  resizeObserver.unobserve(container)
-})
+const ifFullpage = inject('ifFullpage')
+const emit = defineEmits(['resize'])
+
+watch(height, () => {
+  let otherHeight = 147
+  if (ifFullpage.value) {
+    otherHeight -= 64
+  }
+  setTimeout(() => {
+    container.value.style.setProperty(
+      'min-height',
+      `calc(100vh - ${otherHeight}px)`
+    )
+    container.value.style.setProperty(
+      'max-height',
+      `calc(100vh - ${otherHeight}px)`
+    )
+  })
+  emit('resize', { width: width.value, height: height.value })
+},{ immediate: true })
+
+watch(width, () => {
+  emit('resize', { width: width.value, height: height.value })
+},{ immediate: true })
 </script>
 
 <style scoped>
@@ -63,16 +59,6 @@ onBeforeUnmount(() => {
   position: relative;
   transition: all 0.3s ease;
 }
-
-@media only screen and (max-width: 960px) {
-  .page-panel {
-    pointer-events: none;
-    cursor: default;
-    opacity: 0;
-    user-select: none;
-  }
-}
-
 .page-panel-light {
   background: white;
   box-shadow: 0 0 30px #eee;

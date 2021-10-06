@@ -19,6 +19,7 @@
       }`"
     >
       <n-layout-sider
+        id="sider"
         v-show="!ifFullpage"
         bordered
         show-trigger="bar"
@@ -32,7 +33,7 @@
         @expand="collapsedChange(false)"
       >
         <Menu @invertedChange="invertedChange" @navigateTo="navigateTo"></Menu>
-        <resize-bar @widthChange="widthChange"></resize-bar>
+        <resize-bar @widthChange="widthChange" @widthChangeDone="widthChangeDone"></resize-bar>
       </n-layout-sider>
       <n-layout-content :native-scrollbar="false">
         <n-layout-header
@@ -69,7 +70,7 @@ import {
   NLayoutContent,
   useLoadingBar,
   useMessage,
-  useDialog
+  useDialog,
 } from 'naive-ui'
 
 window.$message = useMessage()
@@ -89,6 +90,7 @@ const {
   ifFullpage,
   refreshing,
   widthChange,
+  widthChangeDone,
   collapsedChange,
   invertedChange,
   navigateTo,
@@ -136,5 +138,19 @@ import Page from './components/page.vue'
   position: sticky;
   top: 0;
   z-index: 1;
+}
+
+.n-layout-sider,
+.n-layout-content {
+  transition: all 0.3s ease;
+}
+
+@media only screen and (max-width: 960px) {
+  .n-layout-content {
+    pointer-events: none;
+    cursor: default;
+    opacity: 0;
+    user-select: none;
+  }
 }
 </style>
