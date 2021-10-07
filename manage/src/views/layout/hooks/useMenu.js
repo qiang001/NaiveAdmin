@@ -45,7 +45,7 @@ export const useMenu = ({ refreshRoute, router }) => {
     // 自适应collapsed
     let lastWidth = document.body.getBoundingClientRect().width
     window.addEventListener('resize', () => {
-      const mql = window.matchMedia(`(max-width:${960 + sectionWidth.value}px)`)
+      const mql = window.matchMedia(`(max-width:${720 + sectionWidth.value}px)`)
       let curWidth = document.body.getBoundingClientRect().width
       if (curWidth != lastWidth) {
         lastWidth = curWidth

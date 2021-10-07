@@ -4,7 +4,7 @@
     :columns="columns"
     :data="data"
     virtual-scroll
-    :scroll-x="800"
+    :scroll-x="1080"
   >
     <template #empty>
       <div>

@@ -145,7 +145,7 @@ import Page from './components/page.vue'
   transition: all 0.3s ease;
 }
 
-@media only screen and (max-width: 960px) {
+@media only screen and (max-width: 720px) {
   .n-layout-content {
     pointer-events: none;
     cursor: default;
