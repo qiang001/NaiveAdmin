@@ -27,6 +27,8 @@ export const useMenu = ({ refreshRoute, router }) => {
       sectionWidth.value = _sectionWidth || widthSpan.min
       collapsed.value = _collapsed
       inverted.value = _inverted
+    }else{
+      sectionWidth.value =  widthSpan.min
     }
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'hidden') {
