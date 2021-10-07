@@ -1,8 +1,8 @@
 import { ref } from 'vue'
-import request from '@/api/index.js'
-export const useApiCenter = (users) => {
+import {useAxios} from '@/api/index.js'
+export const useApiCenter = ({store,users}) => {
+  const request = useAxios(store)
   const loading = ref(false)
-
   // 拉取用户列表
   const getUsers = async ({ filters, sort, pagination }) => {
     loading.value = true
@@ -48,6 +48,14 @@ export const useApiCenter = (users) => {
       throw new Error(error)
     }
   }
+  const changePassword = async({data})=>{
+    try {
+      await request.patch(`/v1/users/${data._id}`,data)
+      $message.success(`恭喜你，密码重置成功！`)
+    } catch (error) {
+      $message.error(error)
+    }
+  }
   // 删除数据
   const deleteFromDB = async ({ data }) => {
     try {
@@ -62,6 +70,7 @@ export const useApiCenter = (users) => {
     getUsers,
     getRoleOptions,
     saveToDB,
+    changePassword,
     deleteFromDB,
   }
 }

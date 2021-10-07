@@ -1,6 +1,6 @@
 import { ref, watch } from 'vue'
 import { useResizeContainer } from '@/hooks/useResizeContainer'
-export const useUserList = ({ openEditModal, deleteFromDB, queryUsers }) => {
+export const useUserList = ({ openEditModal,openResetPasswordModal, deleteFromDB, queryUsers }) => {
   const maxHeight = ref(0)
   let panelHeight = 0
   const otherTotalHeight = ref(0)
@@ -23,6 +23,9 @@ export const useUserList = ({ openEditModal, deleteFromDB, queryUsers }) => {
   const edit = (row) => {
     openEditModal({ data: row, type: 'edit' })
   }
+  const resetPassword = (row) => {
+    openResetPasswordModal({ data: row })
+  }
   const _delete = (row) => {
     const d = $dialog.warning({
       title: '警告',
@@ -41,6 +44,7 @@ export const useUserList = ({ openEditModal, deleteFromDB, queryUsers }) => {
     maxHeight,
     setMaxHeight,
     edit,
+    resetPassword,
     _delete,
   }
 }

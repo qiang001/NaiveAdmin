@@ -1,6 +1,7 @@
 <template>
   <div
     id="toggle-wrapper"
+    class="ml-1"
     :class="`${store.state.ifDark ? 'dark-theme' : 'light-theme'}`"
   >
     <button id="theme-toggle" @click="switchTheme">

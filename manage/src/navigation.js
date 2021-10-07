@@ -51,13 +51,6 @@ function buildRouter() {
           expandedKey: '',
         },
       },
-      {
-        path: '/:pathMatch(.*)*',
-        name: 'Not Found',
-        redirect: {
-          name: '404',
-        },
-      },
     ],
   })
 }

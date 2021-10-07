@@ -58,6 +58,7 @@
                     size="large"
                     type="password"
                     show-password-on="mousedown"
+                    @keyup.enter="login"
                   >
                     <template #prefix>
                       <n-icon>
@@ -94,22 +95,32 @@ import {
   NFormItem,
   NInput,
   NIcon,
+  useMessage,
 } from 'naive-ui'
+window.$message = useMessage()
 import {
   AccountBoxSharp as UsernameIcon,
   LockSharp as PasswordIcon,
 } from '@vicons/material'
 import { useStore } from 'vuex'
 const store = useStore()
-const login = () => {
-  store.dispatch('login', {})
-}
-import { ref, reactive } from 'vue'
+import { ref, reactive, unref, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
+const route = useRoute()
+onMounted(() => {
+  if (['expired'].includes(route.query.token)) {
+    $message.error(route.query.message)
+  }
+  if (['null','logout'].includes(route.query.token)) {
+    $message.success(route.query.message)
+  }
+})
+
 // 表单相关
 const formRef = ref(null)
 const account = reactive({
-  username: '',
-  password: '',
+  username: 'admin@sccms.com',
+  password: '123456',
 })
 const rules = {
   account: {
@@ -136,6 +147,14 @@ const validation = () => {
       }
     })
   })
+}
+
+const login = async () => {
+  const ifValid = await validation()
+  if (!ifValid) {
+    return
+  }
+  await store.dispatch('login', { ...unref(account) })
 }
 </script>
 

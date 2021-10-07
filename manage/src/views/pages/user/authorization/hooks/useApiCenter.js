@@ -1,5 +1,6 @@
-import request from '@/api/index.js'
-export const useApiCenter = (roles) => {
+import {useAxios} from '@/api/index.js'
+export const useApiCenter = ({store,roles}) => {
+  const request = useAxios(store)
   // 导出表格
   const exportData = async () => {
     console.log('加载中...')

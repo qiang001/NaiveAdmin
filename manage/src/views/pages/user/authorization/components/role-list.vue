@@ -37,6 +37,7 @@ import {
   DeleteFilled as DeleteIcon,
 } from '@vicons/material'
 import { useIconButton } from '@/hooks/useIconButton.js'
+import { useDateTime} from '@/hooks/useDateFormat.js'
 const store = inject('store')
 const maxHeight = inject('maxHeight')
 const data = inject('roles')
@@ -87,6 +88,14 @@ function createColumns() {
       ellipsis: {
         tooltip: true,
       },
+    },
+    {
+      title: '创建时间',
+      key: 'createdAt',
+      width: 180,
+      render(row){
+        return useDateTime(row.createdAt)
+      }
     },
     {
       title: '操作',

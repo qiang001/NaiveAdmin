@@ -10,7 +10,7 @@ export const initController = () => {
   const store = useStore()
   const roles = ref([])
   // 接口层
-  const { exportData, getRoles, saveToDB, deleteFromDB } = useApiCenter(roles)
+  const { exportData, getRoles, saveToDB, deleteFromDB } = useApiCenter({store,roles})
   // 初始化数据
   onMounted(async () => {
     await getRoles()

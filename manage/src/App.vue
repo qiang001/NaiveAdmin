@@ -30,14 +30,25 @@ import {
 import { onMounted } from 'vue'
 import { useStore } from 'vuex'
 const store = useStore()
-// 本地持久化
+import { useRouter } from 'vue-router'
+const router = useRouter()
 onMounted(() => {
+  // 本地初始化化加载
   const themeSetting = localStorage.getItem('themeSetting')
   if (themeSetting) {
     let { _mainColor, _ifDark } = JSON.parse(themeSetting)
     store.commit('SET_MAINCOLOR', _mainColor)
     store.commit('SET_IFDARK', _ifDark)
   }
+  const token = localStorage.getItem('token')
+  if (token) {
+    store.dispatch('refreshLogin', token)
+  } else {
+    store.commit('SET_TOKEN', '')
+    store.commit('SET_AUTH', [])
+    router.replace(`/login?token=null&message=欢迎来到本后台管理系统`)
+  }
+  // 本地持久化存储
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'hidden') {
       const themeSetting = {
@@ -45,6 +56,8 @@ onMounted(() => {
         _ifDark: store.state.ifDark,
       }
       localStorage.setItem('themeSetting', JSON.stringify(themeSetting))
+      // token
+      localStorage.setItem('token', store.state.token)
     }
   })
 })

@@ -7,7 +7,7 @@
       @changeSort="changeSort"
       @search="searchUsers"
     ></action-header>
-    <user-list @edit="editUser" @_delete="deleteUser"></user-list>
+    <user-list @edit="editUser" @resetPassword="resetPassword" @_delete="deleteUser"></user-list>
     <pagination
       @changePage="changePage"
       @changePageSize="changePageSize"
@@ -16,6 +16,10 @@
       @cancel="closeEditModal"
       @confirm="confirmEditModal"
     ></edit-modal>
+    <reset-password-modal
+      @cancel="closeResetPasswordModal"
+      @confirm="confirmResetPasswordModal"
+    ></reset-password-modal>
   </page-panel>
 </template>
 
@@ -47,6 +51,12 @@ const {
   confirmLoading,
   closeEditModal,
   confirmEditModal,
+  resetPassword,
+  resetPasswordModal,
+  resetLoading,
+  resetUser,
+  closeResetPasswordModal,
+  confirmResetPasswordModal,
   deleteUser,
 } = initController()
 
@@ -73,6 +83,11 @@ provide('editModal', readonly(editModal))
 provide('user', user)
 provide('roleOptions', readonly(roleOptions))
 provide('confirmLoading', readonly(confirmLoading))
+
+import ResetPasswordModal from './components/reset-password-modal.vue'
+provide('resetPasswordModal', readonly(resetPasswordModal))
+provide('resetUser', resetUser)
+provide('resetLoading', readonly(resetLoading))
 </script>
 
 <style scoped></style>

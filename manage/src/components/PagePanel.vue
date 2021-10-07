@@ -17,8 +17,12 @@ import { toRefs, watch, inject } from 'vue'
 
 const props = defineProps({
   title: String,
+  ifExpand:{
+    type:Boolean,
+    default:true
+  }
 })
-const { title } = toRefs(props)
+const { title,ifExpand } = toRefs(props)
 
 import { useResizeContainer } from '../hooks/useResizeContainer'
 const { width, height, container } = useResizeContainer('page-panel')
@@ -36,10 +40,12 @@ watch(height, () => {
       'min-height',
       `calc(100vh - ${otherHeight}px)`
     )
-    // container.value.style.setProperty(
-    //   'max-height',
-    //   `calc(100vh - ${otherHeight}px)`
-    // )
+    if(!ifExpand.value){
+      container.value.style.setProperty(
+      'max-height',
+      `calc(100vh - ${otherHeight}px)`
+    )
+    }
   })
   emit('resize', { width: width.value, height: height.value })
 },{ immediate: true })

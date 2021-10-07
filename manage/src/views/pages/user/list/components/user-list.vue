@@ -29,15 +29,17 @@
 </template>
 
 <script setup>
-const emit = defineEmits(['edit', '_delete'])
+const emit = defineEmits(['edit', 'resetPassword','_delete'])
 import { h, inject } from 'vue'
 import { NTag, NDataTable, NSpace, NGradientText } from 'naive-ui'
 import {
   EditNoteOutlined as EditIcon,
+  WifiProtectedSetupSharp as ResetIcon,
   DeleteFilled as DeleteIcon,
 } from '@vicons/material'
 import { useIconButton } from '@/hooks/useIconButton.js'
 import { useStatusTag } from '@/hooks/useStatusTag.js'
+import { useDateTime} from '@/hooks/useDateFormat.js'
 const store = inject('store')
 const maxHeight = inject('maxHeight')
 const data = inject('users')
@@ -107,16 +109,30 @@ function createColumns() {
       },
     },
     {
+      title: '创建时间',
+      key: 'createdAt',
+      width: 180,
+      render(row){
+        return useDateTime(row.createdAt)
+      }
+    },
+    {
       title: '操作',
       key: 'actions',
       render(row) {
         return h(NSpace, null, {
           default: () => [
             useIconButton({
-              type: 'default',
+              type: 'primary',
               icon: EditIcon,
               text: '编辑',
               event: () => emit('edit', row),
+            }),
+            useIconButton({
+              type: 'default',
+              icon: ResetIcon,
+              text: '重置密码',
+              event: () => emit('resetPassword', row),
             }),
             useIconButton({
               type: 'default',
@@ -128,7 +144,7 @@ function createColumns() {
           ],
         })
       },
-      width: 180,
+      width: 290,
       fixed: 'right',
     },
   ]

@@ -15,7 +15,6 @@ async function serverStart(app, port) {
     try {
         let res = await db.connect()
         console.log(res)
-        await db.initSuperAdmin()
         if(process.env.NODE_ENV=='dev'){
             await TempScript.run()
         }

@@ -15,6 +15,7 @@
         </div>
       </div>
       <div class="ml-auto d-flex a-center">
+        <Account/>
         <theme-toggle />
         <main-color class="main-color" />
       </div>
@@ -26,6 +27,7 @@
 import { NLayoutHeader } from 'naive-ui'
 import ThemeToggle from './components/theme-toggle.vue'
 import MainColor from './components/main-color.vue'
+import Account from './components/account.vue'
 </script>
 
 <style scoped>

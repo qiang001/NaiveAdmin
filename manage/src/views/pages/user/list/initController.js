@@ -5,6 +5,7 @@ import { useApiCenter } from './hooks/useApiCenter'
 import { useUserList } from './hooks/useUserList'
 import { useFilters } from './hooks/useFilters'
 import { useEditModal } from './hooks/useEditModal'
+import { useResetPasswordModal } from './hooks/useResetPasswordModal'
 
 export const initController = () => {
   // [公共状态数据]
@@ -12,8 +13,14 @@ export const initController = () => {
   const users = ref([])
 
   // [数据]逻辑 - 接口层
-  const { loading, getUsers, getRoleOptions, saveToDB, deleteFromDB } =
-    useApiCenter(users)
+  const {
+    loading,
+    getUsers,
+    getRoleOptions,
+    saveToDB,
+    changePassword,
+    deleteFromDB,
+  } = useApiCenter({ store, users })
 
   // [搜索、排序、分页]逻辑 - 列表数据初始化放这里面比较好
   const {
@@ -41,7 +48,15 @@ export const initController = () => {
     close: closeEditModal,
     confirm: confirmEditModal,
   } = useEditModal({ getRoleOptions, saveToDB, resetPage, queryUsers })
-
+  // 密码重置框
+  const {
+    resetPasswordModal,
+    confirmLoading: resetLoading,
+    user: resetUser,
+    open: openResetPasswordModal,
+    close: closeResetPasswordModal,
+    confirm: confirmResetPasswordModal,
+  } = useResetPasswordModal({ changePassword })
   // Action 页面
   const {
     add: addUser,
@@ -65,9 +80,11 @@ export const initController = () => {
     maxHeight,
     setMaxHeight,
     edit: editUser,
+    resetPassword,
     _delete: deleteUser,
   } = useUserList({
     openEditModal,
+    openResetPasswordModal,
     deleteFromDB,
     queryUsers,
   })
@@ -85,6 +102,9 @@ export const initController = () => {
     confirmLoading,
     user,
     roleOptions,
+    resetPasswordModal,
+    resetLoading,
+    resetUser,
     searching,
     maxHeight,
   }
@@ -93,6 +113,8 @@ export const initController = () => {
     changePageSize,
     closeEditModal,
     confirmEditModal,
+    closeResetPasswordModal,
+    confirmResetPasswordModal,
     addUser,
     changeStatus,
     clearConditions,
@@ -100,6 +122,7 @@ export const initController = () => {
     changeSort,
     setMaxHeight,
     editUser,
+    resetPassword,
     deleteUser,
   }
 
