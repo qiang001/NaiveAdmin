@@ -10,93 +10,110 @@ export const useHandleBar = ({
   const refreshing = ref(false)
   const history = ref([])
 
-  addHistory(route.name, route.meta.label)
-  
+  addHistory(route)
+
   router.beforeEach(async (to, from, next) => {
-    if (to.name != 'Redirect') {
+    if (!['Redirect', 'Layout'].includes(to.name)) {
       loadingBar.start()
     }
-    next()
+    to.name == from.name ? (refreshRoute(to),next()) : next()
   })
 
   router.afterEach((to, from, failure) => {
-    failure ? loadingBar.error() : success()
+    failure ? error() : success()
+    function error() {
+      if (!['Redirect', 'Layout'].includes(to.name)&&to.name!=from.name) {
+        loadingBar.error()
+      }
+    }
     function success() {
-      if (to.name != 'Redirect') {
+      if (!['Redirect', 'Layout'].includes(to.name)) {
         loadingBar.finish()
       }
-      addHistory(to.name, to.meta.label)
+      addHistory(to)
     }
   })
 
-  function addHistory(name, label) {
+  function addHistory({ name, meta, query, fullPath, path }) {
     if (
       !['Layout', 'Redirect', 'Home', 'Login', '404', 'Not Found'].includes(
         name
       )
     ) {
-      if (!history.value.some((v) => v.name == name)) {
+      if (
+        !history.value.some((v) => v.name == name && v.fullPath == fullPath)
+      ) {
         history.value.push({
           name,
-          label,
+          label: meta.label,
           ifCurrent: false,
+          query,
+          fullPath,
+          path,
         })
       }
-      setCurrentRoute(name)
+      setCurrentRoute(name, fullPath)
     }
   }
 
-  function setCurrentRoute(name) {
+  function setCurrentRoute(name, fullPath) {
     history.value.forEach((item) => {
-      item.ifCurrent = item.name == name
+      item.ifCurrent = item.name == name && item.fullPath == fullPath
     })
   }
 
-  const gotoTab = ({ name, ifCurrent }) => {
+  const gotoTab = ({ name, ifCurrent, query, path }) => {
     history.value.length > 1 && !ifCurrent
-      ? router.push({ name })
+      ? name == route.name
+        ? refreshRoute({ path, query })
+        : router.push({ name, query })
       : refreshRoute()
   }
 
-  const deleteTab = ({ name, ifCurrent }) => {
-    let index = history.value.findIndex((v) => v.name == name)
+  const deleteTab = ({ name, ifCurrent, fullPath }) => {
+    let index = history.value.findIndex(
+      (v) => v.name == name && v.fullPath == fullPath
+    )
     if (index > -1) {
       history.value.splice(index, 1)
       if (ifCurrent) {
         let tailItem = history.value.pop()
+        history.value.push(tailItem)
         if (tailItem) {
-          router.push({ name: tailItem.name })
+          tailItem.name == route.name
+            ? refreshRoute({ path: tailItem.path, query: tailItem.query })
+            : router.push({ name: tailItem.name, query: tailItem.query })
         }
       }
     }
   }
 
-  const refreshRoute = () => {
+  const refreshRoute = ({ path, query } = {}) => {
     refreshing.value = true
     setTimeout(() => {
       refreshing.value = false
-    }, 500)
+    }, 1000)
     router.push({
       name: 'Redirect',
-      query: getTarget(),
+      query: getTarget({ targetPath: path, targetQuery: query }),
     })
   }
 
-  function getTarget() {
-    const { currentRoute } = router
-    const { path, query } = unref(currentRoute)
-    let obj = {
-      targetPath: path,
-      targetQuery: '',
+  function getTarget({ targetPath, targetQuery } = {}) {
+    if (!targetPath || !targetQuery) {
+      const { currentRoute } = router
+      const { path, query } = unref(currentRoute)
+      targetPath = path
+      targetQuery = query
     }
     let queryString = ''
-    Object.keys(query).forEach((key) => {
-      queryString += `!@#$${key}=${query[key]}`
+    Object.keys(targetQuery).forEach((key) => {
+      queryString += `!@#$${key}=${targetQuery[key]}`
     })
-    if (queryString) {
-      obj.targetQuery = queryString
+    return {
+      targetPath,
+      targetQuery: queryString,
     }
-    return obj
   }
 
   const setFullpage = (bool) => {

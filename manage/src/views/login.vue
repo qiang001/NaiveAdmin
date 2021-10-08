@@ -99,9 +99,9 @@ import {
 } from 'naive-ui'
 window.$message = useMessage()
 import {
-  AccountBoxSharp as UsernameIcon,
-  LockSharp as PasswordIcon,
-} from '@vicons/material'
+  UserOutlined as UsernameIcon,
+  LockOutlined as PasswordIcon,
+} from '@vicons/antd'
 import { useStore } from 'vuex'
 const store = useStore()
 import { ref, reactive, unref, onMounted } from 'vue'

@@ -34,13 +34,21 @@
               >
                 <div
                   class="tab-text d-flex a-center"
-                  @click="gotoTab(tab.name, tab.ifCurrent)"
+                  @click="gotoTab(tab.name, tab.ifCurrent, tab.query, tab.path)"
                 >
                   {{ tab.label }}
+                  <span v-if="Object.keys(tab.query).length > 0">
+                    :
+                    {{
+                      Object.keys(tab.query)
+                        .map((key) => `${key}=${tab.query[key]}`)
+                        .join(', ')
+                    }}</span
+                  >
                 </div>
                 <div
                   class="d-flex a-center j-center close-btn"
-                  @click="deleteTab(tab.name, tab.ifCurrent)"
+                  @click="deleteTab(tab.name, tab.ifCurrent, tab.fullPath)"
                   v-if="history.length > 1"
                 >
                   <n-icon size="12">
@@ -51,13 +59,21 @@
               <n-element class="tab d-flex a-center" v-else>
                 <div
                   class="tab-text d-flex a-center"
-                  @click="gotoTab(tab.name, tab.ifCurrent)"
+                  @click="gotoTab(tab.name, tab.ifCurrent, tab.query, tab.path)"
                 >
                   {{ tab.label }}
+                  <span v-if="Object.keys(tab.query).length > 0">
+                    :
+                    {{
+                      Object.keys(tab.query)
+                        .map((key) => `${key}=${tab.query[key]}`)
+                        .join(', ')
+                    }}</span
+                  >
                 </div>
                 <div
                   class="d-flex a-center j-center close-btn"
-                  @click="deleteTab(tab.name, tab.ifCurrent)"
+                  @click="deleteTab(tab.name, tab.ifCurrent, tab.fullPath)"
                 >
                   <n-icon size="12">
                     <close-icon />
@@ -102,7 +118,6 @@
             <normal-page-icon v-else />
           </n-icon>
         </template>
-        <!-- {{ ifFullpage ? '退出全屏' : '页面全屏' }} -->
       </n-button>
     </div>
   </div>
@@ -141,11 +156,21 @@ const setDrag = (bool) => {
 }
 // 渲染 tabs 以及交互动画
 const history = inject('history')
-const arrowWidth = ref(0)
+
+let updateTimer = null
+function animationStart(){
+  if (updateTimer) {
+      clearTimeout(updateTimer)
+    }
+    updateTimer = setTimeout(() => {
+      updateTabBar()
+    }, 50)
+}
+
 watch(
   history.value,
   () => {
-    updateTabBar()
+    animationStart()
   },
   { immediate: true }
 )
@@ -159,7 +184,7 @@ onMounted(() => {
   tabBar = document.getElementById('tab-bar')
   const ResizeObserver = window.ResizeObserver
   resizeObserver = new ResizeObserver(() => {
-    updateTabBar()
+    animationStart()
   })
   resizeObserver.observe(tabWrapper)
 })
@@ -168,20 +193,23 @@ onBeforeUnmount(() => {
   resizeObserver.unobserve(tabWrapper)
 })
 
+const arrowWidth = ref(0)
+
 function updateTabBar() {
   nextTick(() => {
     const tabBarWidth = getTabBarWidth()
+    console.log(tabBarWidth)
     const tabWrapperWidth = getTabWrapperWidth()
     if (tabBarWidth > tabWrapperWidth) {
       arrowWidth.value = 30
       setTimeout(() => {
         onShift()
-      }, 350)
+      },20)
     } else {
       arrowWidth.value = 0
       setTimeout(() => {
         onLeft()
-      }, 350)
+      },20)
     }
   })
 }
@@ -247,13 +275,13 @@ const onRight = () => {
 const emit = defineEmits(['gotoTab', 'deleteTab', 'refreshPage', 'setFullpage'])
 
 // 切换tab
-const gotoTab = (name, ifCurrent) => {
-  emit('gotoTab', { name, ifCurrent })
+const gotoTab = (name, ifCurrent, query, path) => {
+  emit('gotoTab', { name, ifCurrent, query, path })
 }
 
 // 删除tab
-const deleteTab = (name, ifCurrent) => {
-  emit('deleteTab', { name, ifCurrent })
+const deleteTab = (name, ifCurrent, fullPath) => {
+  emit('deleteTab', { name, ifCurrent, fullPath })
 }
 
 // 刷新页面

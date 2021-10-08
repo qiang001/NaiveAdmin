@@ -7,23 +7,7 @@
     :scroll-x="1080"
   >
     <template #empty>
-      <div>
-        <img
-          src="../../../../../assets/images/auth.svg"
-          alt=""
-          style="width: 360px"
-          v-if="!store.state.ifDark"
-        />
-        <img
-          src="../../../../../assets/images/auth-dark.svg"
-          alt=""
-          style="width: 360px"
-          v-else
-        />
-        <div class="d-flex a-center j-center">
-          <n-gradient-text type="primary" :size="18">无数据</n-gradient-text>
-        </div>
-      </div>
+      <empty-box></empty-box>
     </template>
   </n-data-table>
 </template>
@@ -31,13 +15,12 @@
 <script setup>
 const emit = defineEmits(['edit', '_delete'])
 import { h, inject } from 'vue'
-import { NTag, NDataTable, NSpace, NGradientText } from 'naive-ui'
-import {
-  EditNoteOutlined as EditIcon,
-  DeleteFilled as DeleteIcon,
-} from '@vicons/material'
+import { NTag, NDataTable, NSpace } from 'naive-ui'
+import { EditNoteOutlined as EditIcon } from '@vicons/material'
+import { DeleteOutlined as DeleteIcon } from '@vicons/antd'
+import EmptyBox from '@/components/EmptyBox.vue'
 import { useIconButton } from '@/hooks/useIconButton.js'
-import { useDateTime} from '@/hooks/useDateFormat.js'
+import { useDateTime } from '@/hooks/useDateFormat.js'
 const store = inject('store')
 const maxHeight = inject('maxHeight')
 const data = inject('roles')
@@ -63,7 +46,7 @@ function createColumns() {
       title: '包含人数',
       key: 'usersCount',
       width: 100,
-      align:'center'
+      align: 'center',
     },
     {
       title: '权限列表',
@@ -92,10 +75,9 @@ function createColumns() {
     {
       title: '创建时间',
       key: 'createdAt',
-      width: 180,
-      render(row){
+      render(row) {
         return useDateTime(row.createdAt)
-      }
+      },
     },
     {
       title: '操作',
@@ -106,7 +88,7 @@ function createColumns() {
           : h(NSpace, null, {
               default: () => [
                 useIconButton({
-                  type: 'default',
+                  type: 'primary',
                   icon: EditIcon,
                   text: '编辑',
                   event: () => emit('edit', row),
@@ -121,7 +103,7 @@ function createColumns() {
               ],
             })
       },
-      width: 240,
+      width: 256,
       fixed: 'right',
     },
   ]

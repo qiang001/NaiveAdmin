@@ -1,7 +1,5 @@
 <template>
-  <page-panel :title="'主控台'">
-    
-  </page-panel>
+  <page-panel :title="'主控台'"> </page-panel>
 </template>
 
 <script setup>

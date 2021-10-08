@@ -7,39 +7,22 @@
     :loading="loading"
   >
     <template #empty>
-      <div>
-        <img
-          src="../../../../../assets/images/user.svg"
-          alt=""
-          style="width: 360px"
-          v-if="!store.state.ifDark"
-        />
-        <img
-          src="../../../../../assets/images/user-dark.svg"
-          alt=""
-          style="width: 360px"
-          v-else
-        />
-        <div class="d-flex a-center j-center">
-          <n-gradient-text type="primary" :size="18">无数据</n-gradient-text>
-        </div>
-      </div>
+      <empty-box showFile></empty-box>
     </template>
   </n-data-table>
 </template>
 
 <script setup>
-const emit = defineEmits(['edit', 'resetPassword','_delete'])
+const emit = defineEmits(['edit', 'resetPassword', '_delete'])
 import { h, inject } from 'vue'
-import { NTag, NDataTable, NSpace, NGradientText } from 'naive-ui'
-import {
-  EditNoteOutlined as EditIcon,
-  WifiProtectedSetupSharp as ResetIcon,
-  DeleteFilled as DeleteIcon,
-} from '@vicons/material'
+import { NTag, NDataTable, NSpace } from 'naive-ui'
+import { Password24Filled as ResetIcon } from '@vicons/fluent'
+import { EditNoteOutlined as EditIcon } from '@vicons/material'
+import { DeleteOutlined as DeleteIcon } from '@vicons/antd'
+import EmptyBox from '@/components/EmptyBox.vue'
 import { useIconButton } from '@/hooks/useIconButton.js'
 import { useStatusTag } from '@/hooks/useStatusTag.js'
-import { useDateTime} from '@/hooks/useDateFormat.js'
+import { useDateTime } from '@/hooks/useDateFormat.js'
 const store = inject('store')
 const maxHeight = inject('maxHeight')
 const data = inject('users')
@@ -48,15 +31,15 @@ const columns = createColumns()
 function createColumns() {
   return [
     {
-      title: '名称',
+      title: '昵称',
       key: 'name',
-      width: 180,
+      width: 120,
       fixed: 'left',
     },
     {
       title: '用户名',
       key: 'username',
-      width: 240,
+      width: 180,
       ellipsis: {
         tooltip: true,
       },
@@ -112,9 +95,9 @@ function createColumns() {
       title: '创建时间',
       key: 'createdAt',
       width: 180,
-      render(row){
+      render(row) {
         return useDateTime(row.createdAt)
-      }
+      },
     },
     {
       title: '操作',
@@ -130,6 +113,7 @@ function createColumns() {
             }),
             useIconButton({
               type: 'default',
+              dashed: true,
               icon: ResetIcon,
               text: '重置密码',
               event: () => emit('resetPassword', row),

@@ -4,7 +4,7 @@
       <div class="d-flex a-center j-center logo">
         <img src="@/assets/logo.png" alt="" style="width: 36px" />
       </div>
-      <div class="ml-2">
+      <div class="ml-2 title">
         <div
           style="font-size: 18px; font-weight: bold; font-family: PingFang SC"
         >
@@ -15,8 +15,8 @@
         </div>
       </div>
       <div class="ml-auto d-flex a-center">
-        <Account/>
-        <theme-toggle />
+        <Account />
+        <theme-toggle class="theme-toggle" />
         <main-color class="main-color" />
       </div>
     </div>
@@ -46,6 +46,8 @@ import Account from './components/account.vue'
   .header {
     padding: 0 10px 0 10px;
   }
+  .title,
+  .theme-toggle,
   .main-color {
     display: none;
   }

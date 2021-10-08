@@ -4,7 +4,7 @@
       <n-space>
         <n-button
           @click="exportExcel"
-          size="small"
+          size="medium"
           :loading="exportLoading"
           :disabled="exportLoading"
         >
@@ -15,7 +15,7 @@
           </template>
           {{ exportLoading ? '云端下载中...' : '导出Excel' }}
         </n-button>
-        <n-button @click="add" type="primary" size="small">
+        <n-button @click="add" type="primary" size="medium">
           <template #icon>
             <n-icon>
               <add-icon />
@@ -30,8 +30,7 @@
 
 <script setup>
 import { NButton, NSpace, NIcon } from 'naive-ui'
-import { AddSharp as AddIcon } from '@vicons/material'
-import { FileExcelOutlined as ExcelIcon } from '@vicons/antd'
+import { AddSharp as AddIcon , FileDownloadOutlined as ExcelIcon } from '@vicons/material'
 import { inject } from 'vue'
 // 注入状态数据以进行 UI渲染 UX交互
 const exportLoading = inject('exportLoading')
