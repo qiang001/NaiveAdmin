@@ -75,6 +75,8 @@
                 size="large"
                 style="width: 100%"
                 @click="login"
+                :loading="loading"
+                :disabled="loading"
                 >立即登录
               </n-button>
             </div>
@@ -102,17 +104,18 @@ import {
   UserOutlined as UsernameIcon,
   LockOutlined as PasswordIcon,
 } from '@vicons/antd'
+
+import { ref, reactive, unref, onMounted } from 'vue'
+
 import { useStore } from 'vuex'
 const store = useStore()
-import { ref, reactive, unref, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
-const route = useRoute()
+
 onMounted(() => {
-  if (['expired'].includes(route.query.token)) {
-    $message.error(route.query.message)
+  if (store.state.loginPageMessage.type == 'error') {
+    $message.error(store.state.loginPageMessage.text)
   }
-  if (['null','logout'].includes(route.query.token)) {
-    $message.success(route.query.message)
+  if (store.state.loginPageMessage.type == 'success') {
+    $message.success(store.state.loginPageMessage.text)
   }
 })
 
@@ -149,12 +152,16 @@ const validation = () => {
   })
 }
 
+const loading = ref(false)
+
 const login = async () => {
   const ifValid = await validation()
   if (!ifValid) {
     return
   }
+  loading.value = true
   await store.dispatch('login', { ...unref(account) })
+  loading.value = false
 }
 </script>
 

@@ -45,6 +45,10 @@ export const buildStore = (router) => {
         token: '',
         userInfo: null,
         authKeys: [],
+        loginPageMessage: {
+          type: null,
+          text: null,
+        },
       }
     },
     getters: {
@@ -105,14 +109,23 @@ export const buildStore = (router) => {
           ifHideIcon: true,
         })
         prevent404()
-      }
+      },
+      CLEAR_LOGIN_MESSAGE(state) {
+        state.loginPageMessage.type = null
+        state.loginPageMessage.text = null
+      },
+      SET_LOGIN_MESSAGE(state, data) {
+        state.loginPageMessage.type = data.type
+        state.loginPageMessage.text = data.text
+      },
     },
     actions: {
-      logout:({commit})=>{
+      logout: ({ commit }) => {
         commit('SET_TOKEN', '')
         commit('SET_USERINFO', '')
         commit('SET_AUTH', [])
-        router.replace('/login?token=logout&message=三十六计走为上，溜了')
+        commit('SET_LOGIN_MESSAGE', { type: 'success', text: '成功退出系统！' })
+        router.replace('/login')
       },
       login: async ({ commit }, data) => {
         const token = await loginUser(data)
@@ -157,14 +170,21 @@ export const buildStore = (router) => {
         } catch (error) {
           commit('SET_TOKEN', '')
           commit('SET_AUTH', [])
-          router.replace('/login?token=expired&message='+error.message)
+          commit('SET_LOGIN_MESSAGE', {
+            type: 'error',
+            text:
+              error.message == '服务器连接失败，请检查网络状态'
+                ? error.message
+                : 'token 已过期，请重新登录',
+          })
+          router.replace('/login')
         }
       },
     },
   })
 
   // 防止刷新404
-  function prevent404 (){
+  function prevent404() {
     router.addRoute({
       path: '/:pathMatch(.*)*',
       name: 'Not Found',

@@ -46,7 +46,11 @@ onMounted(() => {
   } else {
     store.commit('SET_TOKEN', '')
     store.commit('SET_AUTH', [])
-    router.replace(`/login?token=null&message=欢迎来到本后台管理系统`)
+    store.commit('SET_LOGIN_MESSAGE', {
+      type: 'success',
+      text: '欢迎光临，赶快立即登录体验吧！',
+    })
+    router.replace('/login')
   }
   // 本地持久化存储
   document.addEventListener('visibilitychange', () => {

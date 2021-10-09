@@ -15,9 +15,9 @@
         </div>
       </div>
       <div class="ml-auto d-flex a-center">
-        <Account />
-        <theme-toggle class="theme-toggle" />
+        <theme-toggle />
         <main-color class="main-color" />
+        <Account />
       </div>
     </div>
   </n-layout-header>
@@ -37,17 +37,28 @@ import Account from './components/account.vue'
 .header {
   padding: 0 24px 0 24px;
   height: 100%;
+  transition: all 0.3s ease;
 }
 .logo {
   margin-left: 5px;
 }
 
-@media only screen and (max-width: 450px) {
+@media only screen and (max-width: 550px) {
+  .header {
+    padding: 0 10px 0 10px;
+  }
+  #toggle-wrapper,
+  .main-color {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 420px) {
   .header {
     padding: 0 10px 0 10px;
   }
   .title,
-  .theme-toggle,
+  #toggle-wrapper,
   .main-color {
     display: none;
   }

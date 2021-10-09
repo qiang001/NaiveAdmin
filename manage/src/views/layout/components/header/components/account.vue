@@ -1,5 +1,5 @@
 <template>
-  <div class="ml-1 d-flex a-center">
+  <div class="ml-2 d-flex a-center">
     <n-dropdown
       v-if="store.state.userInfo"
       :options="options"
@@ -10,21 +10,10 @@
     >
       <n-button size="small" :text="true">
         <div class="d-flex a-center j-center">
-          <div>
-            <img
-              src="@/assets/avatar.png"
-              alt=""
-              style="width: 32px"
-              v-if="!store.state.ifDark"
-            />
-            <img
-              src="@/assets/avatar-dark.png"
-              alt=""
-              style="width: 32px"
-              v-else
-            />
+          <div class="d-flex a-center j-center">
+            <img src="@/assets/avatar.svg" alt="" style="width: 24px;border-radius: 50%;" />
           </div>
-          <div>{{ store.state.userInfo.name }}</div>
+          <div class="ml-1">{{ store.state.userInfo.name }}</div>
         </div>
       </n-button>
     </n-dropdown>

@@ -7,7 +7,9 @@
       trigger="click"
       :on-select="(key) => store.commit('SET_MAINCOLOR', key)"
     >
-      <n-button size="small" :text="true">主题切换</n-button>
+      <n-button size="small" :text="true">
+        <div style="font-size: 12px;">主题切换</div>
+      </n-button>
     </n-dropdown>
   </div>
 </template>
@@ -23,9 +25,9 @@ const renderDropdownIcon = (option) => {
     {
       style: {
         backgroundColor: option.common.primaryColor,
-        width: '16px',
-        height: '16px',
-        borderRadius: '2px',
+        width: '9px',
+        height: '9px',
+        borderRadius: '50%',
       },
     },
     ''

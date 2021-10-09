@@ -15,10 +15,14 @@ export const useAxios = (store) => {
 	instance.interceptors.response.use(function(response) {
 		return response.data
 	}, function(error) {
+		if(!error.response){
+			return Promise.reject('服务器连接失败，请检查网络状态')
+		}
 		if(error.response.data.error == '登录状态已过期, 请重新登录'){
 			store.dispatch('refreshLogin',store.state.token)
+			return Promise.reject(error.response.data.error)
 		}
-		return Promise.reject(error.response.data.error)
+		return Promise.reject('服务器内部错误')
 	})
 	return instance
 }
