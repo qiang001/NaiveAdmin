@@ -36,23 +36,57 @@
         </div>
       </n-tab-pane>
       <n-tab-pane name="content" tab="内容显示级权限">
-        <div class="mt-3">
-          <n-result
-            status="404"
-            title="还没做"
-            description="应该是隐藏相关信息"
+        <div class="my-3">
+          <n-collapse
+            :default-expanded-names="contentPermission.map((item) => item.name)"
           >
-          </n-result>
+            <n-collapse-item
+              :title="item.title"
+              :name="item.name"
+              v-for="(item, index) in contentPermission"
+              :key="item.page"
+            >
+              <div>
+                <n-checkbox-group v-model:value="item.checkedAuths">
+                  <n-space item-style="display: flex;">
+                    <n-checkbox
+                      :value="auth.key"
+                      :label="auth.desc"
+                      v-for="(auth, idx) in item.contentAuths"
+                      :key="auth.key"
+                    />
+                  </n-space>
+                </n-checkbox-group>
+              </div>
+            </n-collapse-item>
+          </n-collapse>
         </div>
       </n-tab-pane>
       <n-tab-pane name="operation" tab="逻辑操作级权限">
-        <div class="mt-3">
-          <n-result
-            status="403"
-            title="还没做"
-            description="不隐藏, 但是点击或触发后会提示"
+        <div class="my-3">
+          <n-collapse
+            :default-expanded-names="logicPermission.map((item) => item.name)"
           >
-          </n-result>
+            <n-collapse-item
+              :title="item.title"
+              :name="item.name"
+              v-for="(item, index) in logicPermission"
+              :key="item.page"
+            >
+              <div>
+                <n-checkbox-group v-model:value="item.checkedAuths">
+                  <n-space item-style="display: flex;">
+                    <n-checkbox
+                      :value="auth.key"
+                      :label="auth.desc"
+                      v-for="(auth, idx) in item.logicAuths"
+                      :key="auth.key"
+                    />
+                  </n-space>
+                </n-checkbox-group>
+              </div>
+            </n-collapse-item>
+          </n-collapse>
         </div>
       </n-tab-pane>
     </n-tabs>
@@ -68,6 +102,11 @@ import {
   NResult,
   NForm,
   NFormItem,
+  NCollapse,
+  NCollapseItem,
+  NCheckbox,
+  NCheckboxGroup,
+  NSpace,
 } from 'naive-ui'
 import CommonModal from '@/components/CommonModal.vue'
 import { ref, inject, watch, unref } from 'vue'
@@ -144,7 +183,7 @@ const getPageAuthKeys = () => {
   let authKeys = unref(checkedKeys)
   addNodes(unref(menuAuthTree))
   return {
-    pageAuths:authKeys,
+    pageAuths: authKeys,
     pageCheckedAuths: [...unref(checkedKeys)],
   }
 
@@ -164,10 +203,55 @@ const getPageAuthKeys = () => {
   }
 }
 
+// permission相关
+import { permissionConfig } from '@/configuration.js'
+const contentPermission = ref([])
+contentPermission.value = permissionConfig
+  .filter((item) => item.contentAuths && item.contentAuths.length > 0)
+  .map((item) => {
+    return {
+      title: item.label,
+      name: item.page,
+      contentAuths: item.contentAuths.map((auth) => {
+        return {
+          ...auth,
+          key: `${item.page}-${auth.key}`,
+        }
+      }),
+      checkedAuths: [],
+    }
+  })
+const logicPermission = ref([])
+logicPermission.value = permissionConfig
+  .filter((item) => item.logicAuths && item.logicAuths.length > 0)
+  .map((item) => {
+    return {
+      title: item.label,
+      name: item.page,
+      logicAuths: item.logicAuths.map((auth) => {
+        return {
+          ...auth,
+          key: `${item.page}-${auth.key}`,
+        }
+      }),
+      checkedAuths: [],
+    }
+  })
+
 // 数据重载
 watch(editModal, (val) => {
   if (val) {
     updateCheckedKeys(role.pageCheckedAuths)
+    contentPermission.value.forEach((item) => {
+      item.checkedAuths = item.contentAuths
+        .filter((auth) => role.contentAuths.includes(auth.key))
+        .map((item) => item.key)
+    })
+    logicPermission.value.forEach((item) => {
+      item.checkedAuths = item.logicAuths
+        .filter((auth) => role.logicAuths.includes(auth.key))
+        .map((item) => item.key)
+    })
   }
 })
 
@@ -183,10 +267,16 @@ const confirm = async () => {
     return
   }
   const authKeys = getPageAuthKeys()
-  emit('confirm', authKeys)
+  const contentAuths = contentPermission.value.reduce((acc, cur) => {
+    acc = [...acc, ...cur.checkedAuths]
+    return acc
+  }, [])
+  const logicAuths = logicPermission.value.reduce((acc, cur) => {
+    acc = [...acc, ...cur.checkedAuths]
+    return acc
+  }, [])
+  emit('confirm', { ...authKeys, contentAuths, logicAuths })
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

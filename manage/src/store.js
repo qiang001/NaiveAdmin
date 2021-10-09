@@ -1,4 +1,3 @@
-import { watch, computed } from 'vue'
 import { createStore } from 'vuex'
 import { darkTheme } from 'naive-ui'
 import {
@@ -7,12 +6,11 @@ import {
   buildMenuAuthTree,
   getAuthKeys,
 } from './navigation.js'
-import { configuration, getColors, themeOverrides } from './configuration.js'
+import { pageConfig, getColors, themeOverrides } from './configuration.js'
 // menu auth tree
-const menuAuthTree = buildMenuAuthTree(configuration)
+const menuAuthTree = buildMenuAuthTree(pageConfig)
 // auth keys
-const { ALL_AUTH_KEYS, HIDE_AUTH_KEYS, searchOptions } =
-  getAuthKeys(configuration)
+const { ALL_AUTH_KEYS, HIDE_AUTH_KEYS, searchOptions } = getAuthKeys(pageConfig)
 
 import request from '@/api/store.js'
 const loginUser = async (data) => {
@@ -45,6 +43,8 @@ export const buildStore = (router) => {
         token: '',
         userInfo: null,
         authKeys: [],
+        contentAuths: [],
+        logicAuths: [],
         loginPageMessage: {
           type: null,
           text: null,
@@ -93,22 +93,26 @@ export const buildStore = (router) => {
       },
       SET_AUTH(state, AUTH_KEYS) {
         state.authKeys = [...AUTH_KEYS]
-        const pages = buildPages(configuration)
+        const pages = buildPages(pageConfig)
         pages.forEach((page) => {
           const removeRoute = router.addRoute('Layout', page)
           if (!AUTH_KEYS.includes(page.name)) {
             removeRoute()
           }
         })
-        state.menuOptions = buildMenuOptions(configuration, {
+        state.menuOptions = buildMenuOptions(pageConfig, {
           AUTH_KEYS,
           ifHideIcon: false,
         })
-        state.menuOptionsWithoutIcon = buildMenuOptions(configuration, {
+        state.menuOptionsWithoutIcon = buildMenuOptions(pageConfig, {
           AUTH_KEYS,
           ifHideIcon: true,
         })
         prevent404()
+      },
+      SET_PERMISSION(state, data) {
+        state.contentAuths = data.contentAuths
+        state.logicAuths = data.logicAuths
       },
       CLEAR_LOGIN_MESSAGE(state) {
         state.loginPageMessage.type = null
@@ -124,6 +128,7 @@ export const buildStore = (router) => {
         commit('SET_TOKEN', '')
         commit('SET_USERINFO', '')
         commit('SET_AUTH', [])
+        commit('SET_PERMISSION', { contentAuths: [], logicAuths: [] })
         commit('SET_LOGIN_MESSAGE', { type: 'success', text: '成功退出系统！' })
         router.replace('/login')
       },
@@ -136,17 +141,38 @@ export const buildStore = (router) => {
         const userInfo = await getUserInfo(token)
         commit('SET_USERINFO', userInfo)
         let authKeys = []
+        let contentAuths = []
+        let logicAuths = []
         if (userInfo.name == '超级管理员') {
           authKeys = ALL_AUTH_KEYS
         } else {
-          authKeys = userInfo.roles.reduce((acc, cur) => {
-            cur.pageAuths.forEach((key) => {
-              acc = acc.includes(key) ? [...acc] : [...acc, key]
-            })
-            return acc
-          }, [])
+          const permission = userInfo.roles.reduce(
+            (acc, cur) => {
+              cur.pageAuths.forEach((key) => {
+                acc.authKeys = acc.authKeys.includes(key)
+                  ? [...acc.authKeys]
+                  : [...acc.authKeys, key]
+              })
+              cur.contentAuths.forEach((key) => {
+                acc.contentAuths = acc.contentAuths.includes(key)
+                  ? [...acc.contentAuths]
+                  : [...acc.contentAuths, key]
+              })
+              cur.logicAuths.forEach((key) => {
+                acc.logicAuths = acc.logicAuths.includes(key)
+                  ? [...acc.logicAuths]
+                  : [...acc.logicAuths, key]
+              })
+              return acc
+            },
+            { authKeys: [], contentAuths: [], logicAuths: [] }
+          )
+          authKeys = permission.authKeys
+          contentAuths = permission.contentAuths
+          logicAuths = permission.logicAuths
         }
         commit('SET_AUTH', authKeys)
+        commit('SET_PERMISSION', { contentAuths, logicAuths })
         router.replace('/')
       },
       refreshLogin: async ({ commit }, token) => {
@@ -155,21 +181,43 @@ export const buildStore = (router) => {
           const userInfo = await getUserInfo(token)
           commit('SET_USERINFO', userInfo)
           let authKeys = []
+          let contentAuths = []
+          let logicAuths = []
           if (userInfo.name == '超级管理员') {
             authKeys = ALL_AUTH_KEYS
           } else {
-            authKeys = userInfo.roles.reduce((acc, cur) => {
-              cur.pageAuths.forEach((key) => {
-                acc = acc.includes(key) ? [...acc] : [...acc, key]
-              })
-              return acc
-            }, [])
+            const permission = userInfo.roles.reduce(
+              (acc, cur) => {
+                cur.pageAuths.forEach((key) => {
+                  acc.authKeys = acc.authKeys.includes(key)
+                    ? [...acc.authKeys]
+                    : [...acc.authKeys, key]
+                })
+                cur.contentAuths.forEach((key) => {
+                  acc.contentAuths = acc.contentAuths.includes(key)
+                    ? [...acc.contentAuths]
+                    : [...acc.contentAuths, key]
+                })
+                cur.logicAuths.forEach((key) => {
+                  acc.logicAuths = acc.logicAuths.includes(key)
+                    ? [...acc.logicAuths]
+                    : [...acc.logicAuths, key]
+                })
+                return acc
+              },
+              { authKeys: [], contentAuths: [], logicAuths: [] }
+            )
+            authKeys = permission.authKeys
+            contentAuths = permission.contentAuths
+            logicAuths = permission.logicAuths
           }
           commit('SET_AUTH', authKeys)
+          commit('SET_PERMISSION', { contentAuths, logicAuths })
           router.replace(router.currentRoute.value.fullPath)
         } catch (error) {
           commit('SET_TOKEN', '')
           commit('SET_AUTH', [])
+          store.commit('SET_PERMISSION',{contentAuths:[],logicAuths:[]})
           commit('SET_LOGIN_MESSAGE', {
             type: 'error',
             text:

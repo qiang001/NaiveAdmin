@@ -10,6 +10,8 @@ export const useEditModal = ({ getRoles, saveToDB }) => {
     desc: '',
     pageAuths: [],
     pageCheckedAuths: [],
+    contentAuths: [],
+    logicAuths: [],
   })
   // 核心方法
   const open = ({ data, type }) => {
@@ -25,11 +27,11 @@ export const useEditModal = ({ getRoles, saveToDB }) => {
     editModal.value = false
   }
 
-  const confirm = async ({ pageAuths, pageCheckedAuths }) => {
+  const confirm = async ({ pageAuths, pageCheckedAuths,contentAuths,logicAuths }) => {
     try {
       confirmLoading.value = true
       await saveToDB({
-        data: { ...unref(role), pageAuths, pageCheckedAuths },
+        data: { ...unref(role), pageAuths, pageCheckedAuths,contentAuths,logicAuths },
         type: ifEdit.value ? 'edit' : 'create',
       })
       confirmLoading.value = false
@@ -47,6 +49,8 @@ export const useEditModal = ({ getRoles, saveToDB }) => {
     role.desc = data.desc
     role.pageAuths = data.pageAuths
     role.pageCheckedAuths = data.pageCheckedAuths
+    role.contentAuths = data.contentAuths
+    role.logicAuths = data.logicAuths
     ifEdit.value = true
   }
 
@@ -56,6 +60,8 @@ export const useEditModal = ({ getRoles, saveToDB }) => {
     role.desc = ''
     role.pageAuths = []
     role.pageCheckedAuths = []
+    role.contentAuths = []
+    role.logicAuths = []
     ifEdit.value = false
   }
   // 最终对外暴露

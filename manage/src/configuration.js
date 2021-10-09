@@ -1,10 +1,10 @@
 // 路由-菜单
-export const configuration = [
+export const pageConfig = [
   {
     name: 'Console',
     path: 'console',
     label: '主控台',
-    labelPinYin:'zhukongtai_zkt',
+    labelPinYin: 'zhukongtai_zkt',
     icon: 'ConsoleIcon',
   },
   {
@@ -16,7 +16,7 @@ export const configuration = [
         name: 'GoodList',
         path: 'good/list',
         label: '商品列表',
-        labelPinYin:'shangpinliebiao_splb',
+        labelPinYin: 'shangpinliebiao_splb',
         icon: 'GoodListIcon',
       },
       {
@@ -30,7 +30,7 @@ export const configuration = [
         name: 'GoodCategory',
         path: 'good/category',
         label: '商品分类',
-        labelPinYin:'shangpinfenlei_spfl',
+        labelPinYin: 'shangpinfenlei_spfl',
         icon: 'GoodCategoryIcon',
       },
     ],
@@ -44,7 +44,7 @@ export const configuration = [
         name: 'OrderList',
         path: 'order/list',
         label: '订单列表',
-        labelPinYin:'dingdanliebiao_ddlb',
+        labelPinYin: 'dingdanliebiao_ddlb',
         icon: 'OrderListIcon',
       },
       {
@@ -65,7 +65,7 @@ export const configuration = [
         name: 'Overview',
         path: 'marketing/overview',
         label: '概况总览',
-        labelPinYin:'gaikuangzonglan_gkzl',
+        labelPinYin: 'gaikuangzonglan_gkzl',
         icon: 'OverviewIcon',
       },
       {
@@ -77,14 +77,14 @@ export const configuration = [
             name: 'BillionsAssistance',
             path: 'marketing/plan/billions-assistance',
             label: '百亿补贴',
-            labelPinYin:'baiyibutie_bybt',
+            labelPinYin: 'baiyibutie_bybt',
             icon: 'BillionsAssistanceIcon',
           },
           {
             name: 'Newcomer',
             path: 'marketing/plan/newcomer',
             label: '新人专享',
-            labelPinYin:'xinrenzhuanxiang_xrzx',
+            labelPinYin: 'xinrenzhuanxiang_xrzx',
             icon: 'NewcomerIcon',
           },
         ],
@@ -101,7 +101,7 @@ export const configuration = [
         name: 'CustomerList',
         path: 'customer/list',
         label: '客户列表',
-        labelPinYin:'kehuliebiao_khlb',
+        labelPinYin: 'kehuliebiao_khlb',
         icon: 'CustomerListIcon',
       },
       {
@@ -115,7 +115,7 @@ export const configuration = [
         name: 'CustomerType',
         path: 'customer/type',
         label: '客户类型',
-        labelPinYin:'kehuleixing_khlx',
+        labelPinYin: 'kehuleixing_khlx',
         icon: 'CustomerTypeIcon',
       },
     ],
@@ -130,14 +130,14 @@ export const configuration = [
         name: 'UserList',
         path: 'user/list',
         label: '用户列表',
-        labelPinYin:'yonghuliebiao_yhlb',
+        labelPinYin: 'yonghuliebiao_yhlb',
         icon: 'UserListIcon',
       },
       {
         name: 'Authorization',
         path: 'user/authorization',
         label: '权限管理',
-        labelPinYin:'quanxianguanli_qxgl',
+        labelPinYin: 'quanxianguanli_qxgl',
         icon: 'AuthorizationIcon',
       },
     ],
@@ -152,17 +152,35 @@ export const configuration = [
         name: 'OperationRecording',
         path: 'system/operation-recording',
         label: '操作记录',
-        labelPinYin:'caozuojilu_czjl',
+        labelPinYin: 'caozuojilu_czjl',
         icon: 'OperationRecordingIcon',
       },
       {
         name: 'AccessControl',
         path: 'system/access-control',
         label: '访问控制',
-        labelPinYin:'fangwenkongzhi_fwkz',
+        labelPinYin: 'fangwenkongzhi_fwkz',
         icon: 'AccessControlIcon',
       },
     ],
+  },
+]
+
+export const permissionConfig = [
+  {
+    page: 'Console',
+    label: '主控台',
+    contentAuths: [
+      { key: '1', desc: '订单总数可见' },
+      { key: '2', desc: '客户总数可见' },
+    ],
+    logicAuths: [{ key: '1', desc: '【查询产品库存】按钮可触发功能' }],
+  },
+  {
+    page: 'UserList',
+    label: '用户列表',
+    contentAuths: [],
+    logicAuths: [{ key: '1', desc: '【添加新用户】按钮可触发功能' }],
   },
 ]
 
@@ -198,7 +216,7 @@ export const getColors = (ifDark) => {
       },
       Checkbox: {
         checkMarkColor: !ifDark ? '#fff' : '#CDCDD4FF',
-      }
+      },
     },
     luckin: {
       key: 'luckin',
@@ -230,11 +248,11 @@ export const getColors = (ifDark) => {
       Checkbox: {
         checkMarkColor: !ifDark ? '#fff' : '#CDCDD4FF',
       },
-      Tabs:{
-        tabTextColorActiveLine:!ifDark ? '#172991' : '#8873ee',
-        tabTextColorHoverLine:!ifDark ? '#172991' : '#8873ee',
-        barColor:!ifDark ? '#172991' : '#8873ee',
-      }
+      Tabs: {
+        tabTextColorActiveLine: !ifDark ? '#172991' : '#8873ee',
+        tabTextColorHoverLine: !ifDark ? '#172991' : '#8873ee',
+        barColor: !ifDark ? '#172991' : '#8873ee',
+      },
     },
     purple: {
       key: 'purple',
@@ -300,13 +318,13 @@ export const themeOverrides = (mainColor, ifDark) => {
   if (setting.Tabs) Tabs = { ...Tabs, ...setting.Tabs }
 
   let Spin = {
-    sizeTiny:'18px'
+    sizeTiny: '18px',
   }
   return {
     common,
     Menu,
     Checkbox,
     Tabs,
-    Spin
+    Spin,
   }
 }

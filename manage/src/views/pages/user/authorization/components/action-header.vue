@@ -15,7 +15,7 @@
           </template>
           {{ exportLoading ? '云端下载中...' : '导出Excel' }}
         </n-button>
-        <n-button @click="add" type="primary" size="medium">
+        <n-button type="primary" size="medium" @click="add">
           <template #icon>
             <n-icon>
               <add-icon />

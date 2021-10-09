@@ -3,7 +3,7 @@
     <div class="d-flex a-center pb-1">
       <div class="ml-auto">
         <n-space>
-          <n-button @click="add" type="primary" size="medium">
+          <n-button v-permission:logic.UserList-1="add" type="primary" size="medium">
             <template #icon>
               <n-icon>
                 <add-icon />

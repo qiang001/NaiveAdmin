@@ -46,6 +46,7 @@ onMounted(() => {
   } else {
     store.commit('SET_TOKEN', '')
     store.commit('SET_AUTH', [])
+    store.commit('SET_PERMISSION',{contentAuths:[],logicAuths:[]})
     store.commit('SET_LOGIN_MESSAGE', {
       type: 'success',
       text: '欢迎光临，赶快立即登录体验吧！',

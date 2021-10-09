@@ -52,7 +52,8 @@ function createColumns() {
       title: '权限列表',
       key: 'pageCheckedAuths',
       render(row) {
-        const tags = row.pageCheckedAuths.map((key) => {
+        const { pageCheckedAuths, contentAuths, logicAuths } = row
+        const pageTags = pageCheckedAuths.map((key) => {
           return h(
             NTag,
             {
@@ -66,7 +67,37 @@ function createColumns() {
             }
           )
         })
-        return tags
+        const contentTags = contentAuths.map((key) => {
+          return h(
+            NTag,
+            {
+              style: {
+                marginRight: '6px',
+              },
+              size: 'small',
+              type: 'success',
+            },
+            {
+              default: () => key,
+            }
+          )
+        })
+        const logicTags = logicAuths.map((key) => {
+          return h(
+            NTag,
+            {
+              style: {
+                marginRight: '6px',
+              },
+              size: 'small',
+              type: 'info',
+            },
+            {
+              default: () => key,
+            }
+          )
+        })
+        return [...pageTags, ...contentTags, ...logicTags]
       },
       ellipsis: {
         tooltip: true,
