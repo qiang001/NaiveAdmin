@@ -43,7 +43,7 @@ import Setting from './components/setting.vue'
 
 
 
-@media only screen and (max-width: 420px) {
+@media only screen and (max-width: 500px) {
   .header {
     padding: 0 10px 0 10px;
   }
