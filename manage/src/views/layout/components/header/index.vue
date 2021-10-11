@@ -15,8 +15,7 @@
         </div>
       </div>
       <div class="ml-auto d-flex a-center">
-        <theme-toggle />
-        <main-color class="main-color" />
+        <Setting />
         <Account />
       </div>
     </div>
@@ -25,9 +24,8 @@
 
 <script setup>
 import { NLayoutHeader } from 'naive-ui'
-import ThemeToggle from './components/theme-toggle.vue'
-import MainColor from './components/main-color.vue'
 import Account from './components/account.vue'
+import Setting from './components/setting.vue'
 </script>
 
 <style scoped>
@@ -43,23 +41,13 @@ import Account from './components/account.vue'
   margin-left: 5px;
 }
 
-@media only screen and (max-width: 550px) {
-  .header {
-    padding: 0 10px 0 10px;
-  }
-  #toggle-wrapper,
-  .main-color {
-    display: none;
-  }
-}
+
 
 @media only screen and (max-width: 420px) {
   .header {
     padding: 0 10px 0 10px;
   }
-  .title,
-  #toggle-wrapper,
-  .main-color {
+  .title {
     display: none;
   }
 }

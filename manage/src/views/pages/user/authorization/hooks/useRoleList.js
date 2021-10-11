@@ -1,15 +1,23 @@
-import { ref,unref } from 'vue'
-export const useRoleList = ({ getRoles,openEditModal, deleteFromDB }) => {
+import { ref, unref } from 'vue'
+export const useRoleList = ({
+  getRoles,
+  openEditModal,
+  deleteFromDB,
+  useDebounce,
+}) => {
   const maxHeight = ref(0)
   const otherTotalHeight = 126
   const setMaxHeight = ({ height }) => {
-    if(height){
+    if (height) {
       maxHeight.value = height - otherTotalHeight
     }
   }
+
   const edit = (row) => {
     openEditModal({ data: row, type: 'edit' })
   }
+
+  const { func: _deleteFromDB } = useDebounce(deleteFromDB)
   const _delete = (row) => {
     const d = $dialog.warning({
       title: '警告',
@@ -19,7 +27,12 @@ export const useRoleList = ({ getRoles,openEditModal, deleteFromDB }) => {
       maskClosable: false,
       onPositiveClick: async () => {
         d.loading = true
-        await deleteFromDB({ data: {...unref(row)} })
+        try {
+          await _deleteFromDB({ data: { ...unref(row) } })
+          $message.success(`恭喜你，删除成功！`)
+        } catch (error) {
+          $message.error(error)
+        }
         return await getRoles()
       },
     })

@@ -5,6 +5,7 @@
     :data="data"
     virtual-scroll
     :scroll-x="1080"
+    :loading="loading"
   >
     <template #empty>
       <empty-box></empty-box>
@@ -23,6 +24,7 @@ import { useIconButton } from '@/hooks/useIconButton.js'
 import { useDateTime } from '@/hooks/useDateFormat.js'
 const store = inject('store')
 const maxHeight = inject('maxHeight')
+const loading = inject('loading')
 const data = inject('roles')
 const columns = createColumns()
 function createColumns() {

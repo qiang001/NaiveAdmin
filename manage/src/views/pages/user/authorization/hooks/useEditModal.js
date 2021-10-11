@@ -1,9 +1,10 @@
 import { ref, reactive, unref } from 'vue'
-export const useEditModal = ({ getRoles, saveToDB }) => {
+export const useEditModal = ({ getRoles, saveToDB,useDebounce }) => {
   // 维护状态数据
   const ifEdit = ref(false)
   const editModal = ref(false)
-  const confirmLoading = ref(false)
+  const { ifProcessing: confirmLoading, func: _saveToDB } =
+  useDebounce(saveToDB)
   const role = reactive({
     _id: null,
     name: '',
@@ -29,17 +30,16 @@ export const useEditModal = ({ getRoles, saveToDB }) => {
 
   const confirm = async ({ pageAuths, pageCheckedAuths,contentAuths,logicAuths }) => {
     try {
-      confirmLoading.value = true
-      await saveToDB({
+      const obj = {
         data: { ...unref(role), pageAuths, pageCheckedAuths,contentAuths,logicAuths },
         type: ifEdit.value ? 'edit' : 'create',
-      })
-      confirmLoading.value = false
+      }
+      await _saveToDB(obj)
+      $message.success(obj.type=='edit'?'恭喜你，编辑成功！':'恭喜你，添加成功！')
       close()
       await getRoles()
     } catch (error) {
-      confirmLoading.value = false
-      $message.error(error.message)
+      $message.error(error)
     }
   }
 

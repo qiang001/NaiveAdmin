@@ -53,7 +53,10 @@ export const buildStore = (router) => {
     },
     getters: {
       getMainColors(state) {
-        return Object.values(getColors(state.ifDark))
+        return Object.values(getColors(state.ifDark)).map((item) => ({
+          ...item,
+          checked: item.key == state.mainColor,
+        }))
       },
       getTheme(state) {
         const theme = state.ifDark ? darkTheme : null
@@ -217,7 +220,7 @@ export const buildStore = (router) => {
         } catch (error) {
           commit('SET_TOKEN', '')
           commit('SET_AUTH', [])
-          store.commit('SET_PERMISSION',{contentAuths:[],logicAuths:[]})
+          store.commit('SET_PERMISSION', { contentAuths: [], logicAuths: [] })
           commit('SET_LOGIN_MESSAGE', {
             type: 'error',
             text:

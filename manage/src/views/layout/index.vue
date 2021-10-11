@@ -32,7 +32,7 @@
         @collapse="collapsedChange(true)"
         @expand="collapsedChange(false)"
       >
-        <Menu @invertedChange="invertedChange" @navigateTo="navigateTo"></Menu>
+        <Menu @navigateTo="navigateTo"></Menu>
         <resize-bar @widthChange="widthChange" @widthChangeDone="widthChangeDone"></resize-bar>
       </n-layout-sider>
       <n-layout-content :native-scrollbar="false">
@@ -84,6 +84,7 @@ const {
   route,
   collapsed,
   inverted,
+  ifHideIcon,
   widthSpan,
   sectionWidth,
   history,
@@ -92,7 +93,6 @@ const {
   widthChange,
   widthChangeDone,
   collapsedChange,
-  invertedChange,
   navigateTo,
   gotoTab,
   deleteTab,
@@ -104,11 +104,13 @@ provide('store', readonly(store))
 provide('router', readonly(router))
 provide('route', readonly(route))
 
+provide('inverted', inverted)
+provide('ifHideIcon', ifHideIcon)
+
 import Header from './components/header/index.vue'
 
 import Menu from './components/menu.vue'
 provide('collapsed', readonly(collapsed))
-provide('inverted', readonly(inverted))
 
 import ResizeBar from './components/resize-bar.vue'
 provide('sectionWidth', readonly(sectionWidth))

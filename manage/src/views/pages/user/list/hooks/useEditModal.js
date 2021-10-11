@@ -4,11 +4,13 @@ export const useEditModal = ({
   saveToDB,
   resetPage,
   queryUsers,
+  useDebounce,
 }) => {
   // 维护状态数据
   const ifEdit = ref(false)
   const editModal = ref(false)
-  const confirmLoading = ref(false)
+  const { ifProcessing: confirmLoading, func: _saveToDB } =
+    useDebounce(saveToDB)
   const user = reactive({
     _id: null,
     name: '',
@@ -34,22 +36,20 @@ export const useEditModal = ({
   }
 
   const confirm = async () => {
+    let obj = {
+      data: { ...unref(user), roles: [...unref(user).roles] },
+      type: ifEdit.value ? 'edit' : 'create',
+    }
     try {
-      confirmLoading.value = true
-      let obj = {
-        data: { ...unref(user), roles: [ ...unref(user).roles ] },
-        type: ifEdit.value ? 'edit' : 'create',
-      }
-      await saveToDB(obj)
-      confirmLoading.value = false
+      await _saveToDB(obj)
+      $message.success(obj.type=='edit'?'恭喜你，编辑成功！':'恭喜你，添加成功！')
       close()
       if (obj.type == 'create') {
         resetPage()
       }
       await queryUsers()
     } catch (error) {
-      confirmLoading.value = false
-      $message.error(error.message)
+      $message.error(error)
     }
   }
 

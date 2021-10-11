@@ -1,5 +1,6 @@
 import { useStore } from 'vuex'
 import { ref, onMounted } from 'vue'
+import { useDebounce } from '@/hooks/useDebounce'
 import { useActionHeader } from './hooks/useActionHeader'
 import { useApiCenter } from './hooks/useApiCenter'
 import { useRoleList } from './hooks/useRoleList'
@@ -10,7 +11,7 @@ export const initController = () => {
   const store = useStore()
   const roles = ref([])
   // 接口层
-  const { exportData, getRoles, saveToDB, deleteFromDB } = useApiCenter({store,roles})
+  const { exportData,loading, getRoles, saveToDB, deleteFromDB } = useApiCenter({store,roles,useDebounce})
   // 初始化数据
   onMounted(async () => {
     await getRoles()
@@ -24,7 +25,7 @@ export const initController = () => {
     open: openEditModal,
     close: closeEditModal,
     confirm: confirmEditModal,
-  } = useEditModal({ getRoles, saveToDB })
+  } = useEditModal({ getRoles, saveToDB,useDebounce })
   // 按钮组逻辑
   const {
     exportLoading,
@@ -44,12 +45,14 @@ export const initController = () => {
     getRoles,
     openEditModal,
     deleteFromDB,
+    useDebounce
   })
 
   // 最终对外暴露
   const data = {
     store,
     roles,
+    loading,
     ifEdit,
     editModal,
     confirmLoading,

@@ -55,12 +55,7 @@ module.exports = {
     return newUser;
   },
   getUsers: async ({ query, skip, limit, sort }) => {
-    let total = await User.countDocuments(query);
-    if (total <= 0) {
-      const err = new Error("员工列表为空");
-      err.code = 404;
-      throw err;
-    }
+    let total = await User.countDocuments(query)
     let payload = await User.find(query)
       .sort(sort)
       .skip(skip)

@@ -18,6 +18,7 @@ const {
   exportExcel,
   addRole,
   roles,
+  loading,
   maxHeight,
   setMaxHeight,
   editRole,
@@ -40,6 +41,7 @@ provide('exportLoading', readonly(exportLoading))
 import RoleList from './components/role-list.vue'
 provide('maxHeight', readonly(maxHeight))
 provide('roles', readonly(roles))
+provide('loading', readonly(loading))
 
 import EditModal from './components/edit-modal.vue'
 provide('ifEdit', readonly(ifEdit))

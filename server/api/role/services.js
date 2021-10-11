@@ -18,11 +18,6 @@ module.exports = {
             { $addFields: { usersCount: { $size: "$users" } } },
             { $project: { users: 0 } }
         ])
-        if (roles.length <= 0) {
-            const err = new Error('角色列表为空')
-            err.code = 404
-            throw err
-        }
         return roles
     },
     updateRole: async (id, payload) => {

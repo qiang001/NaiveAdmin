@@ -1,10 +1,12 @@
 import { ref, reactive, unref } from 'vue'
 export const useResetPasswordModal = ({
     changePassword,
+    useDebounce
 }) => {
   // 维护状态数据
   const resetPasswordModal = ref(false)
-  const confirmLoading = ref(false)
+  const { ifProcessing: confirmLoading, func: _changePassword } =
+  useDebounce(changePassword)
   const user = reactive({
     _id: null,
     password: '',
@@ -23,15 +25,13 @@ export const useResetPasswordModal = ({
 
   const confirm = async () => {
     try {
-      confirmLoading.value = true
       let obj = {
         data: { ...unref(user)},
       }
-      await changePassword(obj)
-      confirmLoading.value = false
+      await _changePassword(obj)
+      $message.success(`恭喜你，密码重置成功！`)
       close()
     } catch (error) {
-      confirmLoading.value = false
       $message.error(error.message)
     }
   }

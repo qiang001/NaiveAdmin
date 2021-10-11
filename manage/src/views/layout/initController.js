@@ -33,8 +33,8 @@ export const initController = (loadingBar) => {
     widthChangeDone,
     collapsed,
     inverted,
+    ifHideIcon,
     collapsedChange,
-    invertedChange,
     navigateTo,
   } = useMenu({ refreshRoute, router })
 
@@ -47,6 +47,7 @@ export const initController = (loadingBar) => {
     history,
     collapsed,
     inverted,
+    ifHideIcon,
     widthSpan,
     sectionWidth,
   }
@@ -56,7 +57,6 @@ export const initController = (loadingBar) => {
     refreshRoute,
     setFullpage,
     collapsedChange,
-    invertedChange,
     navigateTo,
     widthChange,
     widthChangeDone

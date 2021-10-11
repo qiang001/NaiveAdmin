@@ -1,5 +1,6 @@
 import { useStore } from 'vuex'
 import { ref } from 'vue'
+import { useDebounce } from '@/hooks/useDebounce'
 import { useActionHeader } from './hooks/useActionHeader'
 import { useApiCenter } from './hooks/useApiCenter'
 import { useUserList } from './hooks/useUserList'
@@ -20,7 +21,7 @@ export const initController = () => {
     saveToDB,
     changePassword,
     deleteFromDB,
-  } = useApiCenter({ store, users })
+  } = useApiCenter({ store, users,useDebounce })
 
   // [搜索、排序、分页]逻辑 - 列表数据初始化放这里面比较好
   const {
@@ -47,7 +48,7 @@ export const initController = () => {
     open: openEditModal,
     close: closeEditModal,
     confirm: confirmEditModal,
-  } = useEditModal({ getRoleOptions, saveToDB, resetPage, queryUsers })
+  } = useEditModal({ getRoleOptions, saveToDB, resetPage, queryUsers,useDebounce })
   // 密码重置框
   const {
     resetPasswordModal,
@@ -56,7 +57,7 @@ export const initController = () => {
     open: openResetPasswordModal,
     close: closeResetPasswordModal,
     confirm: confirmResetPasswordModal,
-  } = useResetPasswordModal({ changePassword })
+  } = useResetPasswordModal({ changePassword,useDebounce })
   // Action 页面
   const {
     add: addUser,
@@ -87,6 +88,7 @@ export const initController = () => {
     openResetPasswordModal,
     deleteFromDB,
     queryUsers,
+    useDebounce
   })
 
   // 最终对外暴露

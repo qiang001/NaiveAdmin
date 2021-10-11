@@ -19,14 +19,16 @@ export const useMenu = ({ refreshRoute, router }) => {
 
   const collapsed = ref(false)
   const inverted = ref(false)
+  const ifHideIcon = ref(false)
   onMounted(() => {
     // 本地缓存状态
     const menuSetting = localStorage.getItem('menuSetting')
     if (menuSetting) {
-      let { _sectionWidth, _collapsed, _inverted } = JSON.parse(menuSetting)
+      let { _sectionWidth, _collapsed, _inverted ,_ifHideIcon} = JSON.parse(menuSetting)
       sectionWidth.value = _sectionWidth || widthSpan.min
       collapsed.value = _collapsed
       inverted.value = _inverted
+      ifHideIcon.value = _ifHideIcon
     }else{
       sectionWidth.value =  widthSpan.min
     }
@@ -36,6 +38,7 @@ export const useMenu = ({ refreshRoute, router }) => {
           _sectionWidth: sectionWidth.value,
           _collapsed: collapsed.value,
           _inverted: inverted.value,
+          _ifHideIcon:ifHideIcon.value
         }
         localStorage.setItem('menuSetting', JSON.stringify(menuSetting))
       }
@@ -56,9 +59,6 @@ export const useMenu = ({ refreshRoute, router }) => {
   const collapsedChange = (val) => {
     collapsed.value = val
   }
-  const invertedChange = (val) => {
-    inverted.value = val
-  }
   const navigateTo = ({ name, ifCurrent }) => {
     !ifCurrent ? router.push({ name }) : refreshRoute()
   }
@@ -69,8 +69,8 @@ export const useMenu = ({ refreshRoute, router }) => {
     widthChangeDone,
     collapsed,
     inverted,
+    ifHideIcon,
     collapsedChange,
-    invertedChange,
     navigateTo,
   }
 }

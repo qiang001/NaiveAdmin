@@ -1,6 +1,12 @@
 import { ref, watch } from 'vue'
 import { useResizeContainer } from '@/hooks/useResizeContainer'
-export const useUserList = ({ openEditModal,openResetPasswordModal, deleteFromDB, queryUsers }) => {
+export const useUserList = ({
+  openEditModal,
+  openResetPasswordModal,
+  deleteFromDB,
+  queryUsers,
+  useDebounce,
+}) => {
   const maxHeight = ref(0)
   let panelHeight = 0
   const otherTotalHeight = ref(0)
@@ -23,9 +29,12 @@ export const useUserList = ({ openEditModal,openResetPasswordModal, deleteFromDB
   const edit = (row) => {
     openEditModal({ data: row, type: 'edit' })
   }
+
   const resetPassword = (row) => {
     openResetPasswordModal({ data: row })
   }
+
+  const { func: _deleteFromDB } = useDebounce(deleteFromDB)
   const _delete = (row) => {
     const d = $dialog.warning({
       title: '警告',
@@ -35,7 +44,12 @@ export const useUserList = ({ openEditModal,openResetPasswordModal, deleteFromDB
       maskClosable: false,
       onPositiveClick: async () => {
         d.loading = true
-        await deleteFromDB({ data: row })
+        try {
+          await _deleteFromDB({ data: row })
+          $message.success(`恭喜你，删除成功！`)
+        } catch (error) {
+          $message.error(error)
+        }
         return await queryUsers()
       },
     })
