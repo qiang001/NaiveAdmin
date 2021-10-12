@@ -1,9 +1,11 @@
 const schedule = require("node-schedule");
 const Role = require("../db/models/role");
 const User = require("../db/models/user");
+const OperationRecord = require("../db/models/operationRecord");
 const CryptoJS = require("crypto-js");
 
 async function SystemSetup() {
+  await OperationRecord.deleteMany({});
   await Role.deleteMany({});
   await User.deleteMany({});
   let adminRole = await Role.create({
@@ -25,20 +27,29 @@ async function SystemSetup() {
     { _id: adminRole._id },
     { $addToSet: { users: adminUser._id } }
   );
-  const positions = ['运营','客服','配单员','送货员','仓库管理员','财务','采购','后台管理员']
-  for(let roleName of positions){
-      await Role.create({
-          name:roleName,
-          desc:roleName,
-          createdAt:new Date()
-      })
+  const positions = [
+    "后台管理员",
+    "仓库管理员",
+    "配单员",
+    "送货员",
+    "运营",
+    "客服",
+    "财务",
+    "采购",
+  ];
+  for (let roleName of positions) {
+    await Role.create({
+      name: roleName,
+      desc: roleName,
+      createdAt: new Date(),
+    });
   }
 }
 
 module.exports = {
   setup: async () => {
     schedule.scheduleJob("0 0 0 * * *", async function () {
-        await SystemSetup()
+      await SystemSetup();
     });
     console.log("定时任务setup");
   },

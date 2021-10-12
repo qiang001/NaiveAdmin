@@ -17,6 +17,7 @@
     "cnchar-poly": "^2.0.8",
     "cnchar-trad": "^2.0.8",
     "crypto-js": "^3.1.9-1",
+    "diff": "^5.0.0",
     "glob": "^7.1.4",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.7.0",

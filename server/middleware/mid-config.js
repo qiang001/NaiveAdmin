@@ -49,6 +49,7 @@ async function checkToken(ctx, next) {
   if (token) {
     try {
       let decoded = jwt.verify(token, "sCCMS-user-jwt");
+      ctx.visitorInfo = decoded.data
     } catch (e) {
       const err = new Error("登录状态已过期, 请重新登录");
       err.code = 403;
