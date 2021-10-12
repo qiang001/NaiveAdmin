@@ -176,7 +176,7 @@ export const buildStore = (router) => {
         }
         commit('SET_AUTH', authKeys)
         commit('SET_PERMISSION', { contentAuths, logicAuths })
-        router.replace('/')
+        router.replace(userInfo.name == '超级管理员'?'/layout/console':'/')
       },
       refreshLogin: async ({ commit }, token) => {
         try {
