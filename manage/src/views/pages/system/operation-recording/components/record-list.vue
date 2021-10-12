@@ -3,7 +3,6 @@
     :max-height="maxHeight"
     :columns="columns"
     :data="data"
-    virtual-scroll
     :scroll-x="1080"
     :loading="loading"
     :single-line="false"
@@ -17,7 +16,7 @@
 
 <script setup>
 import { h, inject } from 'vue'
-import { NDataTable,NDivider } from 'naive-ui'
+import { NDataTable, NCollapse, NCollapseItem } from 'naive-ui'
 import EmptyBox from '@/components/EmptyBox.vue'
 import { useDateTime } from '@/hooks/useDateFormat.js'
 const store = inject('store')
@@ -33,7 +32,7 @@ function createColumns() {
       render(row) {
         return h(
           'div',
-          { style: { position: 'absolute', top: '10px' } },
+          null,
           {
             default: () => {
               return [
@@ -73,18 +72,15 @@ function createColumns() {
       title: '数据变更',
       key: 'changes',
       render(row) {
-        return h('div', null, {
+        return h(NCollapse, null, {
           default: () => {
             return row.changes.map((change) => {
-              return h('div', null, {
-                default: () => {
-                  return [
-                    h(NDivider, null, {
-                      default: () => {
-                        return `${change.name} ${change.desc}`
-                      },
-                    }),
-                    h('div', null, {
+              return h(
+                NCollapseItem,
+                { title: `${change.name} ${change.desc}`, name: change._id },
+                {
+                  default: () => {
+                    return h('div', null, {
                       default: () => {
                         return change.diffArr.map((item) => {
                           let { value, added, removed } = item
@@ -117,10 +113,10 @@ function createColumns() {
                           )
                         })
                       },
-                    }),
-                  ]
-                },
-              })
+                    })
+                  },
+                }
+              )
             })
           },
         })
