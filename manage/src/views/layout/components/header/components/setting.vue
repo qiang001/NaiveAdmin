@@ -8,10 +8,10 @@
       </template>
       设置
     </n-button>
-    <n-drawer v-model:show="settingShow" :width="300" placement="right">
+    <n-drawer v-model:show="settingShow" :width="240" placement="right">
       <n-drawer-content title="全局配置">
-        <n-divider title-placement="left">「暗黑模式」</n-divider>
-        <div class="d-flex a-center">
+        <n-divider>「暗黑模式」</n-divider>
+        <div class="d-flex a-center j-center">
           <n-switch
             v-model:value="ifDark"
             @update:value="handleSwitch"
@@ -23,7 +23,7 @@
             <div style="font-size: 12px" v-else>开启暗黑模式</div>
           </div>
           <div
-            class="ml-auto"
+            class="ml-3"
             :class="`${store.state.ifDark ? 'dark-theme' : 'light-theme'}`"
           >
             <button id="theme-toggle" @click="switchTheme">
@@ -45,9 +45,9 @@
             </button>
           </div>
         </div>
-        <n-divider title-placement="left">「主题颜色」</n-divider>
+        <n-divider>「主题颜色」</n-divider>
         <div>
-          <div v-for="(item, index) in colors" :key="item.key">
+          <div v-for="(item, index) in colors" :key="item.key" class="d-flex a-center j-center">
             <n-checkbox
               v-model:checked="item.checked"
               :on-update:checked="(bool) => setColor(item, bool)"
@@ -62,8 +62,8 @@
             </n-checkbox>
           </div>
         </div>
-        <n-divider title-placement="left">「左侧菜单」</n-divider>
-        <div>
+        <n-divider>「左侧菜单」</n-divider>
+        <div class="d-flex a-center j-center">
           <n-space vertical>
             <n-switch
               v-model:value="inverted"

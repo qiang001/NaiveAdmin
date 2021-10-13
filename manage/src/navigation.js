@@ -29,7 +29,7 @@ function buildRouter() {
       {
         path: '/',
         name: 'Home',
-        redirect: '/layout',
+        redirect: '/layout/console',
       },
       {
         path: '/login',
