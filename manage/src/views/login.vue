@@ -170,7 +170,9 @@ const login = async () => {
   width: 90%;
   min-width: 375px;
   max-width: 420px;
-  margin: 100px auto;
+  margin: auto;
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
 @media only screen and (max-width: 400px) {
