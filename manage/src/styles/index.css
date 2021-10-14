@@ -11,6 +11,9 @@
 .j-center {
   justify-content: center;
 }
+.j-sb {
+  justify-content: space-between;
+}
 /* Spacing */
 .m-0 {
   margin-left: 0;

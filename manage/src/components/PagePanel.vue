@@ -63,7 +63,7 @@ watch(width, () => {
   box-sizing: border-box;
   border-radius: 3px;
   position: relative;
-  transition: all 0.5s ease;
+  transition: all 0.3s ease;
 }
 .page-panel-light {
   background: white;

@@ -56,7 +56,7 @@
                   </n-icon>
                 </div>
               </n-element>
-              <n-element class="tab d-flex a-center" v-else>
+              <n-element class="tab tab-no-current d-flex a-center" v-else>
                 <div
                   class="tab-text d-flex a-center"
                   @click="gotoTab(tab.name, tab.ifCurrent, tab.query, tab.path)"
@@ -299,7 +299,8 @@ const setFullpage = () => {
 
 <style scoped>
 .handle-bar {
-  border-bottom: 1px solid var(--border-color);
+  /* border-bottom: 1px solid var(--border-color); */
+  box-shadow:  0 0 8px 0 rgba(0, 0, 0, 0.15);
   position: relative;
   height: 34px;
 }
@@ -334,58 +335,63 @@ const setFullpage = () => {
 #tab-bar {
   position: absolute;
   left: 0;
+  padding-top: 9px;
   transition: all 0.3s ease;
 }
 .tab-box {
   flex-shrink: 0;
 }
 .tab {
-  margin: 0 2px;
+  padding: 2px 6px 0 6px;
+  margin: 0 4px;
   user-select: none;
   font-size: 12px;
-  border-radius: 2px;
+  border-radius: 3px 3px 0 0;
   color: var(--text-color);
   background-color: var(--divider-color);
+  transition: all 0.1s ease;
 }
+
 .tab.tab-current {
   color: var(--base-color);
   background-color: var(--primary-color);
+  transition: all 0.1s ease;
 }
 .tab-text {
   height: 22px;
-  padding: 0 5px 0 5px;
-  border-radius: 2px 0 0 2px;
+  border-radius: 2px 0 0 0;
   background-color: transparent;
   cursor: pointer;
   transition: all 0.1s ease;
 }
 
-.tab .tab-text:hover {
+.tab:hover {
   color: var(--base-color);
   background-color: var(--primary-color);
   transition: all 0.1s ease;
 }
-.tab-current .tab-text:hover {
+.tab-no-current:hover .close-btn{
+  width: 22px;
+  margin-right: -6px;
+  transition: all 0.3s ease;
+}
+.tab-current:hover {
   background-color: var(--primary-color-pressed);
   transition: all 0.1s ease;
 }
 .close-btn {
-  height: 22px;
-  width: 22px;
-  border-radius: 0 2px 2px 0;
+  overflow: hidden;
+  box-sizing: border-box;
+  width: 0px;
+  border-radius: 0 2px 0 0;
   background-color: transparent;
   cursor: pointer;
-  transition: all 0.1s ease;
+  transition: all 0.3s ease;
 }
 
-.tab .close-btn:hover {
-  color: var(--base-color);
-  background-color: var(--primary-color);
-  transition: all 0.1s ease;
-}
-.tab-current .close-btn:hover {
-  background-color: var(--primary-color-pressed);
-  transition: all 0.1s ease;
+.tab-current .close-btn{
+  width: 22px;
+  margin-right: -6px;
 }
 
 .flip-list-move {

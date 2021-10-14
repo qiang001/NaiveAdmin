@@ -23,7 +23,7 @@
             <div style="font-size: 12px" v-else>开启暗黑模式</div>
           </div>
           <div
-            class="ml-3"
+            class="ml-auto"
             :class="`${store.state.ifDark ? 'dark-theme' : 'light-theme'}`"
           >
             <button id="theme-toggle" @click="switchTheme">
@@ -47,17 +47,19 @@
         </div>
         <n-divider>「主题颜色」</n-divider>
         <div>
-          <div v-for="(item, index) in colors" :key="item.key" class="d-flex a-center j-center">
+          <div v-for="(item, index) in colors" :key="item.key" class="d-flex a-center j-sb">
             <n-checkbox
               v-model:checked="item.checked"
               :on-update:checked="(bool) => setColor(item, bool)"
             >
-              <div class="d-flex a-center p-1">
-                <div
-                  class="color-box mr-1"
+              <div class="d-flex a-center py-1" style="width: 169px;">
+                <div>{{ item.label }}</div>
+                <div style="width: 38px;" class="d-flex a-center j-center ml-auto">
+                  <div
+                  class="color-box"
                   :style="{ backgroundColor: item.common.primaryColor }"
                 ></div>
-                <div>{{ item.label }}</div>
+                </div>
               </div>
             </n-checkbox>
           </div>
