@@ -32,12 +32,14 @@
                 class="tab tab-current d-flex a-center"
                 v-if="tab.ifCurrent"
               >
-                <div
-                  class="d-flex a-center j-center pr"
-                  v-if="store.state.cacheList.includes(tab.name)"
-                >
-                  <div class="tab-cached"></div>
-                </div>
+                <transition name="slide" mode="out-in">
+                  <div
+                    class="d-flex a-center j-center pr"
+                    v-if="store.state.cacheList.includes(tab.name)"
+                  >
+                    <div class="tab-cached"></div>
+                  </div>
+                </transition>
                 <div class="tab-text d-flex a-center" @click="gotoTab(tab)">
                   {{ tab.label }}
                   <span v-if="Object.keys(tab.query).length > 0">
@@ -60,12 +62,14 @@
                 </div>
               </n-element>
               <n-element class="tab tab-no-current d-flex a-center" v-else>
-                <div
-                  class="d-flex a-center j-center pr"
-                  v-if="store.state.cacheList.includes(tab.name)"
-                >
-                  <div class="tab-cached"></div>
-                </div>
+                <transition name="slide" mode="out-in">
+                  <div
+                    class="d-flex a-center j-center pr"
+                    v-if="store.state.cacheList.includes(tab.name)"
+                  >
+                    <div class="tab-cached"></div>
+                  </div>
+                </transition>
                 <div class="tab-text d-flex a-center" @click="gotoTab(tab)">
                   {{ tab.label }}
                   <span v-if="Object.keys(tab.query).length > 0">
@@ -426,5 +430,21 @@ const setFullpage = () => {
 }
 .ghost {
   opacity: 0.5;
+}
+
+/* slide transitions */
+.slide-enter-from {
+  opacity: 0;
+  transform: translateY(10px);
+}
+.slide-enter-active {
+  transition: all 0.3s ease;
+}
+.slide-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+.slide-leave-active {
+  transition: all 0.3s ease;
 }
 </style>
