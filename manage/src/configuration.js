@@ -18,6 +18,7 @@ export const pageConfig = [
         label: '商品列表',
         labelPinYin: 'shangpinliebiao_splb',
         icon: 'GoodListIcon',
+        ifCache: true,
       },
       {
         name: 'GoodDetails',
@@ -32,6 +33,7 @@ export const pageConfig = [
         label: '商品分类',
         labelPinYin: 'shangpinfenlei_spfl',
         icon: 'GoodCategoryIcon',
+        ifCache: true,
       },
     ],
   },

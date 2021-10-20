@@ -22,6 +22,7 @@ export const initController = (loadingBar) => {
     loadingBar,
     router,
     route,
+    store,
     launchFullscreen,
     exitFullscreen,
   })

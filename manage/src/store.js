@@ -38,6 +38,7 @@ export const buildStore = (router) => {
       return {
         mainColor: 'blue',
         ifDark: false,
+        cacheList:[],
         menuOptions: [],
         menuOptionsWithoutIcon: [],
         token: '',
@@ -66,6 +67,9 @@ export const buildStore = (router) => {
           overrides,
         }
       },
+      getCacheList(state){
+        return state.cacheList
+      },
       getMenu: (state) => (ifHideIcon) => {
         return !ifHideIcon ? state.menuOptions : state.menuOptionsWithoutIcon
       },
@@ -88,6 +92,12 @@ export const buildStore = (router) => {
       SET_IFDARK(state, bool) {
         state.ifDark = bool
       },
+      REMOVE_CACHE(state,name){
+        state.cacheList = state.cacheList.filter(n=>n!==name)
+      },
+      ADD_CACHE(state,name){
+        !state.cacheList.includes(name) && state.cacheList.push(name)
+      },
       SET_TOKEN(state, token) {
         state.token = token
       },
@@ -101,6 +111,8 @@ export const buildStore = (router) => {
           const removeRoute = router.addRoute('Layout', page)
           if (!AUTH_KEYS.includes(page.name)) {
             removeRoute()
+          }else{
+            page.meta.ifCache && !state.cacheList.includes(page.name) && state.cacheList.push(page.name)
           }
         })
         state.menuOptions = buildMenuOptions(pageConfig, {

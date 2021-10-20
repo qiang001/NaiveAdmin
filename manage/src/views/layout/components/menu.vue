@@ -107,7 +107,7 @@ const handleExpanded = (keys) => {
 const emit = defineEmits(['navigateTo'])
 // 菜单选中
 const handleSelected = (key) => {
-  emit('navigateTo', { name: key, ifCurrent: key == route.name })
+  emit('navigateTo', { name: key, ifCurrent: key == route.name && Object.keys(route.query).length == 0 })
 }
 
 </script>

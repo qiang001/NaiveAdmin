@@ -91,6 +91,7 @@ function buildPages(configuration) {
           ...expandedKeys,
           item.ifHide ? item.belongsTo : item.name,
         ].join(','),
+        ifCache:!!item.ifCache
       },
     }
   }

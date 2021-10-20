@@ -1,13 +1,18 @@
 <template>
-  <router-view v-slot="{ Component }">
+  <router-view v-slot="{ Component,route }">
     <transition name="route" mode="out-in">
-      <component :is="Component"/>
+      <keep-alive :include="store.getters.getCacheList">
+        <component :is="Component" :key="route.fullPath"/>
+      </keep-alive>
     </transition>
   </router-view>
   <!-- <router-view></router-view> -->
 </template>
 
-<script setup></script>
+<script setup>
+import {useStore} from 'vuex'
+const store = useStore()
+</script>
 
 <style scoped>
 /* route transitions */

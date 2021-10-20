@@ -24,7 +24,7 @@
           v-bind="dragOptions"
           @start="setDrag(true)"
           @end="setDrag(false)"
-          item-key="name"
+          item-key="fullPath"
         >
           <template #item="{ element: tab }">
             <div class="tab-box">
@@ -33,9 +33,12 @@
                 v-if="tab.ifCurrent"
               >
                 <div
-                  class="tab-text d-flex a-center"
-                  @click="gotoTab(tab.name, tab.ifCurrent, tab.query, tab.path)"
+                  class="d-flex a-center j-center pr"
+                  v-if="store.state.cacheList.includes(tab.name)"
                 >
+                  <div class="tab-cached"></div>
+                </div>
+                <div class="tab-text d-flex a-center" @click="gotoTab(tab)">
                   {{ tab.label }}
                   <span v-if="Object.keys(tab.query).length > 0">
                     :
@@ -48,7 +51,7 @@
                 </div>
                 <div
                   class="d-flex a-center j-center close-btn"
-                  @click="deleteTab(tab.name, tab.ifCurrent, tab.fullPath)"
+                  @click="deleteTab(tab)"
                   v-if="history.length > 1"
                 >
                   <n-icon size="12">
@@ -58,9 +61,12 @@
               </n-element>
               <n-element class="tab tab-no-current d-flex a-center" v-else>
                 <div
-                  class="tab-text d-flex a-center"
-                  @click="gotoTab(tab.name, tab.ifCurrent, tab.query, tab.path)"
+                  class="d-flex a-center j-center pr"
+                  v-if="store.state.cacheList.includes(tab.name)"
                 >
+                  <div class="tab-cached"></div>
+                </div>
+                <div class="tab-text d-flex a-center" @click="gotoTab(tab)">
                   {{ tab.label }}
                   <span v-if="Object.keys(tab.query).length > 0">
                     :
@@ -73,7 +79,7 @@
                 </div>
                 <div
                   class="d-flex a-center j-center close-btn"
-                  @click="deleteTab(tab.name, tab.ifCurrent, tab.fullPath)"
+                  @click="deleteTab(tab)"
                 >
                   <n-icon size="12">
                     <close-icon />
@@ -155,16 +161,17 @@ const setDrag = (bool) => {
   drag.value = bool
 }
 // 渲染 tabs 以及交互动画
+const store = inject('store')
 const history = inject('history')
 
 let updateTimer = null
-function animationStart(){
+function animationStart() {
   if (updateTimer) {
-      clearTimeout(updateTimer)
-    }
-    updateTimer = setTimeout(() => {
-      updateTabBar()
-    }, 50)
+    clearTimeout(updateTimer)
+  }
+  updateTimer = setTimeout(() => {
+    updateTabBar()
+  }, 50)
 }
 
 watch(
@@ -204,12 +211,12 @@ function updateTabBar() {
       arrowWidth.value = 30
       setTimeout(() => {
         onShift()
-      },20)
+      }, 20)
     } else {
       arrowWidth.value = 0
       setTimeout(() => {
         onLeft()
-      },20)
+      }, 20)
     }
   })
 }
@@ -275,13 +282,13 @@ const onRight = () => {
 const emit = defineEmits(['gotoTab', 'deleteTab', 'refreshPage', 'setFullpage'])
 
 // 切换tab
-const gotoTab = (name, ifCurrent, query, path) => {
+const gotoTab = ({ name, ifCurrent, query, path }) => {
   emit('gotoTab', { name, ifCurrent, query, path })
 }
 
 // 删除tab
-const deleteTab = (name, ifCurrent, fullPath) => {
-  emit('deleteTab', { name, ifCurrent, fullPath })
+const deleteTab = ({ name, ifCurrent, fullPath, meta }) => {
+  emit('deleteTab', { name, ifCurrent, fullPath, meta })
 }
 
 // 刷新页面
@@ -300,7 +307,7 @@ const setFullpage = () => {
 <style scoped>
 .handle-bar {
   /* border-bottom: 1px solid var(--border-color); */
-  box-shadow:  0 0 8px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.15);
   position: relative;
   height: 34px;
 }
@@ -370,7 +377,7 @@ const setFullpage = () => {
   background-color: var(--primary-color);
   transition: all 0.1s ease;
 }
-.tab-no-current:hover .close-btn{
+.tab-no-current:hover .close-btn {
   width: 22px;
   margin-right: -6px;
   transition: all 0.3s ease;
@@ -389,9 +396,26 @@ const setFullpage = () => {
   transition: all 0.3s ease;
 }
 
-.tab-current .close-btn{
+.tab-current .close-btn {
   width: 22px;
   margin-right: -6px;
+}
+
+.tab-cached {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--text-color);
+  transition: all 0.3s ease;
+}
+
+.tab-current .tab-cached {
+  background-color: var(--base-color);
+}
+
+.tab-no-current:hover .tab-cached {
+  background-color: var(--base-color);
+  transition: all 0.3s ease;
 }
 
 .flip-list-move {

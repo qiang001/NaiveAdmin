@@ -3,6 +3,7 @@ export const useHandleBar = ({
   loadingBar,
   router,
   route,
+  store,
   launchFullscreen,
   exitFullscreen,
 }) => {
@@ -16,13 +17,13 @@ export const useHandleBar = ({
     if (!['Redirect', 'Layout'].includes(to.name)) {
       loadingBar.start()
     }
-    to.name == from.name ? (refreshRoute(to),next()) : next()
+    to.name == from.name ? (refreshRoute(to), next()) : next()
   })
 
   router.afterEach((to, from, failure) => {
     failure ? error() : success()
     function error() {
-      if (!['Redirect', 'Layout'].includes(to.name)&&to.name!=from.name) {
+      if (!['Redirect', 'Layout'].includes(to.name) && to.name != from.name) {
         loadingBar.error()
       }
     }
@@ -34,7 +35,7 @@ export const useHandleBar = ({
     }
   })
 
-  function addHistory({ name, meta, query, fullPath, path }) {
+  function addHistory({ name, query, fullPath, path, meta }) {
     if (
       !['Layout', 'Redirect', 'Home', 'Login', '404', 'Not Found'].includes(
         name
@@ -50,8 +51,10 @@ export const useHandleBar = ({
           query,
           fullPath,
           path,
+          meta,
         })
       }
+      meta.ifCache && store.commit('ADD_CACHE', name)
       setCurrentRoute(name, fullPath)
     }
   }
@@ -70,12 +73,13 @@ export const useHandleBar = ({
       : refreshRoute()
   }
 
-  const deleteTab = ({ name, ifCurrent, fullPath }) => {
+  const deleteTab = ({ name, ifCurrent, fullPath, meta }) => {
     let index = history.value.findIndex(
       (v) => v.name == name && v.fullPath == fullPath
     )
     if (index > -1) {
       history.value.splice(index, 1)
+      clearCache(meta,name)
       if (ifCurrent) {
         let tailItem = history.value.pop()
         history.value.push(tailItem)
@@ -89,10 +93,6 @@ export const useHandleBar = ({
   }
 
   const refreshRoute = ({ path, query } = {}) => {
-    refreshing.value = true
-    setTimeout(() => {
-      refreshing.value = false
-    }, 1000)
     router.push({
       name: 'Redirect',
       query: getTarget({ targetPath: path, targetQuery: query }),
@@ -101,11 +101,17 @@ export const useHandleBar = ({
 
   function getTarget({ targetPath, targetQuery } = {}) {
     if (!targetPath || !targetQuery) {
+      refreshing.value = true
+      setTimeout(() => {
+        refreshing.value = false
+      }, 1000)
       const { currentRoute } = router
-      const { path, query } = unref(currentRoute)
+      const { name, path, query, meta } = unref(currentRoute)
+      clearCacheForce(meta,name)
       targetPath = path
       targetQuery = query
     }
+
     let queryString = ''
     Object.keys(targetQuery).forEach((key) => {
       queryString += `!@#$${key}=${targetQuery[key]}`
@@ -114,6 +120,15 @@ export const useHandleBar = ({
       targetPath,
       targetQuery: queryString,
     }
+  }
+
+  const clearCache = (meta,name) => {
+    const sibling = history.value.findIndex(v=>v.name == name)
+    sibling === -1 && meta.ifCache && store.commit('REMOVE_CACHE', name)
+  }
+
+  const clearCacheForce = (meta,name) => {
+    meta.ifCache && store.commit('REMOVE_CACHE', name)
   }
 
   const setFullpage = (bool) => {
