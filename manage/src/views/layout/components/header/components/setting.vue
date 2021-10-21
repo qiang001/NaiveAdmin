@@ -175,7 +175,7 @@ const ifHideIconChange = (val) => {
 
 import { useDebounce } from '@/hooks/useDebounce'
 const { ifProcessing: loading, func: resetSetting } = useDebounce(() => {
-  let defaultColor = colors.value.find((item) => item.key == 'blue')
+  let defaultColor = colors.value.find((item) => item.key == 'green')
   setColor(defaultColor, true)
   if (ifDark.value) {
     switchTheme()

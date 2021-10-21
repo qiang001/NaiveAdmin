@@ -189,6 +189,37 @@ export const permissionConfig = [
 // 主题色预设
 export const getColors = (ifDark) => {
   const colorCollection = {
+    green: {
+      key: 'green',
+      label: '微信原谅绿',
+      common: {
+        baseColor: '#fff',
+        primaryColor: !ifDark ? '#00c250' : '#2aae67',
+        primaryColorHover: !ifDark ? '#21cf64' : '#1a8750',
+        primaryColorPressed: !ifDark ? '#009c46' : '#4aba7bFF',
+        primaryColorSuppl: !ifDark ? '#21cf64' : '#1a8750',
+      },
+      Menu: {
+        // 箭头原色
+        arrowColor: !ifDark ? '#333639' : '#ffffffd1',
+        // 箭头激活
+        arrowColorHover: !ifDark ? '#00c250' : '#4aba7bFF',
+        arrowColorChildActive: !ifDark ? '#00c250' : '#4aba7bFF',
+        arrowColorActive: !ifDark ? '#00c250' : '#4aba7bFF',
+        // 背景激活
+        itemColorActive: !ifDark ? '#00c2501A' : '#000000FF',
+        // 内容激活
+        itemTextColorActive: !ifDark ? '#00c250' : '#4aba7bFF',
+        itemIconColorActive: !ifDark ? '#00c250' : '#4aba7bFF',
+        itemTextColorChildActive: !ifDark ? '#00c250' : '#4aba7bFF',
+        itemIconColorChildActive: !ifDark ? '#00c250' : '#4aba7bFF',
+        itemTextColorHover: !ifDark ? '#00c250' : '#4aba7bFF',
+        itemIconColorHover: !ifDark ? '#00c250' : '#4aba7bFF',
+      },
+      Checkbox: {
+        checkMarkColor: !ifDark ? '#fff' : '#CDCDD4FF',
+      },
+    },
     blue: {
       key: 'blue',
       label: '饿了么的蓝',
@@ -294,6 +325,37 @@ export const getColors = (ifDark) => {
       },
       Menu: {
         arrowColor: !ifDark ? '#333639' : '#ffffffd1',
+      },
+    },
+    orange: {
+      key: 'orange',
+      label: '阿里淘宝橙',
+      common: {
+        baseColor: '#fff',
+        primaryColor: !ifDark ? '#ff6a00' : '#ec6f00',
+        primaryColorHover: !ifDark ? '#ff8929' : '#c75600',
+        primaryColorPressed: !ifDark ? '#d95300' : '#fa9128',
+        primaryColorSuppl: !ifDark ? '#ff8929' : '#c75600',
+      },
+      Menu: {
+        // 箭头原色
+        arrowColor: !ifDark ? '#333639' : '#ffffffd1',
+        // 箭头激活
+        arrowColorHover: !ifDark ? '#ff6a00' : '#fa9128',
+        arrowColorChildActive: !ifDark ? '#ff6a00' : '#fa9128',
+        arrowColorActive: !ifDark ? '#ff6a00' : '#fa9128',
+        // 背景激活
+        itemColorActive: !ifDark ? '#ff6a001A' : '#000000FF',
+        // 内容激活
+        itemTextColorActive: !ifDark ? '#ff6a00' : '#fa9128',
+        itemIconColorActive: !ifDark ? '#ff6a00' : '#fa9128',
+        itemTextColorChildActive: !ifDark ? '#ff6a00' : '#fa9128',
+        itemIconColorChildActive: !ifDark ? '#ff6a00' : '#fa9128',
+        itemTextColorHover: !ifDark ? '#ff6a00' : '#fa9128',
+        itemIconColorHover: !ifDark ? '#ff6a00' : '#fa9128',
+      },
+      Checkbox: {
+        checkMarkColor: !ifDark ? '#fff' : '#CDCDD4FF',
       },
     },
   }

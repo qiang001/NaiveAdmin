@@ -14,6 +14,9 @@
 .j-sb {
   justify-content: space-between;
 }
+.j-sr {
+  justify-content: space-around;
+}
 /* Spacing */
 .m-0 {
   margin-left: 0;

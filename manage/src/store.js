@@ -31,7 +31,7 @@ export const buildStore = ({
   return createStore({
     state() {
       return {
-        mainColor: 'blue',
+        mainColor: 'green',
         ifDark: false,
         cacheList: [],
         menuOptions: [],

@@ -1,21 +1,7 @@
 <template>
-  <div id="action-header">
-    <div class="d-flex a-center pb-1">
-      <div class="ml-auto">
-        <n-space>
-          <n-button v-permission:logic.UserList-1="add" type="primary" size="medium">
-            <template #icon>
-              <n-icon>
-                <add-icon />
-              </n-icon>
-            </template>
-            添加新用户
-          </n-button>
-        </n-space>
-      </div>
-    </div>
-    <div class="d-flex a-center pb-1">
-      <div>
+  <div id="action-header" class="d-flex">
+    <div class="d-flex a-center py-2 mr-1">
+      <n-element class="filter-plane">
         <n-space>
           <n-input
             placeholder="搜索名称"
@@ -53,11 +39,8 @@
               </n-space>
             </n-radio-group>
           </div>
-        </n-space>
-      </div>
-      <div class="mx-1" style="flex-shrink: 0">
-        <n-space>
-          <n-button @click="clear">
+          <n-space>
+            <n-button @click="clear">
             <template #icon>
               <n-icon>
                 <reset-icon />
@@ -78,9 +61,22 @@
             </template>
             查询
           </n-button>
+          </n-space>
         </n-space>
-      </div>
-      <div class="ml-auto">
+      </n-element>
+    </div>
+    <div class="d-flex ml-auto">
+      <div class="ml-auto d-flex j-sr" style="flex-direction: column;">
+        <n-space>
+          <n-button v-permission:logic.UserList-1="add" type="primary" size="medium">
+            <template #icon>
+              <n-icon>
+                <add-icon />
+              </n-icon>
+            </template>
+            添加新用户
+          </n-button>
+        </n-space>
         <n-space>
           <n-button @click="changeSort" size="small" text>
             <template #icon>
@@ -101,7 +97,7 @@
 </template>
 
 <script setup>
-import { NInput, NButton, NSpace, NIcon, NRadio, NRadioGroup } from 'naive-ui'
+import { NInput, NButton, NSpace, NIcon, NRadio, NRadioGroup,NElement } from 'naive-ui'
 import { AddSharp as AddIcon } from '@vicons/material'
 import { SearchOutlined as SearchIcon } from '@vicons/antd'
 import {
@@ -162,5 +158,11 @@ const changeSort = () => {
 }
 .slide-leave-active {
   transition: all 0.3s ease;
+}
+
+.filter-plane{
+  padding: 20px;
+  border-radius: 3px;
+  background-color: var(--action-color);
 }
 </style>

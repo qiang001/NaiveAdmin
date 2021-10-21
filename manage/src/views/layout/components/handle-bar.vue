@@ -311,7 +311,7 @@ const setFullpage = () => {
 <style scoped>
 .handle-bar {
   /* border-bottom: 1px solid var(--border-color); */
-  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 8px 0 #80808026;
   position: relative;
   height: 34px;
 }
