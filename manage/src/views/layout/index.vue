@@ -1,5 +1,5 @@
 <template>
-  <n-layout position="absolute">
+  <n-layout position="absolute" class="page-plane">
     <Header
       id="header"
       :style="`${
@@ -153,6 +153,14 @@ import Page from './components/page.vue'
     cursor: default;
     opacity: 0;
     user-select: none;
+  }
+}
+
+@media only screen and (min-width: 1800px) {
+  #header, .main {
+    max-width: 1800px;
+    margin: auto;
+    box-shadow: 0 0 8px 0 #3d3b3b26;
   }
 }
 </style>
