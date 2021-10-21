@@ -1,44 +1,39 @@
 import { createStore } from 'vuex'
 import { darkTheme } from 'naive-ui'
-import {
+import { useLoginApi } from '@/api/useLoginApi.js'
+const { loginUser, getUserInfo } = useLoginApi()
+
+export const buildStore = ({
+  router,
   buildPages,
   buildMenuOptions,
   buildMenuAuthTree,
   getAuthKeys,
-} from './navigation.js'
-import { pageConfig, getColors, themeOverrides } from './configuration.js'
-// menu auth tree
-const menuAuthTree = buildMenuAuthTree(pageConfig)
-// auth keys
-const { ALL_AUTH_KEYS, HIDE_AUTH_KEYS, searchOptions } = getAuthKeys(pageConfig)
-
-import request from '@/api/store.js'
-const loginUser = async (data) => {
-  try {
-    let token = await request.post('/v1/users/login', data)
-    $message.success('恭喜你，登录成功！')
-    return token
-  } catch (error) {
-    $message.error(error)
-  }
-}
-const getUserInfo = async (token) => {
-  try {
-    return await request.get('/v1/users/userInfo', {
-      headers: { authorization: token },
+  pageConfig,
+  getColors,
+  themeOverrides,
+}) => {
+  // menu auth tree
+  const menuAuthTree = buildMenuAuthTree(pageConfig)
+  // auth keys
+  const { ALL_AUTH_KEYS, HIDE_AUTH_KEYS, searchOptions } =
+    getAuthKeys(pageConfig)
+  // 防止刷新404
+  function prevent404() {
+    router.addRoute({
+      path: '/:pathMatch(.*)*',
+      name: 'Not Found',
+      redirect: {
+        name: '404',
+      },
     })
-  } catch (error) {
-    throw new Error(error)
   }
-}
-
-export const buildStore = (router) => {
-  const store = createStore({
+  return createStore({
     state() {
       return {
         mainColor: 'blue',
         ifDark: false,
-        cacheList:[],
+        cacheList: [],
         menuOptions: [],
         menuOptionsWithoutIcon: [],
         token: '',
@@ -67,7 +62,7 @@ export const buildStore = (router) => {
           overrides,
         }
       },
-      getCacheList(state){
+      getCacheList(state) {
         return state.cacheList
       },
       getMenu: (state) => (ifHideIcon) => {
@@ -92,10 +87,10 @@ export const buildStore = (router) => {
       SET_IFDARK(state, bool) {
         state.ifDark = bool
       },
-      REMOVE_CACHE(state,name){
-        state.cacheList = state.cacheList.filter(n=>n!==name)
+      REMOVE_CACHE(state, name) {
+        state.cacheList = state.cacheList.filter((n) => n !== name)
       },
-      ADD_CACHE(state,name){
+      ADD_CACHE(state, name) {
         !state.cacheList.includes(name) && state.cacheList.push(name)
       },
       SET_TOKEN(state, token) {
@@ -111,8 +106,10 @@ export const buildStore = (router) => {
           const removeRoute = router.addRoute('Layout', page)
           if (!AUTH_KEYS.includes(page.name)) {
             removeRoute()
-          }else{
-            page.meta.ifCache && !state.cacheList.includes(page.name) && state.cacheList.push(page.name)
+          } else {
+            page.meta.ifCache &&
+              !state.cacheList.includes(page.name) &&
+              state.cacheList.push(page.name)
           }
         })
         state.menuOptions = buildMenuOptions(pageConfig, {
@@ -188,7 +185,7 @@ export const buildStore = (router) => {
         }
         commit('SET_AUTH', authKeys)
         commit('SET_PERMISSION', { contentAuths, logicAuths })
-        router.replace(userInfo.name == '超级管理员'?'/layout/console':'/')
+        router.replace(userInfo.name == '超级管理员' ? '/layout/console' : '/')
       },
       refreshLogin: async ({ commit }, token) => {
         try {
@@ -245,16 +242,4 @@ export const buildStore = (router) => {
       },
     },
   })
-
-  // 防止刷新404
-  function prevent404() {
-    router.addRoute({
-      path: '/:pathMatch(.*)*',
-      name: 'Not Found',
-      redirect: {
-        name: '404',
-      },
-    })
-  }
-  return store
 }

@@ -35,7 +35,8 @@ watch(height, () => {
   if (ifFullpage.value) {
     otherHeight -= 64
   }
-  setTimeout(() => {
+  if(container.value){
+    setTimeout(() => {
     container.value.style.setProperty(
       'min-height',
       `calc(100vh - ${otherHeight}px)`
@@ -47,6 +48,7 @@ watch(height, () => {
     )
     }
   })
+  }
   emit('resize', { width: width.value, height: height.value })
 },{ immediate: true })
 

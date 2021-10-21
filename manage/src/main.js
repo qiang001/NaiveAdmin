@@ -1,40 +1,40 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import { buildRouter } from './navigation.js'
-import { buildStore } from './store.js'
-// init router
-const router = buildRouter()
-// init store
-const store = buildStore(router)
 
 const app = createApp(App)
+
+import {
+  buildRouter,
+  buildPages,
+  buildMenuOptions,
+  buildMenuAuthTree,
+  getAuthKeys,
+  initOtherPermissions,
+} from './authorization.js'
+
+import { pageConfig, getColors, themeOverrides } from './configuration.js'
+
+import { buildStore } from './store.js'
+
+const router = buildRouter()
 app.use(router)
-app.use(store)
-app.directive('permission', {
-  beforeMount(el, binding) {
-    if (binding.arg == 'logic') {
-      const key = Object.keys(binding.modifiers).join()
-      el.addEventListener('click', () => {
-        if (
-          !store.state.logicAuths.includes(key) &&
-          store.state.userInfo.name !== '超级管理员'
-        ) {
-          return $message.error('没有对应的操作许可权限')
-        }
-        const callback = binding.value
-        callback()
-      })
-    }
-  },
-  mounted(el, binding) {
-    if (binding.arg == 'content') {
-      if (
-        !store.state.contentAuths.includes(binding.value) &&
-        store.state.userInfo.name !== '超级管理员'
-      ) {
-        el.parentNode.removeChild(el)
-      }
-    }
-  },
+
+const store = buildStore({
+  // 初始路由
+  router,
+  // 添加权限路由 - 页面级权限
+  buildPages,
+  buildMenuOptions,
+  buildMenuAuthTree,
+  getAuthKeys,
+  pageConfig,
+  // 主题配色相关
+  getColors,
+  themeOverrides,
 })
+app.use(store)
+
+// 其他权限 - 内容级&逻辑类 权限
+initOtherPermissions(app, store)
+
 app.mount('#app')

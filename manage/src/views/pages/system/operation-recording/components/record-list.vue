@@ -89,7 +89,7 @@ function createColumns() {
                           if (added) {
                             style.backgroundColor = !store.state.ifDark
                               ? '#eeffef'
-                              : '#2c3a2c'
+                              : '#0a440a'
                             style.color = !store.state.ifDark
                               ? '#12961a'
                               : '#72b876'
@@ -97,7 +97,7 @@ function createColumns() {
                           if (removed) {
                             style.backgroundColor = !store.state.ifDark
                               ? '#ffeaea'
-                              : '#442f2f80'
+                              : '#5c0505b5'
                             style.color = !store.state.ifDark
                               ? '#ef2626'
                               : '#b66e6e'
