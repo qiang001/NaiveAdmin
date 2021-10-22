@@ -53,19 +53,20 @@
   </common-modal>
 </template>
 
-<script setup>
-import { NInput, NForm, NFormItem, NSelect, NSwitch } from 'naive-ui'
+<script setup lang="ts">
+import { NInput, NForm, NFormItem, NSelect,SelectOption, NSwitch } from 'naive-ui'
 import CommonModal from '@/components/CommonModal.vue'
-import { ref, inject } from 'vue'
+import { ref, inject,Ref } from 'vue'
 // 注入状态数据以进行 UI渲染 UX交互
-const ifEdit = inject('ifEdit')
-const editModal = inject('editModal')
-const confirmLoading = inject('confirmLoading')
-const user = inject('user')
-const roleOptions = inject('roleOptions')
+const ifEdit = inject('ifEdit') as Ref<boolean>
+const editModal = inject('editModal') as Ref<boolean>
+const confirmLoading = inject('confirmLoading') as Ref<boolean>
+import {IUser} from '../interfaces/user'
+const user = inject('user') as IUser
+const roleOptions = inject('roleOptions') as Array<SelectOption>
 // 表单相关
 const formRef = ref(null)
-const rules = {
+const rules:any = {
   user: {
     name: {
       required: true,

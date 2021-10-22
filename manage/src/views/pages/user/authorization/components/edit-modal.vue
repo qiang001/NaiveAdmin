@@ -93,13 +93,12 @@
   </common-modal>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {
   NInput,
   NTree,
   NTabs,
   NTabPane,
-  NResult,
   NForm,
   NFormItem,
   NCollapse,
@@ -109,12 +108,14 @@ import {
   NSpace,
 } from 'naive-ui'
 import CommonModal from '@/components/CommonModal.vue'
-import { ref, inject, watch, unref } from 'vue'
+import { ref, inject, watch, unref, Ref } from 'vue'
 // 注入状态数据以进行 UI渲染 UX交互
-const ifEdit = inject('ifEdit')
-const editModal = inject('editModal')
-const confirmLoading = inject('confirmLoading')
-const role = inject('role')
+const ifEdit = inject('ifEdit') as Ref<boolean>
+const editModal = inject('editModal') as Ref<boolean>
+const confirmLoading = inject('confirmLoading') as Ref<boolean>
+
+import {IRoleListItem} from '../interfaces/role'
+const role = inject('role') as IRoleListItem
 
 // 表单相关
 const formRef = ref(null)
@@ -146,7 +147,9 @@ const validation = () => {
 }
 
 // 菜单权限树相关
-const store = inject('store')
+import {useStore} from 'vuex'
+import { storeKey } from '@/store'
+const store = useStore(storeKey)
 const menuAuthTree = ref([])
 menuAuthTree.value = store.getters.getMenuAuthTree
 const checkedKeys = ref([])
@@ -204,7 +207,7 @@ const getPageAuthKeys = () => {
 }
 
 // permission相关
-import { permissionConfig } from '@/configuration.js'
+import { permissionConfig } from '@/configuration'
 const contentPermission = ref([])
 contentPermission.value = permissionConfig
   .filter((item) => item.contentAuths && item.contentAuths.length > 0)

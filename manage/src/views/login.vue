@@ -87,7 +87,7 @@
   </n-layout>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {
   NLayout,
   NLayoutContent,
@@ -108,14 +108,15 @@ import {
 import { ref, reactive, unref, onMounted } from 'vue'
 
 import { useStore } from 'vuex'
-const store = useStore()
+import { storeKey } from '@/store'
+const store = useStore(storeKey)
 
 onMounted(() => {
   if (store.state.loginPageMessage.type == 'error') {
-    $message.error(store.state.loginPageMessage.text)
+    window.$message.error(store.state.loginPageMessage.text)
   }
   if (store.state.loginPageMessage.type == 'success') {
-    $message.success(store.state.loginPageMessage.text)
+    window.$message.success(store.state.loginPageMessage.text)
   }
 })
 

@@ -40,14 +40,15 @@
   </common-modal>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { NInput, NForm, NFormItem } from 'naive-ui'
 import CommonModal from '@/components/CommonModal.vue'
-import { ref, inject } from 'vue'
+import { ref, inject, Ref } from 'vue'
 // 注入状态数据以进行 UI渲染 UX交互
-const resetPasswordModal = inject('resetPasswordModal')
-const confirmLoading = inject('resetLoading')
-const user = inject('resetUser')
+const resetPasswordModal = inject('resetPasswordModal') as Ref<boolean>
+const confirmLoading = inject('resetLoading') as Ref<boolean>
+import {IUserResetPassword} from '../interfaces/user'
+const user = inject('resetUser') as IUserResetPassword
 // 表单相关
 const formRef = ref(null)
 const rules = {

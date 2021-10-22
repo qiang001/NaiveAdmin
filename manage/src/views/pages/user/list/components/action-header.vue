@@ -1,10 +1,10 @@
 <template>
   <div id="action-header" class="d-flex">
-    <div class="d-flex a-center py-2 mr-1">
+    <div class="d-flex a-center py-2 mr-2">
       <n-element class="filter-plane">
         <n-space>
           <n-input
-            placeholder="搜索名称"
+            placeholder="搜索昵称"
             clearable
             v-model:value="filters.name"
             @keyup.enter="search"
@@ -41,34 +41,38 @@
           </div>
           <n-space>
             <n-button @click="clear">
-            <template #icon>
-              <n-icon>
-                <reset-icon />
-              </n-icon>
-            </template>
-            重置
-          </n-button>
-          <n-button
-            @click="search"
-            type="primary"
-            :loading="searching"
-            :disabled="searching"
-          >
-            <template #icon>
-              <n-icon>
-                <search-icon />
-              </n-icon>
-            </template>
-            查询
-          </n-button>
+              <template #icon>
+                <n-icon>
+                  <reset-icon />
+                </n-icon>
+              </template>
+              重置
+            </n-button>
+            <n-button
+              @click="search"
+              type="primary"
+              :loading="searching"
+              :disabled="searching"
+            >
+              <template #icon>
+                <n-icon>
+                  <search-icon />
+                </n-icon>
+              </template>
+              查询
+            </n-button>
           </n-space>
         </n-space>
       </n-element>
     </div>
     <div class="d-flex ml-auto">
-      <div class="ml-auto d-flex j-sr" style="flex-direction: column;">
+      <div class="d-flex j-sb" style="flex-direction: column">
         <n-space>
-          <n-button v-permission:logic.UserList-1="add" type="primary" size="medium">
+          <n-button
+            v-permission:logic.UserList-1="add"
+            type="primary"
+            size="medium"
+          >
             <template #icon>
               <n-icon>
                 <add-icon />
@@ -96,8 +100,16 @@
   </div>
 </template>
 
-<script setup>
-import { NInput, NButton, NSpace, NIcon, NRadio, NRadioGroup,NElement } from 'naive-ui'
+<script setup lang="ts">
+import {
+  NInput,
+  NButton,
+  NSpace,
+  NIcon,
+  NRadio,
+  NRadioGroup,
+  NElement,
+} from 'naive-ui'
 import { AddSharp as AddIcon } from '@vicons/material'
 import { SearchOutlined as SearchIcon } from '@vicons/antd'
 import {
@@ -106,11 +118,11 @@ import {
   ArrowSortUp20Filled as UpIcon,
   ArrowSortDown20Filled as DownIcon,
 } from '@vicons/fluent'
-import { inject } from 'vue'
-
-const filters = inject('filters')
-const searching = inject('searching')
-const sort = inject('sort')
+import { inject ,Ref} from 'vue'
+import {IFilters} from '../interfaces/filters'
+const filters = inject('filters') as IFilters
+const searching = inject('searching') as Ref<boolean>
+const sort = inject('sort') as Ref<string>
 
 // 暴露事件
 const emit = defineEmits([
@@ -160,7 +172,7 @@ const changeSort = () => {
   transition: all 0.3s ease;
 }
 
-.filter-plane{
+.filter-plane {
   padding: 20px;
   border-radius: 3px;
   background-color: var(--action-color);

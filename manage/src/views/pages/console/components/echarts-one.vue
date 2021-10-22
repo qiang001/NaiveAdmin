@@ -9,7 +9,7 @@
   ></div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import * as echarts from 'echarts/core'
 import {
   TitleComponent,
@@ -19,9 +19,11 @@ import {
 import { ScatterChart } from 'echarts/charts'
 import { UniversalTransition } from 'echarts/features'
 import { CanvasRenderer } from 'echarts/renderers'
-import { onMounted, watch, inject, computed } from 'vue'
-const ifSizeChange = inject('ifSizeChange')
-const store = inject('store')
+import { onMounted, watch, inject, computed,Ref } from 'vue'
+const ifSizeChange = inject('ifSizeChange') as Ref<number>
+import {useStore} from 'vuex'
+import { storeKey } from '@/store'
+const store = useStore(storeKey)
 const walden = inject('walden')
 const ifDark = computed(() => store.state.ifDark)
 let myChart = null
@@ -113,7 +115,7 @@ const initChart = () => {
     series: series,
   }
   if (ifDark.value) {
-    option.backgroundColor = '#17171b'
+    (option as any).backgroundColor = '#17171b'
   }
   myChart.setOption(option)
 }

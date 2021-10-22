@@ -1,5 +1,11 @@
 // 路由-菜单
-export const pageConfig = [
+import {
+  IPageItem,
+  IPermission,
+  IColorCollection,
+} from '@/interfaces/configuration'
+
+export const pageConfig: IPageItem[] = [
   {
     name: 'Console',
     path: 'console',
@@ -168,7 +174,7 @@ export const pageConfig = [
   },
 ]
 
-export const permissionConfig = [
+export const permissionConfig: IPermission[] = [
   {
     page: 'Console',
     label: '主控台',
@@ -187,8 +193,8 @@ export const permissionConfig = [
 ]
 
 // 主题色预设
-export const getColors = (ifDark) => {
-  const colorCollection = {
+export const getColors: (ifDark: boolean) => IColorCollection = (ifDark) => {
+  return {
     green: {
       key: 'green',
       label: '微信原谅绿',
@@ -359,11 +365,13 @@ export const getColors = (ifDark) => {
       },
     },
   }
-  return colorCollection
 }
 
 // 主题覆盖
-export const themeOverrides = (mainColor, ifDark) => {
+export const themeOverrides: (mainColor: string, ifDark: boolean) => any = (
+  mainColor,
+  ifDark
+) => {
   const setting = getColors(ifDark)[mainColor]
 
   let common = {

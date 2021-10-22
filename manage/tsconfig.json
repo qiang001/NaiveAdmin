@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+        "allowSyntheticDefaultImports": true,
+        "skipLibCheck": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "types": ["vite/client"],
+        "isolatedModules": true,
+        "baseUrl": ".",
+        "paths": {
+            "@/*":["src/*"]
+        }    
+    }
+}

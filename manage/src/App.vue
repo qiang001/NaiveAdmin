@@ -17,7 +17,7 @@
   </n-config-provider>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {
   NConfigProvider,
   NGlobalStyle,
@@ -29,7 +29,8 @@ import {
 } from 'naive-ui'
 import { onMounted } from 'vue'
 import { useStore } from 'vuex'
-const store = useStore()
+import { storeKey } from '@/store'
+const store = useStore(storeKey)
 import { useRouter } from 'vue-router'
 const router = useRouter()
 onMounted(() => {
@@ -46,7 +47,7 @@ onMounted(() => {
   } else {
     store.commit('SET_TOKEN', '')
     store.commit('SET_AUTH', [])
-    store.commit('SET_PERMISSION',{contentAuths:[],logicAuths:[]})
+    store.commit('SET_PERMISSION', { contentAuths: [], logicAuths: [] })
     store.commit('SET_LOGIN_MESSAGE', {
       type: 'success',
       text: '欢迎光临，赶快立即登录体验吧！',

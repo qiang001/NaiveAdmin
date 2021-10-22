@@ -23,15 +23,16 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { NMenu, NAutoComplete } from 'naive-ui'
 
-import { ref, computed, watch, inject } from 'vue'
+import { ref, computed, watch, inject,Ref } from 'vue'
 
-// 注入公共数据
-const store = inject('store')
-const route = inject('route')
-
+import { useStore } from 'vuex'
+import { storeKey } from '@/store'
+const store = useStore(storeKey)
+import {useRoute} from 'vue-router'
+const route = useRoute()
 // 快捷搜索
 const keyword = ref('')
 const options = computed(() => {
@@ -55,9 +56,9 @@ const options = computed(() => {
 })
 
 // 渲染菜单
-const inverted = inject('inverted')
-const collapsed = inject('collapsed')
-const ifHideIcon = inject('ifHideIcon')
+const inverted = inject('inverted') as Ref<boolean>
+const collapsed = inject('collapsed') as Ref<boolean>
+const ifHideIcon = inject('ifHideIcon') as Ref<boolean>
 const menu = computed(() => store.getters.getMenu(ifHideIcon.value))
 
 // 拍平菜单
@@ -77,15 +78,15 @@ const keyMap = computed(() => {
 })
 
 // 初始化菜单状态并配合当前路由实时选中、展开、修改网页标题
-const defaultMenu = computed(() => route.meta.menuKey)
-const expandedKeys = ref(route.meta.expandedKey.split(','))
+const defaultMenu = computed(() => route.meta.menuKey as string)
+const expandedKeys = ref((route.meta.expandedKey as string).split(','))
 watch(
   () => route.name,
   () => {
     document.title =
       route.meta.label + ' - 通用后台管理系统 Common Content Manage System'
     if (route.name != 'Redirect') {
-      expandedKeys.value = route.meta.expandedKey.split(',')
+      expandedKeys.value = (route.meta.expandedKey as string).split(',')
     }
   },
   { immediate: true }

@@ -10,10 +10,11 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useStore } from 'vuex'
-const store = useStore()
-import { toRefs, watch, inject } from 'vue'
+import { storeKey } from '@/store'
+const store = useStore(storeKey)
+import { toRefs, watch, inject,Ref } from 'vue'
 
 const props = defineProps({
   title: String,
@@ -27,7 +28,7 @@ const { title,ifExpand } = toRefs(props)
 import { useResizeContainer } from '../hooks/useResizeContainer'
 const { width, height, container } = useResizeContainer('page-panel')
 
-const ifFullpage = inject('ifFullpage')
+const ifFullpage = inject('ifFullpage') as Ref<boolean>
 const emit = defineEmits(['resize'])
 
 watch(height, () => {

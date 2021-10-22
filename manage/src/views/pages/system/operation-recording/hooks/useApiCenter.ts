@@ -1,4 +1,4 @@
-import { useAxios } from '@/api/index.js'
+import { useAxios } from '@/api/index'
 export const useApiCenter = ({ store, records, useDebounce }) => {
   const request = useAxios(store)
 

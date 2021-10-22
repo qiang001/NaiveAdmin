@@ -6,12 +6,12 @@
       </keep-alive>
     </transition>
   </router-view>
-  <!-- <router-view></router-view> -->
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {useStore} from 'vuex'
-const store = useStore()
+import { storeKey } from '@/store'
+const store = useStore(storeKey)
 </script>
 
 <style scoped>

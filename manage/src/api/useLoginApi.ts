@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export const useLoginApi = () => {
   const instance = axios.create({
-    baseURL: import.meta.env.VITE_APP_SERVER_BASE_URL,
+    baseURL: import.meta.env.VITE_APP_SERVER_BASE_URL as string,
     timeout: 30 * 60 * 1000,
   })
 
@@ -21,10 +21,10 @@ export const useLoginApi = () => {
   async function loginUser(data) {
     try {
       let token = await instance.post('/v1/users/login', data)
-      $message.success('恭喜你，登录成功！')
+      window.$message.success('恭喜你，登录成功！')
       return token
     } catch (error) {
-      $message.error(error)
+      window.$message.error(error)
     }
   }
   async function getUserInfo(token) {

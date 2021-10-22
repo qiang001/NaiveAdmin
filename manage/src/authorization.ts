@@ -55,7 +55,9 @@ function buildRouter() {
   })
 }
 
-function buildPages(configuration) {
+import { IPageItem } from '@/interfaces/configuration'
+import { RouteRecordRaw } from 'vue-router'
+function buildPages(configuration: Array<IPageItem>): Array<RouteRecordRaw> {
   // 动态引入神坑
 
   // 1.开发没问题，打包搞死人
@@ -66,7 +68,10 @@ function buildPages(configuration) {
 
   let pages = []
   return recursion(configuration)
-  function recursion(arr, expandedKeys) {
+  function recursion(
+    arr: Array<IPageItem>,
+    expandedKeys?: Array<string>
+  ): Array<RouteRecordRaw> {
     arr.forEach((item) => {
       expandedKeys = expandedKeys || []
       if (item.path) {
@@ -79,7 +84,10 @@ function buildPages(configuration) {
     })
     return pages
   }
-  function mapPage(item, expandedKeys) {
+  function mapPage(
+    item: IPageItem,
+    expandedKeys: Array<string>
+  ): RouteRecordRaw {
     return {
       path: item.path,
       name: item.name,
@@ -91,7 +99,7 @@ function buildPages(configuration) {
           ...expandedKeys,
           item.ifHide ? item.belongsTo : item.name,
         ].join(','),
-        ifCache:!!item.ifCache
+        ifCache: !!item.ifCache,
       },
     }
   }
@@ -99,12 +107,20 @@ function buildPages(configuration) {
 
 import { h } from 'vue'
 import { NIcon } from 'naive-ui'
-import { iconCollection } from '@/assets/icons/menu.js'
+import { iconCollection } from '@/assets/icons/menu'
+
+import { IMenuItem } from '@/interfaces/authorization'
 
 // 渲染菜单
-function buildMenuOptions(configuration, { AUTH_KEYS, ifHideIcon }) {
+function buildMenuOptions(
+  configuration: Array<IPageItem>,
+  { AUTH_KEYS, ifHideIcon }
+): Array<IMenuItem> {
   return recursion(configuration, [])
-  function recursion(arr, expandedKeys) {
+  function recursion(
+    arr: Array<IPageItem>,
+    expandedKeys: Array<string>
+  ): Array<IMenuItem> {
     return arr
       .filter((v) => !v.ifHide && AUTH_KEYS.includes(v.name))
       .map((item) => {
@@ -122,7 +138,11 @@ function buildMenuOptions(configuration, { AUTH_KEYS, ifHideIcon }) {
       })
   }
 
-  function mapMenuOption(item, expandedKeys, ifHideIcon) {
+  function mapMenuOption(
+    item: IPageItem,
+    expandedKeys: Array<string>,
+    ifHideIcon: boolean
+  ): IMenuItem {
     return {
       icon: item.icon && !ifHideIcon ? renderIcon(item.icon) : undefined,
       label: item.label,
@@ -143,10 +163,14 @@ function buildMenuOptions(configuration, { AUTH_KEYS, ifHideIcon }) {
   }
 }
 
+import { IMenuAuth } from '@/interfaces/authorization'
 // 渲染菜单权限树
-function buildMenuAuthTree(configuration) {
+function buildMenuAuthTree(configuration: Array<IPageItem>): Array<IMenuAuth> {
   return recursion(configuration, [])
-  function recursion(arr, expandedKeys) {
+  function recursion(
+    arr: Array<IPageItem>,
+    expandedKeys: Array<string>
+  ): IMenuAuth[] {
     return arr.map((item) => {
       let auth = mapMenuAuth(item, expandedKeys)
       if (item.children) {
@@ -156,7 +180,10 @@ function buildMenuAuthTree(configuration) {
     })
   }
 
-  function mapMenuAuth(item, expandedKeys) {
+  function mapMenuAuth(
+    item: IPageItem,
+    expandedKeys: Array<string>
+  ): IMenuAuth {
     return {
       label: item.label,
       key: item.name,
@@ -166,13 +193,14 @@ function buildMenuAuthTree(configuration) {
   }
 }
 
+import { IMenuAuthsFlated } from '@/interfaces/authorization'
 // 路由权限拍平
-function getAuthKeys(configuration) {
+function getAuthKeys(configuration: Array<IPageItem>): IMenuAuthsFlated {
   let keys = []
   let hides = []
   let shows = []
   extractKeys(configuration)
-  function extractKeys(arr) {
+  function extractKeys(arr: Array<IPageItem>): void {
     arr.forEach((item) => {
       keys = [...keys, item.name]
       if (item.ifHide) {
@@ -187,7 +215,7 @@ function getAuthKeys(configuration) {
       if (item.children) {
         extractKeys(item.children)
       } else {
-        if (!item.ifHide) {
+        if (!item.ifHide && item.labelPinYin) {
           shows = [
             ...shows,
             {
@@ -207,7 +235,7 @@ function getAuthKeys(configuration) {
   }
 }
 
-function initOtherPermissions (app,store) {
+function initOtherPermissions(app, store):void {
   app.directive('permission', {
     beforeMount(el, binding) {
       if (binding.arg == 'logic') {
@@ -217,7 +245,7 @@ function initOtherPermissions (app,store) {
             !store.state.logicAuths.includes(key) &&
             store.state.userInfo.name !== '超级管理员'
           ) {
-            return $message.error('没有对应的操作许可权限')
+            return window.$message.error('没有对应的操作许可权限')
           }
           const callback = binding.value
           callback()
@@ -243,5 +271,5 @@ export {
   buildMenuOptions,
   buildMenuAuthTree,
   getAuthKeys,
-  initOtherPermissions
+  initOtherPermissions,
 }

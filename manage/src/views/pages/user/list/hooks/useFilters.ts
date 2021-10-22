@@ -1,12 +1,14 @@
 import { ref, reactive, unref, onMounted } from 'vue'
+import {IFilters} from '../interfaces/filters'
+import {IPagination} from '../interfaces/pagination'
 export const useFilters = (getUsers) => {
-  const filters = reactive({
+  const filters = reactive<IFilters>({
     name: '',
     username: '',
     ifActive: null,
   })
   const sort = ref('')
-  const pagination = reactive({
+  const pagination = reactive<IPagination>({
     total: 0,
     page: 1,
     pageSize: 5,

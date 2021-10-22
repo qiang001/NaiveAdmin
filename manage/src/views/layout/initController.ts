@@ -1,10 +1,11 @@
 import { useStore } from 'vuex'
+import { storeKey } from '@/store'
 import { useRouter, useRoute } from 'vue-router'
 import { useFullscreen } from './hooks/useFullscreen'
 import { useMenu } from './hooks/useMenu'
 import { useHandleBar } from './hooks/useHandleBar'
 export const initController = (loadingBar) => {
-  const store = useStore()
+  const store = useStore(storeKey)
   const router = useRouter()
   const route = useRoute()
 
@@ -40,8 +41,6 @@ export const initController = (loadingBar) => {
   } = useMenu({ refreshRoute, router })
 
   const data = {
-    store,
-    router,
     route,
     ifFullpage,
     refreshing,
@@ -60,7 +59,7 @@ export const initController = (loadingBar) => {
     collapsedChange,
     navigateTo,
     widthChange,
-    widthChangeDone
+    widthChangeDone,
   }
   return {
     ...data,

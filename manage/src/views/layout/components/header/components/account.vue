@@ -11,7 +11,11 @@
       <n-button size="small" :text="true">
         <div class="d-flex a-center j-center">
           <div class="d-flex a-center j-center">
-            <img src="@/assets/avatar.svg" alt="" style="width: 24px;border-radius: 50%;" />
+            <img
+              src="@/assets/avatar.svg"
+              alt=""
+              style="width: 24px; border-radius: 50%"
+            />
           </div>
           <div class="ml-1">{{ store.state.userInfo.name }}</div>
         </div>
@@ -23,13 +27,16 @@
   </div>
 </template>
 
-<script setup>
-import { NDropdown, NButton, NIcon } from 'naive-ui'
-import { h, inject } from 'vue'
+<script setup lang="ts">
+import { NDropdown, DropdownOption, NButton, NIcon } from 'naive-ui'
+import { h } from 'vue'
 import { ExitToAppSharp as LogoutIcon } from '@vicons/material'
-const store = inject('store')
-const router = inject('router')
-const options = [{ label: '退出系统', key: 'logout', icon: LogoutIcon }]
+import { useStore } from 'vuex'
+import { storeKey } from '@/store'
+const store = useStore(storeKey)
+const options: Array<DropdownOption> = [
+  { label: '退出系统', key: 'logout', icon: () => h(LogoutIcon) },
+]
 
 const renderDropdownIcon = (option) => {
   return h(NIcon, null, {
@@ -42,6 +49,8 @@ const handleSelect = (key) => {
     store.dispatch('logout')
   }
 }
+import { useRouter } from 'vue-router'
+const router = useRouter()
 const login = () => {
   router.push('/login')
 }

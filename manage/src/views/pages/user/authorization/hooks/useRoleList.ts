@@ -19,7 +19,7 @@ export const useRoleList = ({
 
   const { func: _deleteFromDB } = useDebounce(deleteFromDB)
   const _delete = (row) => {
-    const d = $dialog.warning({
+    const d = window.$dialog.warning({
       title: '警告',
       content: '确定删除？',
       positiveText: '确定',
@@ -29,9 +29,9 @@ export const useRoleList = ({
         d.loading = true
         try {
           await _deleteFromDB({ data: { ...unref(row) } })
-          $message.success(`恭喜你，删除成功！`)
+          window.$message.success(`恭喜你，删除成功！`)
         } catch (error) {
-          $message.error(error)
+          window.$message.error(error)
         }
         return await getRoles()
       },

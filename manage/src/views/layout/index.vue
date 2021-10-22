@@ -60,7 +60,7 @@
   </n-layout>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { provide, readonly } from 'vue'
 
 import {
@@ -79,8 +79,6 @@ const loadingBar = useLoadingBar()
 
 import { initController } from './initController'
 const {
-  store,
-  router,
   route,
   collapsed,
   inverted,
@@ -99,10 +97,6 @@ const {
   refreshRoute,
   setFullpage,
 } = initController(loadingBar)
-
-provide('store', readonly(store))
-provide('router', readonly(router))
-provide('route', readonly(route))
 
 provide('inverted', inverted)
 provide('ifHideIcon', ifHideIcon)

@@ -1,4 +1,6 @@
 import { ref, reactive, unref } from 'vue'
+import { IUserListItem, IUser } from '../interfaces/user'
+import { IRoleOption } from '../interfaces/roleOptions'
 export const useEditModal = ({
   getRoleOptions,
   saveToDB,
@@ -11,7 +13,7 @@ export const useEditModal = ({
   const editModal = ref(false)
   const { ifProcessing: confirmLoading, func: _saveToDB } =
     useDebounce(saveToDB)
-  const user = reactive({
+  const user = reactive<IUser>({
     _id: null,
     name: '',
     username: '',
@@ -19,7 +21,7 @@ export const useEditModal = ({
     roles: [],
     ifActive: false,
   })
-  const roleOptions = ref([])
+  const roleOptions = ref<Array<IRoleOption>>([])
   // 核心方法
   const open = async ({ data, type }) => {
     if (type == 'edit') {
@@ -42,18 +44,20 @@ export const useEditModal = ({
     }
     try {
       await _saveToDB(obj)
-      $message.success(obj.type=='edit'?'恭喜你，编辑成功！':'恭喜你，添加成功！')
+      window.$message.success(
+        obj.type == 'edit' ? '恭喜你，编辑成功！' : '恭喜你，添加成功！'
+      )
       close()
       if (obj.type == 'create') {
         resetPage()
       }
       await queryUsers()
     } catch (error) {
-      $message.error(error)
+      window.$message.error(error)
     }
   }
 
-  function setUser(data) {
+  function setUser(data: IUserListItem) {
     user._id = data._id
     user.name = data.name
     user.username = data.username

@@ -4,10 +4,10 @@ export function useDebounce(fn, delay = 1000) {
   const ifProcessing = ref(false)
   return {
     ifProcessing,
-    func: async function () {
+    func:function () {
+      ifProcessing.value = true
       let _this = this
       let _arguments = arguments
-      ifProcessing.value = true
       if (timer) clearTimeout(timer)
       return new Promise((resolve, reject) => {
         timer = setTimeout(async function () {

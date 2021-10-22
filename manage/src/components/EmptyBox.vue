@@ -37,11 +37,12 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { NElement } from 'naive-ui'
 import { useStore } from 'vuex'
 import { toRefs } from 'vue'
-const store = useStore()
+import { storeKey } from '@/store'
+const store = useStore(storeKey)
 const props = defineProps({
   showFile: {
     type: Boolean,

@@ -10,14 +10,14 @@ import {
   buildMenuAuthTree,
   getAuthKeys,
   initOtherPermissions,
-} from './authorization.js'
+} from './authorization'
 
-import { pageConfig, getColors, themeOverrides } from './configuration.js'
-
-import { buildStore } from './store.js'
+import { pageConfig, getColors, themeOverrides } from './configuration'
 
 const router = buildRouter()
 app.use(router)
+
+import { buildStore,storeKey } from './store'
 
 const store = buildStore({
   // 初始路由
@@ -32,7 +32,7 @@ const store = buildStore({
   getColors,
   themeOverrides,
 })
-app.use(store)
+app.use(store,storeKey)
 
 // 其他权限 - 内容级&逻辑类 权限
 initOtherPermissions(app, store)

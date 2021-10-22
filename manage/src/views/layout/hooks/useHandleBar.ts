@@ -1,4 +1,6 @@
-import { unref, ref } from 'vue'
+import { unref, ref, Ref } from 'vue'
+import { IHistory } from '../interfaces/handleBar'
+
 export const useHandleBar = ({
   loadingBar,
   router,
@@ -9,7 +11,7 @@ export const useHandleBar = ({
 }) => {
   const ifFullpage = ref(false)
   const refreshing = ref(false)
-  const history = ref([])
+  const history: Ref<Array<IHistory>> = ref([])
 
   addHistory(route)
 
@@ -79,7 +81,7 @@ export const useHandleBar = ({
     )
     if (index > -1) {
       history.value.splice(index, 1)
-      clearCache(meta,name)
+      clearCache(meta, name)
       if (ifCurrent) {
         let tailItem = history.value.pop()
         history.value.push(tailItem)
@@ -92,14 +94,21 @@ export const useHandleBar = ({
     }
   }
 
-  const refreshRoute = ({ path, query } = {}) => {
+  const refreshRoute = (
+    { path, query } = { path: undefined, query: undefined }
+  ) => {
     router.push({
       name: 'Redirect',
       query: getTarget({ targetPath: path, targetQuery: query }),
     })
   }
 
-  function getTarget({ targetPath, targetQuery } = {}) {
+  function getTarget(
+    { targetPath, targetQuery } = {
+      targetPath: undefined,
+      targetQuery: undefined,
+    }
+  ) {
     if (!targetPath || !targetQuery) {
       refreshing.value = true
       setTimeout(() => {
@@ -107,7 +116,7 @@ export const useHandleBar = ({
       }, 1000)
       const { currentRoute } = router
       const { name, path, query, meta } = unref(currentRoute)
-      clearCacheForce(meta,name)
+      clearCacheForce(meta, name)
       targetPath = path
       targetQuery = query
     }
@@ -122,12 +131,12 @@ export const useHandleBar = ({
     }
   }
 
-  const clearCache = (meta,name) => {
-    const sibling = history.value.findIndex(v=>v.name == name)
+  const clearCache = (meta, name) => {
+    const sibling = history.value.findIndex((v) => v.name == name)
     sibling === -1 && meta.ifCache && store.commit('REMOVE_CACHE', name)
   }
 
-  const clearCacheForce = (meta,name) => {
+  const clearCacheForce = (meta, name) => {
     meta.ifCache && store.commit('REMOVE_CACHE', name)
   }
 

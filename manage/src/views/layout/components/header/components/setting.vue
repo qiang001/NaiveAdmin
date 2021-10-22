@@ -114,7 +114,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {
   NButton,
   NIcon,
@@ -129,9 +129,11 @@ import {
   BuildCircleRound as SettingIcon,
   AutorenewSharp as RenewIcon,
 } from '@vicons/material'
-import { ref, inject } from 'vue'
+import { ref, inject,Ref } from 'vue'
 const settingShow = ref(false)
-const store = inject('store')
+import { useStore } from 'vuex'
+import { storeKey } from '@/store'
+const store = useStore(storeKey)
 const colors = ref([])
 colors.value = store.getters.getMainColors
 const setColor = (item, bool) => {
@@ -163,8 +165,8 @@ const switchTheme = () => {
   }
 }
 
-const inverted = inject('inverted')
-const ifHideIcon = inject('ifHideIcon')
+const inverted = inject('inverted') as Ref<boolean>
+const ifHideIcon = inject('ifHideIcon') as Ref<boolean>
 
 const invertedChange = (val) => {
   inverted.value = val
@@ -175,7 +177,7 @@ const ifHideIconChange = (val) => {
 
 import { useDebounce } from '@/hooks/useDebounce'
 const { ifProcessing: loading, func: resetSetting } = useDebounce(() => {
-  let defaultColor = colors.value.find((item) => item.key == 'green')
+  let defaultColor = colors.value[0]
   setColor(defaultColor, true)
   if (ifDark.value) {
     switchTheme()
@@ -183,7 +185,7 @@ const { ifProcessing: loading, func: resetSetting } = useDebounce(() => {
   invertedChange(false)
   ifHideIconChange(false)
   settingShow.value = false
-  $message.success('恭喜你，默认配置恢复成功！')
+  window.$message.success('恭喜你，默认配置恢复成功！')
 })
 </script>
 

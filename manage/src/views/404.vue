@@ -35,10 +35,11 @@
   </n-layout>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { NLayout, NLayoutContent, NButton } from 'naive-ui'
 import { useStore } from 'vuex'
-const store = useStore()
+import { storeKey } from '@/store'
+const store = useStore(storeKey)
 import { useRouter } from 'vue-router'
 const router = useRouter()
 const backToHome = () => {

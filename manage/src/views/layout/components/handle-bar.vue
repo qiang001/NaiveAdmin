@@ -133,7 +133,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {
   DoubleArrowRound as LeftIcon,
   DoubleArrowRound as RightIcon,
@@ -152,6 +152,7 @@ import {
   nextTick,
   onMounted,
   onBeforeUnmount,
+  Ref
 } from 'vue'
 // 拖动tab
 const drag = ref(false)
@@ -165,8 +166,12 @@ const setDrag = (bool) => {
   drag.value = bool
 }
 // 渲染 tabs 以及交互动画
-const store = inject('store')
-const history = inject('history')
+import { useStore } from 'vuex'
+import { storeKey } from '@/store'
+const store = useStore(storeKey)
+
+import {IHistory} from '../interfaces/handleBar'
+const history = inject('history') as Ref<Array<IHistory>>
 
 let updateTimer = null
 function animationStart() {
@@ -296,13 +301,13 @@ const deleteTab = ({ name, ifCurrent, fullPath, meta }) => {
 }
 
 // 刷新页面
-const refreshing = inject('refreshing')
+const refreshing = inject('refreshing') as Ref<boolean>
 const refresh = () => {
   emit('refreshPage')
 }
 
 // 设置全屏
-const ifFullpage = inject('ifFullpage')
+const ifFullpage = inject('ifFullpage') as Ref<boolean>
 const setFullpage = () => {
   emit('setFullpage', !ifFullpage.value)
 }

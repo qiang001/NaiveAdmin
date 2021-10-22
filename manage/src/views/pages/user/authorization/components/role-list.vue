@@ -13,21 +13,24 @@
   </n-data-table>
 </template>
 
-<script setup>
+<script setup lang="ts">
 const emit = defineEmits(['edit', '_delete'])
-import { h, inject } from 'vue'
-import { NTag, NDataTable, NSpace } from 'naive-ui'
+import { h, inject,Ref } from 'vue'
+import { NTag, NDataTable,DataTableColumn, NSpace } from 'naive-ui'
 import { EditNoteOutlined as EditIcon } from '@vicons/material'
 import { DeleteOutlined as DeleteIcon } from '@vicons/antd'
 import EmptyBox from '@/components/EmptyBox.vue'
-import { useIconButton } from '@/hooks/useIconButton.js'
-import { useDateTime } from '@/hooks/useDateFormat.js'
-const store = inject('store')
-const maxHeight = inject('maxHeight')
-const loading = inject('loading')
-const data = inject('roles')
+import { useIconButton } from '@/hooks/useIconButton'
+import { useDateTime } from '@/hooks/useDateFormat'
+
+const maxHeight = inject('maxHeight') as Ref<number>
+const loading = inject('loading') as Ref<boolean>
+
+import {IRoleListItem} from '../interfaces/role'
+const data = inject('roles') as Ref<Array<IRoleListItem>>
+
 const columns = createColumns()
-function createColumns() {
+function createColumns():Array<DataTableColumn> {
   return [
     {
       title: '角色名称',
@@ -55,7 +58,7 @@ function createColumns() {
       key: 'pageCheckedAuths',
       render(row) {
         const { pageCheckedAuths, contentAuths, logicAuths } = row
-        const pageTags = pageCheckedAuths.map((key) => {
+        const pageTags = (pageCheckedAuths as Array<string>).map((key) => {
           return h(
             NTag,
             {
@@ -69,7 +72,7 @@ function createColumns() {
             }
           )
         })
-        const contentTags = contentAuths.map((key) => {
+        const contentTags = (contentAuths as any).map((key) => {
           return h(
             NTag,
             {
@@ -84,7 +87,7 @@ function createColumns() {
             }
           )
         })
-        const logicTags = logicAuths.map((key) => {
+        const logicTags = (logicAuths as any).map((key) => {
           return h(
             NTag,
             {

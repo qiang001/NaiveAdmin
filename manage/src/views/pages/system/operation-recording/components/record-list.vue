@@ -14,56 +14,58 @@
   </n-data-table>
 </template>
 
-<script setup>
-import { h, inject } from 'vue'
-import { NDataTable, NCollapse, NCollapseItem } from 'naive-ui'
+<script setup lang="ts">
+import { h, inject, Ref } from 'vue'
+import { NDataTable, DataTableColumn, NCollapse, NCollapseItem } from 'naive-ui'
 import EmptyBox from '@/components/EmptyBox.vue'
-import { useDateTime } from '@/hooks/useDateFormat.js'
-const store = inject('store')
-const maxHeight = inject('maxHeight')
-const loading = inject('loading')
-const data = inject('records')
+import { useDateTime } from '@/hooks/useDateFormat'
+import { useStore } from 'vuex'
+import { storeKey } from '@/store'
+const store = useStore(storeKey)
+const maxHeight = inject('maxHeight') as Ref<number>
+const loading = inject('loading') as Ref<boolean>
+import { IRecord, IChange, IUserInfo } from '../interfaces/recordList'
+const data = inject('records') as Ref<Array<IRecord>>
 const columns = createColumns()
-function createColumns() {
+function createColumns(): Array<DataTableColumn> {
   return [
     {
       title: '操作描述',
       key: 'description',
       render(row) {
-        return h(
-          'div',
-          null,
-          {
-            default: () => {
-              return [
-                h('div', null, {
+        let { name, desc, visitorInfo } = row
+        return h('div', null, {
+          default: () => {
+            return [
+              h('div', null, {
+                default: () => {
+                  return name
+                },
+              }),
+              h('div', null, {
+                default: () => {
+                  return desc
+                },
+              }),
+              h(
+                'div',
+                { class: 'mt-1' },
+                {
                   default: () => {
-                    return row.name
+                    return `${(visitorInfo as IUserInfo).name} (${
+                      (visitorInfo as IUserInfo).username
+                    })`
                   },
-                }),
-                h('div', null, {
-                  default: () => {
-                    return row.desc
-                  },
-                }),
-                h(
-                  'div',
-                  { class: 'mt-1' },
-                  {
-                    default: () => {
-                      return `${row.visitorInfo.name} (${row.visitorInfo.username})`
-                    },
-                  }
-                ),
-                h('div', null, {
-                  default: () => {
-                    return useDateTime(row.createdAt)
-                  },
-                }),
-              ]
-            },
-          }
-        )
+                }
+              ),
+              h('div', null, {
+                default: () => {
+                  return useDateTime(row.createdAt)
+                },
+              }),
+            ]
+          },
+        })
       },
       width: 280,
       fixed: 'left',
@@ -74,7 +76,8 @@ function createColumns() {
       render(row) {
         return h(NCollapse, null, {
           default: () => {
-            return row.changes.map((change) => {
+            let { changes } = row
+            return (changes as Array<IChange>).map((change) => {
               return h(
                 NCollapseItem,
                 { title: `${change.name} ${change.desc}`, name: change._id },
@@ -84,7 +87,7 @@ function createColumns() {
                       default: () => {
                         return change.diffArr.map((item) => {
                           let { value, added, removed } = item
-                          let style = { whiteSpace: 'pre-wrap' }
+                          let style: any = { whiteSpace: 'pre-wrap' }
                           let text = value
                           if (added) {
                             style.backgroundColor = !store.state.ifDark

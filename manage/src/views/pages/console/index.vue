@@ -27,7 +27,7 @@
   </page-panel>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import PagePanel from '@/components/PagePanel.vue'
 import EchartsOne from './components/echarts-one.vue'
 import EchartsTwo from './components/echarts-two.vue'
@@ -35,14 +35,12 @@ import EchartsThree from './components/echarts-three.vue'
 import { NButton } from 'naive-ui'
 import { ref, provide } from 'vue'
 const checkStock = () => {
-  $message.success('库存为 666')
+  window.$message.success('库存为 666')
 }
 import {walden} from '@/assets/json/walden.js'
-import {useStore} from 'vuex'
-const store = useStore()
+
 const ifSizeChange = ref(0)
 provide('ifSizeChange', ifSizeChange)
-provide('store',store)
 provide('walden',walden)
 const handleResize = ({ width }) => {
   ifSizeChange.value = width - 120 || 0

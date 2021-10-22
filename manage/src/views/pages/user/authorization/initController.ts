@@ -1,4 +1,5 @@
 import { useStore } from 'vuex'
+import { storeKey } from '@/store'
 import { ref, onMounted } from 'vue'
 import { useDebounce } from '@/hooks/useDebounce'
 import { useActionHeader } from './hooks/useActionHeader'
@@ -6,12 +7,15 @@ import { useApiCenter } from './hooks/useApiCenter'
 import { useRoleList } from './hooks/useRoleList'
 import { useEditModal } from './hooks/useEditModal'
 
+import { IRoleListItem } from './interfaces/role'
+
 export const initController = () => {
   // 公共状态数据
-  const store = useStore()
-  const roles = ref([])
+  const store = useStore(storeKey)
+  const roles = ref<Array<IRoleListItem>>([])
   // 接口层
-  const { exportData,loading, getRoles, saveToDB, deleteFromDB } = useApiCenter({store,roles,useDebounce})
+  const { exportData, loading, getRoles, saveToDB, deleteFromDB } =
+    useApiCenter({ store, roles, useDebounce })
   // 初始化数据
   onMounted(async () => {
     await getRoles()
@@ -25,7 +29,7 @@ export const initController = () => {
     open: openEditModal,
     close: closeEditModal,
     confirm: confirmEditModal,
-  } = useEditModal({ getRoles, saveToDB,useDebounce })
+  } = useEditModal({ getRoles, saveToDB, useDebounce })
   // 按钮组逻辑
   const {
     exportLoading,
@@ -45,12 +49,11 @@ export const initController = () => {
     getRoles,
     openEditModal,
     deleteFromDB,
-    useDebounce
+    useDebounce,
   })
 
   // 最终对外暴露
   const data = {
-    store,
     roles,
     loading,
     ifEdit,

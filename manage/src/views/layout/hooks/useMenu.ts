@@ -1,4 +1,4 @@
-import { ref, onMounted,nextTick } from 'vue'
+import { ref, onMounted } from 'vue'
 export const useMenu = ({ refreshRoute, router }) => {
   const widthSpan = {
     min: 210,

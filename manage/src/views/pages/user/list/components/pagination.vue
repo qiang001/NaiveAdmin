@@ -13,10 +13,11 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { NPagination } from 'naive-ui'
 import { inject } from 'vue'
-const pagination = inject('pagination')
+import { IPagination } from '../interfaces/pagination'
+const pagination = inject('pagination') as IPagination
 // 暴露事件
 const emit = defineEmits(['changePage', 'changePageSize'])
 

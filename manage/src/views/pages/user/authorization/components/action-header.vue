@@ -28,12 +28,12 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { NButton, NSpace, NIcon } from 'naive-ui'
 import { AddSharp as AddIcon , FileDownloadOutlined as ExcelIcon } from '@vicons/material'
-import { inject } from 'vue'
+import { inject,Ref } from 'vue'
 // 注入状态数据以进行 UI渲染 UX交互
-const exportLoading = inject('exportLoading')
+const exportLoading = inject('exportLoading') as Ref<boolean>
 // 暴露事件
 const emit = defineEmits(['exportExcel', 'add'])
 const exportExcel = () => {

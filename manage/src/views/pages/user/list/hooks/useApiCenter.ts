@@ -1,4 +1,4 @@
-import { useAxios } from '@/api/index.js'
+import { useAxios } from '@/api/index'
 export const useApiCenter = ({ store, users, useDebounce }) => {
   const request = useAxios(store)
   // 拉取用户列表
@@ -20,7 +20,7 @@ export const useApiCenter = ({ store, users, useDebounce }) => {
         url += `&sortRef=${sort}`
       }
       try {
-        let { total, payload } = await request.get(url)
+        let { total, payload }:any = await request.get(url)
         users.value = payload
         return { total }
       } catch (error) {

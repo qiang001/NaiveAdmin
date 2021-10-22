@@ -9,11 +9,10 @@
   </page-panel>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { provide, readonly } from 'vue'
 import { initController } from './initController'
 const {
-  store,
   exportLoading,
   exportExcel,
   addRole,
@@ -30,8 +29,6 @@ const {
   closeEditModal,
   confirmEditModal,
 } = initController()
-
-provide('store', store)
 
 import PagePanel from '@/components/PagePanel.vue'
 

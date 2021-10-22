@@ -1,4 +1,5 @@
 import { ref, reactive, unref } from 'vue'
+import {IUserResetPassword} from '../interfaces/user'
 export const useResetPasswordModal = ({
     changePassword,
     useDebounce
@@ -7,7 +8,7 @@ export const useResetPasswordModal = ({
   const resetPasswordModal = ref(false)
   const { ifProcessing: confirmLoading, func: _changePassword } =
   useDebounce(changePassword)
-  const user = reactive({
+  const user = reactive<IUserResetPassword>({
     _id: null,
     password: '',
     passwordConfirm:''
@@ -29,10 +30,10 @@ export const useResetPasswordModal = ({
         data: { ...unref(user)},
       }
       await _changePassword(obj)
-      $message.success(`恭喜你，密码重置成功！`)
+      window.$message.success(`恭喜你，密码重置成功！`)
       close()
     } catch (error) {
-      $message.error(error.message)
+      window.$message.error(error.message)
     }
   }
 

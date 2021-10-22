@@ -4,7 +4,7 @@
 	</page-panel>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import PagePanel from '@/components/PagePanel.vue'
 </script>
 

@@ -1,4 +1,4 @@
-import { useAxios } from '@/api/index.js'
+import { useAxios } from '@/api/index'
 export const useApiCenter = ({ store, roles, useDebounce }) => {
   const request = useAxios(store)
   // 导出表格
@@ -6,8 +6,8 @@ export const useApiCenter = ({ store, roles, useDebounce }) => {
     console.log('加载中...')
     return new Promise((res) => {
       setTimeout(() => {
-        $message.success('恭喜你，导出成功！')
-        res()
+        window.$message.success('恭喜你，导出成功！')
+        res(true)
       }, 1500)
     })
   }

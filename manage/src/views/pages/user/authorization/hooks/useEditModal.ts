@@ -1,11 +1,12 @@
 import { ref, reactive, unref } from 'vue'
+import {IRoleListItem} from '../interfaces/role'
 export const useEditModal = ({ getRoles, saveToDB,useDebounce }) => {
   // 维护状态数据
   const ifEdit = ref(false)
   const editModal = ref(false)
   const { ifProcessing: confirmLoading, func: _saveToDB } =
   useDebounce(saveToDB)
-  const role = reactive({
+  const role = reactive<IRoleListItem>({
     _id: null,
     name: '',
     desc: '',
@@ -35,15 +36,15 @@ export const useEditModal = ({ getRoles, saveToDB,useDebounce }) => {
         type: ifEdit.value ? 'edit' : 'create',
       }
       await _saveToDB(obj)
-      $message.success(obj.type=='edit'?'恭喜你，编辑成功！':'恭喜你，添加成功！')
+      window.$message.success(obj.type=='edit'?'恭喜你，编辑成功！':'恭喜你，添加成功！')
       close()
       await getRoles()
     } catch (error) {
-      $message.error(error)
+      window.$message.error(error)
     }
   }
 
-  function setRole(data) {
+  function setRole(data:IRoleListItem) {
     role._id = data._id
     role.name = data.name
     role.desc = data.desc

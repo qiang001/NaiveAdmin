@@ -22,7 +22,7 @@
   </n-layout-header>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { NLayoutHeader } from 'naive-ui'
 import Account from './components/account.vue'
 import Setting from './components/setting.vue'

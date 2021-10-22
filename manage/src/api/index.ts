@@ -1,7 +1,7 @@
 import axios from 'axios'
 export const useAxios = (store) => {
   const instance = axios.create({
-    baseURL: import.meta.env.VITE_APP_SERVER_BASE_URL,
+    baseURL: import.meta.env.VITE_APP_SERVER_BASE_URL as string,
     timeout: 30 * 60 * 1000,
   })
 
@@ -17,7 +17,8 @@ export const useAxios = (store) => {
 
   instance.interceptors.response.use(
     function (response) {
-      return response.data
+      const { data } = response
+      return data
     },
     function (error) {
       if (!error.response) {

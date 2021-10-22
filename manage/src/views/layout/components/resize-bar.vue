@@ -10,14 +10,14 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { NElement } from 'naive-ui'
-import { ref, onMounted, inject } from 'vue'
+import { ref, onMounted, inject,Ref } from 'vue'
 
 const lastX = ref(null)
 const lastWidth = ref(null)
-const sectionWidth = inject('sectionWidth')
-const widthSpan = inject('widthSpan')
+const sectionWidth = inject('sectionWidth') as Ref<number>
+const widthSpan:{min:number,max:number} = inject('widthSpan')
 
 const mouseDown = (event) => {
   lastX.value = event.screenX

@@ -12,23 +12,28 @@
   </n-data-table>
 </template>
 
-<script setup>
+<script setup lang="ts">
 const emit = defineEmits(['edit', 'resetPassword', '_delete'])
-import { h, inject } from 'vue'
-import { NTag, NDataTable, NSpace } from 'naive-ui'
+import { h, inject, Ref } from 'vue'
+import { NTag, NDataTable, DataTableColumn, NSpace } from 'naive-ui'
 import { Password24Filled as ResetIcon } from '@vicons/fluent'
 import { EditNoteOutlined as EditIcon } from '@vicons/material'
 import { DeleteOutlined as DeleteIcon } from '@vicons/antd'
 import EmptyBox from '@/components/EmptyBox.vue'
-import { useIconButton } from '@/hooks/useIconButton.js'
-import { useStatusTag } from '@/hooks/useStatusTag.js'
-import { useDateTime } from '@/hooks/useDateFormat.js'
-const store = inject('store')
-const maxHeight = inject('maxHeight')
-const data = inject('users')
-const loading = inject('loading')
+import { useIconButton } from '@/hooks/useIconButton'
+import { useStatusTag } from '@/hooks/useStatusTag'
+import { useDateTime } from '@/hooks/useDateFormat'
+
+import { useStore } from 'vuex'
+import { storeKey } from '@/store'
+const store = useStore(storeKey)
+
+const maxHeight = inject('maxHeight') as Ref<number>
+import { IUserListItem } from '../interfaces/user'
+const data = inject('users') as Ref<Array<IUserListItem>>
+const loading = inject('loading') as Ref<boolean>
 const columns = createColumns()
-function createColumns() {
+function createColumns(): Array<DataTableColumn> {
   return [
     {
       title: '昵称',
@@ -48,7 +53,8 @@ function createColumns() {
       title: '角色列表',
       key: 'roles',
       render(row) {
-        const tags = row.roles.map((role) => {
+        let { roles }: any = row
+        const tags = roles.map((role) => {
           return h(
             NTag,
             {
