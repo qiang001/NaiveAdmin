@@ -8,15 +8,10 @@ export const useGravityBall = (
   // Initial Setup
   const canvas = document.querySelector('canvas')
   const c = canvas.getContext('2d')
-
   const colors = [...mainColors]
 
   const gravity = 0.2
   const friction = 0.98
-
-  //   addEventListener('click', function (event) {
-  //     init()
-  //   })
 
   // Utility Functions
   function randomIntFromRange(min, max) {
@@ -69,8 +64,9 @@ export const useGravityBall = (
 
   function init() {
     ballArray = []
-
-    for (let i = 0; i < 600; i++) {
+    const balls = [300,600,900,1200]
+    const ballNumber = balls[Math.floor(Math.random() *balls.length)]
+    for (let i = 0; i < ballNumber; i++) {
       const radius = randomIntFromRange(8, 20)
       const x = randomIntFromRange(radius, canvas.width - radius)
       const y = randomIntFromRange(0, canvas.height - radius)
@@ -82,14 +78,15 @@ export const useGravityBall = (
 
   // Animation Loop
   function animate() {
-    if (!ifUnload.value) {
-      requestAnimationFrame(animate)
-    }
-
     c.clearRect(0, 0, canvas.width, canvas.height)
 
-    for (let i = 0; i < ballArray.length; i++) {
-      ballArray[i].update()
+    if (!ifUnload.value) {
+      requestAnimationFrame(animate)
+      for (let i = 0; i < ballArray.length; i++) {
+        ballArray[i].update()
+      }
+    }else {
+      ballArray = []
     }
   }
 

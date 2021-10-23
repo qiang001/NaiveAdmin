@@ -19,6 +19,7 @@ import {useStore} from 'vuex'
 import { storeKey } from '@/store'
 const store = useStore(storeKey)
 const walden = inject('walden')
+const essos = inject('essos')
 const ifDark = computed(() => store.state.ifDark)
 let myChart = null
 let timer = null
@@ -48,7 +49,7 @@ const initChart = () => {
     myChart.dispose()
   }
   myChart = !ifDark.value
-    ? echarts.init(chartDom, 'walden')
+    ? echarts.init(chartDom, 'essos')
     : echarts.init(chartDom, 'dark')
   const option = {
     xAxis: {
@@ -78,6 +79,7 @@ watch(ifDark, () => {
 onMounted(() => {
   echarts.use([GridComponent, BarChart, CanvasRenderer])
   echarts.registerTheme('walden', walden)
+  echarts.registerTheme('essos', essos)
   initChart()
 })
 </script>

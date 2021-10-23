@@ -121,6 +121,8 @@ import { useStore } from 'vuex'
 import { storeKey } from '@/store'
 const store = useStore(storeKey)
 
+import { gsap } from "gsap"
+
 import { useGravityBall } from '@/hooks/useGravityBall'
 import { useResizeContainer } from '@/hooks/useResizeContainer'
 const { width, height } = useResizeContainer('login-left')
@@ -132,12 +134,9 @@ onMounted(() => {
   if (store.state.loginPageMessage.type == 'success') {
     window.$message.success(store.state.loginPageMessage.text)
   }
-  window.gsap &&
-    window.gsap.to('#username', { duration: 0.5, x: 0, opacity: 1, delay: 0.3 })
-  window.gsap &&
-    window.gsap.to('#password', { duration: 0.8, x: 0, opacity: 1, delay: 0.5 })
-  window.gsap &&
-    window.gsap.to('#login-btn', { duration: 1, x: 0, opacity: 1, delay: 0.5 })
+  gsap.to('#username', { duration: 0.5, x: 0, opacity: 1, delay: 0.3 })
+  gsap.to('#password', { duration: 0.8, x: 0, opacity: 1, delay: 0.5 })
+  gsap.to('#login-btn', { duration: 1, x: 0, opacity: 1, delay: 0.5 })
 
   useGravityBall(
     width,
