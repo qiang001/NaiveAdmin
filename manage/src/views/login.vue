@@ -1,87 +1,97 @@
 <template>
   <n-layout>
     <n-layout-content>
-      <div class="wrapper-login d-flex a-center j-center">
-        <n-card class="login-card">
-          <div class="p-3 pt-2">
-            <div class="d-flex a-center j-center mb-3">
-              <img src="../assets/logo.png" alt="" style="width: 66px" />
-            </div>
-            <div class="d-flex a-center j-center mb-3">
-              <div>
-                <div style="font-size: 22px; text-align: center">
-                  通用后台管理系统
-                </div>
-                <div
-                  style="
-                    text-align: center;
-                    font-size: 12px;
-                    font-family: PingFang SC, Segoe UI;
-                  "
-                >
-                  Common Content Manage System
+      <div class="d-flex">
+        <n-element id="login-left" class="login-left d-flex a-center j-center">
+          <canvas style="position: absolute"></canvas>
+        </n-element>
+        <div class="login-right d-flex a-center j-center">
+          <div class="login-card">
+            <div class="p-3">
+              <div class="d-flex a-center j-center mb-3">
+                <img src="../assets/logo.png" alt="" style="width: 66px" />
+              </div>
+              <div class="d-flex a-center j-center mb-3">
+                <div>
+                  <div style="font-size: 22px; text-align: center">
+                    通用后台管理系统
+                  </div>
+                  <div
+                    style="
+                      text-align: center;
+                      font-size: 12px;
+                      font-family: PingFang SC, Segoe UI;
+                    "
+                  >
+                    Common Content Manage System
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="mb-2">
-              <n-form
-                :show-label="false"
-                :model="account"
-                :rules="rules"
-                ref="formRef"
-              >
-                <n-form-item
-                  label="用户名"
-                  path="username"
-                  rule-path="account.username"
+              <div class="mb-2">
+                <n-form
+                  :show-label="false"
+                  :model="account"
+                  :rules="rules"
+                  ref="formRef"
                 >
-                  <n-input
-                    v-model:value="account.username"
-                    placeholder="输入用户名"
-                    size="large"
+                  <n-form-item
+                    label="用户名"
+                    path="username"
+                    rule-path="account.username"
                   >
-                    <template #prefix>
-                      <n-icon>
-                        <username-icon />
-                      </n-icon>
-                    </template>
-                  </n-input>
-                </n-form-item>
-                <n-form-item
-                  label="密码"
-                  path="password"
-                  rule-path="account.password"
-                >
-                  <n-input
-                    v-model:value="account.password"
-                    placeholder="输入密码"
-                    size="large"
-                    type="password"
-                    show-password-on="mousedown"
-                    @keyup.enter="login"
+                    <n-input
+                      id="username"
+                      v-model:value="account.username"
+                      placeholder="输入用户名"
+                      size="large"
+                      clearable
+                    >
+                      <template #prefix>
+                        <n-icon>
+                          <username-icon />
+                        </n-icon>
+                      </template>
+                    </n-input>
+                  </n-form-item>
+                  <n-form-item
+                    label="密码"
+                    path="password"
+                    rule-path="account.password"
                   >
-                    <template #prefix>
-                      <n-icon>
-                        <password-icon />
-                      </n-icon>
-                    </template>
-                  </n-input>
-                </n-form-item>
-              </n-form>
-            </div>
-            <div class="d-flex a-center j-center">
-              <n-button
-                type="primary"
-                size="large"
-                style="width: 100%"
-                @click="login"
-                :loading="loading"
-                :disabled="loading"
-                >立即登录
-              </n-button>
+                    <n-input
+                      id="password"
+                      v-model:value="account.password"
+                      placeholder="输入密码"
+                      size="large"
+                      clearable
+                      type="password"
+                      show-password-on="mousedown"
+                      @keyup.enter="login"
+                    >
+                      <template #prefix>
+                        <n-icon>
+                          <password-icon />
+                        </n-icon>
+                      </template>
+                    </n-input>
+                  </n-form-item>
+                </n-form>
+              </div>
+              <div class="d-flex a-center j-center">
+                <n-button
+                  id="login-btn"
+                  type="primary"
+                  size="large"
+                  style="width: 100%"
+                  @click="login"
+                  :loading="loading"
+                  :disabled="loading"
+                  >立即登录
+                </n-button>
+              </div>
             </div>
           </div>
-        </n-card>
+        </div>
       </div>
     </n-layout-content>
   </n-layout>
@@ -91,8 +101,8 @@
 import {
   NLayout,
   NLayoutContent,
+  NElement,
   NButton,
-  NCard,
   NForm,
   NFormItem,
   NInput,
@@ -105,12 +115,16 @@ import {
   LockOutlined as PasswordIcon,
 } from '@vicons/antd'
 
-import { ref, reactive, unref, onMounted } from 'vue'
+import { ref, reactive, unref, onMounted, onBeforeUnmount } from 'vue'
 
 import { useStore } from 'vuex'
 import { storeKey } from '@/store'
 const store = useStore(storeKey)
 
+import { useGravityBall } from '@/hooks/useGravityBall'
+import { useResizeContainer } from '@/hooks/useResizeContainer'
+const { width, height } = useResizeContainer('login-left')
+const ifUnload = ref(false)
 onMounted(() => {
   if (store.state.loginPageMessage.type == 'error') {
     window.$message.error(store.state.loginPageMessage.text)
@@ -118,6 +132,23 @@ onMounted(() => {
   if (store.state.loginPageMessage.type == 'success') {
     window.$message.success(store.state.loginPageMessage.text)
   }
+  window.gsap &&
+    window.gsap.to('#username', { duration: 0.5, x: 0, opacity: 1, delay: 0.3 })
+  window.gsap &&
+    window.gsap.to('#password', { duration: 0.8, x: 0, opacity: 1, delay: 0.5 })
+  window.gsap &&
+    window.gsap.to('#login-btn', { duration: 1, x: 0, opacity: 1, delay: 0.5 })
+
+  useGravityBall(
+    width,
+    height,
+    store.getters.getMainColors.map((color) => color.common.primaryColor),
+    ifUnload
+  )
+})
+
+onBeforeUnmount(() => {
+  ifUnload.value = true
 })
 
 // 表单相关
@@ -167,23 +198,41 @@ const login = async () => {
 </script>
 
 <style scoped>
-.wrapper-login {
-  width: 90%;
-  min-width: 375px;
-  max-width: 420px;
-  margin: auto;
+.login-left {
+  flex: 2;
+  background-color: var(--divider-color);
+  min-height: 100vh;
+  transition: flex 1.2s ease;
+}
+
+.login-right {
+  flex: 1;
+  flex-shrink: 0;
+  min-width: 400px;
   min-height: 100vh;
   box-sizing: border-box;
 }
 
-@media only screen and (max-width: 400px) {
-  .login-card {
-    height: 100%;
+#username,
+#password,
+#login-btn {
+  opacity: 0;
+  transform: translateX(120px);
+}
+
+@media only screen and (max-width: 800px) {
+  .login-left {
+    flex: 0;
   }
-  .wrapper-login {
+  .login-right {
     width: 100%;
     height: 100vh;
     margin: 0;
+  }
+  .login-card {
+    height: 100%;
+    display: flex;
+    align-items: center;
   }
 }
 </style>

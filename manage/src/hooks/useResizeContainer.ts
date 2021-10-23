@@ -1,5 +1,5 @@
 import { ref,onMounted,onBeforeUnmount } from 'vue'
-export const useResizeContainer = (containerId) => {
+export const useResizeContainer = (containerId:string) => {
   const width = ref(null)
   const height = ref(null)
   let resizeObserver = null
