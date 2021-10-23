@@ -1,6 +1,6 @@
 <template>
   <page-panel :title="'主控台'" @resize="handleResize">
-    <div class="pt-2">
+    <div>
       <div class="d-flex a-center mb-2">
         <div class="ml-auto">
           <n-button type="primary" v-permission:logic.Console-1="checkStock">
@@ -14,11 +14,11 @@
         </div>
       </div>
       <div class="d-flex a-center">
-        <div v-permission:content="'Console-1'" style="flex: 2" class="py-2" id="order">
+        <div v-permission:content="'Console-1'" style="flex: 2" class="pt-2 pr-4" id="order">
           <div style="font-weight: bold">订单总数：101</div>
           <echarts-one></echarts-one>
         </div>
-        <div v-permission:content="'Console-2'" style="flex: 1" class="py-2"  id="customer">
+        <div v-permission:content="'Console-2'" style="flex: 1" class="pt-2"  id="customer">
           <div style="font-weight: bold">客户总数：101</div>
           <echarts-two></echarts-two>
         </div>
@@ -51,9 +51,9 @@ const handleResize = ({ width }) => {
 
 import { gsap } from "gsap"
 onMounted(()=>{
-  gsap.to('#framework', { duration: 0.8, y: 0, opacity: 1, delay: 0.8 })
-  gsap.to('#order', { duration: 0.8, y: 0, opacity: 1, delay: 1.2 })
-  gsap.to('#customer', { duration: 0.8, y: 0, opacity: 1, delay: 1.5 })
+  gsap.to('#framework', { duration: 0.8, y: 0, opacity: 1, delay: 0.55 })
+  gsap.to('#order', { duration: 0.8, y: 0, opacity: 1, delay: 1 })
+  gsap.to('#customer', { duration: 0.8, y: 0, opacity: 1, delay: 1.25 })
 })
 </script>
 

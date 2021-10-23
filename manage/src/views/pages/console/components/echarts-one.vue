@@ -3,7 +3,7 @@
     id="echarts-one"
     :style="{
       width:
-        `${(ifSizeChange / 3) * 2 || '100%'}` + `${ifSizeChange ? 'px' : ''}`,
+        `${(ifSizeChange / 3) * 2 - 40 || '100%'}` + `${ifSizeChange ? 'px' : ''}`,
       height: '400px',
     }"
   ></div>
