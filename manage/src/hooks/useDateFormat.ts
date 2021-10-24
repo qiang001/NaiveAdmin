@@ -1,5 +1,5 @@
 //格式化日期
-Date.prototype.Format = function (fmt) {
+Date.prototype.Format = function (fmt:string) {
   var o = {
     'y+': this.getFullYear(),
     'M+': this.getMonth() + 1, //月份
@@ -34,10 +34,10 @@ Date.prototype.Format = function (fmt) {
   return fmt
 }
 
-export const useDateTime = (val) => {
+export const useDateTime = (val:string | number) => {
   return val ? new Date(val).Format('yyyy-MM-dd hh:mm:ss') : ''
 }
 
-export const useDate = (val) => {
+export const useDate = (val:string | number) => {
   return val ? new Date(val).Format('yyyy-MM-dd') : ''
 }

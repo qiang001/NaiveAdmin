@@ -2,9 +2,9 @@ import { h } from 'vue'
 export const useStatusTag = ({ type, text, ifBorder, ifDark }) => {
   const statusMap = {
     success: {
-      borderColor: !ifDark ? '#e5fae7' : '#0a320e',
-      backgroundColor: !ifDark ? '#caf2cc' : '#005404',
-      textColor: !ifDark ? '#0cae16' : '#59e861',
+      borderColor: !ifDark ? '#e8f5ee' : '#0b2e0e',
+      backgroundColor: !ifDark ? '#e8f5ee' : '#0c290d',
+      textColor: !ifDark ? '#33c377' : '#59e861',
     },
     disabled: {
       borderColor: !ifDark ? '#f4f4f4' : '#222222',

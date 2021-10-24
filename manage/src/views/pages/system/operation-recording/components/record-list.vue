@@ -19,9 +19,8 @@ import { h, inject, Ref } from 'vue'
 import { NDataTable, DataTableColumn, NCollapse, NCollapseItem } from 'naive-ui'
 import EmptyBox from '@/components/EmptyBox.vue'
 import { useDateTime } from '@/hooks/useDateFormat'
-import { useStore } from 'vuex'
-import { storeKey } from '@/store'
-const store = useStore(storeKey)
+import {useStore} from '@/hooks/useStore'
+const store = useStore()
 const maxHeight = inject('maxHeight') as Ref<number>
 const loading = inject('loading') as Ref<boolean>
 import { IRecord, IChange, IUserInfo } from '../interfaces/recordList'
@@ -60,7 +59,7 @@ function createColumns(): Array<DataTableColumn> {
               ),
               h('div', null, {
                 default: () => {
-                  return useDateTime(row.createdAt)
+                  return useDateTime(row.createdAt as string)
                 },
               }),
             ]

@@ -37,9 +37,8 @@
 
 <script setup lang="ts">
 import { NLayout, NLayoutContent, NButton } from 'naive-ui'
-import { useStore } from 'vuex'
-import { storeKey } from '@/store'
-const store = useStore(storeKey)
+import {useStore} from '@/hooks/useStore'
+const store = useStore()
 import { useRouter } from 'vue-router'
 const router = useRouter()
 const backToHome = () => {

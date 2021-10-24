@@ -17,9 +17,8 @@ export interface IPermission {
   logicAuths: Array<{ key: string; desc: string }>
 }
 
-export interface IColorCollection {
-  [colorName: string]: {
-    key: string
+export interface IColorInfo {
+  key: string
     label: string
     common: {
       baseColor?: string
@@ -30,5 +29,8 @@ export interface IColorCollection {
       [otherKey: string]: any
     }
     [otherComponentName: string]: any
-  }
+}
+
+export interface IColorCollection {
+  [colorName: string]: IColorInfo
 }

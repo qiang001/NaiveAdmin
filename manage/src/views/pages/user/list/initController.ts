@@ -1,5 +1,4 @@
-import { useStore } from 'vuex'
-import { storeKey } from '@/store'
+import {useStore} from '@/hooks/useStore'
 import { ref } from 'vue'
 import { useDebounce } from '@/hooks/useDebounce'
 import { useActionHeader } from './hooks/useActionHeader'
@@ -11,7 +10,7 @@ import { useResetPasswordModal } from './hooks/useResetPasswordModal'
 
 export const initController = () => {
   // [公共状态数据]
-  const store = useStore(storeKey)
+  const store = useStore()
   const users = ref([])
 
   // [数据]逻辑 - 接口层

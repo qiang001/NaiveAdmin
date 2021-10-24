@@ -1,5 +1,5 @@
 import { ref, reactive, unref } from 'vue'
-import { IUserListItem, IUser } from '../interfaces/user'
+import { IUserListItem, IEditUser } from '../interfaces/user'
 import { IRoleOption } from '../interfaces/roleOptions'
 export const useEditModal = ({
   getRoleOptions,
@@ -13,7 +13,7 @@ export const useEditModal = ({
   const editModal = ref(false)
   const { ifProcessing: confirmLoading, func: _saveToDB } =
     useDebounce(saveToDB)
-  const user = reactive<IUser>({
+  const user = reactive<IEditUser>({
     _id: null,
     name: '',
     username: '',

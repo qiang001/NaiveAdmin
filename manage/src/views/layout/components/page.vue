@@ -9,9 +9,8 @@
 </template>
 
 <script setup lang="ts">
-import {useStore} from 'vuex'
-import { storeKey } from '@/store'
-const store = useStore(storeKey)
+import { useStore } from '@/hooks/useStore'
+const store = useStore()
 </script>
 
 <style scoped>

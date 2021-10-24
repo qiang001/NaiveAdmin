@@ -39,10 +39,9 @@
 
 <script setup lang="ts">
 import { NElement } from 'naive-ui'
-import { useStore } from 'vuex'
 import { toRefs } from 'vue'
-import { storeKey } from '@/store'
-const store = useStore(storeKey)
+import { useStore } from '@/hooks/useStore'
+const store = useStore()
 const props = defineProps({
   showFile: {
     type: Boolean,

@@ -61,8 +61,8 @@ import { ref, inject,Ref } from 'vue'
 const ifEdit = inject('ifEdit') as Ref<boolean>
 const editModal = inject('editModal') as Ref<boolean>
 const confirmLoading = inject('confirmLoading') as Ref<boolean>
-import {IUser} from '../interfaces/user'
-const user = inject('user') as IUser
+import {IEditUser} from '../interfaces/user'
+const user = inject('user') as IEditUser
 const roleOptions = inject('roleOptions') as Array<SelectOption>
 // 表单相关
 const formRef = ref(null)

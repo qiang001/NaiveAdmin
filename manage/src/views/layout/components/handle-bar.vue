@@ -134,6 +134,7 @@
 </template>
 
 <script setup lang="ts">
+import { NIcon, NButton, NElement } from 'naive-ui'
 import {
   DoubleArrowRound as LeftIcon,
   DoubleArrowRound as RightIcon,
@@ -142,8 +143,11 @@ import {
   FullscreenFilled as FullpageIcon,
   FullscreenExitFilled as NormalPageIcon,
 } from '@vicons/material'
-import { NIcon, NButton, NElement } from 'naive-ui'
 import draggable from 'vuedraggable/src/vuedraggable'
+
+import { useStore } from '@/hooks/useStore'
+const store = useStore()
+
 import {
   ref,
   reactive,
@@ -154,6 +158,7 @@ import {
   onBeforeUnmount,
   Ref
 } from 'vue'
+
 // 拖动tab
 const drag = ref(false)
 const dragOptions = reactive({
@@ -162,14 +167,12 @@ const dragOptions = reactive({
   disabled: false,
   ghostClass: 'ghost',
 })
-const setDrag = (bool) => {
+
+const setDrag = (bool:boolean) => {
   drag.value = bool
 }
-// 渲染 tabs 以及交互动画
-import { useStore } from 'vuex'
-import { storeKey } from '@/store'
-const store = useStore(storeKey)
 
+// 渲染 tabs 以及交互动画
 import {IHistory} from '../interfaces/handleBar'
 const history = inject('history') as Ref<Array<IHistory>>
 

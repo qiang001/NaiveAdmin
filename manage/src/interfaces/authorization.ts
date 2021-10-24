@@ -14,8 +14,17 @@ export interface IMenuAuth {
   children?: IMenuAuth[]
 }
 
+export interface ISearchOption {
+  label: string
+  labelPinYin: string
+  value: string
+}
+
 export interface IMenuAuthsFlated {
   ALL_AUTH_KEYS: string[]
-  HIDE_AUTH_KEYS: string[]
-  searchOptions: string[]
+  HIDE_AUTH_KEYS: Array<{
+    name: string
+    belongsTo: string
+  }>
+  searchOptions: ISearchOption[]
 }

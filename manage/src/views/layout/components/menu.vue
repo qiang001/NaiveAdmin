@@ -28,16 +28,18 @@ import { NMenu, NAutoComplete } from 'naive-ui'
 
 import { ref, computed, watch, inject,Ref } from 'vue'
 
-import { useStore } from 'vuex'
-import { storeKey } from '@/store'
-const store = useStore(storeKey)
+import { useStore } from '@/hooks/useStore'
+const store = useStore()
+
 import {useRoute} from 'vue-router'
 const route = useRoute()
+
 // 快捷搜索
+import { ISearchOption } from '@/interfaces/authorization'
 const keyword = ref('')
 const options = computed(() => {
   return fuzzyQuery(store.getters.getSearchOptions, keyword.value)
-  function fuzzyQuery(list, keyWord) {
+  function fuzzyQuery(list:Array<ISearchOption>, keyWord:string) {
     if (!keyWord) {
       return []
     }
@@ -59,13 +61,14 @@ const options = computed(() => {
 const inverted = inject('inverted') as Ref<boolean>
 const collapsed = inject('collapsed') as Ref<boolean>
 const ifHideIcon = inject('ifHideIcon') as Ref<boolean>
+import {IMenuItem} from '@/interfaces/authorization'
 const menu = computed(() => store.getters.getMenu(ifHideIcon.value))
 
 // 拍平菜单
 const keyMap = computed(() => {
   let list = []
   return buildKeyMap(menu.value)
-  function buildKeyMap(arr) {
+  function buildKeyMap(arr:Array<IMenuItem>) {
     arr.forEach((item) => {
       let { key, expandedKey, children } = item
       list = [...list, { key, expandedKey }]
@@ -93,13 +96,13 @@ watch(
 )
 
 // 菜单展开
-const handleExpanded = (keys) => {
+const handleExpanded = (keys:string[]) => {
   let val = keys.reverse()[0]
   if (val) {
     let obj = keyMap.value.find((v) => v.key == val)
     expandedKeys.value = obj.expandedKey
       .split(',')
-      .filter((v) => keys.some((k) => k == v))
+      .filter((v:string) => keys.some((k) => k == v))
   } else {
     expandedKeys.value = []
   }
@@ -107,7 +110,7 @@ const handleExpanded = (keys) => {
 
 const emit = defineEmits(['navigateTo'])
 // 菜单选中
-const handleSelected = (key) => {
+const handleSelected = (key:string) => {
   emit('navigateTo', { name: key, ifCurrent: key == route.name && Object.keys(route.query).length == 0 })
 }
 

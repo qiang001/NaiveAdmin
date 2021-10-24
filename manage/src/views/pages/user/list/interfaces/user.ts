@@ -10,7 +10,7 @@ export interface IUserListItem {
   createdAt: string
 }
 
-export interface IUser {
+export interface IEditUser {
   _id: string
   name: string
   username: string

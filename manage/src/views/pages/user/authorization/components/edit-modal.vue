@@ -147,9 +147,8 @@ const validation = () => {
 }
 
 // 菜单权限树相关
-import {useStore} from 'vuex'
-import { storeKey } from '@/store'
-const store = useStore(storeKey)
+import {useStore} from '@/hooks/useStore'
+const store = useStore()
 const menuAuthTree = ref([])
 menuAuthTree.value = store.getters.getMenuAuthTree
 const checkedKeys = ref([])

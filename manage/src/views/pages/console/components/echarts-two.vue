@@ -15,9 +15,8 @@ import { BarChart } from 'echarts/charts'
 import { CanvasRenderer } from 'echarts/renderers'
 import { onMounted, watch, inject, computed,Ref } from 'vue'
 const ifSizeChange = inject('ifSizeChange') as Ref<number>
-import {useStore} from 'vuex'
-import { storeKey } from '@/store'
-const store = useStore(storeKey)
+import {useStore} from '@/hooks/useStore'
+const store = useStore()
 const walden = inject('walden')
 const essos = inject('essos')
 const ifDark = computed(() => store.state.ifDark)

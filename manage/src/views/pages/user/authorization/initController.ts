@@ -1,5 +1,4 @@
-import { useStore } from 'vuex'
-import { storeKey } from '@/store'
+import {useStore} from '@/hooks/useStore'
 import { ref, onMounted } from 'vue'
 import { useDebounce } from '@/hooks/useDebounce'
 import { useActionHeader } from './hooks/useActionHeader'
@@ -11,7 +10,7 @@ import { IRoleListItem } from './interfaces/role'
 
 export const initController = () => {
   // 公共状态数据
-  const store = useStore(storeKey)
+  const store = useStore()
   const roles = ref<Array<IRoleListItem>>([])
   // 接口层
   const { exportData, loading, getRoles, saveToDB, deleteFromDB } =

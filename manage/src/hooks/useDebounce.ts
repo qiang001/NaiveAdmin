@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-export function useDebounce(fn, delay = 1000) {
+export function useDebounce(fn:Function, delay = 1000) {
   let timer = null
   const ifProcessing = ref(false)
   return {

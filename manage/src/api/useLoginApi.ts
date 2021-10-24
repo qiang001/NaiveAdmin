@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { IUserInfo } from '@/interfaces/store'
 
 export const useLoginApi = () => {
   const instance = axios.create({
@@ -18,18 +19,25 @@ export const useLoginApi = () => {
     }
   )
 
-  async function loginUser(data) {
+  async function loginUser(data: {
+    username: string
+    password: string
+  }): Promise<string> {
     try {
-      let token = await instance.post('/v1/users/login', data)
+      let token = await instance.post<
+        { username: string; password: string },
+        string
+      >('/v1/users/login', data)
       window.$message.success('恭喜你，登录成功！')
       return token
     } catch (error) {
       window.$message.error(error)
     }
   }
-  async function getUserInfo(token) {
+
+  async function getUserInfo(token: string): Promise<IUserInfo> {
     try {
-      return await instance.get('/v1/users/userInfo', {
+      return await instance.get<any, IUserInfo>('/v1/users/userInfo', {
         headers: { authorization: token },
       })
     } catch (error) {

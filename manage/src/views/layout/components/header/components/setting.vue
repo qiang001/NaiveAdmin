@@ -129,14 +129,19 @@ import {
   BuildCircleRound as SettingIcon,
   AutorenewSharp as RenewIcon,
 } from '@vicons/material'
+
+import { useStore } from '@/hooks/useStore'
+const store = useStore()
+
 import { ref, inject,Ref } from 'vue'
+
 const settingShow = ref(false)
-import { useStore } from 'vuex'
-import { storeKey } from '@/store'
-const store = useStore(storeKey)
-const colors = ref([])
+
+import {IColorInfo} from '@/interfaces/configuration'
+const colors = ref<Array<IColorInfo>>([])
 colors.value = store.getters.getMainColors
-const setColor = (item, bool) => {
+
+const setColor = (item:IColorInfo, bool:boolean) => {
   if (!bool) return
   colors.value.forEach((color) => {
     item.key == color.key
@@ -144,10 +149,11 @@ const setColor = (item, bool) => {
       : (color.checked = false)
   })
 }
+
 const ifDark = ref(false)
 ifDark.value = store.state.ifDark
 
-const handleSwitch = (bool) => {
+const handleSwitch = (bool:boolean) => {
   ifDark.value = bool
   switchTheme()
 }
@@ -168,10 +174,10 @@ const switchTheme = () => {
 const inverted = inject('inverted') as Ref<boolean>
 const ifHideIcon = inject('ifHideIcon') as Ref<boolean>
 
-const invertedChange = (val) => {
+const invertedChange = (val:boolean) => {
   inverted.value = val
 }
-const ifHideIconChange = (val) => {
+const ifHideIconChange = (val:boolean) => {
   ifHideIcon.value = val
 }
 

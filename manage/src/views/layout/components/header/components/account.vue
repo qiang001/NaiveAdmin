@@ -29,22 +29,23 @@
 
 <script setup lang="ts">
 import { NDropdown, DropdownOption, NButton, NIcon } from 'naive-ui'
-import { h } from 'vue'
 import { ExitToAppSharp as LogoutIcon } from '@vicons/material'
-import { useStore } from 'vuex'
-import { storeKey } from '@/store'
-const store = useStore(storeKey)
+import { h } from 'vue'
+
+import { useStore } from '@/hooks/useStore'
+const store = useStore()
+
 const options: Array<DropdownOption> = [
   { label: '退出系统', key: 'logout', icon: () => h(LogoutIcon) },
 ]
 
-const renderDropdownIcon = (option) => {
+const renderDropdownIcon = (option:DropdownOption) => {
   return h(NIcon, null, {
     default: () => h(option.icon),
   })
 }
 
-const handleSelect = (key) => {
+const handleSelect = (key:string) => {
   if (key == 'logout') {
     store.dispatch('logout')
   }

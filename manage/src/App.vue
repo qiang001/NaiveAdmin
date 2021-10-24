@@ -28,9 +28,8 @@ import {
   zhCN,
 } from 'naive-ui'
 import { onMounted } from 'vue'
-import { useStore } from 'vuex'
-import { storeKey } from '@/store'
-const store = useStore(storeKey)
+import {useStore} from '@/hooks/useStore'
+const store = useStore()
 import { useRouter } from 'vue-router'
 const router = useRouter()
 onMounted(() => {

@@ -24,9 +24,8 @@ import { useIconButton } from '@/hooks/useIconButton'
 import { useStatusTag } from '@/hooks/useStatusTag'
 import { useDateTime } from '@/hooks/useDateFormat'
 
-import { useStore } from 'vuex'
-import { storeKey } from '@/store'
-const store = useStore(storeKey)
+import {useStore} from '@/hooks/useStore'
+const store = useStore()
 
 const maxHeight = inject('maxHeight') as Ref<number>
 import { IUserListItem } from '../interfaces/user'
@@ -102,7 +101,7 @@ function createColumns(): Array<DataTableColumn> {
       key: 'createdAt',
       width: 180,
       render(row) {
-        return useDateTime(row.createdAt)
+        return useDateTime(row.createdAt as string)
       },
     },
     {

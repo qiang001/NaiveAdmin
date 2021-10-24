@@ -1,11 +1,10 @@
-import { useStore } from 'vuex'
-import { storeKey } from '@/store'
+import { useStore } from '@/hooks/useStore'
 import { useRouter, useRoute } from 'vue-router'
 import { useFullscreen } from './hooks/useFullscreen'
 import { useMenu } from './hooks/useMenu'
 import { useHandleBar } from './hooks/useHandleBar'
 export const initController = (loadingBar) => {
-  const store = useStore(storeKey)
+  const store = useStore()
   const router = useRouter()
   const route = useRoute()
 

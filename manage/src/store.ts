@@ -1,40 +1,21 @@
-import { InjectionKey } from 'vue'
-import { createStore, Store } from 'vuex'
-import { IMenuItem } from '@/interfaces/authorization'
-export interface State {
-  mainColor: string
-  ifDark: boolean
-  cacheList: string[]
-  menuOptions: IMenuItem[]
-  menuOptionsWithoutIcon: IMenuItem[]
-  token: string
-  userInfo: any
-  authKeys: string[]
-  contentAuths: string[]
-  logicAuths: string[]
-  loginPageMessage: {
-    type: string | null
-    text: string | null
-  }
-}
-export const storeKey: InjectionKey<Store<State>> = Symbol()
-
+import { createStore } from 'vuex'
+import { State } from '@/interfaces/store'
 import { darkTheme } from 'naive-ui'
 import { useLoginApi } from '@/api/useLoginApi'
 const { loginUser, getUserInfo } = useLoginApi()
 
 import { IColorCollection } from '@/interfaces/configuration'
 
-export const buildStore = ({
-  router,
+import { pageConfig, getColors, themeOverrides } from './configuration'
+import {
   buildPages,
   buildMenuOptions,
   buildMenuAuthTree,
   getAuthKeys,
-  pageConfig,
-  getColors,
-  themeOverrides,
-}) => {
+} from './authorization'
+
+import {Router} from 'vue-router'
+export const buildStore = (router:Router) => {
   // menu auth tree
   const menuAuthTree = buildMenuAuthTree(pageConfig)
   // auth keys
@@ -133,8 +114,8 @@ export const buildStore = ({
             removeRoute()
           } else {
             page.meta.ifCache &&
-              !state.cacheList.includes(page.name) &&
-              state.cacheList.push(page.name)
+              !state.cacheList.includes(page.name as string) &&
+              state.cacheList.push(page.name as string)
           }
         })
         state.menuOptions = buildMenuOptions(pageConfig, {
@@ -175,7 +156,7 @@ export const buildStore = ({
           return
         }
         commit('SET_TOKEN', token)
-        const userInfo:any = await getUserInfo(token)
+        const userInfo = await getUserInfo(token)
         commit('SET_USERINFO', userInfo)
         let authKeys = []
         let contentAuths = []
@@ -215,7 +196,7 @@ export const buildStore = ({
       refreshLogin: async ({ commit }, token) => {
         try {
           commit('SET_TOKEN', token)
-          const userInfo:any = await getUserInfo(token)
+          const userInfo = await getUserInfo(token)
           commit('SET_USERINFO', userInfo)
           let authKeys = []
           let contentAuths = []
