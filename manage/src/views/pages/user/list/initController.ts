@@ -8,10 +8,11 @@ import { useFilters } from './hooks/useFilters'
 import { useEditModal } from './hooks/useEditModal'
 import { useResetPasswordModal } from './hooks/useResetPasswordModal'
 
+import { IUserListItem } from './interfaces/user'
 export const initController = () => {
   // [公共状态数据]
   const store = useStore()
-  const users = ref([])
+  const users = ref<Array<IUserListItem>>([])
 
   // [数据]逻辑 - 接口层
   const {
@@ -93,7 +94,6 @@ export const initController = () => {
 
   // 最终对外暴露
   const data = {
-    store,
     users,
     loading,
     filters,

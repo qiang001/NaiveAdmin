@@ -1,4 +1,5 @@
 import { ref, unref } from 'vue'
+import {IRoleListItem} from '../interfaces/role'
 export const useRoleList = ({
   getRoles,
   openEditModal,
@@ -13,12 +14,12 @@ export const useRoleList = ({
     }
   }
 
-  const edit = (row) => {
+  const edit = (row:IRoleListItem) => {
     openEditModal({ data: row, type: 'edit' })
   }
 
   const { func: _deleteFromDB } = useDebounce(deleteFromDB)
-  const _delete = (row) => {
+  const _delete = (row:IRoleListItem) => {
     const d = window.$dialog.warning({
       title: '警告',
       content: '确定删除？',

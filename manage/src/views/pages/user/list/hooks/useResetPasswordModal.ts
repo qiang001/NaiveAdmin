@@ -1,5 +1,5 @@
 import { ref, reactive, unref } from 'vue'
-import {IUserResetPassword} from '../interfaces/user'
+import {IUserResetPassword,IUserListItem} from '../interfaces/user'
 export const useResetPasswordModal = ({
     changePassword,
     useDebounce
@@ -37,7 +37,7 @@ export const useResetPasswordModal = ({
     }
   }
 
-  function setUser(data) {
+  function setUser(data:IUserListItem) {
     user._id = data._id
     user.passwordConfirm = ''
     user.password = ''

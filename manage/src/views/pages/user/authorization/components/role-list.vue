@@ -112,7 +112,7 @@ function createColumns():Array<DataTableColumn> {
       title: '创建时间',
       key: 'createdAt',
       render(row) {
-        return useDateTime(row.createdAt)
+        return useDateTime(row.createdAt as string)
       },
     },
     {

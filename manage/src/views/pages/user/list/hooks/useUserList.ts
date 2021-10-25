@@ -1,5 +1,6 @@
 import { ref, watch } from 'vue'
 import { useResizeContainer } from '@/hooks/useResizeContainer'
+import { IUserListItem } from '../interfaces/user'
 export const useUserList = ({
   openEditModal,
   openResetPasswordModal,
@@ -26,7 +27,7 @@ export const useUserList = ({
     }
   }
 
-  const edit = (row) => {
+  const edit = (row:IUserListItem) => {
     openEditModal({ data: row, type: 'edit' })
   }
 
@@ -35,7 +36,7 @@ export const useUserList = ({
   }
 
   const { func: _deleteFromDB } = useDebounce(deleteFromDB)
-  const _delete = (row) => {
+  const _delete = (row:IUserListItem) => {
     const d = window.$dialog.warning({
       title: '警告',
       content: '确定删除？',

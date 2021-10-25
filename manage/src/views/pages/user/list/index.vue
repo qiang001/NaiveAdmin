@@ -27,7 +27,6 @@
 import { provide, readonly } from 'vue'
 import { initController } from './initController'
 const {
-  store,
   filters,
   sort,
   searching,
@@ -59,8 +58,6 @@ const {
   confirmResetPasswordModal,
   deleteUser,
 } = initController()
-
-provide('store', store)
 
 import PagePanel from '@/components/PagePanel.vue'
 
