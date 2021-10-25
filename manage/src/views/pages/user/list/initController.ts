@@ -1,6 +1,3 @@
-import {useStore} from '@/hooks/useStore'
-import { ref } from 'vue'
-import { useDebounce } from '@/hooks/useDebounce'
 import { useActionHeader } from './hooks/useActionHeader'
 import { useApiCenter } from './hooks/useApiCenter'
 import { useUserList } from './hooks/useUserList'
@@ -8,24 +5,20 @@ import { useFilters } from './hooks/useFilters'
 import { useEditModal } from './hooks/useEditModal'
 import { useResetPasswordModal } from './hooks/useResetPasswordModal'
 
-import { IUserListItem } from './interfaces/user'
 export const initController = () => {
-  // [公共状态数据]
-  const store = useStore()
-  const users = ref<Array<IUserListItem>>([])
-
   // [数据]逻辑 - 接口层
   const {
     loading,
-    getUsers,
+    _getUsers,
     getRoleOptions,
     saveToDB,
     changePassword,
     deleteFromDB,
-  } = useApiCenter({ store, users,useDebounce })
+  } = useApiCenter()
 
   // [搜索、排序、分页]逻辑 - 列表数据初始化放这里面比较好
   const {
+    users,
     filters,
     resetFilters,
     setStatus,
@@ -37,7 +30,7 @@ export const initController = () => {
     changePageSize,
     resetPage,
     queryUsers,
-  } = useFilters(getUsers)
+  } = useFilters({ _getUsers })
 
   // 编辑框
   const {
@@ -49,7 +42,12 @@ export const initController = () => {
     open: openEditModal,
     close: closeEditModal,
     confirm: confirmEditModal,
-  } = useEditModal({ getRoleOptions, saveToDB, resetPage, queryUsers,useDebounce })
+  } = useEditModal({
+    getRoleOptions,
+    saveToDB,
+    resetPage,
+    queryUsers,
+  })
   // 密码重置框
   const {
     resetPasswordModal,
@@ -58,7 +56,7 @@ export const initController = () => {
     open: openResetPasswordModal,
     close: closeResetPasswordModal,
     confirm: confirmResetPasswordModal,
-  } = useResetPasswordModal({ changePassword,useDebounce })
+  } = useResetPasswordModal({ changePassword })
   // Action 页面
   const {
     add: addUser,
@@ -89,7 +87,6 @@ export const initController = () => {
     openResetPasswordModal,
     deleteFromDB,
     queryUsers,
-    useDebounce
   })
 
   // 最终对外暴露

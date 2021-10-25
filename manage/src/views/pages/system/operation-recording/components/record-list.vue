@@ -19,11 +19,11 @@ import { h, inject, Ref } from 'vue'
 import { NDataTable, DataTableColumn, NCollapse, NCollapseItem } from 'naive-ui'
 import EmptyBox from '@/components/EmptyBox.vue'
 import { useDateTime } from '@/hooks/useDateFormat'
-import {useStore} from '@/hooks/useStore'
+import { useStore } from '@/hooks/useStore'
 const store = useStore()
 const maxHeight = inject('maxHeight') as Ref<number>
 const loading = inject('loading') as Ref<boolean>
-import { IRecord, IChange, IUserInfo } from '../interfaces/recordList'
+import { IRecord } from '../interfaces/data'
 const data = inject('records') as Ref<Array<IRecord>>
 const columns = createColumns()
 function createColumns(): Array<DataTableColumn> {
@@ -32,7 +32,7 @@ function createColumns(): Array<DataTableColumn> {
       title: '操作描述',
       key: 'description',
       render(row) {
-        let { name, desc, visitorInfo } = row
+        let { name, desc, visitorInfo, createdAt } = row as unknown as IRecord
         return h('div', null, {
           default: () => {
             return [
@@ -51,15 +51,13 @@ function createColumns(): Array<DataTableColumn> {
                 { class: 'mt-1' },
                 {
                   default: () => {
-                    return `${(visitorInfo as IUserInfo).name} (${
-                      (visitorInfo as IUserInfo).username
-                    })`
+                    return `${visitorInfo.name} (${visitorInfo.username})`
                   },
                 }
               ),
               h('div', null, {
                 default: () => {
-                  return useDateTime(row.createdAt as string)
+                  return useDateTime(createdAt)
                 },
               }),
             ]
@@ -75,8 +73,8 @@ function createColumns(): Array<DataTableColumn> {
       render(row) {
         return h(NCollapse, null, {
           default: () => {
-            let { changes } = row
-            return (changes as Array<IChange>).map((change) => {
+            let { changes } = row as unknown as IRecord
+            return changes.map((change) => {
               return h(
                 NCollapseItem,
                 { title: `${change.name} ${change.desc}`, name: change._id },

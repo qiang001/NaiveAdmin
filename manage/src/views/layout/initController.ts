@@ -3,7 +3,10 @@ import { useRouter, useRoute } from 'vue-router'
 import { useFullscreen } from './hooks/useFullscreen'
 import { useMenu } from './hooks/useMenu'
 import { useHandleBar } from './hooks/useHandleBar'
-export const initController = (loadingBar) => {
+import { useLoadingBar } from 'naive-ui'
+
+export const initController = () => {
+  const loadingBar = useLoadingBar()
   const store = useStore()
   const router = useRouter()
   const route = useRoute()

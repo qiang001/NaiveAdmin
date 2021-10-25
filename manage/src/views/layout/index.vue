@@ -68,14 +68,12 @@ import {
   NLayoutHeader,
   NLayoutSider,
   NLayoutContent,
-  useLoadingBar,
   useMessage,
   useDialog,
 } from 'naive-ui'
 
 window.$message = useMessage()
 window.$dialog = useDialog()
-const loadingBar = useLoadingBar()
 
 import { initController } from './initController'
 const {
@@ -96,7 +94,7 @@ const {
   deleteTab,
   refreshRoute,
   setFullpage,
-} = initController(loadingBar)
+} = initController()
 
 provide('inverted', inverted)
 provide('ifHideIcon', ifHideIcon)

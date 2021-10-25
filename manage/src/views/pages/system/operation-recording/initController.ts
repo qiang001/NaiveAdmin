@@ -1,21 +1,19 @@
-import {useStore} from '@/hooks/useStore'
 import { ref, onMounted } from 'vue'
-import { useDebounce } from '@/hooks/useDebounce'
 import { useApiCenter } from './hooks/useApiCenter'
 import { useRecordList } from './hooks/useRecordList'
-
-import {IRecord} from './interfaces/recordList'
+import { IRecord } from './interfaces/data'
+import { I_initController_queryRecords } from './interfaces/method'
 
 export const initController = () => {
-  // 公共状态数据
-
-  const store = useStore()
-  const records = ref<Array<IRecord>>([])
   // 接口层
-  const { loading, getRecords } = useApiCenter({ store, records, useDebounce })
+  const { loading, _getRecords } = useApiCenter()
   // 初始化数据
+  const records = ref<Array<IRecord>>([])
+  const queryRecords: I_initController_queryRecords = async () => {
+    records.value = await _getRecords()
+  }
   onMounted(async () => {
-    await getRecords()
+    await queryRecords()
   })
   const { maxHeight, setMaxHeight } = useRecordList()
   // 最终对外暴露

@@ -1,13 +1,33 @@
-import { ref, watch } from 'vue'
+import { useDebounce } from '@/hooks/useDebounce'
+import { ref, watch, Ref } from 'vue'
 import { useResizeContainer } from '@/hooks/useResizeContainer'
-import { IUserListItem } from '../interfaces/user'
+import {
+  // Input
+  I_useEditModal_open,
+  I_useResetPasswordModal_open,
+  I_useApiCenter_deleteFromDB,
+  I_useFilters_queryUsers,
+  // Output
+  I_useUserList_setMaxHeight,
+  I_useUserList_edit,
+  I_useUserList_resetPassword,
+  I_useUserList__delete,
+} from '../interfaces/method'
+
+interface Input {
+  openEditModal: I_useEditModal_open
+  openResetPasswordModal: I_useResetPasswordModal_open
+  deleteFromDB: I_useApiCenter_deleteFromDB
+  queryUsers: I_useFilters_queryUsers
+}
+
 export const useUserList = ({
   openEditModal,
   openResetPasswordModal,
   deleteFromDB,
   queryUsers,
-  useDebounce,
-}) => {
+}: Input) => {
+  // 响应式表格高度
   const maxHeight = ref(0)
   let panelHeight = 0
   const otherTotalHeight = ref(0)
@@ -20,23 +40,27 @@ export const useUserList = ({
     },
     { immediate: true }
   )
-  const setMaxHeight = ({ height }) => {
+  const setMaxHeight: I_useUserList_setMaxHeight = ({ height }) => {
     if (height) {
       panelHeight = height
       maxHeight.value = panelHeight - otherTotalHeight.value
     }
   }
-
-  const edit = (row:IUserListItem) => {
+  // 防抖包裹
+  const {
+    func: _deleteFromDB,
+  }: { ifProcessing: Ref<boolean>; func: I_useApiCenter_deleteFromDB } =
+    useDebounce(deleteFromDB)
+  // 核心方法
+  const edit: I_useUserList_edit = (row) => {
     openEditModal({ data: row, type: 'edit' })
   }
 
-  const resetPassword = (row) => {
+  const resetPassword: I_useUserList_resetPassword = (row) => {
     openResetPasswordModal({ data: row })
   }
 
-  const { func: _deleteFromDB } = useDebounce(deleteFromDB)
-  const _delete = (row:IUserListItem) => {
+  const _delete: I_useUserList__delete = (row) => {
     const d = window.$dialog.warning({
       title: '警告',
       content: '确定删除？',
@@ -55,11 +79,10 @@ export const useUserList = ({
       },
     })
   }
+  const data = { maxHeight }
+  const method = { setMaxHeight, edit, resetPassword, _delete }
   return {
-    maxHeight,
-    setMaxHeight,
-    edit,
-    resetPassword,
-    _delete,
+    ...data,
+    ...method,
   }
 }

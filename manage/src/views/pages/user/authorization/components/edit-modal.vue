@@ -114,7 +114,7 @@ const ifEdit = inject('ifEdit') as Ref<boolean>
 const editModal = inject('editModal') as Ref<boolean>
 const confirmLoading = inject('confirmLoading') as Ref<boolean>
 
-import {IRoleListItem} from '../interfaces/role'
+import {IRoleListItem} from '../interfaces/data'
 const role = inject('role') as IRoleListItem
 
 // 表单相关

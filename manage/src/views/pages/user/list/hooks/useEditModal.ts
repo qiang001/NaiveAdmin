@@ -1,17 +1,37 @@
-import { ref, reactive, unref } from 'vue'
-import { IUserListItem, IEditUser } from '../interfaces/user'
-import { IRoleOption } from '../interfaces/roleOptions'
+import { useDebounce } from '@/hooks/useDebounce'
+import { ref, reactive, unref, Ref } from 'vue'
+import { IUserListItem, IEditUser, IRoleOption } from '../interfaces/data'
+import {
+  // Input
+  I_useApiCenter_getRoleOptions,
+  I_useApiCenter_saveToDB,
+  I_useFilters_resetPage,
+  I_useFilters_queryUsers,
+  // Output
+  I_useEditModal_open,
+  I_useEditModal_close,
+  I_useEditModal_confirm,
+} from '../interfaces/method'
+interface Input {
+  getRoleOptions: I_useApiCenter_getRoleOptions
+  saveToDB: I_useApiCenter_saveToDB
+  resetPage: I_useFilters_resetPage
+  queryUsers: I_useFilters_queryUsers
+}
 export const useEditModal = ({
   getRoleOptions,
   saveToDB,
   resetPage,
   queryUsers,
-  useDebounce,
-}) => {
+}: Input) => {
   // 维护状态数据
   const ifEdit = ref(false)
   const editModal = ref(false)
-  const { ifProcessing: confirmLoading, func: _saveToDB } =
+  // 防抖包裹
+  const {
+    ifProcessing: confirmLoading,
+    func: _saveToDB,
+  }: { ifProcessing: Ref<boolean>; func: I_useApiCenter_saveToDB } =
     useDebounce(saveToDB)
   const user = reactive<IEditUser>({
     _id: null,
@@ -23,7 +43,7 @@ export const useEditModal = ({
   })
   const roleOptions = ref<Array<IRoleOption>>([])
   // 核心方法
-  const open = async ({ data, type }) => {
+  const open: I_useEditModal_open = async ({ data, type }) => {
     if (type == 'edit') {
       setUser(data)
     } else {
@@ -33,12 +53,12 @@ export const useEditModal = ({
     editModal.value = true
   }
 
-  const close = () => {
+  const close: I_useEditModal_close = () => {
     editModal.value = false
   }
 
-  const confirm = async () => {
-    let obj = {
+  const confirm: I_useEditModal_confirm = async () => {
+    let obj: { data: IEditUser; type: 'create' | 'edit' } = {
       data: { ...unref(user), roles: [...unref(user).roles] },
       type: ifEdit.value ? 'edit' : 'create',
     }

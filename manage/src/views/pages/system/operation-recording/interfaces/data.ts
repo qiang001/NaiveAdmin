@@ -4,23 +4,24 @@ interface iDiff {
   removed?: boolean
 }
 
-export interface IChange {
+interface iChange {
   _id: string
   name: string
   desc: string
   diffArr: Array<iDiff>
 }
 
-export interface IUserInfo {
+interface iUserInfo {
   _id: string
   name: string
   username: string
 }
+
 export interface IRecord {
   _id: string
   name: string
   desc: string
-  changes: Array<IChange>
-  visitorInfo: IUserInfo
+  changes: Array<iChange>
+  visitorInfo: iUserInfo
   createdAt: string
 }

@@ -19,16 +19,16 @@ export interface IPermission {
 
 export interface IColorInfo {
   key: string
-    label: string
-    common: {
-      baseColor?: string
-      primaryColor: string
-      primaryColorHover: string
-      primaryColorPressed: string
-      primaryColorSuppl: string
-      [otherKey: string]: any
-    }
-    [otherComponentName: string]: any
+  label: string
+  common: {
+    baseColor?: string
+    primaryColor: string
+    primaryColorHover: string
+    primaryColorPressed: string
+    primaryColorSuppl: string
+    [otherKey: string]: any
+  }
+  [otherComponentName: string]: any
 }
 
 export interface IColorCollection {

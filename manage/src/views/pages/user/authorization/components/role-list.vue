@@ -14,9 +14,14 @@
 </template>
 
 <script setup lang="ts">
-const emit = defineEmits(['edit', '_delete'])
-import { h, inject,Ref } from 'vue'
-import { NTag, NDataTable,DataTableColumn, NSpace } from 'naive-ui'
+import { IRoleListItem } from '../interfaces/data'
+interface emitType {
+  (e: 'edit', data: IRoleListItem): void
+  (e: '_delete', data: IRoleListItem): void
+}
+const emit = defineEmits<emitType>()
+import { h, inject, Ref } from 'vue'
+import { NTag, NDataTable, DataTableColumn, NSpace } from 'naive-ui'
 import { EditNoteOutlined as EditIcon } from '@vicons/material'
 import { DeleteOutlined as DeleteIcon } from '@vicons/antd'
 import EmptyBox from '@/components/EmptyBox.vue'
@@ -26,11 +31,10 @@ import { useDateTime } from '@/hooks/useDateFormat'
 const maxHeight = inject('maxHeight') as Ref<number>
 const loading = inject('loading') as Ref<boolean>
 
-import {IRoleListItem} from '../interfaces/role'
 const data = inject('roles') as Ref<Array<IRoleListItem>>
 
 const columns = createColumns()
-function createColumns():Array<DataTableColumn> {
+function createColumns(): Array<DataTableColumn> {
   return [
     {
       title: '角色名称',
@@ -57,8 +61,9 @@ function createColumns():Array<DataTableColumn> {
       title: '权限列表',
       key: 'pageCheckedAuths',
       render(row) {
-        const { pageCheckedAuths, contentAuths, logicAuths } = row
-        const pageTags = (pageCheckedAuths as Array<string>).map((key) => {
+        const { pageCheckedAuths, contentAuths, logicAuths } =
+          row as unknown as IRoleListItem
+        const pageTags = pageCheckedAuths.map((key) => {
           return h(
             NTag,
             {
@@ -72,7 +77,7 @@ function createColumns():Array<DataTableColumn> {
             }
           )
         })
-        const contentTags = (contentAuths as any).map((key) => {
+        const contentTags = contentAuths.map((key) => {
           return h(
             NTag,
             {
@@ -87,7 +92,7 @@ function createColumns():Array<DataTableColumn> {
             }
           )
         })
-        const logicTags = (logicAuths as any).map((key) => {
+        const logicTags = logicAuths.map((key) => {
           return h(
             NTag,
             {
@@ -127,14 +132,14 @@ function createColumns():Array<DataTableColumn> {
                   type: 'primary',
                   icon: EditIcon,
                   text: '编辑',
-                  event: () => emit('edit', row),
+                  event: () => emit('edit', row as unknown as IRoleListItem),
                 }),
                 useIconButton({
                   type: 'default',
                   dashed: true,
                   icon: DeleteIcon,
                   text: '删除',
-                  event: () => emit('_delete', row),
+                  event: () => emit('_delete', row as unknown as IRoleListItem),
                 }),
               ],
             })

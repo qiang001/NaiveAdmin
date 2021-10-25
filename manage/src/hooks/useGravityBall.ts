@@ -64,8 +64,8 @@ export const useGravityBall = (
 
   function init() {
     ballArray = []
-    const balls = [300,600,900,1200]
-    const ballNumber = balls[Math.floor(Math.random() *balls.length)]
+    const balls = [123, 345, 567, 789]
+    const ballNumber = balls[Math.floor(Math.random() * balls.length)]
     for (let i = 0; i < ballNumber; i++) {
       const radius = randomIntFromRange(8, 20)
       const x = randomIntFromRange(radius, canvas.width - radius)
@@ -85,7 +85,7 @@ export const useGravityBall = (
       for (let i = 0; i < ballArray.length; i++) {
         ballArray[i].update()
       }
-    }else {
+    } else {
       ballArray = []
     }
   }

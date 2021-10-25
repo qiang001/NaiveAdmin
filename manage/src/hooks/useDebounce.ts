@@ -1,15 +1,15 @@
 import { ref } from 'vue'
-export function useDebounce(fn:Function, delay = 1000) {
+export function useDebounce(fn: Function, delay = 1000) {
   let timer = null
   const ifProcessing = ref(false)
   return {
     ifProcessing,
-    func:function () {
+    func: function () {
       ifProcessing.value = true
       let _this = this
       let _arguments = arguments
       if (timer) clearTimeout(timer)
-      return new Promise((resolve, reject) => {
+      return new Promise<any>((resolve, reject) => {
         timer = setTimeout(async function () {
           try {
             let res = await fn.apply(_this, _arguments)

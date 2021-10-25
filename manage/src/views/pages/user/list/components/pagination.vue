@@ -16,16 +16,16 @@
 <script setup lang="ts">
 import { NPagination } from 'naive-ui'
 import { inject } from 'vue'
-import { IPagination } from '../interfaces/pagination'
+import { IPagination } from '../interfaces/data'
 const pagination = inject('pagination') as IPagination
 // 暴露事件
 const emit = defineEmits(['changePage', 'changePageSize'])
 
-const changePage = (val) => {
+const changePage = (val:number) => {
   emit('changePage', val)
 }
 
-const changePageSize = (val) => {
+const changePageSize = (val:number) => {
   emit('changePageSize', val)
 }
 </script>

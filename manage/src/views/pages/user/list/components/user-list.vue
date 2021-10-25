@@ -13,7 +13,13 @@
 </template>
 
 <script setup lang="ts">
-const emit = defineEmits(['edit', 'resetPassword', '_delete'])
+import { IUserListItem } from '../interfaces/data'
+interface emitType {
+  (e: 'edit', data: IUserListItem): void
+  (e: 'resetPassword', data: IUserListItem): void
+  (e: '_delete', data: IUserListItem): void
+}
+const emit = defineEmits<emitType>()
 import { h, inject, Ref } from 'vue'
 import { NTag, NDataTable, DataTableColumn, NSpace } from 'naive-ui'
 import { Password24Filled as ResetIcon } from '@vicons/fluent'
@@ -24,11 +30,11 @@ import { useIconButton } from '@/hooks/useIconButton'
 import { useStatusTag } from '@/hooks/useStatusTag'
 import { useDateTime } from '@/hooks/useDateFormat'
 
-import {useStore} from '@/hooks/useStore'
+import { useStore } from '@/hooks/useStore'
 const store = useStore()
 
 const maxHeight = inject('maxHeight') as Ref<number>
-import { IUserListItem } from '../interfaces/user'
+
 const data = inject('users') as Ref<Array<IUserListItem>>
 const loading = inject('loading') as Ref<boolean>
 const columns = createColumns()
@@ -52,7 +58,7 @@ function createColumns(): Array<DataTableColumn> {
       title: '角色列表',
       key: 'roles',
       render(row) {
-        let { roles }: any = row
+        let { roles } = row as unknown as IUserListItem
         const tags = roles.map((role) => {
           return h(
             NTag,
@@ -114,21 +120,22 @@ function createColumns(): Array<DataTableColumn> {
               type: 'primary',
               icon: EditIcon,
               text: '编辑',
-              event: () => emit('edit', row),
+              event: () => emit('edit', row as unknown as IUserListItem),
             }),
             useIconButton({
               type: 'default',
               dashed: true,
               icon: ResetIcon,
               text: '重置密码',
-              event: () => emit('resetPassword', row),
+              event: () =>
+                emit('resetPassword', row as unknown as IUserListItem),
             }),
             useIconButton({
               type: 'default',
               dashed: true,
               icon: DeleteIcon,
               text: '删除',
-              event: () => emit('_delete', row),
+              event: () => emit('_delete', row as unknown as IUserListItem),
             }),
           ],
         })

@@ -1,25 +1,43 @@
-import { ref, unref } from 'vue'
-import {IRoleListItem} from '../interfaces/role'
+import { useDebounce } from '@/hooks/useDebounce'
+import { ref, unref, Ref } from 'vue'
+import {
+  // Input
+  I_initController_queryRoles,
+  I_useEditModal_open,
+  I_useApiCenter_deleteFromDB,
+  // Output
+  I_useRoleList_setMaxHeight,
+  I_useRoleList_edit,
+  I_useRoleList__delete,
+} from '../interfaces/method'
+
+interface Input {
+  queryRoles: I_initController_queryRoles
+  openEditModal: I_useEditModal_open
+  deleteFromDB: I_useApiCenter_deleteFromDB
+}
 export const useRoleList = ({
-  getRoles,
+  queryRoles,
   openEditModal,
   deleteFromDB,
-  useDebounce,
-}) => {
+}: Input) => {
   const maxHeight = ref(0)
   const otherTotalHeight = 126
-  const setMaxHeight = ({ height }) => {
+  const setMaxHeight: I_useRoleList_setMaxHeight = ({ height }) => {
     if (height) {
       maxHeight.value = height - otherTotalHeight
     }
   }
-
-  const edit = (row:IRoleListItem) => {
+  // 防抖包裹
+  const {
+    func: _deleteFromDB,
+  }: { ifProcessing: Ref<boolean>; func: I_useApiCenter_deleteFromDB } =
+    useDebounce(deleteFromDB)
+  const edit: I_useRoleList_edit = (row) => {
     openEditModal({ data: row, type: 'edit' })
   }
 
-  const { func: _deleteFromDB } = useDebounce(deleteFromDB)
-  const _delete = (row:IRoleListItem) => {
+  const _delete: I_useRoleList__delete = (row) => {
     const d = window.$dialog.warning({
       title: '警告',
       content: '确定删除？',
@@ -34,14 +52,14 @@ export const useRoleList = ({
         } catch (error) {
           window.$message.error(error)
         }
-        return await getRoles()
+        return await queryRoles()
       },
     })
   }
+  const data = { maxHeight }
+  const method = { setMaxHeight, edit, _delete }
   return {
-    maxHeight,
-    setMaxHeight,
-    edit,
-    _delete,
+    ...data,
+    ...method,
   }
 }

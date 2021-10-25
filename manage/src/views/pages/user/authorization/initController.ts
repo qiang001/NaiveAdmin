@@ -1,23 +1,23 @@
-import {useStore} from '@/hooks/useStore'
 import { ref, onMounted } from 'vue'
-import { useDebounce } from '@/hooks/useDebounce'
 import { useActionHeader } from './hooks/useActionHeader'
 import { useApiCenter } from './hooks/useApiCenter'
 import { useRoleList } from './hooks/useRoleList'
 import { useEditModal } from './hooks/useEditModal'
 
-import { IRoleListItem } from './interfaces/role'
+import { IRoleListItem } from './interfaces/data'
+import { I_initController_queryRoles } from './interfaces/method'
 
 export const initController = () => {
-  // 公共状态数据
-  const store = useStore()
-  const roles = ref<Array<IRoleListItem>>([])
   // 接口层
-  const { exportData, loading, getRoles, saveToDB, deleteFromDB } =
-    useApiCenter({ store, roles, useDebounce })
+  const { exportData, loading, _getRoles, saveToDB, deleteFromDB } =
+    useApiCenter()
   // 初始化数据
+  const roles = ref<Array<IRoleListItem>>([])
+  const queryRoles: I_initController_queryRoles = async () => {
+    roles.value = await _getRoles()
+  }
   onMounted(async () => {
-    await getRoles()
+    await queryRoles()
   })
   // 编辑框逻辑
   const {
@@ -28,7 +28,7 @@ export const initController = () => {
     open: openEditModal,
     close: closeEditModal,
     confirm: confirmEditModal,
-  } = useEditModal({ getRoles, saveToDB, useDebounce })
+  } = useEditModal({ queryRoles, saveToDB })
   // 按钮组逻辑
   const {
     exportLoading,
@@ -45,10 +45,9 @@ export const initController = () => {
     edit: editRole,
     _delete: deleteRole,
   } = useRoleList({
-    getRoles,
+    queryRoles,
     openEditModal,
     deleteFromDB,
-    useDebounce,
   })
 
   // 最终对外暴露

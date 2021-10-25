@@ -19,8 +19,26 @@ export interface IEditUser {
   ifActive: boolean
 }
 
+export interface IRoleOption {
+    label: string
+    value: string
+  }
+
 export interface IUserResetPassword {
   _id: string
   password: string
   passwordConfirm: string
 }
+
+export interface IFilters {
+  name: string
+  username: string
+  ifActive: string
+}
+export interface IPagination {
+  total: number
+  page: number
+  pageSize: number
+  sizes: number[]
+}
+

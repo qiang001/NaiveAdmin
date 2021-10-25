@@ -13,16 +13,16 @@
 <script setup lang="ts">
 import { useStore } from '@/hooks/useStore'
 const store = useStore()
-import { toRefs, watch, inject,Ref } from 'vue'
+import { toRefs, watch, inject, Ref } from 'vue'
 
 const props = defineProps({
   title: String,
-  ifExpand:{
-    type:Boolean,
-    default:true
-  }
+  ifExpand: {
+    type: Boolean,
+    default: true,
+  },
 })
-const { title,ifExpand } = toRefs(props)
+const { title, ifExpand } = toRefs(props)
 
 import { useResizeContainer } from '../hooks/useResizeContainer'
 const { width, height, container } = useResizeContainer('page-panel')
@@ -30,31 +30,39 @@ const { width, height, container } = useResizeContainer('page-panel')
 const ifFullpage = inject('ifFullpage') as Ref<boolean>
 const emit = defineEmits(['resize'])
 
-watch(height, () => {
-  let otherHeight = 147
-  if (ifFullpage.value) {
-    otherHeight -= 64
-  }
-  if(container.value){
-    setTimeout(() => {
-    container.value.style.setProperty(
-      'min-height',
-      `calc(100vh - ${otherHeight}px)`
-    )
-    if(!ifExpand.value){
-      container.value.style.setProperty(
-      'max-height',
-      `calc(100vh - ${otherHeight}px)`
-    )
+watch(
+  height,
+  () => {
+    let otherHeight = 147
+    if (ifFullpage.value) {
+      otherHeight -= 64
     }
-  })
-  }
-  emit('resize', { width: width.value, height: height.value })
-},{ immediate: true })
+    if (container.value) {
+      setTimeout(() => {
+        container.value.style.setProperty(
+          'min-height',
+          `calc(100vh - ${otherHeight}px)`
+        )
+        if (!ifExpand.value) {
+          container.value.style.setProperty(
+            'max-height',
+            `calc(100vh - ${otherHeight}px)`
+          )
+        }
+      })
+    }
+    emit('resize', { width: width.value, height: height.value })
+  },
+  { immediate: true }
+)
 
-watch(width, () => {
-  emit('resize', { width: width.value, height: height.value })
-},{ immediate: true })
+watch(
+  width,
+  () => {
+    emit('resize', { width: width.value, height: height.value })
+  },
+  { immediate: true }
+)
 </script>
 
 <style scoped>

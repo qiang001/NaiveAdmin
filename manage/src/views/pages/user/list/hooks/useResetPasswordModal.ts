@@ -1,33 +1,46 @@
-import { ref, reactive, unref } from 'vue'
-import {IUserResetPassword,IUserListItem} from '../interfaces/user'
-export const useResetPasswordModal = ({
-    changePassword,
-    useDebounce
-}) => {
+import { useDebounce } from '@/hooks/useDebounce'
+import { ref, reactive, unref,Ref } from 'vue'
+import { IUserResetPassword, IUserListItem } from '../interfaces/data'
+import {
+  // Input
+  I_useApiCenter_changePassword,
+  // Output
+  I_useResetPasswordModal_open,
+  I_useResetPasswordModal_close,
+  I_useResetPasswordModal_confirm,
+} from '../interfaces/method'
+interface Input {
+  changePassword: I_useApiCenter_changePassword
+}
+export const useResetPasswordModal = ({ changePassword }: Input) => {
   // 维护状态数据
   const resetPasswordModal = ref(false)
-  const { ifProcessing: confirmLoading, func: _changePassword } =
-  useDebounce(changePassword)
+  // 防抖包裹
+  const {
+    ifProcessing: confirmLoading,
+    func: _changePassword,
+  }: { ifProcessing: Ref<boolean>; func: I_useApiCenter_changePassword } =
+    useDebounce(changePassword)
   const user = reactive<IUserResetPassword>({
     _id: null,
     password: '',
-    passwordConfirm:''
+    passwordConfirm: '',
   })
   // 核心方法
-  const open = async ({data}) => {
+  const open: I_useResetPasswordModal_open = async ({ data }) => {
     setUser(data)
     resetPasswordModal.value = true
   }
 
-  const close = () => {
+  const close: I_useResetPasswordModal_close = () => {
     resetUser()
     resetPasswordModal.value = false
   }
 
-  const confirm = async () => {
+  const confirm: I_useResetPasswordModal_confirm = async () => {
     try {
       let obj = {
-        data: { ...unref(user)},
+        data: { ...unref(user) },
       }
       await _changePassword(obj)
       window.$message.success(`恭喜你，密码重置成功！`)
@@ -37,7 +50,7 @@ export const useResetPasswordModal = ({
     }
   }
 
-  function setUser(data:IUserListItem) {
+  function setUser(data: IUserListItem) {
     user._id = data._id
     user.passwordConfirm = ''
     user.password = ''

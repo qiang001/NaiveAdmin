@@ -18,8 +18,8 @@ export const useStatusTag = ({ type, text, ifBorder, ifDark }) => {
     backgroundColor: statusMap[type].backgroundColor,
     color: statusMap[type].textColor,
     fontSize: '12px',
-    cursor:'default',
-    border:'none'
+    cursor: 'default',
+    border: 'none',
   }
 
   if (ifBorder) {

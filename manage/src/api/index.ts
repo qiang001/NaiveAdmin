@@ -1,7 +1,8 @@
 import axios from 'axios'
-import { Store } from 'vuex'
-import { State } from '@/interfaces/store'
-export const useAxios = (store: Store<State>) => {
+import { useStore } from '@/hooks/useStore'
+
+export const useAxios = () => {
+  const store = useStore()
   const instance = axios.create({
     baseURL: import.meta.env.VITE_APP_SERVER_BASE_URL as string,
     timeout: 30 * 60 * 1000,
