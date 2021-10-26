@@ -51,9 +51,9 @@ const handleResize = ({ width }) => {
 
 import { gsap } from "gsap"
 onMounted(()=>{
-  gsap.to('#framework', { duration: 0.8, y: 0, opacity: 1, delay: 0.55 })
-  gsap.to('#order', { duration: 0.8, y: 0, opacity: 1, delay: 1 })
-  gsap.to('#customer', { duration: 0.8, y: 0, opacity: 1, delay: 1.25 })
+  gsap.to('#framework', { duration: 0.8, y: 0, opacity: 1, delay: 0.45 })
+  gsap.to('#order', { duration: 0.8, y: 0, opacity: 1, delay: 0.85 })
+  gsap.to('#customer', { duration: 0.8, y: 0, opacity: 1, delay: 1 })
 })
 </script>
 

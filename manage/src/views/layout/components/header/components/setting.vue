@@ -220,6 +220,7 @@ const { ifProcessing: loading, func: resetSetting } = useDebounce(() => {
   if (ifDark.value) {
     switchTheme()
   }
+  ifPageTitleChange(true)
   invertedChange(false)
   ifHideIconChange(false)
   settingShow.value = false

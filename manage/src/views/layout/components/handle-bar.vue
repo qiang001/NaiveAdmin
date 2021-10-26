@@ -411,6 +411,7 @@ const setFullpage = () => {
 .tab-current .close-btn {
   width: 22px;
   margin-right: -6px;
+  transition: all 0.3s ease;
 }
 
 .tab-cached {
@@ -423,6 +424,7 @@ const setFullpage = () => {
 
 .tab-current .tab-cached {
   background-color: var(--base-color);
+  transition: all 0.3s ease;
 }
 
 .tab-no-current:hover .tab-cached {
