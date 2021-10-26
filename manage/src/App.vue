@@ -28,17 +28,18 @@ import {
   zhCN,
 } from 'naive-ui'
 import { onMounted } from 'vue'
-import {useStore} from '@/hooks/useStore'
+import { useStore } from '@/hooks/useStore'
 const store = useStore()
 import { useRouter } from 'vue-router'
 const router = useRouter()
 onMounted(() => {
   // 本地初始化化加载
-  const themeSetting = localStorage.getItem('themeSetting')
-  if (themeSetting) {
-    let { _mainColor, _ifDark } = JSON.parse(themeSetting)
+  const systemSetting = localStorage.getItem('systemSetting')
+  if (systemSetting) {
+    let { _mainColor, _ifDark, _ifPageTitle } = JSON.parse(systemSetting)
     store.commit('SET_MAINCOLOR', _mainColor)
     store.commit('SET_IFDARK', _ifDark)
+    store.commit('SET_IFPAGETITLE', _ifPageTitle)
   }
   const token = localStorage.getItem('token')
   if (token) {
@@ -56,11 +57,12 @@ onMounted(() => {
   // 本地持久化存储
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'hidden') {
-      const themeSetting = {
+      const systemSetting = {
         _mainColor: store.state.mainColor,
         _ifDark: store.state.ifDark,
+        _ifPageTitle: store.state.ifPageTitle,
       }
-      localStorage.setItem('themeSetting', JSON.stringify(themeSetting))
+      localStorage.setItem('systemSetting', JSON.stringify(systemSetting))
       // token
       localStorage.setItem('token', store.state.token)
     }

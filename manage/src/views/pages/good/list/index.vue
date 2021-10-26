@@ -1,6 +1,6 @@
 <template>
   <page-panel :title="'商品列表'">
-    <div class="mt-2">
+    <div>
       {{ num }}
       <n-button @click="num++">点击+1</n-button>
     </div>

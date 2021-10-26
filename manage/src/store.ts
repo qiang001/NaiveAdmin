@@ -36,6 +36,7 @@ export const buildStore = (router:Router) => {
       return {
         mainColor: Object.keys(getColors(false))[0],
         ifDark: false,
+        ifPageTitle:true,
         cacheList: [],
         menuOptions: [],
         menuOptionsWithoutIcon: [],
@@ -92,6 +93,9 @@ export const buildStore = (router:Router) => {
       },
       SET_IFDARK(state, bool) {
         state.ifDark = bool
+      },
+      SET_IFPAGETITLE(state, bool) {
+        state.ifPageTitle = bool
       },
       REMOVE_CACHE(state, name) {
         state.cacheList = state.cacheList.filter((n) => n !== name)

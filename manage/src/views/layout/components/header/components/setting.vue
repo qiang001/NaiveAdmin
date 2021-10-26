@@ -47,22 +47,46 @@
         </div>
         <n-divider>「主题颜色」</n-divider>
         <div>
-          <div v-for="(item, index) in colors" :key="item.key" class="d-flex a-center j-sb">
+          <div
+            v-for="(item, index) in colors"
+            :key="item.key"
+            class="d-flex a-center j-sb"
+          >
             <n-checkbox
               v-model:checked="item.checked"
               :on-update:checked="(bool) => setColor(item, bool)"
             >
-              <div class="d-flex a-center py-1" style="width: 169px;">
+              <div class="d-flex a-center py-1" style="width: 169px">
                 <div>{{ item.label }}</div>
-                <div style="width: 38px;" class="d-flex a-center j-center ml-auto">
+                <div
+                  style="width: 38px"
+                  class="d-flex a-center j-center ml-auto"
+                >
                   <div
-                  class="color-box"
-                  :style="{ backgroundColor: item.common.primaryColor }"
-                ></div>
+                    class="color-box"
+                    :style="{ backgroundColor: item.common.primaryColor }"
+                  ></div>
                 </div>
               </div>
             </n-checkbox>
           </div>
+        </div>
+        <n-divider>「页面设置」</n-divider>
+        <div class="d-flex a-center j-center">
+          <n-space vertical>
+            <n-switch
+              v-model:value="ifPageTitle"
+              :on-update:value="ifPageTitleChange"
+              size="small"
+            >
+              <template #checked>
+                <span style="font-size: 12px">点击隐藏标题</span>
+              </template>
+              <template #unchecked>
+                <span style="font-size: 12px">点击显示标题</span>
+              </template>
+            </n-switch>
+          </n-space>
         </div>
         <n-divider>「左侧菜单」</n-divider>
         <div class="d-flex a-center j-center">
@@ -133,15 +157,15 @@ import {
 import { useStore } from '@/hooks/useStore'
 const store = useStore()
 
-import { ref, inject,Ref } from 'vue'
+import { ref, inject, Ref } from 'vue'
 
 const settingShow = ref(false)
 
-import {IColorInfo} from '@/interfaces/configuration'
+import { IColorInfo } from '@/interfaces/configuration'
 const colors = ref<Array<IColorInfo>>([])
 colors.value = store.getters.getMainColors
 
-const setColor = (item:IColorInfo, bool:boolean) => {
+const setColor = (item: IColorInfo, bool: boolean) => {
   if (!bool) return
   colors.value.forEach((color) => {
     item.key == color.key
@@ -153,7 +177,7 @@ const setColor = (item:IColorInfo, bool:boolean) => {
 const ifDark = ref(false)
 ifDark.value = store.state.ifDark
 
-const handleSwitch = (bool:boolean) => {
+const handleSwitch = (bool: boolean) => {
   ifDark.value = bool
   switchTheme()
 }
@@ -174,11 +198,19 @@ const switchTheme = () => {
 const inverted = inject('inverted') as Ref<boolean>
 const ifHideIcon = inject('ifHideIcon') as Ref<boolean>
 
-const invertedChange = (val:boolean) => {
+const invertedChange = (val: boolean) => {
   inverted.value = val
 }
-const ifHideIconChange = (val:boolean) => {
+const ifHideIconChange = (val: boolean) => {
   ifHideIcon.value = val
+}
+
+const ifPageTitle = ref(true)
+ifPageTitle.value = store.state.ifPageTitle
+
+const ifPageTitleChange = (val: boolean) => {
+  ifPageTitle.value = val
+  store.commit('SET_IFPAGETITLE', val)
 }
 
 import { useDebounce } from '@/hooks/useDebounce'

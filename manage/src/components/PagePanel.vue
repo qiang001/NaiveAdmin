@@ -4,8 +4,13 @@
     class="page-panel"
     id="page-panel"
     :class="`${store.state.ifDark ? 'page-panel-dark' : 'page-panel-light'}`"
+    :style="`${store.state.ifPageTitle ? 'padding-top:35px' : ''}`"
   >
-    <div class="title" v-if="title">{{ title }}</div>
+    <transition name="slide" mode="out-in">
+      <div class="title" v-if="title && store.state.ifPageTitle">
+        {{ title }}
+      </div>
+    </transition>
     <slot></slot>
   </div>
 </template>
@@ -85,7 +90,7 @@ watch(
 }
 .title {
   font-family: Youshe Biaotihei;
-  font-size: 18px;
+  font-size: 14px;
   padding: 2px 10px;
   background: #333333;
   color: #f8f8f8;
@@ -115,5 +120,21 @@ watch(
   position: absolute;
   top: 0;
   right: -9px;
+}
+
+/* slide transitions */
+.slide-enter-from {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+.slide-enter-active {
+  transition: all 0.3s ease;
+}
+.slide-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+.slide-leave-active {
+  transition: all 0.3s ease;
 }
 </style>

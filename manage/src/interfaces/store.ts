@@ -14,6 +14,7 @@ export interface IUserInfo {
 export interface State {
   mainColor: string
   ifDark: boolean
+  ifPageTitle: boolean
   cacheList: string[]
   menuOptions: IMenuItem[]
   menuOptionsWithoutIcon: IMenuItem[]

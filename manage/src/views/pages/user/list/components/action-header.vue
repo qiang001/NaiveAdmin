@@ -1,6 +1,6 @@
 <template>
   <div id="action-header" class="d-flex">
-    <div class="d-flex a-center py-2 mr-2">
+    <div class="d-flex a-center mb-2 mr-2">
       <n-element class="filter-plane">
         <n-space>
           <n-input

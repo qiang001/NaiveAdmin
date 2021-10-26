@@ -6,7 +6,6 @@
     :scroll-x="1080"
     :loading="loading"
     :single-line="false"
-    class="mt-2"
   >
     <template #empty>
       <empty-box></empty-box>
