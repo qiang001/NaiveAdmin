@@ -9,7 +9,7 @@
       设置
     </n-button>
     <n-drawer v-model:show="settingShow" :width="240" placement="right">
-      <n-drawer-content title="全局配置">
+      <n-drawer-content title="全局配置" closable :native-scrollbar="false">
         <n-divider>「暗黑模式」</n-divider>
         <div class="d-flex a-center j-center">
           <n-switch

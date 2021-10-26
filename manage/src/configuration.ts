@@ -324,6 +324,7 @@ export const getColors: (ifDark: boolean) => IColorCollection = (ifDark) => {
       key: 'yellow',
       label: '美团外卖黄',
       common: {
+        baseColor: '#000',
         primaryColor: !ifDark ? '#ffd429' : '#ffd429',
         primaryColorHover: !ifDark ? '#ffe252' : '#ffc300',
         primaryColorPressed: !ifDark ? '#ffc300' : '#ffed7a',
@@ -331,6 +332,17 @@ export const getColors: (ifDark: boolean) => IColorCollection = (ifDark) => {
       },
       Menu: {
         arrowColor: !ifDark ? '#333639' : '#ffffffd1',
+        itemTextColorActiveInverted: '#000',
+        itemIconColorActiveInverted: '#000',
+      },
+      Checkbox: {
+        color: !ifDark ? '#fff' : '#0000',
+      },
+      Radio: {
+        color: !ifDark ? '#fff' : '#0000',
+      },
+      Switch: {
+        textColor: '#222',
       },
     },
     orange: {
@@ -386,6 +398,12 @@ export const themeOverrides: (mainColor: string, ifDark: boolean) => any = (
   let Checkbox = {}
   if (setting.Checkbox) Checkbox = { ...Checkbox, ...setting.Checkbox }
 
+  let Radio = {}
+  if (setting.Radio) Radio = { ...Radio, ...setting.Radio }
+
+  let Switch = {}
+  if (setting.Switch) Switch = { ...Switch, ...setting.Switch }
+
   let Tabs = {}
   if (setting.Tabs) Tabs = { ...Tabs, ...setting.Tabs }
 
@@ -396,6 +414,8 @@ export const themeOverrides: (mainColor: string, ifDark: boolean) => any = (
     common,
     Menu,
     Checkbox,
+    Radio,
+    Switch,
     Tabs,
     Spin,
   }
