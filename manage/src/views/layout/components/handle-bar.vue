@@ -415,8 +415,8 @@ const setFullpage = () => {
 }
 
 .tab-cached {
-  width: 7px;
-  height: 7px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
   background-color: var(--text-color);
   transition: all 0.3s ease;

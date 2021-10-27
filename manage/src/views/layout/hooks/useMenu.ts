@@ -1,8 +1,8 @@
 import { ref, onMounted } from 'vue'
 export const useMenu = ({ refreshRoute, router }) => {
   const widthSpan = {
-    min: 210,
-    max: 420,
+    min: 180,
+    max: 360,
   }
   const sectionWidth = ref(0)
   let sider = null

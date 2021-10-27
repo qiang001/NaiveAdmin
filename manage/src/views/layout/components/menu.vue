@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="p-1">
+  <n-element>
+    <div class="quick-search">
       <n-auto-complete
         :options="options"
         v-model:value="keyword"
@@ -12,6 +12,8 @@
       />
     </div>
     <n-menu
+      :root-indent="18"
+      :indent="24"
       :collapsed="collapsed"
       :inverted="inverted"
       :options="menu"
@@ -20,11 +22,11 @@
       :expanded-keys="expandedKeys"
       :on-update:expanded-keys="handleExpanded"
     />
-  </div>
+  </n-element>
 </template>
 
 <script setup lang="ts">
-import { NMenu, NAutoComplete } from 'naive-ui'
+import { NElement,NMenu, NAutoComplete } from 'naive-ui'
 
 import { ref, computed, watch, inject,Ref } from 'vue'
 
@@ -117,16 +119,16 @@ const handleSelected = (key:string) => {
 </script>
 
 <style scoped>
-.invert-control {
-  border-radius: 2px;
+.quick-search{
+  padding:18px;
+  padding-bottom: 10px;
 }
-.invert-control-dark {
-  background-color: #0e0e11;
+:deep(.n-menu .n-menu-item::before){
+  left: 0;
+  right: 0;
+  border-radius: 0;
 }
-.invert-control-mix {
-  background-color: #ffffff0f;
-}
-.invert-control-light {
-  background-color: #f7f7f9;
+:deep(.n-menu .n-menu-item.n-menu-item--selected::before){
+  border-right:3px solid var(--primary-color-hover);
 }
 </style>

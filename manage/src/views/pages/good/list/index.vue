@@ -1,9 +1,6 @@
 <template>
   <page-panel :title="'商品列表'">
-    <div>
-      {{ num }}
-      <n-button @click="num++">点击+1</n-button>
-    </div>
+    
   </page-panel>
 </template>
 
@@ -13,15 +10,6 @@ export default { name: 'GoodList' }
 
 <script setup lang="ts">
 import PagePanel from '@/components/PagePanel.vue'
-import { NButton } from 'naive-ui'
-import { ref,onMounted, onActivated} from 'vue'
-const num = ref(0)
-onMounted(()=>{
-  window.$message.success('onMounted')
-})
-onActivated(()=>{
-  window.$message.success('onActivated')
-})
 </script>
 
 <style></style>

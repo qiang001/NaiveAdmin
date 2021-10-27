@@ -1,14 +1,20 @@
 import { h } from 'vue'
-export const useStatusTag = ({ type, text, ifBorder, ifDark }) => {
+interface Input {
+  type: 'success' | 'disabled'
+  text: string
+  ifBorder: boolean
+  ifDark: boolean
+}
+export const useStatusTag = ({ type, text, ifBorder, ifDark }: Input) => {
   const statusMap = {
     success: {
       borderColor: !ifDark ? '#e8f5ee' : '#0b2e0e',
-      backgroundColor: !ifDark ? '#e8f5ee' : '#0c290d',
-      textColor: !ifDark ? '#33c377' : '#59e861',
+      backgroundColor: !ifDark ? '#b4f7d01a' : '#0c290d',
+      textColor: !ifDark ? '#00c250' : '#2aae67',
     },
     disabled: {
       borderColor: !ifDark ? '#f4f4f4' : '#222222',
-      backgroundColor: !ifDark ? '#e6e6e6' : '#383838',
+      backgroundColor: !ifDark ? '#fbfbfb' : '#383838',
       textColor: !ifDark ? '#95a4aa' : '#b2b2b2',
     },
   }
