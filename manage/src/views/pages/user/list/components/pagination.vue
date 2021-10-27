@@ -21,11 +21,11 @@ const pagination = inject('pagination') as IPagination
 // 暴露事件
 const emit = defineEmits(['changePage', 'changePageSize'])
 
-const changePage = (val:number) => {
+const changePage = (val: number) => {
   emit('changePage', val)
 }
 
-const changePageSize = (val:number) => {
+const changePageSize = (val: number) => {
   emit('changePageSize', val)
 }
 </script>

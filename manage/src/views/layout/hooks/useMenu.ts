@@ -24,13 +24,14 @@ export const useMenu = ({ refreshRoute, router }) => {
     // 本地缓存状态
     const menuSetting = localStorage.getItem('menuSetting')
     if (menuSetting) {
-      let { _sectionWidth, _collapsed, _inverted ,_ifHideIcon} = JSON.parse(menuSetting)
+      let { _sectionWidth, _collapsed, _inverted, _ifHideIcon } =
+        JSON.parse(menuSetting)
       sectionWidth.value = _sectionWidth || widthSpan.min
       collapsed.value = _collapsed
       inverted.value = _inverted
       ifHideIcon.value = _ifHideIcon
-    }else{
-      sectionWidth.value =  widthSpan.min
+    } else {
+      sectionWidth.value = widthSpan.min
     }
     document.addEventListener('visibilitychange', () => {
       if (document.visibilityState === 'hidden') {
@@ -38,7 +39,7 @@ export const useMenu = ({ refreshRoute, router }) => {
           _sectionWidth: sectionWidth.value,
           _collapsed: collapsed.value,
           _inverted: inverted.value,
-          _ifHideIcon:ifHideIcon.value
+          _ifHideIcon: ifHideIcon.value,
         }
         localStorage.setItem('menuSetting', JSON.stringify(menuSetting))
       }

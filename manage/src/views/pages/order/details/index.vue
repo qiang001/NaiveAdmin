@@ -1,7 +1,5 @@
 <template>
-  <page-panel :title="'订单详情'">
-	
-	</page-panel>
+  <page-panel :title="'订单详情'"> </page-panel>
 </template>
 
 <script setup lang="ts">

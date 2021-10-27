@@ -26,14 +26,14 @@
 </template>
 
 <script setup lang="ts">
-import { NElement,NMenu, NAutoComplete } from 'naive-ui'
+import { NElement, NMenu, NAutoComplete } from 'naive-ui'
 
-import { ref, computed, watch, inject,Ref } from 'vue'
+import { ref, computed, watch, inject, Ref } from 'vue'
 
 import { useStore } from '@/hooks/useStore'
 const store = useStore()
 
-import {useRoute} from 'vue-router'
+import { useRoute } from 'vue-router'
 const route = useRoute()
 
 // 快捷搜索
@@ -41,7 +41,7 @@ import { ISearchOption } from '@/interfaces/authorization'
 const keyword = ref('')
 const options = computed(() => {
   return fuzzyQuery(store.getters.getSearchOptions, keyword.value)
-  function fuzzyQuery(list:Array<ISearchOption>, keyWord:string) {
+  function fuzzyQuery(list: Array<ISearchOption>, keyWord: string) {
     if (!keyWord) {
       return []
     }
@@ -63,14 +63,14 @@ const options = computed(() => {
 const inverted = inject('inverted') as Ref<boolean>
 const collapsed = inject('collapsed') as Ref<boolean>
 const ifHideIcon = inject('ifHideIcon') as Ref<boolean>
-import {IMenuItem} from '@/interfaces/authorization'
+import { IMenuItem } from '@/interfaces/authorization'
 const menu = computed(() => store.getters.getMenu(ifHideIcon.value))
 
 // 拍平菜单
 const keyMap = computed(() => {
   let list = []
   return buildKeyMap(menu.value)
-  function buildKeyMap(arr:Array<IMenuItem>) {
+  function buildKeyMap(arr: Array<IMenuItem>) {
     arr.forEach((item) => {
       let { key, expandedKey, children } = item
       list = [...list, { key, expandedKey }]
@@ -98,13 +98,13 @@ watch(
 )
 
 // 菜单展开
-const handleExpanded = (keys:string[]) => {
+const handleExpanded = (keys: string[]) => {
   let val = keys.reverse()[0]
   if (val) {
     let obj = keyMap.value.find((v) => v.key == val)
     expandedKeys.value = obj.expandedKey
       .split(',')
-      .filter((v:string) => keys.some((k) => k == v))
+      .filter((v: string) => keys.some((k) => k == v))
   } else {
     expandedKeys.value = []
   }
@@ -112,23 +112,25 @@ const handleExpanded = (keys:string[]) => {
 
 const emit = defineEmits(['navigateTo'])
 // 菜单选中
-const handleSelected = (key:string) => {
-  emit('navigateTo', { name: key, ifCurrent: key == route.name && Object.keys(route.query).length == 0 })
+const handleSelected = (key: string) => {
+  emit('navigateTo', {
+    name: key,
+    ifCurrent: key == route.name && Object.keys(route.query).length == 0,
+  })
 }
-
 </script>
 
 <style scoped>
-.quick-search{
-  padding:18px;
+.quick-search {
+  padding: 18px;
   padding-bottom: 10px;
 }
-:deep(.n-menu .n-menu-item::before){
+:deep(.n-menu .n-menu-item::before) {
   left: 0;
   right: 0;
   border-radius: 0;
 }
-:deep(.n-menu .n-menu-item.n-menu-item--selected::before){
-  border-right:3px solid var(--primary-color-hover);
+:deep(.n-menu .n-menu-item.n-menu-item--selected::before) {
+  border-right: 3px solid var(--primary-color-hover);
 }
 </style>

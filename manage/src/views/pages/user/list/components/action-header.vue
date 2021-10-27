@@ -118,19 +118,19 @@ import {
   ArrowSortUp20Filled as UpIcon,
   ArrowSortDown20Filled as DownIcon,
 } from '@vicons/fluent'
-import { inject ,Ref} from 'vue'
-import {IFilters} from '../interfaces/data'
+import { inject, Ref } from 'vue'
+import { IFilters } from '../interfaces/data'
 const filters = inject('filters') as IFilters
 const searching = inject('searching') as Ref<boolean>
 const sort = inject('sort') as Ref<string>
 
 // 暴露事件
 interface emitType {
-  (e:'add'):void
-  (e:'changeStatus',data:string):Promise<void>
-  (e:'clear'):void
-  (e:'search'):void
-  (e:'changeSort',data:string):Promise<void>
+  (e: 'add'): void
+  (e: 'changeStatus', data: string): Promise<void>
+  (e: 'clear'): void
+  (e: 'search'): void
+  (e: 'changeSort', data: string): Promise<void>
 }
 const emit = defineEmits<emitType>()
 
@@ -138,7 +138,7 @@ const add = () => {
   emit('add')
 }
 
-const changeStatus = (val:string) => {
+const changeStatus = (val: string) => {
   emit('changeStatus', val)
 }
 

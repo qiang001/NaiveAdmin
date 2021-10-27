@@ -1,7 +1,5 @@
 <template>
-  <page-panel :title="'商品分类'">
-    
-  </page-panel>
+  <page-panel :title="'商品分类'"> </page-panel>
 </template>
 
 <script lang="ts">

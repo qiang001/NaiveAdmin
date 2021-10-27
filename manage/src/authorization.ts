@@ -235,10 +235,10 @@ function getAuthKeys(configuration: Array<IPageItem>): IMenuAuthsFlated {
   }
 }
 
-import {App} from 'vue'
+import { App } from 'vue'
 import { Store } from 'vuex'
 import { State } from '@/interfaces/store'
-function initOtherPermissions(app:App, store:Store<State>):void {
+function initOtherPermissions(app: App, store: Store<State>): void {
   app.directive('permission', {
     beforeMount(el, binding) {
       if (binding.arg == 'logic') {

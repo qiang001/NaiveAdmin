@@ -7,7 +7,11 @@
       @changeSort="changeSort"
       @search="searchUsers"
     ></action-header>
-    <user-list @edit="editUser" @resetPassword="resetPassword" @_delete="deleteUser"></user-list>
+    <user-list
+      @edit="editUser"
+      @resetPassword="resetPassword"
+      @_delete="deleteUser"
+    ></user-list>
     <pagination
       @changePage="changePage"
       @changePageSize="changePageSize"

@@ -117,10 +117,10 @@ import {
 
 import { ref, reactive, unref, onMounted, onBeforeUnmount } from 'vue'
 
-import {useStore} from '@/hooks/useStore'
+import { useStore } from '@/hooks/useStore'
 const store = useStore()
 
-import { gsap } from "gsap"
+import { gsap } from 'gsap'
 
 import { useGravityBall } from '@/hooks/useGravityBall'
 import { useResizeContainer } from '@/hooks/useResizeContainer'
@@ -133,9 +133,9 @@ onMounted(() => {
   if (store.state.loginPageMessage.type == 'success') {
     window.$message.success(store.state.loginPageMessage.text)
   }
-  gsap.to('#username', { duration: 0.5, x: 0, opacity: 1, delay: 0.3 })
-  gsap.to('#password', { duration: 0.8, x: 0, opacity: 1, delay: 0.5 })
-  gsap.to('#login-btn', { duration: 1, x: 0, opacity: 1, delay: 0.5 })
+  gsap.to('#username', { duration: 0.3, x: 0, opacity: 1, delay: 0.3 })
+  gsap.to('#password', { duration: 0.5, x: 0, opacity: 1, delay: 0.35 })
+  gsap.to('#login-btn', { duration: 0.8, x: 0, opacity: 1, delay: 0.45 })
 
   useGravityBall(
     width,

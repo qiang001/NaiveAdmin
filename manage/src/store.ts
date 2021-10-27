@@ -14,8 +14,8 @@ import {
   getAuthKeys,
 } from './authorization'
 
-import {Router} from 'vue-router'
-export const buildStore = (router:Router) => {
+import { Router } from 'vue-router'
+export const buildStore = (router: Router) => {
   // menu auth tree
   const menuAuthTree = buildMenuAuthTree(pageConfig)
   // auth keys
@@ -36,7 +36,7 @@ export const buildStore = (router:Router) => {
       return {
         mainColor: Object.keys(getColors(false))[0],
         ifDark: false,
-        ifPageTitle:true,
+        ifPageTitle: true,
         cacheList: [],
         menuOptions: [],
         menuOptionsWithoutIcon: [],
@@ -70,7 +70,7 @@ export const buildStore = (router:Router) => {
       getCacheList(state) {
         return state.cacheList
       },
-      getMenu: (state) => (ifHideIcon) => {
+      getMenu: (state) => (ifHideIcon: boolean) => {
         return !ifHideIcon ? state.menuOptions : state.menuOptionsWithoutIcon
       },
       getMenuAuthTree(state) {
@@ -117,7 +117,7 @@ export const buildStore = (router:Router) => {
           if (!AUTH_KEYS.includes(page.name)) {
             removeRoute()
           } else {
-            page.meta.ifCache &&
+            page?.meta?.ifCache &&
               !state.cacheList.includes(page.name as string) &&
               state.cacheList.push(page.name as string)
           }

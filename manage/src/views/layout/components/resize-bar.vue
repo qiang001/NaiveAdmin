@@ -12,12 +12,12 @@
 
 <script setup lang="ts">
 import { NElement } from 'naive-ui'
-import { ref, onMounted, inject,Ref } from 'vue'
+import { ref, onMounted, inject, Ref } from 'vue'
 
 const lastX = ref(null)
 const lastWidth = ref(null)
 const sectionWidth = inject('sectionWidth') as Ref<number>
-const widthSpan:{min:number,max:number} = inject('widthSpan')
+const widthSpan: { min: number; max: number } = inject('widthSpan')
 
 const mouseDown = (event) => {
   lastX.value = event.screenX
@@ -29,7 +29,7 @@ onMounted(() => {
   document.addEventListener('mouseup', mouseUp)
 })
 
-const emit = defineEmits(['widthChange','widthChangeDone'])
+const emit = defineEmits(['widthChange', 'widthChangeDone'])
 
 const mouseMove = (event) => {
   const movement = event.screenX - lastX.value
@@ -70,5 +70,4 @@ const mouseUp = () => {
   background-color: var(--primary-color);
   transition: all 0.3s ease;
 }
-
 </style>

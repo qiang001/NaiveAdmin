@@ -1,8 +1,8 @@
 <template>
-  <router-view v-slot="{ Component,route }">
+  <router-view v-slot="{ Component, route }">
     <transition name="route" mode="out-in">
       <keep-alive :include="store.getters.getCacheList">
-        <component :is="Component" :key="route.fullPath"/>
+        <component :is="Component" :key="route.fullPath" />
       </keep-alive>
     </transition>
   </router-view>

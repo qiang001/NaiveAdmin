@@ -1,7 +1,5 @@
 <template>
-  <page-panel :title="'客户类型'">
-	
-	</page-panel>
+  <page-panel :title="'客户类型'"> </page-panel>
 </template>
 
 <script setup lang="ts">

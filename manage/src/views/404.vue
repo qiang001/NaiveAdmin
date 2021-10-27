@@ -37,7 +37,7 @@
 
 <script setup lang="ts">
 import { NLayout, NLayoutContent, NButton } from 'naive-ui'
-import {useStore} from '@/hooks/useStore'
+import { useStore } from '@/hooks/useStore'
 const store = useStore()
 import { useRouter } from 'vue-router'
 const router = useRouter()

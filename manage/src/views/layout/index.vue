@@ -33,7 +33,10 @@
         @expand="collapsedChange(false)"
       >
         <Menu @navigateTo="navigateTo"></Menu>
-        <resize-bar @widthChange="widthChange" @widthChangeDone="widthChangeDone"></resize-bar>
+        <resize-bar
+          @widthChange="widthChange"
+          @widthChangeDone="widthChangeDone"
+        ></resize-bar>
       </n-layout-sider>
       <n-layout-content :native-scrollbar="false">
         <n-layout-header

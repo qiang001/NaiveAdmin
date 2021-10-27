@@ -20,9 +20,9 @@ export interface IEditUser {
 }
 
 export interface IRoleOption {
-    label: string
-    value: string
-  }
+  label: string
+  value: string
+}
 
 export interface IUserResetPassword {
   _id: string
@@ -41,4 +41,3 @@ export interface IPagination {
   pageSize: number
   sizes: number[]
 }
-

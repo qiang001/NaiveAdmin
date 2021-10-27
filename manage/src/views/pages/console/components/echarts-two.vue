@@ -13,9 +13,9 @@ import * as echarts from 'echarts/core'
 import { GridComponent } from 'echarts/components'
 import { BarChart } from 'echarts/charts'
 import { CanvasRenderer } from 'echarts/renderers'
-import { onMounted, watch, inject, computed,Ref } from 'vue'
+import { onMounted, watch, inject, computed, Ref } from 'vue'
 const ifSizeChange = inject('ifSizeChange') as Ref<number>
-import {useStore} from '@/hooks/useStore'
+import { useStore } from '@/hooks/useStore'
 const store = useStore()
 const walden = inject('walden')
 const essos = inject('essos')
@@ -66,7 +66,7 @@ const initChart = () => {
     ],
   }
   if (ifDark.value) {
-    (option as any).backgroundColor = '#17171b'
+    ;(option as any).backgroundColor = '#17171b'
   }
   myChart.setOption(option)
 }

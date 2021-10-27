@@ -114,7 +114,7 @@ const ifEdit = inject('ifEdit') as Ref<boolean>
 const editModal = inject('editModal') as Ref<boolean>
 const confirmLoading = inject('confirmLoading') as Ref<boolean>
 
-import {IRoleListItem} from '../interfaces/data'
+import { IRoleListItem } from '../interfaces/data'
 const role = inject('role') as IRoleListItem
 
 // 表单相关
@@ -147,7 +147,7 @@ const validation = () => {
 }
 
 // 菜单权限树相关
-import {useStore} from '@/hooks/useStore'
+import { useStore } from '@/hooks/useStore'
 const store = useStore()
 const menuAuthTree = ref([])
 menuAuthTree.value = store.getters.getMenuAuthTree

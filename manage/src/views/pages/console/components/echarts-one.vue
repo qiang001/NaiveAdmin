@@ -3,7 +3,8 @@
     id="echarts-one"
     :style="{
       width:
-        `${(ifSizeChange / 3) * 2 - 40 || '100%'}` + `${ifSizeChange ? 'px' : ''}`,
+        `${(ifSizeChange / 3) * 2 - 40 || '100%'}` +
+        `${ifSizeChange ? 'px' : ''}`,
       height: '400px',
     }"
   ></div>
@@ -19,9 +20,9 @@ import {
 import { ScatterChart } from 'echarts/charts'
 import { UniversalTransition } from 'echarts/features'
 import { CanvasRenderer } from 'echarts/renderers'
-import { onMounted, watch, inject, computed,Ref } from 'vue'
+import { onMounted, watch, inject, computed, Ref } from 'vue'
 const ifSizeChange = inject('ifSizeChange') as Ref<number>
-import {useStore} from '@/hooks/useStore'
+import { useStore } from '@/hooks/useStore'
 const store = useStore()
 const walden = inject('walden')
 const essos = inject('essos')
@@ -115,7 +116,7 @@ const initChart = () => {
     series: series,
   }
   if (ifDark.value) {
-    (option as any).backgroundColor = '#17171b'
+    ;(option as any).backgroundColor = '#17171b'
   }
   myChart.setOption(option)
 }

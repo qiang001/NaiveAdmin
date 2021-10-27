@@ -156,7 +156,7 @@ import {
   nextTick,
   onMounted,
   onBeforeUnmount,
-  Ref
+  Ref,
 } from 'vue'
 
 // 拖动tab
@@ -168,12 +168,12 @@ const dragOptions = reactive({
   ghostClass: 'ghost',
 })
 
-const setDrag = (bool:boolean) => {
+const setDrag = (bool: boolean) => {
   drag.value = bool
 }
 
 // 渲染 tabs 以及交互动画
-import {IHistory} from '../interfaces/handleBar'
+import { IHistory } from '../interfaces/handleBar'
 const history = inject('history') as Ref<Array<IHistory>>
 
 let updateTimer = null

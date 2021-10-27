@@ -22,9 +22,9 @@ import {
 import { LineChart } from 'echarts/charts'
 import { UniversalTransition } from 'echarts/features'
 import { CanvasRenderer } from 'echarts/renderers'
-import { onMounted, watch, inject, computed,Ref } from 'vue'
+import { onMounted, watch, inject, computed, Ref } from 'vue'
 const ifSizeChange = inject('ifSizeChange') as Ref<number>
-import {useStore} from '@/hooks/useStore'
+import { useStore } from '@/hooks/useStore'
 const store = useStore()
 const walden = inject('walden')
 const essos = inject('essos')
@@ -57,7 +57,7 @@ const initChart = () => {
     myChart.dispose()
   }
   myChart = !ifDark.value
-    ? echarts.init(chartDom,'essos')
+    ? echarts.init(chartDom, 'essos')
     : echarts.init(chartDom, 'dark')
   const option = {
     title: {
@@ -151,7 +151,7 @@ const initChart = () => {
     ],
   }
   if (ifDark.value) {
-    (option as any).backgroundColor = '#17171b'
+    ;(option as any).backgroundColor = '#17171b'
   }
   myChart.setOption(option)
 }

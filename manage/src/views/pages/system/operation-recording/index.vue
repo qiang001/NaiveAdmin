@@ -1,5 +1,5 @@
 <template>
-  <page-panel :title="'操作记录'" :ifExpand="false" @resize="setMaxHeight">
+  <page-panel :title="'操作记录'" @resize="setMaxHeight">
     <record-list></record-list>
   </page-panel>
 </template>

@@ -39,13 +39,13 @@ const options: Array<DropdownOption> = [
   { label: '退出系统', key: 'logout', icon: () => h(LogoutIcon) },
 ]
 
-const renderDropdownIcon = (option:DropdownOption) => {
+const renderDropdownIcon = (option: DropdownOption) => {
   return h(NIcon, null, {
     default: () => h(option.icon),
   })
 }
 
-const handleSelect = (key:string) => {
+const handleSelect = (key: string) => {
   if (key == 'logout') {
     store.dispatch('logout')
   }
