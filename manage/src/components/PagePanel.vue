@@ -38,7 +38,7 @@ const emit = defineEmits(['resize'])
 watch(
   height,
   () => {
-    let otherHeight = 147
+    let otherHeight = 120
     if (ifFullpage.value) {
       otherHeight -= 64
     }

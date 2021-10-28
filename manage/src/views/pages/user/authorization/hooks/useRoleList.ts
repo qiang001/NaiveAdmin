@@ -22,7 +22,7 @@ export const useRoleList = ({
   deleteFromDB,
 }: Input) => {
   const maxHeight = ref(0)
-  const otherTotalHeight = 126
+  const otherTotalHeight = 146
   const setMaxHeight: I_useRoleList_setMaxHeight = ({ height }) => {
     if (height) {
       maxHeight.value = height - otherTotalHeight

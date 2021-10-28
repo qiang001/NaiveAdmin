@@ -56,7 +56,7 @@
           id="page"
           :native-scrollbar="false"
           embedded
-          :content-style="`${route.name != 'Layout' ? 'padding: 24px;' : ''}`"
+          :content-style="`${route.name != 'Layout' ? 'padding: 14px;' : ''}`"
         >
           <Page></Page>
         </n-layout-content>

@@ -125,7 +125,7 @@ const handleSelected = (key: string) => {
 .quick-search {
   padding: 18px;
 }
-.n-menu{
+.n-menu {
   margin-top: -6px;
 }
 :deep(.n-menu .n-menu-item::before) {

@@ -4,6 +4,7 @@
       class="d-flex a-center j-center"
       style="width: 30px; cursor: pointer"
       @click="collapse"
+      v-if="!ifFullpage"
     >
       <n-icon size="18">
         <transition name="slide-horizontal" mode="out-in">
@@ -349,7 +350,7 @@ const setFullpage = () => {
   /* border-bottom: 1px solid var(--border-color); */
   box-shadow: 0 0 8px 0 #80808026;
   position: relative;
-  height: 34px;
+  height: 28px;
 }
 
 #left-arrow {
@@ -382,7 +383,6 @@ const setFullpage = () => {
 #tab-bar {
   position: absolute;
   left: 0;
-  padding-top: 9px;
   transition: all 0.3s ease;
 }
 .tab-box {
@@ -390,10 +390,10 @@ const setFullpage = () => {
 }
 .tab {
   padding: 2px 6px 0 6px;
-  margin: 0 4px;
+  margin: 0 2px;
   user-select: none;
   font-size: 12px;
-  border-radius: 3px 3px 0 0;
+  border-radius: 1px;
   color: var(--text-color);
   background-color: var(--divider-color);
   transition: all 0.1s ease;
@@ -405,7 +405,6 @@ const setFullpage = () => {
   transition: all 0.1s ease;
 }
 .tab-text {
-  height: 22px;
   border-radius: 2px 0 0 0;
   background-color: transparent;
   cursor: pointer;
