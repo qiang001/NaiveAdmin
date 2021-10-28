@@ -22,9 +22,9 @@
         id="sider"
         v-show="!ifFullpage"
         bordered
-        show-trigger="bar"
+        :show-trigger="false"
         collapse-mode="width"
-        :collapsed-width="0"
+        :collapsed-width="48"
         :width="sectionWidth"
         :inverted="inverted"
         :collapsed="collapsed"
@@ -34,6 +34,7 @@
       >
         <Menu @navigateTo="navigateTo"></Menu>
         <resize-bar
+          v-if="!collapsed"
           @widthChange="widthChange"
           @widthChangeDone="widthChangeDone"
         ></resize-bar>
@@ -44,6 +45,7 @@
           v-if="route.name != 'Layout'"
         >
           <handle-bar
+            @collapse="collapsedChange"
             @gotoTab="gotoTab"
             @deleteTab="deleteTab"
             @refreshPage="refreshRoute"

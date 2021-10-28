@@ -2,6 +2,18 @@
   <div class="d-flex handle-bar">
     <n-element
       class="d-flex a-center j-center"
+      style="width: 30px; cursor: pointer"
+      @click="collapse"
+    >
+      <n-icon size="18">
+        <transition name="slide-horizontal" mode="out-in">
+          <collapsed-trigger-left-icon v-if="!collapsed" />
+          <collapsed-trigger-right-icon v-else />
+        </transition>
+      </n-icon>
+    </n-element>
+    <n-element
+      class="d-flex a-center j-center"
       id="left-arrow"
       @click="onLeft"
       :style="`width:${arrowWidth}px`"
@@ -32,7 +44,7 @@
                 class="tab tab-current d-flex a-center"
                 v-if="tab.ifCurrent"
               >
-                <transition name="slide" mode="out-in">
+                <transition name="slide-vertical" mode="out-in">
                   <div
                     class="d-flex a-center j-center pr"
                     v-if="store.state.cacheList.includes(tab.name)"
@@ -62,7 +74,7 @@
                 </div>
               </n-element>
               <n-element class="tab tab-no-current d-flex a-center" v-else>
-                <transition name="slide" mode="out-in">
+                <transition name="slide-vertical" mode="out-in">
                   <div
                     class="d-flex a-center j-center pr"
                     v-if="store.state.cacheList.includes(tab.name)"
@@ -143,6 +155,10 @@ import {
   FullscreenFilled as FullpageIcon,
   FullscreenExitFilled as NormalPageIcon,
 } from '@vicons/material'
+import {
+  AlignLeft as CollapsedTriggerLeftIcon,
+  AlignRight as CollapsedTriggerRightIcon,
+} from '@vicons/tabler'
 import draggable from 'vuedraggable/src/vuedraggable'
 
 import { useStore } from '@/hooks/useStore'
@@ -158,6 +174,8 @@ import {
   onBeforeUnmount,
   Ref,
 } from 'vue'
+
+const collapsed = inject('collapsed') as Ref<boolean>
 
 // 拖动tab
 const drag = ref(false)
@@ -291,7 +309,17 @@ const onRight = () => {
 }
 
 // 暴露事件
-const emit = defineEmits(['gotoTab', 'deleteTab', 'refreshPage', 'setFullpage'])
+const emit = defineEmits([
+  'collapse',
+  'gotoTab',
+  'deleteTab',
+  'refreshPage',
+  'setFullpage',
+])
+
+const collapse = () => {
+  emit('collapse', !collapsed.value)
+}
 
 // 切换tab
 const gotoTab = ({ name, ifCurrent, query, path }) => {
@@ -443,18 +471,33 @@ const setFullpage = () => {
 }
 
 /* slide transitions */
-.slide-enter-from {
+.slide-vertical-enter-from {
   opacity: 0;
   transform: translateY(10px);
 }
-.slide-enter-active {
+.slide-vertical-enter-active {
   transition: all 0.3s ease;
 }
-.slide-leave-to {
+.slide-vertical-leave-to {
   opacity: 0;
   transform: translateY(-10px);
 }
-.slide-leave-active {
+.slide-vertical-leave-active {
+  transition: all 0.3s ease;
+}
+
+.slide-horizontal-enter-from {
+  opacity: 0;
+  transform: translateX(10px);
+}
+.slide-horizontal-enter-active {
+  transition: all 0.3s ease;
+}
+.slide-horizontal-leave-to {
+  opacity: 0;
+  transform: translateX(-10px);
+}
+.slide-horizontal-leave-active {
   transition: all 0.3s ease;
 }
 </style>

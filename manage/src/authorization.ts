@@ -153,7 +153,7 @@ function buildMenuOptions(
       return () => {
         return h(
           NIcon,
-          { size: 16 },
+          { size: 18 },
           {
             default: () => h(iconCollection[icon]),
           }

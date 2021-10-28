@@ -1,6 +1,6 @@
 <template>
   <n-element>
-    <div class="quick-search">
+    <div class="quick-search" v-if="!collapsed">
       <n-auto-complete
         :options="options"
         v-model:value="keyword"
@@ -14,6 +14,7 @@
     <n-menu
       :root-indent="18"
       :indent="24"
+      :collapsed-width="48"
       :collapsed="collapsed"
       :inverted="inverted"
       :options="menu"
@@ -123,7 +124,9 @@ const handleSelected = (key: string) => {
 <style scoped>
 .quick-search {
   padding: 18px;
-  padding-bottom: 10px;
+}
+.n-menu{
+  margin-top: -6px;
 }
 :deep(.n-menu .n-menu-item::before) {
   left: 0;
