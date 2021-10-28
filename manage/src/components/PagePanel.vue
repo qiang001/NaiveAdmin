@@ -72,8 +72,8 @@ watch(
 
 <style scoped>
 .page-panel {
-  min-height: calc(100vh - 147px);
-  /* max-height: calc(100vh - 147px); */
+  min-height: calc(100vh - 120px);
+  /* max-height: calc(100vh - 120px); */
   padding: 20px 20px 20px 20px;
   box-sizing: border-box;
   border-radius: 3px;
@@ -91,23 +91,23 @@ watch(
 .title {
   font-family: Youshe Biaotihei;
   font-size: 14px;
-  padding: 2px 10px;
+  padding: 0 10px;
   background: #333333;
   color: #f8f8f8;
   position: absolute;
   /* padding-left: 15px; */
-  left: -9px;
-  top: -9px;
+  left: -5px;
+  top: -5px;
   border-radius: 2px 0 2px 0;
 }
 .title:before {
   content: '';
   width: 0px;
   height: 0px;
-  border-bottom: 6px solid transparent;
-  border-right: 9px solid #4b4b4b;
+  border-bottom: 4px solid transparent;
+  border-right: 5px solid #4b4b4b;
   position: absolute;
-  bottom: -6px;
+  bottom: -4px;
   left: 0;
 }
 
@@ -115,11 +115,11 @@ watch(
   content: '';
   width: 0px;
   height: 0px;
-  border-top: 9px solid transparent;
-  border-left: 9px solid #4b4b4b;
+  border-top: 5px solid transparent;
+  border-left: 5px solid #4b4b4b;
   position: absolute;
   top: 0;
-  right: -9px;
+  right: -5px;
 }
 
 /* slide transitions */
