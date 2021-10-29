@@ -48,8 +48,8 @@ const checkStock = () => {
   window.$message.success('库存为 666')
 }
 
-import { walden } from '@/assets/js/walden.js'
-import { essos } from '@/assets/js/essos.js'
+import walden from '@/assets/json/walden.json'
+import essos from '@/assets/json/essos.json'
 
 const ifSizeChange = ref(0)
 provide('ifSizeChange', ifSizeChange)
