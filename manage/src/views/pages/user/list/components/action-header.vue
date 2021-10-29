@@ -1,8 +1,8 @@
 <template>
   <div id="action-header" class="d-flex">
-    <div class="d-flex a-center mb-2 mr-2">
+    <div class="d-flex a-center mr-2">
       <n-element class="filter-plane">
-        <n-space>
+        <n-space align="center">
           <n-input
             placeholder="搜索昵称"
             clearable
@@ -62,40 +62,38 @@
               查询
             </n-button>
           </n-space>
+          <n-space align="center">
+            <n-button @click="changeSort" size="tiny" text>
+              <template #icon>
+                <n-icon>
+                  <transition name="slide" mode="out-in">
+                    <up-icon v-if="sort == 'up'" />
+                    <down-icon v-else-if="sort == 'down'" />
+                    <sort-icon v-else-if="sort == ''" />
+                  </transition>
+                </n-icon>
+              </template>
+              按创建时间{{ sort ? (sort == 'up' ? '升序' : '降序') : '排序' }}
+            </n-button>
+          </n-space>
         </n-space>
       </n-element>
     </div>
-    <div class="d-flex ml-auto">
-      <div class="d-flex j-sb" style="flex-direction: column">
-        <n-space>
-          <n-button
-            v-permission:logic.UserList-1="add"
-            type="primary"
-            size="medium"
-          >
-            <template #icon>
-              <n-icon>
-                <add-icon />
-              </n-icon>
-            </template>
-            添加新用户
-          </n-button>
-        </n-space>
-        <n-space>
-          <n-button @click="changeSort" size="small" text>
-            <template #icon>
-              <n-icon>
-                <transition name="slide" mode="out-in">
-                  <sort-icon v-if="sort == ''" />
-                  <up-icon v-else-if="sort == 'up'" />
-                  <down-icon v-else-if="sort == 'down'" />
-                </transition>
-              </n-icon>
-            </template>
-            按创建时间{{ sort ? (sort == 'up' ? '升序' : '降序') : '排序' }}
-          </n-button>
-        </n-space>
-      </div>
+    <div class="ml-auto d-flex a-center">
+      <n-space>
+        <n-button
+          v-permission:logic.UserList-1="add"
+          type="primary"
+          size="medium"
+        >
+          <template #icon>
+            <n-icon>
+              <add-icon />
+            </n-icon>
+          </template>
+          添加新用户
+        </n-button>
+      </n-space>
     </div>
   </div>
 </template>

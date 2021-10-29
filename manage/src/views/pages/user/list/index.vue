@@ -8,6 +8,7 @@
       @search="searchUsers"
     ></action-header>
     <user-list
+      @refresh="refreshList"
       @edit="editUser"
       @resetPassword="resetPassword"
       @_delete="deleteUser"
@@ -41,11 +42,13 @@ const {
   changeSort,
   users,
   loading,
+  minWidth,
   maxHeight,
   setMaxHeight,
   pagination,
   changePage,
   changePageSize,
+  refreshList,
   editUser,
   ifEdit,
   editModal,
@@ -73,6 +76,7 @@ provide('sort', sort)
 import UserList from './components/user-list.vue'
 provide('users', users)
 provide('loading', readonly(loading))
+provide('minWidth', readonly(minWidth))
 provide('maxHeight', readonly(maxHeight))
 
 import Pagination from './components/pagination.vue'

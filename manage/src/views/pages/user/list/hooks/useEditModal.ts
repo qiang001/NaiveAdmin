@@ -5,6 +5,8 @@ import {
   // Input
   I_useApiCenter_getRoleOptions,
   I_useApiCenter_saveToDB,
+  I_useFilters_resetFilters,
+  I_useFilters_resetSort,
   I_useFilters_resetPage,
   I_useFilters_queryUsers,
   // Output
@@ -15,12 +17,16 @@ import {
 interface Input {
   getRoleOptions: I_useApiCenter_getRoleOptions
   saveToDB: I_useApiCenter_saveToDB
+  resetFilters: I_useFilters_resetFilters
+  resetSort: I_useFilters_resetSort
   resetPage: I_useFilters_resetPage
   queryUsers: I_useFilters_queryUsers
 }
 export const useEditModal = ({
   getRoleOptions,
   saveToDB,
+  resetFilters,
+  resetSort,
   resetPage,
   queryUsers,
 }: Input) => {
@@ -69,6 +75,8 @@ export const useEditModal = ({
       )
       close()
       if (obj.type == 'create') {
+        resetFilters()
+        resetSort()
         resetPage()
       }
       await queryUsers()

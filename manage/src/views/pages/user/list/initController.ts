@@ -45,6 +45,8 @@ export const initController = () => {
   } = useEditModal({
     getRoleOptions,
     saveToDB,
+    resetFilters,
+    resetSort,
     resetPage,
     queryUsers,
   })
@@ -77,8 +79,10 @@ export const initController = () => {
 
   // 表格
   const {
+    minWidth,
     maxHeight,
     setMaxHeight,
+    refresh: refreshList,
     edit: editUser,
     resetPassword,
     _delete: deleteUser,
@@ -86,6 +90,7 @@ export const initController = () => {
     openEditModal,
     openResetPasswordModal,
     deleteFromDB,
+    resetPage,
     queryUsers,
   })
 
@@ -105,6 +110,7 @@ export const initController = () => {
     resetLoading,
     resetUser,
     searching,
+    minWidth,
     maxHeight,
   }
   const methods = {
@@ -120,6 +126,7 @@ export const initController = () => {
     searchUsers,
     changeSort,
     setMaxHeight,
+    refreshList,
     editUser,
     resetPassword,
     deleteUser,

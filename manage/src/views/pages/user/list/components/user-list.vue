@@ -1,31 +1,23 @@
 <template>
-  <n-data-table
-    :max-height="maxHeight"
-    :columns="columns"
-    :data="data"
-    :scroll-x="1080"
+  <common-table
+    :minWidth="minWidth"
+    :maxHeight="maxHeight"
+    :allColumns="allColumns"
+    :list="list"
     :loading="loading"
+    @refresh="refresh"
   >
-    <template #empty>
-      <empty-box showFile></empty-box>
-    </template>
-  </n-data-table>
+  </common-table>
 </template>
 
 <script setup lang="ts">
-import { IUserListItem } from '../interfaces/data'
-interface emitType {
-  (e: 'edit', data: IUserListItem): void
-  (e: 'resetPassword', data: IUserListItem): void
-  (e: '_delete', data: IUserListItem): void
-}
-const emit = defineEmits<emitType>()
-import { h, inject, Ref } from 'vue'
-import { NTag, NDataTable, DataTableColumn, NSpace } from 'naive-ui'
+import { NTag, DataTableBaseColumn, NSpace } from 'naive-ui'
 import { Password24Filled as ResetIcon } from '@vicons/fluent'
 import { EditNoteOutlined as EditIcon } from '@vicons/material'
 import { DeleteOutlined as DeleteIcon } from '@vicons/antd'
-import EmptyBox from '@/components/EmptyBox.vue'
+
+import { h, inject, Ref } from 'vue'
+import CommonTable from '@/components/CommonTable.vue'
 import { useIconButton } from '@/hooks/useIconButton'
 import { useStatusTag } from '@/hooks/useStatusTag'
 import { useDateTime } from '@/hooks/useDateFormat'
@@ -33,12 +25,26 @@ import { useDateTime } from '@/hooks/useDateFormat'
 import { useStore } from '@/hooks/useStore'
 const store = useStore()
 
+import { IUserListItem } from '../interfaces/data'
 const maxHeight = inject('maxHeight') as Ref<number>
-
-const data = inject('users') as Ref<Array<IUserListItem>>
+const minWidth = inject('minWidth') as Ref<number>
+const list = inject('users') as Ref<Array<IUserListItem>>
 const loading = inject('loading') as Ref<boolean>
-const columns = createColumns()
-function createColumns(): Array<DataTableColumn> {
+
+interface emitType {
+  (e: 'refresh'): void
+  (e: 'edit', data: IUserListItem): void
+  (e: 'resetPassword', data: IUserListItem): void
+  (e: '_delete', data: IUserListItem): void
+}
+const emit = defineEmits<emitType>()
+
+const refresh = () => {
+  emit('refresh')
+}
+
+const allColumns = createAllColumns()
+function createAllColumns(): Array<DataTableBaseColumn> {
   return [
     {
       title: '昵称',

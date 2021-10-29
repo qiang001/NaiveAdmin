@@ -224,7 +224,7 @@ onMounted(() => {
   resizeObserver = new ResizeObserver(() => {
     animationStart()
   })
-  resizeObserver.observe(tabWrapper)
+  tabWrapper && resizeObserver.observe(tabWrapper)
 })
 
 onBeforeUnmount(() => {
@@ -280,7 +280,7 @@ function getTabCurrentWidth() {
 }
 
 function getTabWrapperWidth() {
-  return tabWrapper.getBoundingClientRect().width
+  return tabWrapper?.getBoundingClientRect().width
 }
 
 function onShift() {
@@ -294,15 +294,15 @@ function onShift() {
   if (shift > 0) {
     shift = 4
   }
-  tabBar.style.setProperty('left', `${shift}px`, 'important')
+  tabBar?.style.setProperty('left', `${shift}px`, 'important')
 }
 
 const onLeft = () => {
-  tabBar.style.setProperty('left', `4px`, 'important')
+  tabBar?.style.setProperty('left', `4px`, 'important')
 }
 
 const onRight = () => {
-  tabBar.style.setProperty(
+  tabBar?.style.setProperty(
     'left',
     `${getTabWrapperWidth() - getTabBarWidth() - 4}px`,
     'important'

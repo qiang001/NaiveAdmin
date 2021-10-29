@@ -46,17 +46,17 @@ import {
 } from '@vicons/material'
 import { NIcon } from 'naive-ui'
 import { toRefs, ref, computed } from 'vue'
-
+import type { PropType } from '@vue/runtime-core'
 import { NButton, NModal, NCard, NSpace } from 'naive-ui'
 
 // 核心属性
 const props = defineProps({
-  showModal: Boolean,
-  width: Number,
-  title: String,
-  cancelBtnText: String,
-  confirmBtnText: String,
-  confirmLoading: Boolean,
+  showModal: Boolean as PropType<boolean>,
+  width: Number as PropType<number>,
+  title: String as PropType<string>,
+  cancelBtnText: String as PropType<string>,
+  confirmBtnText: String as PropType<string>,
+  confirmLoading: Boolean as PropType<boolean>,
 })
 const {
   showModal,

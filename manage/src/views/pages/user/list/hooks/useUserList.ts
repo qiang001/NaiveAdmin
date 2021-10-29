@@ -6,9 +6,11 @@ import {
   I_useEditModal_open,
   I_useResetPasswordModal_open,
   I_useApiCenter_deleteFromDB,
+  I_useFilters_resetPage,
   I_useFilters_queryUsers,
   // Output
   I_useUserList_setMaxHeight,
+  I_useUserList_refresh,
   I_useUserList_edit,
   I_useUserList_resetPassword,
   I_useUserList__delete,
@@ -18,6 +20,7 @@ interface Input {
   openEditModal: I_useEditModal_open
   openResetPasswordModal: I_useResetPasswordModal_open
   deleteFromDB: I_useApiCenter_deleteFromDB
+  resetPage: I_useFilters_resetPage
   queryUsers: I_useFilters_queryUsers
 }
 
@@ -25,9 +28,11 @@ export const useUserList = ({
   openEditModal,
   openResetPasswordModal,
   deleteFromDB,
+  resetPage,
   queryUsers,
 }: Input) => {
-  // 响应式表格高度
+  // 响应式表格宽度及高度
+  const minWidth = ref(1080)
   const maxHeight = ref(0)
   let panelHeight = 0
   const otherTotalHeight = ref(0)
@@ -51,7 +56,13 @@ export const useUserList = ({
     func: _deleteFromDB,
   }: { ifProcessing: Ref<boolean>; func: I_useApiCenter_deleteFromDB } =
     useDebounce(deleteFromDB)
+
   // 核心方法
+  const refresh: I_useUserList_refresh = async () => {
+    resetPage()
+    await queryUsers()
+  }
+
   const edit: I_useUserList_edit = (row) => {
     openEditModal({ data: row, type: 'edit' })
   }
@@ -79,8 +90,8 @@ export const useUserList = ({
       },
     })
   }
-  const data = { maxHeight }
-  const method = { setMaxHeight, edit, resetPassword, _delete }
+  const data = { minWidth, maxHeight }
+  const method = { setMaxHeight, refresh, edit, resetPassword, _delete }
   return {
     ...data,
     ...method,

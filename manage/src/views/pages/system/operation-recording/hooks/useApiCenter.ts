@@ -17,7 +17,7 @@ export const useApiCenter = () => {
     ifProcessing: loading,
     func: _getRecords,
   }: { ifProcessing: Ref<boolean>; func: I_useApiCenter_getRecords } =
-    useDebounce(getRecords, 50)
+    useDebounce(getRecords, 1000)
 
   return {
     loading,
