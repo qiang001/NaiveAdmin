@@ -126,4 +126,11 @@ const confirm = async () => {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+:deep(.n-base-selection .n-base-selection-tags) {
+  padding: 3px 26px 0 3px;
+}
+:deep(.n-base-selection-tag-wrapper) {
+  padding: 0 3px 3px 0;
+}
+</style>
