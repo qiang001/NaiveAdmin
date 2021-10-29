@@ -40,7 +40,7 @@ export const useUserList = ({
   watch(
     actionHeaderHeight,
     () => {
-      otherTotalHeight.value = 125 + actionHeaderHeight.value
+      otherTotalHeight.value = 166 + actionHeaderHeight.value
       maxHeight.value = panelHeight - otherTotalHeight.value
     },
     { immediate: true }

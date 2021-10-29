@@ -150,7 +150,7 @@ const triggerDropdown = () => {
   top: 0;
   right: 24px;
   border-radius: 2px;
-  padding: 14px;
+  padding: 5px 10px;
   background-color: var(--modal-color);
   border: 1px solid var(--border-color);
   transition: all 0.3s ease;

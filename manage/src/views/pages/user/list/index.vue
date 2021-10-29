@@ -1,5 +1,5 @@
 <template>
-  <page-panel :title="'用户列表'" @resize="setMaxHeight">
+  <page-panel :title="'用户列表'" :allow-expand="false" @resize="setMaxHeight">
     <action-header
       @add="addUser"
       @changeStatus="changeStatus"

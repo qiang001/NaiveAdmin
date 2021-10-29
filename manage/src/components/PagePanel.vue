@@ -19,15 +19,15 @@
 import { useStore } from '@/hooks/useStore'
 const store = useStore()
 import { toRefs, watch, inject, Ref } from 'vue'
-
+import type { PropType } from '@vue/runtime-core'
 const props = defineProps({
-  title: String,
-  ifExpand: {
-    type: Boolean,
+  title: String as PropType<string>,
+  allowExpand: {
+    type: Boolean as PropType<boolean>,
     default: true,
   },
 })
-const { title, ifExpand } = toRefs(props)
+const { title, allowExpand } = toRefs(props)
 
 import { useResizeContainer } from '../hooks/useResizeContainer'
 const { width, height, container } = useResizeContainer('page-panel')
@@ -48,7 +48,7 @@ watch(
           'min-height',
           `calc(100vh - ${otherHeight}px)`
         )
-        if (!ifExpand.value) {
+        if (!allowExpand.value) {
           container.value.style.setProperty(
             'max-height',
             `calc(100vh - ${otherHeight}px)`
