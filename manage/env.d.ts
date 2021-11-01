@@ -10,7 +10,7 @@ declare module '*.vue' {
 declare interface Window {
   $message: any
   $dialog: any
-  gsap:any
+  gsap: any
 }
 
 declare interface Document {
