@@ -1,11 +1,5 @@
 <template>
-  <div
-    id="echarts-two"
-    :style="{
-      width: `${ifSizeChange / 3 || '100%'}` + `${ifSizeChange ? 'px' : ''}`,
-      height: '400px',
-    }"
-  ></div>
+  <div id="echarts-two"></div>
 </template>
 
 <script setup lang="ts">
@@ -15,6 +9,11 @@ import { BarChart } from 'echarts/charts'
 import { CanvasRenderer } from 'echarts/renderers'
 import { onMounted, watch, inject, computed, Ref } from 'vue'
 const ifSizeChange = inject('ifSizeChange') as Ref<number>
+const canvasWidth = computed(() => {
+  let width = '100%'
+  ifSizeChange.value && (width = ifSizeChange.value / 3 + 'px')
+  return width
+})
 import { useStore } from '@/hooks/useStore'
 const store = useStore()
 const walden = inject('walden')
@@ -83,4 +82,9 @@ onMounted(() => {
 })
 </script>
 
-<style></style>
+<style scoped>
+#echarts-two {
+  width: v-bind(canvasWidth);
+  height: 400px;
+}
+</style>

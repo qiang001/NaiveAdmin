@@ -27,8 +27,8 @@
 </template>
 
 <script setup lang="ts">
-import { NElement, NMenu, NAutoComplete } from 'naive-ui'
-
+import { NElement, NMenu, NAutoComplete, useThemeVars } from 'naive-ui'
+const themeVars = useThemeVars()
 import { ref, computed, watch, inject, Ref } from 'vue'
 
 import { useStore } from '@/hooks/useStore'
@@ -119,6 +119,15 @@ const handleSelected = (key: string) => {
     ifCurrent: key == route.name && Object.keys(route.query).length == 0,
   })
 }
+
+// vue3.2新特性 v-bind style 解决在框架主题限制下的自定义样式痛点
+const activeBarColor = computed(() =>
+  !store.state.ifDark
+    ? themeVars.value.primaryColor
+    : inverted.value
+    ? themeVars.value.primaryColorHover
+    : themeVars.value.primaryColor
+)
 </script>
 
 <style scoped>
@@ -134,6 +143,6 @@ const handleSelected = (key: string) => {
   border-radius: 0;
 }
 :deep(.n-menu .n-menu-item.n-menu-item--selected::before) {
-  border-right: 3px solid var(--primary-color-hover);
+  border-right: 3px solid v-bind(activeBarColor);
 }
 </style>
