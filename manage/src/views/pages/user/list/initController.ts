@@ -34,7 +34,7 @@ export const initController = () => {
 
   // 编辑框
   const {
-    ifEdit,
+    editModalType,
     editModal,
     confirmLoading,
     user,
@@ -101,7 +101,7 @@ export const initController = () => {
     filters,
     sort,
     pagination,
-    ifEdit,
+    editModalType,
     editModal,
     confirmLoading,
     user,

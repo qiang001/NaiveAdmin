@@ -1,5 +1,6 @@
 import { useDebounce } from '@/hooks/useDebounce'
-import { ref, reactive, unref, Ref } from 'vue'
+import { useModal } from '@/hooks/useModal'
+import { reactive, unref, Ref } from 'vue'
 import { IUserResetPassword, IUserListItem } from '../interfaces/data'
 import {
   // Input
@@ -14,7 +15,7 @@ interface Input {
 }
 export const useResetPasswordModal = ({ changePassword }: Input) => {
   // 维护状态数据
-  const resetPasswordModal = ref(false)
+  const { modalShow: resetPasswordModal, closeModal, openModal } = useModal()
   // 防抖包裹
   const {
     ifProcessing: confirmLoading,
@@ -29,12 +30,12 @@ export const useResetPasswordModal = ({ changePassword }: Input) => {
   // 核心方法
   const open: I_useResetPasswordModal_open = async ({ data }) => {
     setUser(data)
-    resetPasswordModal.value = true
+    openModal()
   }
 
   const close: I_useResetPasswordModal_close = () => {
     resetUser()
-    resetPasswordModal.value = false
+    closeModal()
   }
 
   const confirm: I_useResetPasswordModal_confirm = async () => {

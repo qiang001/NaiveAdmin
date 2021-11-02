@@ -1,4 +1,5 @@
 import { useDebounce } from '@/hooks/useDebounce'
+import { useModal, modalType } from '@/hooks/useModal'
 import { ref, reactive, unref, Ref } from 'vue'
 import { IRoleListItem } from '../interfaces/data'
 import {
@@ -15,15 +16,21 @@ interface Input {
   saveToDB: I_useApiCenter_saveToDB
 }
 export const useEditModal = ({ queryRoles, saveToDB }: Input) => {
-  // 维护状态数据
-  const ifEdit = ref(false)
-  const editModal = ref(false)
+  // 引入基本弹窗
+  const {
+    modalShow: editModal,
+    modalType: editModalType,
+    openModal,
+    closeModal,
+    setModalType,
+  } = useModal()
   // 防抖包裹
   const {
     ifProcessing: confirmLoading,
     func: _saveToDB,
   }: { ifProcessing: Ref<boolean>; func: I_useApiCenter_saveToDB } =
     useDebounce(saveToDB)
+  // 核心数据
   const role = reactive<IRoleListItem>({
     _id: null,
     name: '',
@@ -40,11 +47,11 @@ export const useEditModal = ({ queryRoles, saveToDB }: Input) => {
     } else {
       resetRole()
     }
-    editModal.value = true
+    openModal()
   }
 
   const close: I_useEditModal_close = () => {
-    editModal.value = false
+    closeModal()
   }
 
   const confirm: I_useEditModal_confirm = async ({
@@ -54,7 +61,7 @@ export const useEditModal = ({ queryRoles, saveToDB }: Input) => {
     logicAuths,
   }) => {
     try {
-      const obj: { data: IRoleListItem; type: 'create' | 'edit' } = {
+      const obj: { data: IRoleListItem; type: modalType } = {
         data: {
           ...unref(role),
           pageAuths,
@@ -62,7 +69,7 @@ export const useEditModal = ({ queryRoles, saveToDB }: Input) => {
           contentAuths,
           logicAuths,
         },
-        type: ifEdit.value ? 'edit' : 'create',
+        type: editModalType.value,
       }
       await _saveToDB(obj)
       window.$message.success(
@@ -83,7 +90,7 @@ export const useEditModal = ({ queryRoles, saveToDB }: Input) => {
     role.pageCheckedAuths = data.pageCheckedAuths
     role.contentAuths = data.contentAuths
     role.logicAuths = data.logicAuths
-    ifEdit.value = true
+    setModalType('edit')
   }
 
   function resetRole() {
@@ -94,10 +101,10 @@ export const useEditModal = ({ queryRoles, saveToDB }: Input) => {
     role.pageCheckedAuths = []
     role.contentAuths = []
     role.logicAuths = []
-    ifEdit.value = false
+    setModalType('create')
   }
   // 最终对外暴露
-  const data = { ifEdit, editModal, confirmLoading, role }
+  const data = { editModalType, editModal, confirmLoading, role }
   const methods = { open, close, confirm }
   return {
     ...data,

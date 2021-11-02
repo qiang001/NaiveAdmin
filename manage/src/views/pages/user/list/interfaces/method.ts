@@ -5,7 +5,7 @@ import {
   IRoleOption,
   IEditUser,
 } from './data'
-
+import { modalType } from '@/hooks/useModal'
 // useActionHeader
 export interface I_useActionHeader_add {
   (): void
@@ -34,7 +34,7 @@ export interface I_useApiCenter_getRoleOptions {
   (): Promise<Array<IRoleOption>>
 }
 export interface I_useApiCenter_saveToDB {
-  (i: { data: IEditUser; type: 'create' | 'edit' }): Promise<void>
+  (i: { data: IEditUser; type: modalType }): Promise<void>
 }
 export interface I_useApiCenter_changePassword {
   (i: { data: { _id: string; password: string } }): Promise<void>
@@ -44,7 +44,7 @@ export interface I_useApiCenter_deleteFromDB {
 }
 // useEditModal 编辑框
 export interface I_useEditModal_open {
-  (i: { data?: IUserListItem; type: 'create' | 'edit' }): void
+  (i: { data?: IUserListItem; type: modalType }): void
 }
 
 export interface I_useEditModal_close {

@@ -1,4 +1,5 @@
 import { useDebounce } from '@/hooks/useDebounce'
+import { useModal, modalType } from '@/hooks/useModal'
 import { ref, reactive, unref, Ref } from 'vue'
 import { IUserListItem, IEditUser, IRoleOption } from '../interfaces/data'
 import {
@@ -30,15 +31,21 @@ export const useEditModal = ({
   resetPage,
   queryUsers,
 }: Input) => {
-  // 维护状态数据
-  const ifEdit = ref(false)
-  const editModal = ref(false)
+  // 引入基本弹窗
+  const {
+    modalShow: editModal,
+    modalType: editModalType,
+    openModal,
+    closeModal,
+    setModalType,
+  } = useModal()
   // 防抖包裹
   const {
     ifProcessing: confirmLoading,
     func: _saveToDB,
   }: { ifProcessing: Ref<boolean>; func: I_useApiCenter_saveToDB } =
     useDebounce(saveToDB)
+  // 核心数据
   const user = reactive<IEditUser>({
     _id: null,
     name: '',
@@ -56,17 +63,17 @@ export const useEditModal = ({
       resetUser()
     }
     roleOptions.value = await getRoleOptions()
-    editModal.value = true
+    openModal()
   }
 
   const close: I_useEditModal_close = () => {
-    editModal.value = false
+    closeModal()
   }
 
   const confirm: I_useEditModal_confirm = async () => {
-    let obj: { data: IEditUser; type: 'create' | 'edit' } = {
+    let obj: { data: IEditUser; type: modalType } = {
       data: { ...unref(user), roles: [...unref(user).roles] },
-      type: ifEdit.value ? 'edit' : 'create',
+      type: editModalType.value,
     }
     try {
       await _saveToDB(obj)
@@ -91,7 +98,7 @@ export const useEditModal = ({
     user.username = data.username
     user.roles = data.roles.map((r) => r._id)
     user.ifActive = data.ifActive
-    ifEdit.value = true
+    setModalType('edit')
   }
 
   function resetUser() {
@@ -101,11 +108,11 @@ export const useEditModal = ({
     user.password = ''
     user.roles = []
     user.ifActive = false
-    ifEdit.value = false
+    setModalType('create')
   }
 
   // 最终对外暴露
-  const data = { ifEdit, editModal, confirmLoading, user, roleOptions }
+  const data = { editModalType, editModal, confirmLoading, user, roleOptions }
   const methods = { open, close, confirm }
   return {
     ...data,

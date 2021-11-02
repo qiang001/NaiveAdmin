@@ -1,4 +1,5 @@
 import { IRoleListItem } from './data'
+import { modalType } from '@/hooks/useModal'
 
 export interface I_initController_queryRoles {
   (): Promise<void>
@@ -19,14 +20,14 @@ export interface I_useApiCenter_getRoles {
   (): Promise<Array<IRoleListItem>>
 }
 export interface I_useApiCenter_saveToDB {
-  (i: { data: IRoleListItem; type: 'create' | 'edit' }): Promise<void>
+  (i: { data: IRoleListItem; type: modalType }): Promise<void>
 }
 export interface I_useApiCenter_deleteFromDB {
   (i: { data: { _id: string } }): Promise<void>
 }
 
 export interface I_useEditModal_open {
-  (i: { data?: IRoleListItem; type: 'create' | 'edit' }): void
+  (i: { data?: IRoleListItem; type: modalType }): void
 }
 
 export interface I_useEditModal_close {

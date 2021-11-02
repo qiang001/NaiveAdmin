@@ -50,7 +50,7 @@ const {
   changePageSize,
   refreshList,
   editUser,
-  ifEdit,
+  editModalType,
   editModal,
   user,
   roleOptions,
@@ -83,7 +83,7 @@ import Pagination from './components/pagination.vue'
 provide('pagination', pagination)
 
 import EditModal from './components/edit-modal.vue'
-provide('ifEdit', readonly(ifEdit))
+provide('editModalType', readonly(editModalType))
 provide('editModal', readonly(editModal))
 provide('user', user)
 provide('roleOptions', readonly(roleOptions))

@@ -1,9 +1,9 @@
 <template>
   <common-modal
     :showModal="editModal"
-    :title="ifEdit ? '编辑用户' : '添加新用户'"
+    :title="editModalType == 'edit' ? '编辑用户' : '添加新用户'"
     cancelBtnText="取消"
-    :confirmBtnText="ifEdit ? '确认保存' : '确认添加'"
+    :confirmBtnText="editModalType == 'edit' ? '确认保存' : '确认添加'"
     :confirmLoading="confirmLoading"
     @cancel="cancel"
     @confirm="confirm"
@@ -25,7 +25,7 @@
         label="密码"
         path="password"
         rule-path="user.password"
-        v-if="!ifEdit"
+        v-if="editModalType !== 'edit'"
       >
         <n-input
           v-model:value="user.password"
@@ -65,7 +65,8 @@ import {
 import CommonModal from '@/components/CommonModal.vue'
 import { ref, inject, Ref } from 'vue'
 // 注入状态数据以进行 UI渲染 UX交互
-const ifEdit = inject('ifEdit') as Ref<boolean>
+import { modalType } from '@/hooks/useModal'
+const editModalType = inject('editModalType') as Ref<modalType>
 const editModal = inject('editModal') as Ref<boolean>
 const confirmLoading = inject('confirmLoading') as Ref<boolean>
 import { IEditUser } from '../interfaces/data'

@@ -22,7 +22,7 @@ const {
   setMaxHeight,
   editRole,
   deleteRole,
-  ifEdit,
+  editModalType,
   editModal,
   role,
   confirmLoading,
@@ -41,7 +41,7 @@ provide('roles', readonly(roles))
 provide('loading', readonly(loading))
 
 import EditModal from './components/edit-modal.vue'
-provide('ifEdit', readonly(ifEdit))
+provide('editModalType', readonly(editModalType))
 provide('editModal', readonly(editModal))
 provide('role', role)
 provide('confirmLoading', readonly(confirmLoading))

@@ -21,7 +21,7 @@ export const initController = () => {
   })
   // 编辑框逻辑
   const {
-    ifEdit,
+    editModalType,
     editModal,
     confirmLoading,
     role,
@@ -54,7 +54,7 @@ export const initController = () => {
   const data = {
     roles,
     loading,
-    ifEdit,
+    editModalType,
     editModal,
     confirmLoading,
     role,

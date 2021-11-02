@@ -1,9 +1,9 @@
 <template>
   <common-modal
     :showModal="editModal"
-    :title="ifEdit ? '编辑角色' : '添加新角色'"
+    :title="editModalType === 'edit' ? '编辑角色' : '添加新角色'"
     cancelBtnText="取消"
-    :confirmBtnText="ifEdit ? '确认保存' : '确认添加'"
+    :confirmBtnText="editModalType === 'edit' ? '确认保存' : '确认添加'"
     :confirmLoading="confirmLoading"
     @cancel="cancel"
     @confirm="confirm"
@@ -110,7 +110,8 @@ import {
 import CommonModal from '@/components/CommonModal.vue'
 import { ref, inject, watch, unref, Ref } from 'vue'
 // 注入状态数据以进行 UI渲染 UX交互
-const ifEdit = inject('ifEdit') as Ref<boolean>
+import { modalType } from '@/hooks/useModal'
+const editModalType = inject('editModalType') as Ref<modalType>
 const editModal = inject('editModal') as Ref<boolean>
 const confirmLoading = inject('confirmLoading') as Ref<boolean>
 
