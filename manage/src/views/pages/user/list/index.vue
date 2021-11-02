@@ -1,5 +1,5 @@
 <template>
-  <page-panel :title="'用户列表'" :allow-expand="false">
+  <page-panel :title="'用户列表'" :allow-expand="!users.length">
     <action-header
       @add="addUser"
       @changeStatus="changeStatus"

@@ -1,5 +1,5 @@
 <template>
-  <page-panel :title="'权限管理'" :allow-expand="false">
+  <page-panel :title="'权限管理'" :allow-expand="!roles.length">
     <action-header @exportExcel="exportExcel" @add="addRole"></action-header>
     <role-list @edit="editRole" @_delete="deleteRole"></role-list>
     <edit-modal
