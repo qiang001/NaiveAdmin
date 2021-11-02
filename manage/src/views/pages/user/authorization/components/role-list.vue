@@ -3,7 +3,6 @@
     :max-height="maxHeight"
     :columns="columns"
     :data="data"
-    virtual-scroll
     :scroll-x="1080"
     :loading="loading"
   >
@@ -33,6 +32,18 @@ const loading = inject('loading') as Ref<boolean>
 
 const data = inject('roles') as Ref<Array<IRoleListItem>>
 
+const renderTag = (type: 'default' | 'success' | 'info', text: string) => {
+  return h(
+    NTag,
+    {
+      size: 'small',
+      type,
+    },
+    {
+      default: () => text,
+    }
+  )
+}
 const columns = createColumns()
 function createColumns(): Array<DataTableColumn> {
   return [
@@ -59,63 +70,31 @@ function createColumns(): Array<DataTableColumn> {
     },
     {
       title: '权限列表',
-      key: 'pageCheckedAuths',
+      key: 'auths',
       render(row) {
+        if (row.name === '超级管理员') {
+          return h(NSpace, null, [
+            renderTag('default', '全部页面级权限'),
+            renderTag('success', '全部内容显示级权限'),
+            renderTag('info', '全部逻辑操作级权限'),
+          ])
+        }
         const { pageCheckedAuths, contentAuths, logicAuths } =
           row as unknown as IRoleListItem
-        const pageTags = pageCheckedAuths.map((key) => {
-          return h(
-            NTag,
-            {
-              style: {
-                marginRight: '6px',
-              },
-              size: 'small',
-            },
-            {
-              default: () => key,
-            }
-          )
+        const pageTags = pageCheckedAuths.map((key) =>
+          renderTag('default', key)
+        )
+        const contentTags = contentAuths.map((key) => renderTag('success', key))
+        const logicTags = logicAuths.map((key) => renderTag('info', key))
+        return h(NSpace, null, {
+          default: () => [...pageTags, ...contentTags, ...logicTags],
         })
-        const contentTags = contentAuths.map((key) => {
-          return h(
-            NTag,
-            {
-              style: {
-                marginRight: '6px',
-              },
-              size: 'small',
-              type: 'success',
-            },
-            {
-              default: () => key,
-            }
-          )
-        })
-        const logicTags = logicAuths.map((key) => {
-          return h(
-            NTag,
-            {
-              style: {
-                marginRight: '6px',
-              },
-              size: 'small',
-              type: 'info',
-            },
-            {
-              default: () => key,
-            }
-          )
-        })
-        return [...pageTags, ...contentTags, ...logicTags]
-      },
-      ellipsis: {
-        tooltip: true,
       },
     },
     {
       title: '创建时间',
       key: 'createdAt',
+      width: 186,
       render(row) {
         return useDateTime(row.createdAt as string)
       },
