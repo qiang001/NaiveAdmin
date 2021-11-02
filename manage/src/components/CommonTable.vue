@@ -3,7 +3,7 @@
     <n-space justify="end" align="center">
       <n-button
         @click="refresh"
-        size="small"
+        size="tiny"
         :text="true"
         :loading="refreshing"
         :disabled="refreshing"
@@ -13,14 +13,20 @@
             <refresh-icon />
           </n-icon>
         </template>
+        刷新
       </n-button>
-      <my-dropdown>
-        <template #icon>
-          <n-icon>
-            <setting-icon />
-          </n-icon>
+      <n-popover trigger="click" placement="bottom-end">
+        <template #trigger>
+          <n-button size="tiny" :text="true">
+            <template #icon>
+              <n-icon>
+                <setting-icon />
+              </n-icon>
+            </template>
+            筛选字段
+          </n-button>
         </template>
-        <template #content>
+        <div>
           <n-space>
             <n-checkbox
               v-model:checked="ifCheckAll"
@@ -45,8 +51,8 @@
               </n-checkbox>
             </n-space>
           </div>
-        </template>
-      </my-dropdown>
+        </div>
+      </n-popover>
     </n-space>
     <n-data-table
       :scroll-x="props.minWidth"
@@ -71,10 +77,10 @@ import {
   NIcon,
   NCheckbox,
   NDivider,
+  NPopover,
 } from 'naive-ui'
 import { RefreshSharp as RefreshIcon } from '@vicons/material'
 import { TextGrammarSettings24Regular as SettingIcon } from '@vicons/fluent'
-import MyDropdown from '@/components/MyDropdown.vue'
 import EmptyBox from '@/components/EmptyBox.vue'
 import type { PropType } from '@vue/runtime-core'
 import { computed, ref } from 'vue'
