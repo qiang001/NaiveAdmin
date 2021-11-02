@@ -236,7 +236,6 @@ const arrowWidth = ref(0)
 function updateTabBar() {
   nextTick(() => {
     const tabBarWidth = getTabBarWidth()
-    console.log(tabBarWidth)
     const tabWrapperWidth = getTabWrapperWidth()
     if (tabBarWidth > tabWrapperWidth) {
       arrowWidth.value = 30

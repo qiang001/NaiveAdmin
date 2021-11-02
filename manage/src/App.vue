@@ -41,6 +41,7 @@ onMounted(() => {
     store.commit('SET_IFDARK', _ifDark)
     store.commit('SET_IFPAGETITLE', _ifPageTitle)
   }
+  // 刷新自动登录
   const token = localStorage.getItem('token')
   if (token) {
     store.dispatch('refreshLogin', token)

@@ -56,7 +56,6 @@ provide('ifSizeChange', ifSizeChange)
 provide('walden', walden)
 provide('essos', essos)
 const handleResize = ({ width }) => {
-  console.log(width)
   ifSizeChange.value = width - 40 || 0
 }
 

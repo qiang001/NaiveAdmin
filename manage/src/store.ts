@@ -195,7 +195,7 @@ export const buildStore = (router: Router) => {
         }
         commit('SET_AUTH', authKeys)
         commit('SET_PERMISSION', { contentAuths, logicAuths })
-        router.replace(userInfo.name == '超级管理员' ? '/layout/console' : '/')
+        router.replace('/')
       },
       refreshLogin: async ({ commit }, token) => {
         try {
@@ -251,6 +251,18 @@ export const buildStore = (router: Router) => {
         }
       },
     },
+  })
+  // 自定义特殊情况下的 redirect
+  router.beforeEach(async (to, from, next) => {
+    if (
+      to.redirectedFrom &&
+      to.name === 'Layout' &&
+      store.state.userInfo.name === '超级管理员'
+    ) {
+      next({ path: '/layout/console', replace: true })
+    } else {
+      next()
+    }
   })
   return store
 }
