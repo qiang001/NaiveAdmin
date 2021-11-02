@@ -1,6 +1,5 @@
 <template>
   <n-data-table
-    :max-height="maxHeight"
     :columns="columns"
     :data="data"
     :scroll-x="1080"
@@ -20,7 +19,6 @@ import EmptyBox from '@/components/EmptyBox.vue'
 import { useDateTime } from '@/hooks/useDateFormat'
 import { useStore } from '@/hooks/useStore'
 const store = useStore()
-const maxHeight = inject('maxHeight') as Ref<number>
 const loading = inject('loading') as Ref<boolean>
 import { IRecord } from '../interfaces/data'
 const data = inject('records') as Ref<Array<IRecord>>

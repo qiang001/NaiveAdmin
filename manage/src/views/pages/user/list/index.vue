@@ -1,5 +1,5 @@
 <template>
-  <page-panel :title="'用户列表'" :allow-expand="true" @resize="setMaxHeight">
+  <page-panel :title="'用户列表'" :allow-expand="false">
     <action-header
       @add="addUser"
       @changeStatus="changeStatus"
@@ -44,7 +44,6 @@ const {
   loading,
   minWidth,
   maxHeight,
-  setMaxHeight,
   pagination,
   changePage,
   changePageSize,

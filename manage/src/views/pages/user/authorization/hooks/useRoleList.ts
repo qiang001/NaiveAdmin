@@ -1,12 +1,12 @@
 import { useDebounce } from '@/hooks/useDebounce'
-import { ref, unref, Ref } from 'vue'
+import { useResponsiveTable } from '@/hooks/useResponsiveTable'
+import { unref, Ref } from 'vue'
 import {
   // Input
   I_initController_queryRoles,
   I_useEditModal_open,
   I_useApiCenter_deleteFromDB,
   // Output
-  I_useRoleList_setMaxHeight,
   I_useRoleList_edit,
   I_useRoleList__delete,
 } from '../interfaces/method'
@@ -21,18 +21,18 @@ export const useRoleList = ({
   openEditModal,
   deleteFromDB,
 }: Input) => {
-  const maxHeight = ref(0)
-  const otherTotalHeight = 146
-  const setMaxHeight: I_useRoleList_setMaxHeight = ({ height }) => {
-    if (height) {
-      maxHeight.value = height - otherTotalHeight
-    }
-  }
+  // 响应式表格
+  const { maxHeight } = useResponsiveTable({
+    containerId: 'page-panel',
+    otherHeightTotalStatic: 146,
+    otherElementIds: [],
+  })
   // 防抖包裹
   const {
     func: _deleteFromDB,
   }: { ifProcessing: Ref<boolean>; func: I_useApiCenter_deleteFromDB } =
     useDebounce(deleteFromDB)
+  // 核心方法
   const edit: I_useRoleList_edit = (row) => {
     openEditModal({ data: row, type: 'edit' })
   }
@@ -57,7 +57,7 @@ export const useRoleList = ({
     })
   }
   const data = { maxHeight }
-  const method = { setMaxHeight, edit, _delete }
+  const method = { edit, _delete }
   return {
     ...data,
     ...method,

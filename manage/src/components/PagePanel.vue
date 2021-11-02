@@ -18,7 +18,7 @@
 <script setup lang="ts">
 import { useStore } from '@/hooks/useStore'
 const store = useStore()
-import { toRefs, watch, inject, Ref } from 'vue'
+import { toRefs, watchEffect, inject, Ref } from 'vue'
 import type { PropType } from '@vue/runtime-core'
 const props = defineProps({
   title: String as PropType<string>,
@@ -33,41 +33,26 @@ import { useResizeContainer } from '../hooks/useResizeContainer'
 const { width, height, container } = useResizeContainer('page-panel')
 
 const ifFullpage = inject('ifFullpage') as Ref<boolean>
+const setHeight = (key: string, val: number) => {
+  container.value.style.setProperty(key, `calc(100vh - ${val}px)`)
+}
+
 const emit = defineEmits(['resize'])
-
-watch(
-  height,
-  () => {
-    let otherHeight = 120
-    if (ifFullpage.value) {
-      otherHeight -= 64
-    }
-    if (container.value) {
-      setTimeout(() => {
-        container.value.style.setProperty(
-          'min-height',
-          `calc(100vh - ${otherHeight}px)`
-        )
-        if (!allowExpand.value) {
-          container.value.style.setProperty(
-            'max-height',
-            `calc(100vh - ${otherHeight}px)`
-          )
-        }
-      })
-    }
+watchEffect(() => {
+  let otherHeight = 120
+  if (ifFullpage.value) {
+    otherHeight -= 64
+  }
+  if (container.value) {
+    setTimeout(() => {
+      setHeight('min-height', otherHeight)
+      if (!allowExpand.value) {
+        setHeight('max-height', otherHeight)
+      }
+    })
     emit('resize', { width: width.value, height: height.value })
-  },
-  { immediate: true }
-)
-
-watch(
-  width,
-  () => {
-    emit('resize', { width: width.value, height: height.value })
-  },
-  { immediate: true }
-)
+  }
+})
 </script>
 
 <style scoped>

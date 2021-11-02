@@ -102,9 +102,6 @@ export interface I_useResetPasswordModal_confirm {
 }
 
 // useUserList
-export interface I_useUserList_setMaxHeight {
-  (i: { height: number }): void
-}
 export interface I_useUserList_refresh {
   (): Promise<void>
 }

@@ -56,6 +56,7 @@ provide('ifSizeChange', ifSizeChange)
 provide('walden', walden)
 provide('essos', essos)
 const handleResize = ({ width }) => {
+  console.log(width)
   ifSizeChange.value = width - 40 || 0
 }
 
@@ -71,7 +72,7 @@ onMounted(() => {
 #framework,
 #order,
 #customer {
-  opacity: 0;
+  opacity: 1;
   transform: translateY(100px);
 }
 </style>

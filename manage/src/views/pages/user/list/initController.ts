@@ -81,7 +81,6 @@ export const initController = () => {
   const {
     minWidth,
     maxHeight,
-    setMaxHeight,
     refresh: refreshList,
     edit: editUser,
     resetPassword,
@@ -125,7 +124,6 @@ export const initController = () => {
     clearConditions,
     searchUsers,
     changeSort,
-    setMaxHeight,
     refreshList,
     editUser,
     resetPassword,

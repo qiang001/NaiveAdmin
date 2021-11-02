@@ -73,11 +73,13 @@ function createColumns(): Array<DataTableColumn> {
       key: 'auths',
       render(row) {
         if (row.name === '超级管理员') {
-          return h(NSpace, null, [
-            renderTag('default', '全部页面级权限'),
-            renderTag('success', '全部内容显示级权限'),
-            renderTag('info', '全部逻辑操作级权限'),
-          ])
+          return h(NSpace, null, {
+            default: () => [
+              renderTag('default', '全部页面级权限'),
+              renderTag('success', '全部内容显示级权限'),
+              renderTag('info', '全部逻辑操作级权限'),
+            ],
+          })
         }
         const { pageCheckedAuths, contentAuths, logicAuths } =
           row as unknown as IRoleListItem

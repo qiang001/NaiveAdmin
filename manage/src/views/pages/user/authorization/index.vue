@@ -1,5 +1,5 @@
 <template>
-  <page-panel :title="'权限管理'" :allow-expand="false" @resize="setMaxHeight">
+  <page-panel :title="'权限管理'" :allow-expand="false">
     <action-header @exportExcel="exportExcel" @add="addRole"></action-header>
     <role-list @edit="editRole" @_delete="deleteRole"></role-list>
     <edit-modal
@@ -19,7 +19,6 @@ const {
   roles,
   loading,
   maxHeight,
-  setMaxHeight,
   editRole,
   deleteRole,
   editModalType,

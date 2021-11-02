@@ -41,7 +41,6 @@ export const initController = () => {
   // 表格逻辑
   const {
     maxHeight,
-    setMaxHeight,
     edit: editRole,
     _delete: deleteRole,
   } = useRoleList({
@@ -64,7 +63,6 @@ export const initController = () => {
   const methods = {
     exportExcel,
     addRole,
-    setMaxHeight,
     editRole,
     deleteRole,
     closeEditModal,

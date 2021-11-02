@@ -1,6 +1,5 @@
 import { ref, onMounted } from 'vue'
 import { useApiCenter } from './hooks/useApiCenter'
-import { useRecordList } from './hooks/useRecordList'
 import { IRecord } from './interfaces/data'
 import { I_initController_queryRecords } from './interfaces/method'
 
@@ -15,14 +14,12 @@ export const initController = () => {
   onMounted(async () => {
     await queryRecords()
   })
-  const { maxHeight, setMaxHeight } = useRecordList()
   // 最终对外暴露
   const data = {
     records,
     loading,
-    maxHeight,
   }
-  const methods = { setMaxHeight }
+  const methods = {}
 
   return {
     ...data,

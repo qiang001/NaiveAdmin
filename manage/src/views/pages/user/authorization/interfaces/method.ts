@@ -43,9 +43,6 @@ export interface I_useEditModal_confirm {
   }): Promise<void>
 }
 
-export interface I_useRoleList_setMaxHeight {
-  (i: { height: number }): void
-}
 export interface I_useRoleList_edit {
   (row: IRoleListItem): void
 }

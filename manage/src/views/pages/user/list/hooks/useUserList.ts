@@ -1,6 +1,6 @@
 import { useDebounce } from '@/hooks/useDebounce'
-import { ref, watch, Ref } from 'vue'
-import { useResizeContainer } from '@/hooks/useResizeContainer'
+import { Ref } from 'vue'
+import { useResponsiveTable } from '@/hooks/useResponsiveTable'
 import {
   // Input
   I_useEditModal_open,
@@ -9,7 +9,6 @@ import {
   I_useFilters_resetPage,
   I_useFilters_queryUsers,
   // Output
-  I_useUserList_setMaxHeight,
   I_useUserList_refresh,
   I_useUserList_edit,
   I_useUserList_resetPassword,
@@ -31,26 +30,13 @@ export const useUserList = ({
   resetPage,
   queryUsers,
 }: Input) => {
-  // 响应式表格宽度及高度
-  const minWidth = ref(1080)
-  const maxHeight = ref(0)
-  let panelHeight = 0
-  const otherTotalHeight = ref(0)
-  const { height: actionHeaderHeight } = useResizeContainer('action-header')
-  watch(
-    actionHeaderHeight,
-    () => {
-      otherTotalHeight.value = 166 + actionHeaderHeight.value
-      maxHeight.value = panelHeight - otherTotalHeight.value
-    },
-    { immediate: true }
-  )
-  const setMaxHeight: I_useUserList_setMaxHeight = ({ height }) => {
-    if (height) {
-      panelHeight = height
-      maxHeight.value = panelHeight - otherTotalHeight.value
-    }
-  }
+  // 响应式表格
+  const { minWidth, maxHeight } = useResponsiveTable({
+    width: 1080,
+    containerId: 'page-panel',
+    otherHeightTotalStatic: 166,
+    otherElementIds: ['action-header'],
+  })
   // 防抖包裹
   const {
     func: _deleteFromDB,
@@ -91,7 +77,7 @@ export const useUserList = ({
     })
   }
   const data = { minWidth, maxHeight }
-  const method = { setMaxHeight, refresh, edit, resetPassword, _delete }
+  const method = { refresh, edit, resetPassword, _delete }
   return {
     ...data,
     ...method,
