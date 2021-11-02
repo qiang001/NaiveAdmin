@@ -72,7 +72,7 @@ onMounted(() => {
 #framework,
 #order,
 #customer {
-  opacity: 1;
+  opacity: 0;
   transform: translateY(100px);
 }
 </style>
