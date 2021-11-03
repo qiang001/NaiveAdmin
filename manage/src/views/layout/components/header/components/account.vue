@@ -29,7 +29,7 @@
 
 <script setup lang="ts">
 import { NDropdown, DropdownOption, NButton, NIcon } from 'naive-ui'
-import { ExitToAppSharp as LogoutIcon } from '@vicons/material'
+import LogoutIcon from '@vicons/material/ExitToAppSharp'
 import { h } from 'vue'
 
 import { useStore } from '@/hooks/useStore'

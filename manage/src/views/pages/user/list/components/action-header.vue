@@ -108,14 +108,15 @@ import {
   NRadioGroup,
   NElement,
 } from 'naive-ui'
-import { AddSharp as AddIcon } from '@vicons/material'
-import { SearchOutlined as SearchIcon } from '@vicons/antd'
-import {
-  Eraser20Regular as ResetIcon,
-  ArrowSort20Filled as SortIcon,
-  ArrowSortUp20Filled as UpIcon,
-  ArrowSortDown20Filled as DownIcon,
-} from '@vicons/fluent'
+
+import AddIcon from '@vicons/material/AddSharp'
+import SearchIcon from '@vicons/antd/SearchOutlined'
+
+import ResetIcon from '@vicons/fluent/Eraser20Regular'
+import SortIcon from '@vicons/fluent/ArrowSort20Filled'
+import UpIcon from '@vicons/fluent/ArrowSortUp20Filled'
+import DownIcon from '@vicons/fluent/ArrowSortDown20Filled'
+
 import { inject, Ref } from 'vue'
 import { IFilters } from '../interfaces/data'
 const filters = inject('filters') as IFilters

@@ -4,6 +4,31 @@ import {
   IPermission,
   IColorCollection,
 } from '@/interfaces/configuration'
+import ConsoleIcon from '@vicons/material/MonitorRound'
+import GoodListIcon from '@vicons/material/FormatListNumberedRound'
+import GoodCategoryIcon from '@vicons/material/CategoryOutlined'
+import BillionsAssistanceIcon from '@vicons/material/AttachMoneyRound'
+import CustomerTypeIcon from '@vicons/material/AccountTreeRound'
+import AccessControlIcon from '@vicons/material/HttpsRound'
+
+import MarketingIcon from '@vicons/carbon/Cognitive'
+import UserIcon from '@vicons/carbon/User'
+import UserListIcon from '@vicons/carbon/UserMultiple'
+import AuthorizationIcon from '@vicons/carbon/FingerprintRecognition'
+
+import OrderListIcon from '@vicons/fluent/ClipboardSearch24Filled'
+import OrderIcon from '@vicons/fluent/ClipboardBulletListLtr20Regular'
+import OverviewIcon from '@vicons/fluent/FlagPride16Filled'
+import CustomerListIcon from '@vicons/fluent/PeopleSearch24Filled'
+import SystemIcon from '@vicons/fluent/DesktopSync16Regular'
+import OperationRecordingIcon from '@vicons/fluent/Record24Regular'
+
+import CustomerIcon from '@vicons/antd/TeamOutlined'
+import NewcomerIcon from '@vicons/antd/GiftOutlined'
+
+import PlanIcon from '@vicons/tabler/Bulb'
+
+import GoodIcon from '@vicons/fa/Cubes'
 
 export const pageConfig: IPageItem[] = [
   {
@@ -11,19 +36,19 @@ export const pageConfig: IPageItem[] = [
     path: 'console',
     label: '主控台',
     labelPinYin: 'zhukongtai_zkt',
-    icon: 'ConsoleIcon',
+    icon: ConsoleIcon,
   },
   {
     name: 'Good',
     label: '商品管理',
-    icon: 'GoodIcon',
+    icon: GoodIcon,
     children: [
       {
         name: 'GoodList',
         path: 'good/list',
         label: '商品列表',
         labelPinYin: 'shangpinliebiao_splb',
-        icon: 'GoodListIcon',
+        icon: GoodListIcon,
         ifCache: true,
       },
       {
@@ -38,7 +63,7 @@ export const pageConfig: IPageItem[] = [
         path: 'good/category',
         label: '商品分类',
         labelPinYin: 'shangpinfenlei_spfl',
-        icon: 'GoodCategoryIcon',
+        icon: GoodCategoryIcon,
         ifCache: true,
       },
     ],
@@ -46,14 +71,14 @@ export const pageConfig: IPageItem[] = [
   {
     name: 'Order',
     label: '订单管理',
-    icon: 'OrderIcon',
+    icon: OrderIcon,
     children: [
       {
         name: 'OrderList',
         path: 'order/list',
         label: '订单列表',
         labelPinYin: 'dingdanliebiao_ddlb',
-        icon: 'OrderListIcon',
+        icon: OrderListIcon,
       },
       {
         name: 'OrderDetails',
@@ -67,33 +92,33 @@ export const pageConfig: IPageItem[] = [
   {
     name: 'Marketing',
     label: '营销管理',
-    icon: 'MarketingIcon',
+    icon: MarketingIcon,
     children: [
       {
         name: 'Overview',
         path: 'marketing/overview',
         label: '概况总览',
         labelPinYin: 'gaikuangzonglan_gkzl',
-        icon: 'OverviewIcon',
+        icon: OverviewIcon,
       },
       {
         name: 'Plan',
         label: '策略模块',
-        icon: 'PlanIcon',
+        icon: PlanIcon,
         children: [
           {
             name: 'BillionsAssistance',
             path: 'marketing/plan/billions-assistance',
             label: '百亿补贴',
             labelPinYin: 'baiyibutie_bybt',
-            icon: 'BillionsAssistanceIcon',
+            icon: BillionsAssistanceIcon,
           },
           {
             name: 'Newcomer',
             path: 'marketing/plan/newcomer',
             label: '新人专享',
             labelPinYin: 'xinrenzhuanxiang_xrzx',
-            icon: 'NewcomerIcon',
+            icon: NewcomerIcon,
           },
         ],
       },
@@ -103,14 +128,14 @@ export const pageConfig: IPageItem[] = [
     name: 'Customer',
     path: 'customer',
     label: '客户管理',
-    icon: 'CustomerIcon',
+    icon: CustomerIcon,
     children: [
       {
         name: 'CustomerList',
         path: 'customer/list',
         label: '客户列表',
         labelPinYin: 'kehuliebiao_khlb',
-        icon: 'CustomerListIcon',
+        icon: CustomerListIcon,
       },
       {
         name: 'CustomerDetails',
@@ -124,7 +149,7 @@ export const pageConfig: IPageItem[] = [
         path: 'customer/type',
         label: '客户类型',
         labelPinYin: 'kehuleixing_khlx',
-        icon: 'CustomerTypeIcon',
+        icon: CustomerTypeIcon,
       },
     ],
   },
@@ -132,21 +157,21 @@ export const pageConfig: IPageItem[] = [
     name: 'User',
     path: 'user',
     label: '用户管理',
-    icon: 'UserIcon',
+    icon: UserIcon,
     children: [
       {
         name: 'UserList',
         path: 'user/list',
         label: '用户列表',
         labelPinYin: 'yonghuliebiao_yhlb',
-        icon: 'UserListIcon',
+        icon: UserListIcon,
       },
       {
         name: 'Authorization',
         path: 'user/authorization',
         label: '权限管理',
         labelPinYin: 'quanxianguanli_qxgl',
-        icon: 'AuthorizationIcon',
+        icon: AuthorizationIcon,
       },
     ],
   },
@@ -154,21 +179,21 @@ export const pageConfig: IPageItem[] = [
     name: 'System',
     path: 'system',
     label: '系统信息',
-    icon: 'SystemIcon',
+    icon: SystemIcon,
     children: [
       {
         name: 'OperationRecording',
         path: 'system/operation-recording',
         label: '操作记录',
         labelPinYin: 'caozuojilu_czjl',
-        icon: 'OperationRecordingIcon',
+        icon: OperationRecordingIcon,
       },
       {
         name: 'AccessControl',
         path: 'system/access-control',
         label: '访问控制',
         labelPinYin: 'fangwenkongzhi_fwkz',
-        icon: 'AccessControlIcon',
+        icon: AccessControlIcon,
       },
     ],
   },

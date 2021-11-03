@@ -110,10 +110,9 @@ import {
   useMessage,
 } from 'naive-ui'
 window.$message = useMessage()
-import {
-  UserOutlined as UsernameIcon,
-  LockOutlined as PasswordIcon,
-} from '@vicons/antd'
+
+import UsernameIcon from '@vicons/antd/UserOutlined'
+import PasswordIcon from '@vicons/antd/LockOutlined'
 
 import { ref, reactive, unref, onMounted, onBeforeUnmount } from 'vue'
 

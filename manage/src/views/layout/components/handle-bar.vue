@@ -148,18 +148,17 @@
 
 <script setup lang="ts">
 import { NIcon, NButton, NElement } from 'naive-ui'
-import {
-  DoubleArrowRound as LeftIcon,
-  DoubleArrowRound as RightIcon,
-  RefreshSharp as RefreshIcon,
-  CloseOutlined as CloseIcon,
-  FullscreenFilled as FullpageIcon,
-  FullscreenExitFilled as NormalPageIcon,
-} from '@vicons/material'
-import {
-  AlignLeft as CollapsedTriggerLeftIcon,
-  AlignRight as CollapsedTriggerRightIcon,
-} from '@vicons/tabler'
+
+import LeftIcon from '@vicons/material/DoubleArrowRound'
+import RightIcon from '@vicons/material/DoubleArrowRound'
+import RefreshIcon from '@vicons/material/RefreshSharp'
+import CloseIcon from '@vicons/material/CloseOutlined'
+import FullpageIcon from '@vicons/material/FullscreenFilled'
+import NormalPageIcon from '@vicons/material/FullscreenExitFilled'
+
+import CollapsedTriggerLeftIcon from '@vicons/tabler/AlignLeft'
+import CollapsedTriggerRightIcon from '@vicons/tabler/AlignRight'
+
 import draggable from 'vuedraggable/src/vuedraggable'
 
 import { useStore } from '@/hooks/useStore'

@@ -1,8 +1,9 @@
+import { Component } from 'vue'
 export interface IPageItem {
   name: string
   label: string
   labelPinYin?: string
-  icon?: string
+  icon?: Component
   path?: string
   ifCache?: boolean
   ifHide?: boolean

@@ -12,9 +12,9 @@
 
 <script setup lang="ts">
 import { NTag, DataTableBaseColumn, NSpace } from 'naive-ui'
-import { Password24Filled as ResetIcon } from '@vicons/fluent'
-import { EditNoteOutlined as EditIcon } from '@vicons/material'
-import { DeleteOutlined as DeleteIcon } from '@vicons/antd'
+import ResetIcon from '@vicons/fluent/Password24Filled'
+import EditIcon from '@vicons/material/EditNoteOutlined'
+import DeleteIcon from '@vicons/antd/DeleteOutlined'
 
 import { h, inject, Ref } from 'vue'
 import CommonTable from '@/components/CommonTable.vue'

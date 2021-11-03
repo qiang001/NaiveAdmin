@@ -39,11 +39,9 @@
 </template>
 
 <script setup lang="ts">
-import {
-  CloseOutlined as CloseIcon,
-  FullscreenFilled as FullscreenIcon,
-  FullscreenExitFilled as NormalscreenIcon,
-} from '@vicons/material'
+import CloseIcon from '@vicons/material/CloseOutlined'
+import FullscreenIcon from '@vicons/material/FullscreenFilled'
+import NormalscreenIcon from '@vicons/material/FullscreenExitFilled'
 import { NIcon } from 'naive-ui'
 import { toRefs, ref, computed } from 'vue'
 import type { PropType } from '@vue/runtime-core'

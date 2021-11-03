@@ -79,8 +79,8 @@ import {
   NDivider,
   NPopover,
 } from 'naive-ui'
-import { RefreshSharp as RefreshIcon } from '@vicons/material'
-import { TextGrammarSettings24Regular as SettingIcon } from '@vicons/fluent'
+import RefreshIcon from '@vicons/material/RefreshSharp'
+import SettingIcon from '@vicons/fluent/TextGrammarSettings24Regular'
 import EmptyBox from '@/components/EmptyBox.vue'
 import type { PropType } from '@vue/runtime-core'
 import { computed, ref } from 'vue'

@@ -149,10 +149,8 @@ import {
   NSwitch,
   NSpace,
 } from 'naive-ui'
-import {
-  BuildCircleRound as SettingIcon,
-  AutorenewSharp as RenewIcon,
-} from '@vicons/material'
+import SettingIcon from '@vicons/material/BuildCircleRound'
+import RenewIcon from '@vicons/material/AutorenewSharp'
 
 import { useStore } from '@/hooks/useStore'
 const store = useStore()

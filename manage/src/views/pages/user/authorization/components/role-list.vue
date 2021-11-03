@@ -21,8 +21,8 @@ interface emitType {
 const emit = defineEmits<emitType>()
 import { h, inject, Ref } from 'vue'
 import { NTag, NDataTable, DataTableColumn, NSpace } from 'naive-ui'
-import { EditNoteOutlined as EditIcon } from '@vicons/material'
-import { DeleteOutlined as DeleteIcon } from '@vicons/antd'
+import EditIcon from '@vicons/material/EditNoteOutlined'
+import DeleteIcon from '@vicons/antd/DeleteOutlined'
 import EmptyBox from '@/components/EmptyBox.vue'
 import { useIconButton } from '@/hooks/useIconButton'
 import { useDateTime } from '@/hooks/useDateFormat'

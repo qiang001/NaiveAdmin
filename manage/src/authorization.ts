@@ -107,8 +107,6 @@ function buildPages(configuration: Array<IPageItem>): Array<RouteRecordRaw> {
 
 import { h } from 'vue'
 import { NIcon } from 'naive-ui'
-import { iconCollection } from '@/assets/icons/menu'
-
 import { IMenuItem } from '@/interfaces/authorization'
 
 // 渲染菜单
@@ -155,7 +153,7 @@ function buildMenuOptions(
           NIcon,
           { size: 18 },
           {
-            default: () => h(iconCollection[icon]),
+            default: () => h(icon),
           }
         )
       }
