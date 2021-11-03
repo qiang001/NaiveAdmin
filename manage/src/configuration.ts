@@ -5,30 +5,31 @@ import {
   IColorCollection,
 } from '@/interfaces/configuration'
 import ConsoleIcon from '@vicons/material/MonitorRound'
+
+import GoodIcon from '@vicons/fa/Cubes'
 import GoodListIcon from '@vicons/material/FormatListNumberedRound'
 import GoodCategoryIcon from '@vicons/material/CategoryOutlined'
-import BillionsAssistanceIcon from '@vicons/material/AttachMoneyRound'
-import CustomerTypeIcon from '@vicons/material/AccountTreeRound'
-import AccessControlIcon from '@vicons/material/HttpsRound'
+
+import OrderIcon from '@vicons/fluent/ClipboardBulletListLtr20Regular'
+import OrderListIcon from '@vicons/fluent/ClipboardSearch24Filled'
 
 import MarketingIcon from '@vicons/carbon/Cognitive'
+import OverviewIcon from '@vicons/fluent/FlagPride16Filled'
+import PlanIcon from '@vicons/tabler/Bulb'
+import BillionsAssistanceIcon from '@vicons/material/AttachMoneyRound'
+import NewcomerIcon from '@vicons/antd/GiftOutlined'
+
+import CustomerIcon from '@vicons/antd/TeamOutlined'
+import CustomerListIcon from '@vicons/fluent/PeopleSearch24Filled'
+import CustomerTypeIcon from '@vicons/material/AccountTreeRound'
+
 import UserIcon from '@vicons/carbon/User'
 import UserListIcon from '@vicons/carbon/UserMultiple'
 import AuthorizationIcon from '@vicons/carbon/FingerprintRecognition'
 
-import OrderListIcon from '@vicons/fluent/ClipboardSearch24Filled'
-import OrderIcon from '@vicons/fluent/ClipboardBulletListLtr20Regular'
-import OverviewIcon from '@vicons/fluent/FlagPride16Filled'
-import CustomerListIcon from '@vicons/fluent/PeopleSearch24Filled'
 import SystemIcon from '@vicons/fluent/DesktopSync16Regular'
+import AccessControlIcon from '@vicons/material/HttpsRound'
 import OperationRecordingIcon from '@vicons/fluent/Record24Regular'
-
-import CustomerIcon from '@vicons/antd/TeamOutlined'
-import NewcomerIcon from '@vicons/antd/GiftOutlined'
-
-import PlanIcon from '@vicons/tabler/Bulb'
-
-import GoodIcon from '@vicons/fa/Cubes'
 
 export const pageConfig: IPageItem[] = [
   {
