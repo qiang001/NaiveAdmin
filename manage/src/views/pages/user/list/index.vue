@@ -28,6 +28,10 @@
   </page-panel>
 </template>
 
+<script lang="ts">
+export default { name: 'UserList' }
+</script>
+
 <script setup lang="ts">
 import { provide, readonly } from 'vue'
 import { initController } from './initController'

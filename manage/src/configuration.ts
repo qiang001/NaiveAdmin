@@ -49,7 +49,6 @@ export const pageConfig: IPageItem[] = [
         label: '商品列表',
         labelPinYin: 'shangpinliebiao_splb',
         icon: GoodListIcon,
-        ifCache: true,
       },
       {
         name: 'GoodDetails',
@@ -64,7 +63,6 @@ export const pageConfig: IPageItem[] = [
         label: '商品分类',
         labelPinYin: 'shangpinfenlei_spfl',
         icon: GoodCategoryIcon,
-        ifCache: true,
       },
     ],
   },
@@ -165,6 +163,7 @@ export const pageConfig: IPageItem[] = [
         label: '用户列表',
         labelPinYin: 'yonghuliebiao_yhlb',
         icon: UserListIcon,
+        ifCache: true,
       },
       {
         name: 'Authorization',
