@@ -1,4 +1,4 @@
-import { ref, reactive, unref, onMounted } from 'vue'
+import { ref, reactive, unref, onMounted, nextTick } from 'vue'
 import { IFilters, IUserListItem } from '../interfaces/data'
 import { usePagination } from '@/hooks/usePagination'
 import {
@@ -55,18 +55,14 @@ export const useConditions = ({ _getUsers }: Input) => {
 
   const changePage: I_useConditions_changePage = async (page) => {
     setPagination({ page })
-    const { total, payload } = await _getUsers({
-      filters: unref(filters),
-      sort: unref(sort),
-      pagination: unref(pagination),
-    })
-    users.value = payload
-    setPagination({ total })
+    await queryUsers()
   }
 
   const changePageSize: I_useConditions_changePageSize = async (pageSize) => {
-    setPagination({ page: 1, pageSize })
-    await queryUsers()
+    nextTick(async () => {
+      setPagination({ page: 1, pageSize })
+      await queryUsers()
+    })
   }
 
   // 数据交互

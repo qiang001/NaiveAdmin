@@ -2,12 +2,12 @@ import { ref } from 'vue'
 import {
   // Input
   I_useEditModal_open,
-  I_useFilters_resetFilters,
-  I_useFilters_setStatus,
-  I_useFilters_resetSort,
-  I_useFilters_setSort,
-  I_useFilters_resetPage,
-  I_useFilters_queryUsers,
+  I_useConditions_resetFilters,
+  I_useConditions_setStatus,
+  I_useConditions_resetSort,
+  I_useConditions_setSort,
+  I_useConditions_resetPage,
+  I_useConditions_queryUsers,
   // Output
   I_useActionHeader_add,
   I_useActionHeader_changeStatus,
@@ -18,12 +18,12 @@ import {
 
 interface Input {
   openEditModal: I_useEditModal_open
-  resetFilters: I_useFilters_resetFilters
-  setStatus: I_useFilters_setStatus
-  resetSort: I_useFilters_resetSort
-  setSort: I_useFilters_setSort
-  resetPage: I_useFilters_resetPage
-  queryUsers: I_useFilters_queryUsers
+  resetFilters: I_useConditions_resetFilters
+  setStatus: I_useConditions_setStatus
+  resetSort: I_useConditions_resetSort
+  setSort: I_useConditions_setSort
+  resetPage: I_useConditions_resetPage
+  queryUsers: I_useConditions_queryUsers
 }
 
 export const useActionHeader = ({
