@@ -387,7 +387,7 @@ const setFullpage = () => {
   flex-shrink: 0;
 }
 .tab {
-  padding: 2px 6px 0 6px;
+  padding: 0 6px 0 6px;
   margin: 0 2px;
   user-select: none;
   font-size: 12px;
