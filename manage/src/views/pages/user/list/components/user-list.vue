@@ -49,13 +49,13 @@ function createAllColumns(): Array<DataTableBaseColumn> {
     {
       title: '昵称',
       key: 'name',
-      width: 120,
+      width: 180,
       fixed: 'left',
     },
     {
       title: '用户名',
       key: 'username',
-      width: 180,
+      width: 280,
       ellipsis: {
         tooltip: true,
       },
@@ -89,22 +89,27 @@ function createAllColumns(): Array<DataTableBaseColumn> {
       title: '当前状态',
       key: 'ifActive',
       render(row) {
-        return row.ifActive
-          ? useStatusTag({
-              type: 'success',
-              text: '已激活',
-              ifDark: store.state.ifDark,
-            })
-          : useStatusTag({
-              type: 'disabled',
-              text: '已离职',
-              ifDark: store.state.ifDark,
-            })
+        return h(
+          NSpace,
+          { justify: 'center' },
+          {
+            default: () =>
+              row.ifActive
+                ? useStatusTag({
+                    type: 'success',
+                    text: '已激活',
+                    ifDark: store.state.ifDark,
+                  })
+                : useStatusTag({
+                    type: 'disabled',
+                    text: '已离职',
+                    ifDark: store.state.ifDark,
+                  }),
+          }
+        )
       },
       align: 'center',
-      ellipsis: {
-        tooltip: true,
-      },
+      width: 140,
     },
     {
       title: '创建时间',

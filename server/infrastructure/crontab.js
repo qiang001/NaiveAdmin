@@ -3,6 +3,8 @@ const Role = require("../db/models/role");
 const User = require("../db/models/user");
 const OperationRecord = require("../db/models/operationRecord");
 const CryptoJS = require("crypto-js");
+const faker = require("faker");
+const Services = require("../api/user/services");
 
 async function SystemSetup() {
   await OperationRecord.deleteMany({});
@@ -44,12 +46,49 @@ async function SystemSetup() {
       createdAt: new Date(),
     });
   }
+  console.log("System setup finished");
+}
+
+async function GenerateUsers() {
+  const roles = await Role.find();
+  const roleIds = roles.map((r) => r._id);
+  for (let i of new Array(111)) {
+    try {
+      const firstName = faker.name.firstName();
+      const lastName = faker.name.lastName();
+      const rolesCount = Math.floor(Math.random() * roleIds.length + 1);
+      const roles = selectRoles(roleIds, rolesCount);
+      const newUser = {
+        name: faker.name.findName(firstName, lastName),
+        username: faker.internet.email(firstName, lastName),
+        password: "123456",
+        roles,
+        ifActive: Math.random() >= 0.5,
+      };
+      await Services.createUser(newUser);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  console.log("Generate users finished");
+  function selectRoles(roleList, targetCount) {
+    const roleIds = [...roleList];
+    const selectedIds = [];
+    for (let i = 0; i < targetCount; i++) {
+      const index = Math.floor(Math.random() * roleIds.length);
+      const id = roleIds[index];
+      selectedIds.push(id);
+      roleIds.splice(index, 1);
+    }
+    return selectedIds;
+  }
 }
 
 module.exports = {
   setup: async () => {
-    schedule.scheduleJob("0 0 0 * * *", async function () {
+    schedule.scheduleJob("0 0 * * * *", async function () {
       await SystemSetup();
+      await GenerateUsers();
     });
     console.log("定时任务setup");
   },
