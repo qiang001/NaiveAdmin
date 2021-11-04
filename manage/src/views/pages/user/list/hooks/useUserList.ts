@@ -6,8 +6,8 @@ import {
   I_useEditModal_open,
   I_useResetPasswordModal_open,
   I_useApiCenter_deleteFromDB,
-  I_useFilters_resetPage,
-  I_useFilters_queryUsers,
+  I_useConditions_resetPage,
+  I_useConditions_queryUsers,
   // Output
   I_useUserList_refresh,
   I_useUserList_edit,
@@ -19,8 +19,8 @@ interface Input {
   openEditModal: I_useEditModal_open
   openResetPasswordModal: I_useResetPasswordModal_open
   deleteFromDB: I_useApiCenter_deleteFromDB
-  resetPage: I_useFilters_resetPage
-  queryUsers: I_useFilters_queryUsers
+  resetPage: I_useConditions_resetPage
+  queryUsers: I_useConditions_queryUsers
 }
 
 export const useUserList = ({

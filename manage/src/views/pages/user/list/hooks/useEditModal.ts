@@ -6,10 +6,10 @@ import {
   // Input
   I_useApiCenter_getRoleOptions,
   I_useApiCenter_saveToDB,
-  I_useFilters_resetFilters,
-  I_useFilters_resetSort,
-  I_useFilters_resetPage,
-  I_useFilters_queryUsers,
+  I_useConditions_resetFilters,
+  I_useConditions_resetSort,
+  I_useConditions_resetPage,
+  I_useConditions_queryUsers,
   // Output
   I_useEditModal_open,
   I_useEditModal_close,
@@ -18,10 +18,10 @@ import {
 interface Input {
   getRoleOptions: I_useApiCenter_getRoleOptions
   saveToDB: I_useApiCenter_saveToDB
-  resetFilters: I_useFilters_resetFilters
-  resetSort: I_useFilters_resetSort
-  resetPage: I_useFilters_resetPage
-  queryUsers: I_useFilters_queryUsers
+  resetFilters: I_useConditions_resetFilters
+  resetSort: I_useConditions_resetSort
+  resetPage: I_useConditions_resetPage
+  queryUsers: I_useConditions_queryUsers
 }
 export const useEditModal = ({
   getRoleOptions,

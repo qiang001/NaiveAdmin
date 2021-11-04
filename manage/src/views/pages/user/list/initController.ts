@@ -1,7 +1,7 @@
 import { useActionHeader } from './hooks/useActionHeader'
 import { useApiCenter } from './hooks/useApiCenter'
 import { useUserList } from './hooks/useUserList'
-import { useFilters } from './hooks/useFilters'
+import { useConditions } from './hooks/useConditions'
 import { useEditModal } from './hooks/useEditModal'
 import { useResetPasswordModal } from './hooks/useResetPasswordModal'
 
@@ -26,11 +26,11 @@ export const initController = () => {
     resetSort,
     setSort,
     pagination,
+    resetPage,
     changePage,
     changePageSize,
-    resetPage,
     queryUsers,
-  } = useFilters({ _getUsers })
+  } = useConditions({ _getUsers })
 
   // 编辑框
   const {

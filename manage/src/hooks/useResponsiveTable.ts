@@ -6,12 +6,12 @@ interface ITableConfig {
   otherHeightTotalStatic: number
   otherElementIds: string[]
 }
-export const useResponsiveTable = (arg: ITableConfig) => {
+export const useResponsiveTable = (config: ITableConfig) => {
   const dynamicWidth = ref<number>(undefined)
-  arg.dynamicWidth && (dynamicWidth.value = arg.dynamicWidth)
+  config.dynamicWidth && (dynamicWidth.value = config.dynamicWidth)
   const maxHeight = ref<number>(undefined)
-  const { height: containerHeight } = useResizeContainer(arg.containerId)
-  const dynamicHeights = arg.otherElementIds.map((id) => {
+  const { height: containerHeight } = useResizeContainer(config.containerId)
+  const dynamicHeights = config.otherElementIds.map((id) => {
     const { height } = useResizeContainer(id)
     return height
   })
@@ -22,7 +22,7 @@ export const useResponsiveTable = (arg: ITableConfig) => {
     }, 0)
     maxHeight.value =
       containerHeight.value -
-      arg.otherHeightTotalStatic -
+      config.otherHeightTotalStatic -
       otherHeightTotalDynamic
   })
   return {

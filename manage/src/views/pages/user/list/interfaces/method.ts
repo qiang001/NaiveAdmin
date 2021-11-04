@@ -55,36 +55,36 @@ export interface I_useEditModal_confirm {
   (): Promise<void>
 }
 
-// useFilters [搜索、排序、分页]逻辑
-export interface I_useFilters_resetFilters {
+// useConditions [搜索、排序、分页]逻辑
+export interface I_useConditions_resetFilters {
   (): void
 }
 
-export interface I_useFilters_setStatus {
+export interface I_useConditions_setStatus {
   (val: string): void
 }
 
-export interface I_useFilters_resetSort {
+export interface I_useConditions_resetSort {
   (): void
 }
 
-export interface I_useFilters_setSort {
+export interface I_useConditions_setSort {
   (val: string): void
 }
 
-export interface I_useFilters_resetPage {
+export interface I_useConditions_resetPage {
   (): void
 }
 
-export interface I_useFilters_queryUsers {
+export interface I_useConditions_queryUsers {
   (): Promise<void>
 }
 
-export interface I_useFilters_changePage {
+export interface I_useConditions_changePage {
   (num: number): void
 }
 
-export interface I_useFilters_changePageSize {
+export interface I_useConditions_changePageSize {
   (num: number): void
 }
 

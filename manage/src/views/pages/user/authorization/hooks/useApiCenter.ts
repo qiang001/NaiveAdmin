@@ -32,7 +32,7 @@ export const useApiCenter = () => {
     ifProcessing: loading,
     func: _getRoles,
   }: { ifProcessing: Ref<boolean>; func: I_useApiCenter_getRoles } =
-    useDebounce(getRoles, 1000)
+    useDebounce(getRoles, 200)
   // 保存编辑后的数据
   const saveToDB: I_useApiCenter_saveToDB = async ({ data, type }) => {
     return type == 'edit'

@@ -48,7 +48,7 @@ export const useApiCenter = () => {
     ifProcessing: loading,
     func: _getUsers,
   }: { ifProcessing: Ref<boolean>; func: I_useApiCenter_getUsers } =
-    useDebounce(getUsers, 1000)
+    useDebounce(getUsers, 200)
 
   // 拉取角色options
   const getRoleOptions: I_useApiCenter_getRoleOptions = async () => {
