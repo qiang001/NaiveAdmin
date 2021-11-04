@@ -1,5 +1,10 @@
 <template>
-  <div class="ml-2 d-flex a-center">
+  <div
+    class="d-flex a-center"
+    :class="{
+      'j-center': collapsed && store.state.layoutStyle === 'left-right',
+    }"
+  >
     <n-dropdown
       v-if="store.state.userInfo"
       :options="options"
@@ -17,7 +22,12 @@
               style="width: 24px; border-radius: 50%"
             />
           </div>
-          <div class="ml-1">{{ store.state.userInfo.name }}</div>
+          <div
+            class="ml-1"
+            v-if="!collapsed || store.state.layoutStyle === 'top-left-right'"
+          >
+            {{ store.state.userInfo.name }}
+          </div>
         </div>
       </n-button>
     </n-dropdown>
@@ -30,8 +40,8 @@
 <script setup lang="ts">
 import { NDropdown, DropdownOption, NButton, NIcon } from 'naive-ui'
 import LogoutIcon from '@vicons/material/ExitToAppSharp'
-import { h } from 'vue'
-
+import { Ref, inject, h } from 'vue'
+const collapsed = inject('collapsed') as Ref<boolean>
 import { useStore } from '@/hooks/useStore'
 const store = useStore()
 

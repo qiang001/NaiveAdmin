@@ -36,7 +36,9 @@ onMounted(() => {
   // 本地初始化化加载
   const systemSetting = localStorage.getItem('systemSetting')
   if (systemSetting) {
-    let { _mainColor, _ifDark, _ifPageTitle } = JSON.parse(systemSetting)
+    let { _layoutStyle, _mainColor, _ifDark, _ifPageTitle } =
+      JSON.parse(systemSetting)
+    store.commit('SET_LAYOUTSTYLE', _layoutStyle)
     store.commit('SET_MAINCOLOR', _mainColor)
     store.commit('SET_IFDARK', _ifDark)
     store.commit('SET_IFPAGETITLE', _ifPageTitle)
@@ -59,6 +61,7 @@ onMounted(() => {
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'hidden') {
       const systemSetting = {
+        _layoutStyle: store.state.layoutStyle,
         _mainColor: store.state.mainColor,
         _ifDark: store.state.ifDark,
         _ifPageTitle: store.state.ifPageTitle,

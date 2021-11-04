@@ -15,8 +15,12 @@
         </div>
       </div>
       <div class="ml-auto d-flex a-center">
-        <Setting />
-        <Account />
+        <div>
+          <setting-trigger @openSetting="() => emit('open')" />
+        </div>
+        <div class="ml-2">
+          <Account />
+        </div>
       </div>
     </div>
   </n-layout-header>
@@ -25,7 +29,8 @@
 <script setup lang="ts">
 import { NLayoutHeader } from 'naive-ui'
 import Account from './components/account.vue'
-import Setting from './components/setting.vue'
+import SettingTrigger from './components/setting-trigger.vue'
+const emit = defineEmits(['open'])
 </script>
 
 <style scoped>

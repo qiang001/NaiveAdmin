@@ -40,8 +40,12 @@ const setHeight = (key: string, val: number) => {
 const emit = defineEmits(['resize'])
 watchEffect(() => {
   let otherHeight = 120
-  if (ifFullpage.value) {
+  if (store.state.layoutStyle === 'left-right') {
     otherHeight -= 64
+  } else {
+    if (ifFullpage.value) {
+      otherHeight -= 64
+    }
   }
   if (container.value) {
     setTimeout(() => {

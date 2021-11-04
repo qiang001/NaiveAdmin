@@ -11,7 +11,10 @@ export interface IUserInfo {
   }>
 }
 
+export type layoutStyleType = 'top-left-right' | 'left-right'
+
 export interface State {
+  layoutStyle: layoutStyleType
   mainColor: string
   ifDark: boolean
   ifPageTitle: boolean

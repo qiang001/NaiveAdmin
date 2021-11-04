@@ -3,6 +3,7 @@ import { useRouter, useRoute } from 'vue-router'
 import { useFullscreen } from './hooks/useFullscreen'
 import { useMenu } from './hooks/useMenu'
 import { useHandleBar } from './hooks/useHandleBar'
+import { useSetting } from './hooks/useSetting'
 import { useLoadingBar } from 'naive-ui'
 
 export const initController = () => {
@@ -42,7 +43,10 @@ export const initController = () => {
     navigateTo,
   } = useMenu({ refreshRoute, router })
 
+  const { settingShow, openSetting, closeSetting } = useSetting()
+
   const data = {
+    store,
     route,
     ifFullpage,
     refreshing,
@@ -52,6 +56,7 @@ export const initController = () => {
     ifHideIcon,
     widthSpan,
     sectionWidth,
+    settingShow,
   }
   const methods = {
     gotoTab,
@@ -62,6 +67,8 @@ export const initController = () => {
     navigateTo,
     widthChange,
     widthChangeDone,
+    openSetting,
+    closeSetting,
   }
   return {
     ...data,

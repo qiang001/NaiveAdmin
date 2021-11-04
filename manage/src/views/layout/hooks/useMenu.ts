@@ -7,14 +7,16 @@ export const useMenu = ({ refreshRoute, router }) => {
   const sectionWidth = ref(0)
   let sider = null
   const widthChange = (val) => {
+    sider = document.getElementById('sider')
     // 暂时设置为none 避免不跟手
-    sider.style.setProperty('transition', `none`)
+    sider?.style.setProperty('transition', `none`)
     sectionWidth.value = val
   }
 
   const widthChangeDone = () => {
+    sider = document.getElementById('sider')
     // 恢复transition
-    sider.style.setProperty('transition', `all 0.3s ease`)
+    sider?.style.setProperty('transition', `all 0.3s ease`)
   }
 
   const collapsed = ref(false)
@@ -44,8 +46,7 @@ export const useMenu = ({ refreshRoute, router }) => {
         localStorage.setItem('menuSetting', JSON.stringify(menuSetting))
       }
     })
-    // 获取外层sider便于调整transition延迟
-    sider = document.getElementById('sider')
+
     // 自适应collapsed
     let lastWidth = document.body.getBoundingClientRect().width
     window.addEventListener('resize', () => {

@@ -34,6 +34,7 @@ export const buildStore = (router: Router) => {
   const store = createStore<State>({
     state() {
       return {
+        layoutStyle: 'left-right',
         mainColor: Object.keys(getColors(false))[0],
         ifDark: false,
         ifPageTitle: true,
@@ -52,6 +53,14 @@ export const buildStore = (router: Router) => {
       }
     },
     getters: {
+      getLayoutStyles(state) {
+        return ['left-right', 'top-left-right'].map((item) => {
+          return {
+            styleName: item,
+            checked: item === state.layoutStyle,
+          }
+        })
+      },
       getMainColors(state) {
         const colorSet: IColorCollection = getColors(state.ifDark)
         return Object.values(colorSet).map((item) => ({
@@ -86,6 +95,10 @@ export const buildStore = (router: Router) => {
       },
     },
     mutations: {
+      SET_LAYOUTSTYLE(state, key) {
+        state.layoutStyle =
+          key === 'left-right' ? 'left-right' : 'top-left-right'
+      },
       SET_MAINCOLOR(state, key) {
         let colors = Object.keys(getColors(false))
         let mainColor = colors.includes(key) ? key : colors[0]

@@ -1,15 +1,53 @@
 <template>
-  <div class="ml-1">
-    <n-button size="small" :text="true" @click="settingShow = true">
-      <template #icon>
-        <n-icon>
-          <setting-icon />
-        </n-icon>
-      </template>
-      设置
-    </n-button>
+  <div>
     <n-drawer v-model:show="settingShow" :width="240" placement="right">
       <n-drawer-content title="全局配置" closable :native-scrollbar="false">
+        <n-divider>「布局风格」</n-divider>
+        <div class="d-flex a-center j-sb">
+          <div
+            v-for="(item, index) in styles"
+            :key="item.styleName"
+            class="d-flex a-center j-sb"
+          >
+            <n-checkbox
+              v-model:checked="item.checked"
+              :on-update:checked="(bool) => handleStyle(item.styleName, bool)"
+            >
+              <div class="d-flex a-center">
+                <n-element
+                  class="d-flex"
+                  style="
+                    flex-direction: column;
+                    width: 50px;
+                    height: 50px;
+                    box-shadow: 0 0 6px 0 #80808026;
+                  "
+                >
+                  <div
+                    style="height: 10px; background-color: var(--base-color)"
+                    :style="{
+                      backgroundColor: !ifDark
+                        ? 'var(--base-color)'
+                        : 'var(--table-color)',
+                    }"
+                    v-if="item.styleName === 'top-left-right'"
+                  ></div>
+                  <div class="d-flex" style="flex: 1">
+                    <div
+                      style="flex: 1; background-color: var(--divider-color)"
+                    ></div>
+                    <div
+                      style="
+                        flex: 3;
+                        background-color: var(--table-header-color);
+                      "
+                    ></div>
+                  </div>
+                </n-element>
+              </div>
+            </n-checkbox>
+          </div>
+        </div>
         <n-divider>「暗黑模式」</n-divider>
         <div class="d-flex a-center j-center">
           <n-switch
@@ -148,8 +186,8 @@ import {
   NDivider,
   NSwitch,
   NSpace,
+  NElement,
 } from 'naive-ui'
-import SettingIcon from '@vicons/material/BuildCircleRound'
 import RenewIcon from '@vicons/material/AutorenewSharp'
 
 import { useStore } from '@/hooks/useStore'
@@ -157,7 +195,19 @@ const store = useStore()
 
 import { ref, inject, Ref } from 'vue'
 
-const settingShow = ref(false)
+const settingShow = inject('settingShow') as Ref<boolean>
+
+import { layoutStyleType } from '@/interfaces/store'
+const styles = ref<Array<{ styleName: layoutStyleType; checked: boolean }>>([])
+styles.value = store.getters.getLayoutStyles
+const handleStyle = (style: layoutStyleType, bool: boolean) => {
+  if (!bool) return
+  styles.value.forEach((s) => {
+    style == s.styleName
+      ? ((s.checked = true), store.commit('SET_LAYOUTSTYLE', style))
+      : (s.checked = false)
+  })
+}
 
 import { IColorInfo } from '@/interfaces/configuration'
 const colors = ref<Array<IColorInfo>>([])
@@ -212,7 +262,9 @@ const ifPageTitleChange = (val: boolean) => {
 }
 
 import { useDebounce } from '@/hooks/useDebounce'
+const emit = defineEmits(['close'])
 const { ifProcessing: loading, func: resetSetting } = useDebounce(() => {
+  handleStyle('left-right', true)
   let defaultColor = colors.value[0]
   setColor(defaultColor, true)
   if (ifDark.value) {
@@ -221,7 +273,7 @@ const { ifProcessing: loading, func: resetSetting } = useDebounce(() => {
   ifPageTitleChange(true)
   invertedChange(false)
   ifHideIconChange(false)
-  settingShow.value = false
+  emit('close')
   window.$message.success('恭喜你，默认配置恢复成功！')
 })
 </script>

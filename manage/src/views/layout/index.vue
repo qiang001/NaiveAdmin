@@ -1,68 +1,129 @@
 <template>
-  <n-layout position="absolute" class="page-plane">
-    <Header
-      id="header"
-      :style="`${
-        ifFullpage
-          ? 'top:-64px!important;'
-          : 'top:0px!important;transition-delay:0.1s'
-      }`"
-    ></Header>
+  <div>
     <n-layout
       position="absolute"
-      class="main"
-      :has-sider="!ifFullpage"
-      :style="`${
-        ifFullpage
-          ? 'top:0px!important;transition-delay:0.1s'
-          : 'top:64px!important;'
-      }`"
+      class="page-plane"
+      v-if="store.state.layoutStyle === 'top-left-right'"
     >
-      <n-layout-sider
-        id="sider"
-        v-show="!ifFullpage"
-        bordered
-        :show-trigger="false"
-        collapse-mode="width"
-        :collapsed-width="48"
-        :width="sectionWidth"
-        :inverted="inverted"
-        :collapsed="collapsed"
-        :native-scrollbar="false"
-        @collapse="collapsedChange(true)"
-        @expand="collapsedChange(false)"
+      <Header
+        @open="openSetting"
+        id="header"
+        :style="`${
+          ifFullpage
+            ? 'top:-64px!important;'
+            : 'top:0px!important;transition-delay:0.1s'
+        }`"
+      ></Header>
+      <n-layout
+        position="absolute"
+        class="main-top-left-right"
+        :has-sider="!ifFullpage"
+        :style="`${
+          ifFullpage
+            ? 'top:0px!important;transition-delay:0.1s'
+            : 'top:64px!important;'
+        }`"
       >
-        <Menu @navigateTo="navigateTo"></Menu>
-        <resize-bar
-          v-if="!collapsed"
-          @widthChange="widthChange"
-          @widthChangeDone="widthChangeDone"
-        ></resize-bar>
-      </n-layout-sider>
-      <n-layout-content :native-scrollbar="false">
-        <n-layout-header
-          class="handle-bar-wrapper"
-          v-if="route.name != 'Layout'"
-        >
-          <handle-bar
-            @collapse="collapsedChange"
-            @gotoTab="gotoTab"
-            @deleteTab="deleteTab"
-            @refreshPage="refreshRoute"
-            @setFullpage="setFullpage"
-          ></handle-bar>
-        </n-layout-header>
-        <n-layout-content
-          id="page"
+        <n-layout-sider
+          id="sider"
+          v-show="!ifFullpage"
+          bordered
+          :show-trigger="false"
+          collapse-mode="width"
+          :collapsed-width="48"
+          :width="sectionWidth"
+          :inverted="inverted"
+          :collapsed="collapsed"
           :native-scrollbar="false"
-          embedded
-          :content-style="`${route.name != 'Layout' ? 'padding: 14px;' : ''}`"
+          @collapse="collapsedChange(true)"
+          @expand="collapsedChange(false)"
         >
-          <Page></Page>
+          <Menu @navigateTo="navigateTo"></Menu>
+          <resize-bar
+            v-if="!collapsed"
+            @widthChange="widthChange"
+            @widthChangeDone="widthChangeDone"
+          ></resize-bar>
+        </n-layout-sider>
+        <n-layout-content :native-scrollbar="false">
+          <n-layout-header
+            class="handle-bar-wrapper"
+            v-if="route.name != 'Layout'"
+          >
+            <handle-bar
+              @collapse="collapsedChange"
+              @gotoTab="gotoTab"
+              @deleteTab="deleteTab"
+              @refreshPage="refreshRoute"
+              @setFullpage="setFullpage"
+            ></handle-bar>
+          </n-layout-header>
+          <n-layout-content
+            id="page"
+            :native-scrollbar="false"
+            embedded
+            :content-style="`${route.name != 'Layout' ? 'padding: 14px;' : ''}`"
+          >
+            <Page></Page>
+          </n-layout-content>
         </n-layout-content>
-      </n-layout-content>
+      </n-layout>
     </n-layout>
-  </n-layout>
+    <n-layout position="absolute" class="page-plane" v-else>
+      <n-layout
+        position="absolute"
+        class="main-left-right"
+        :has-sider="!ifFullpage"
+      >
+        <n-layout-sider
+          id="sider"
+          v-show="!ifFullpage"
+          bordered
+          :show-trigger="false"
+          collapse-mode="width"
+          :collapsed-width="48"
+          :width="sectionWidth"
+          :inverted="inverted"
+          :collapsed="collapsed"
+          :native-scrollbar="false"
+          @collapse="collapsedChange(true)"
+          @expand="collapsedChange(false)"
+        >
+          <side-container @open="openSetting">
+            <Menu @navigateTo="navigateTo"></Menu>
+          </side-container>
+          <resize-bar
+            v-if="!collapsed"
+            @widthChange="widthChange"
+            @widthChangeDone="widthChangeDone"
+          ></resize-bar>
+        </n-layout-sider>
+        <n-layout-content :native-scrollbar="false">
+          <n-layout-header
+            class="handle-bar-wrapper"
+            v-if="route.name != 'Layout'"
+          >
+            <handle-bar
+              @collapse="collapsedChange"
+              @gotoTab="gotoTab"
+              @deleteTab="deleteTab"
+              @refreshPage="refreshRoute"
+              @setFullpage="setFullpage"
+            ></handle-bar>
+          </n-layout-header>
+          <n-layout-content
+            id="page"
+            :native-scrollbar="false"
+            embedded
+            :content-style="`${route.name != 'Layout' ? 'padding: 14px;' : ''}`"
+          >
+            <Page></Page>
+          </n-layout-content>
+        </n-layout-content>
+      </n-layout>
+    </n-layout>
+    <setting @close="closeSetting"></setting>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -82,6 +143,7 @@ window.$dialog = useDialog()
 
 import { initController } from './initController'
 const {
+  store,
   route,
   collapsed,
   inverted,
@@ -91,6 +153,7 @@ const {
   history,
   ifFullpage,
   refreshing,
+  settingShow,
   widthChange,
   widthChangeDone,
   collapsedChange,
@@ -99,12 +162,12 @@ const {
   deleteTab,
   refreshRoute,
   setFullpage,
+  openSetting,
+  closeSetting,
 } = initController()
 
 provide('inverted', inverted)
 provide('ifHideIcon', ifHideIcon)
-
-import Header from './components/header/index.vue'
 
 import Menu from './components/menu.vue'
 provide('collapsed', readonly(collapsed))
@@ -119,6 +182,11 @@ provide('ifFullpage', readonly(ifFullpage))
 provide('refreshing', readonly(refreshing))
 
 import Page from './components/page.vue'
+
+import Header from './components/system/header.vue'
+import SideContainer from './components/system/side-container.vue'
+provide('settingShow', settingShow)
+import Setting from './components/setting.vue'
 </script>
 
 <style scoped>
@@ -126,7 +194,7 @@ import Page from './components/page.vue'
   top: 0;
   transition: all 0.3s ease;
 }
-.main {
+.main-top-left-right {
   top: 64px !important;
   transition: all 0.3s ease;
 }
