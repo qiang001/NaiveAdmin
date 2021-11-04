@@ -270,7 +270,7 @@ export const buildStore = (router: Router) => {
     if (
       to.redirectedFrom &&
       to.name === 'Layout' &&
-      store.state.userInfo.name === '超级管理员'
+      store.state.userInfo?.name === '超级管理员'
     ) {
       next({ path: '/layout/console', replace: true })
     } else {

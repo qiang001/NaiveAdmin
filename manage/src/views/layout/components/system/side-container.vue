@@ -1,10 +1,14 @@
 <template>
   <div class="d-flex" style="flex-direction: column; min-height: 100vh">
-    <div class="d-flex a-center p pb-0 pt-1">
-      <div class="d-flex a-center j-center logo mr">
+    <div class="d-flex a-center py-1 j-center" :class="{ 'pb-0': !collapsed }">
+      <div class="d-flex a-center j-center logo">
         <img src="@/assets/logo.png" alt="" style="width: 36px" />
       </div>
-      <div style="font-size: 18px; font-weight: bold; font-family: PingFang SC">
+      <div
+        v-if="!collapsed"
+        class="ml"
+        style="font-size: 18px; font-weight: bold; font-family: PingFang SC"
+      >
         Hita.Design
       </div>
     </div>
@@ -23,6 +27,8 @@
 <script setup lang="ts">
 import Account from './components/account.vue'
 import SettingTrigger from './components/setting-trigger.vue'
+import { Ref, inject } from 'vue'
+const collapsed = inject('collapsed') as Ref<boolean>
 const emit = defineEmits(['open'])
 </script>
 
