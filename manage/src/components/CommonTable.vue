@@ -13,7 +13,7 @@
             <refresh-icon />
           </n-icon>
         </template>
-        刷新 {{ minWidth }}
+        刷新
       </n-button>
       <n-popover trigger="click" placement="bottom-end">
         <template #trigger>
