@@ -1,6 +1,6 @@
 <template>
   <common-table
-    :minWidth="minWidth"
+    :dynamicWidth="dynamicWidth"
     :maxHeight="maxHeight"
     :allColumns="allColumns"
     :list="list"
@@ -27,7 +27,7 @@ const store = useStore()
 
 import { IUserListItem } from '../interfaces/data'
 const maxHeight = inject('maxHeight') as Ref<number>
-const minWidth = inject('minWidth') as Ref<number>
+const dynamicWidth = inject('dynamicWidth') as Ref<number>
 const list = inject('users') as Ref<Array<IUserListItem>>
 const loading = inject('loading') as Ref<boolean>
 

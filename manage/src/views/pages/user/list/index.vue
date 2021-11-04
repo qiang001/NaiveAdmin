@@ -46,7 +46,7 @@ const {
   changeSort,
   users,
   loading,
-  minWidth,
+  dynamicWidth,
   maxHeight,
   pagination,
   changePage,
@@ -79,7 +79,7 @@ provide('sort', sort)
 import UserList from './components/user-list.vue'
 provide('users', users)
 provide('loading', readonly(loading))
-provide('minWidth', readonly(minWidth))
+provide('dynamicWidth', readonly(dynamicWidth))
 provide('maxHeight', readonly(maxHeight))
 
 import Pagination from './components/pagination.vue'

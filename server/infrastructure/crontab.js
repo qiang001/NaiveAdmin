@@ -50,7 +50,7 @@ async function SystemSetup() {
 }
 
 async function GenerateUsers() {
-  const roles = await Role.find();
+  const roles = await Role.find({ name: { $ne: "超级管理员" } });
   const roleIds = roles.map((r) => r._id);
   for (let i of new Array(111)) {
     try {

@@ -79,7 +79,7 @@ export const initController = () => {
 
   // 表格
   const {
-    minWidth,
+    dynamicWidth,
     maxHeight,
     refresh: refreshList,
     edit: editUser,
@@ -109,7 +109,7 @@ export const initController = () => {
     resetLoading,
     resetUser,
     searching,
-    minWidth,
+    dynamicWidth,
     maxHeight,
   }
   const methods = {

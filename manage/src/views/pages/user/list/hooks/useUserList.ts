@@ -31,8 +31,8 @@ export const useUserList = ({
   queryUsers,
 }: Input) => {
   // 响应式表格
-  const { minWidth, maxHeight } = useResponsiveTable({
-    width: 1080,
+  const { dynamicWidth, maxHeight } = useResponsiveTable({
+    dynamicWidth: 480,
     containerId: 'page-panel',
     otherHeightTotalStatic: 166,
     otherElementIds: ['action-header'],
@@ -76,7 +76,7 @@ export const useUserList = ({
       },
     })
   }
-  const data = { minWidth, maxHeight }
+  const data = { dynamicWidth, maxHeight }
   const method = { refresh, edit, resetPassword, _delete }
   return {
     ...data,

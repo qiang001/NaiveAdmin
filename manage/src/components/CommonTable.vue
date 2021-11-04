@@ -13,7 +13,7 @@
             <refresh-icon />
           </n-icon>
         </template>
-        刷新
+        刷新 {{ minWidth }}
       </n-button>
       <n-popover trigger="click" placement="bottom-end">
         <template #trigger>
@@ -55,7 +55,7 @@
       </n-popover>
     </n-space>
     <n-data-table
-      :scroll-x="props.minWidth"
+      :scroll-x="minWidth"
       :max-height="props.maxHeight"
       :columns="columns"
       :data="props.list"
@@ -86,7 +86,7 @@ import type { PropType } from '@vue/runtime-core'
 import { computed, ref } from 'vue'
 // 核心属性
 const props = defineProps({
-  minWidth: Number as PropType<number>,
+  dynamicWidth: Number as PropType<number>,
   maxHeight: Number as PropType<number>,
   allColumns: Array as PropType<Array<DataTableBaseColumn>>,
   list: Array as PropType<Array<object>>,
@@ -112,6 +112,7 @@ dropdownOptions.value = props.allColumns.map((c) => {
     label: c.title,
     key: c.key,
     checked: true,
+    width: c.width,
   }
 })
 
@@ -136,6 +137,23 @@ const columns = computed(() =>
     dropdownOptions.value.some((o) => o.checked && o.key === c.key)
   )
 )
+
+const minWidth = computed(() => {
+  const static_show_columns = dropdownOptions.value.filter(
+    (o) => o.width && o.checked
+  )
+  const dynamic_columns = dropdownOptions.value.filter((o) => !o.width)
+  const dynamic_show_columns = dropdownOptions.value.filter(
+    (o) => !o.width && o.checked
+  )
+  const realtimeStaticWidth = static_show_columns.reduce((a, c) => {
+    a += c.width
+    return a
+  }, 0)
+  const averageDynamicWidth = props.dynamicWidth / dynamic_columns.length
+  const realtimeDynamicWidth = averageDynamicWidth * dynamic_show_columns.length
+  return realtimeStaticWidth + realtimeDynamicWidth
+})
 </script>
 
 <style scoped>
