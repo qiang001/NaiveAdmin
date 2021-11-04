@@ -93,13 +93,11 @@ function createAllColumns(): Array<DataTableBaseColumn> {
           ? useStatusTag({
               type: 'success',
               text: '已激活',
-              ifBorder: true,
               ifDark: store.state.ifDark,
             })
           : useStatusTag({
               type: 'disabled',
               text: '已离职',
-              ifBorder: true,
               ifDark: store.state.ifDark,
             })
       },

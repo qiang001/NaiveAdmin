@@ -54,7 +54,7 @@ const initChart = () => {
     myChart.dispose()
   }
   myChart = !ifDark.value
-    ? echarts.init(chartDom, 'essos')
+    ? echarts.init(chartDom)
     : echarts.init(chartDom, 'dark')
   const option = {
     title: {

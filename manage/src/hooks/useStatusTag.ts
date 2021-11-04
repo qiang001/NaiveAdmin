@@ -1,35 +1,33 @@
 import { h } from 'vue'
 interface Input {
-  type: 'success' | 'disabled'
+  type: 'success' | 'disabled' | 'info'
   text: string
-  ifBorder: boolean
   ifDark: boolean
 }
-export const useStatusTag = ({ type, text, ifBorder, ifDark }: Input) => {
+export const useStatusTag = ({ type, text, ifDark }: Input) => {
   const statusMap = {
     success: {
-      borderColor: !ifDark ? '#e8f5ee' : '#0b2e0e',
-      backgroundColor: !ifDark ? '#b4f7d01a' : '#0c290d',
-      textColor: !ifDark ? '#00c250' : '#2aae67',
+      backgroundColor: !ifDark ? '#e2f4e3' : '#2c3c32',
+      textColor: !ifDark ? '#457a4c' : '#d0f0d1',
     },
     disabled: {
-      borderColor: !ifDark ? '#f4f4f4' : '#222222',
-      backgroundColor: !ifDark ? '#fbfbfb' : '#383838',
+      backgroundColor: !ifDark ? '#f2f2f2' : '#383838',
       textColor: !ifDark ? '#95a4aa' : '#b2b2b2',
+    },
+    info: {
+      backgroundColor: !ifDark ? '#d9ebfe' : '#2b3849',
+      textColor: !ifDark ? '#2057a0' : '#cce4f6',
     },
   }
   const style = {
     padding: '1px 8px',
-    borderRadius: '30px',
+    borderRadius: '3px',
     backgroundColor: statusMap[type].backgroundColor,
     color: statusMap[type].textColor,
     fontSize: '12px',
+    fontWeight: 'bold',
     cursor: 'default',
     border: 'none',
-  }
-
-  if (ifBorder) {
-    style.border = `2px solid ${statusMap[type].borderColor}`
   }
 
   return h(
