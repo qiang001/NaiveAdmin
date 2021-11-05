@@ -43,7 +43,7 @@ import { toRefs, computed } from 'vue'
 
 // 核心属性
 interface IProp {
-  showFile: boolean
+  showFile?: boolean
 }
 const props = withDefaults(defineProps<IProp>(), {
   showFile: false,

@@ -19,7 +19,7 @@ export const buildStore = (router: Router) => {
   // menu auth tree
   const menuAuthTree = buildMenuAuthTree(pageConfig)
   // auth keys
-  const { ALL_AUTH_KEYS, HIDE_AUTH_KEYS, searchOptions } =
+  const { ALL_AUTH_KEYS, HIDE_AUTH_KEYS, searchOptions, keyOptions } =
     getAuthKeys(pageConfig)
   // 防止刷新404
   function prevent404() {
@@ -92,6 +92,9 @@ export const buildStore = (router: Router) => {
         return searchOptions.filter((item) =>
           state.authKeys.some((key) => key == item.value)
         )
+      },
+      getLabelWithKey: (state) => (key: string) => {
+        return keyOptions.find((o) => o.name === key)?.label
       },
     },
     mutations: {

@@ -197,10 +197,18 @@ function getAuthKeys(configuration: Array<IPageItem>): IMenuAuthsFlated {
   let keys = []
   let hides = []
   let shows = []
+  let keyOptions = []
   extractKeys(configuration)
   function extractKeys(arr: Array<IPageItem>): void {
     arr.forEach((item) => {
       keys = [...keys, item.name]
+      keyOptions = [
+        ...keyOptions,
+        {
+          name: item.name,
+          label: item.label,
+        },
+      ]
       if (item.ifHide) {
         hides = [
           ...hides,
@@ -230,6 +238,7 @@ function getAuthKeys(configuration: Array<IPageItem>): IMenuAuthsFlated {
     ALL_AUTH_KEYS: keys,
     HIDE_AUTH_KEYS: hides,
     searchOptions: shows,
+    keyOptions,
   }
 }
 

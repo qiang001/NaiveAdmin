@@ -816,10 +816,10 @@ magic-string@^0.25.7:
   dependencies:
     sourcemap-codec "^1.4.4"
 
-naive-ui@^2.19.1:
-  version "2.20.0"
-  resolved "https://registry.yarnpkg.com/naive-ui/-/naive-ui-2.20.0.tgz#1a0b8a3db3c77b72ac36c6cc46e9b091dc266bd0"
-  integrity sha512-KvA1j/DgPtpRX9LfRNeC6wcGupOeVm/7ChXdYDlRKBV9USKvo3oD2mvzgo7f9w0a7e6PRJFjrGhTtVkxPX6xsQ==
+naive-ui@^2.20.2:
+  version "2.20.2"
+  resolved "https://registry.yarnpkg.com/naive-ui/-/naive-ui-2.20.2.tgz#d0002c533281882b51e159280cfdc9b6925dfa7d"
+  integrity sha512-jfaYvziJY5/G0gdWoT9Fu8YeZrTZL2JnzZBi/Fq6BJM4jN1xPN4VSkEbVspHJYaBhAGtz0LCI/0ldCP9bjjxyA==
   dependencies:
     "@babel/eslint-parser" "^7.15.8"
     "@css-render/plugin-bem" "^0.15.6"

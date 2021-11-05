@@ -20,6 +20,11 @@ export interface ISearchOption {
   value: string
 }
 
+export interface IKeyOption {
+  label: string
+  name: string
+}
+
 export interface IMenuAuthsFlated {
   ALL_AUTH_KEYS: string[]
   HIDE_AUTH_KEYS: Array<{
@@ -27,4 +32,5 @@ export interface IMenuAuthsFlated {
     belongsTo: string
   }>
   searchOptions: ISearchOption[]
+  keyOptions: IKeyOption[]
 }
