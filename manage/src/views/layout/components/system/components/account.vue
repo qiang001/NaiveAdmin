@@ -13,7 +13,15 @@
       trigger="click"
       :on-select="(key) => handleSelect(key)"
     >
-      <n-button size="small" :text="true">
+      <n-button
+        size="small"
+        :text="true"
+        :text-color="
+          inverted && store.state.layoutStyle === 'left-right'
+            ? '#eeeeee'
+            : undefined
+        "
+      >
         <div class="d-flex a-center j-center">
           <div class="d-flex a-center j-center">
             <img
@@ -42,6 +50,7 @@ import { NDropdown, DropdownOption, NButton, NIcon } from 'naive-ui'
 import LogoutIcon from '@vicons/material/ExitToAppSharp'
 import { Ref, inject, h } from 'vue'
 const collapsed = inject('collapsed') as Ref<boolean>
+const inverted = inject('inverted') as Ref<boolean>
 import { useStore } from '@/hooks/useStore'
 const store = useStore()
 
