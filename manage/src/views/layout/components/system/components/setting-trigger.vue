@@ -4,6 +4,7 @@
       v-if="!collapsed || store.state.layoutStyle === 'top-left-right'"
       size="small"
       :text="true"
+      :text-color="inverted ? '#eeeeee' : undefined"
       @click="() => emit('openSetting')"
     >
       <template #icon>
@@ -33,6 +34,7 @@ import { Ref, inject } from 'vue'
 import { useStore } from '@/hooks/useStore'
 const store = useStore()
 const collapsed = inject('collapsed') as Ref<boolean>
+const inverted = inject('inverted') as Ref<boolean>
 const emit = defineEmits(['openSetting'])
 </script>
 
