@@ -1,3 +1,3 @@
 exports.run = async () => {
-    console.log('脚本已执行')
+  console.log('脚本已执行')
 }

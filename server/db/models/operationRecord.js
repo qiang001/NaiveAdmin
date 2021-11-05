@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 
-const ObjectId = mongoose.Schema.Types.ObjectId;
+const ObjectId = mongoose.Schema.Types.ObjectId
 
 const Schema = mongoose.Schema({
   name: String,
@@ -15,11 +15,11 @@ const Schema = mongoose.Schema({
     },
   ],
   visitorInfo: {
-    _id: { type: ObjectId, ref: "User" },
+    _id: { type: ObjectId, ref: 'User' },
     username: String,
     name: String,
   },
   createdAt: Date,
-});
+})
 
-module.exports = mongoose.model("OperationRecord", Schema);
+module.exports = mongoose.model('OperationRecord', Schema)

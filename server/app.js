@@ -12,29 +12,30 @@ const port = Key.port
 serverStart(app, port)
 
 async function serverStart(app, port) {
-    try {
-        let res = await db.connect()
-        console.log(res)
-        if(process.env.NODE_ENV=='dev'){
-            await TempScript.run()
-        }
-        await Crontab.setup()
-        app.use(MidConfig())
-        app.use(RegisterRouter())
-        const conn = app.listen(port, () => {
-            console.log(`👻  :Server is now listening for the requests at port: ${port} `)
-            process.send('ready')
-        })
-        process.on('SIGINT', () => {
-            conn.keepAliveTimeout = 1
-            console.log('Closing server...')
-            conn.close(() => {
-                console.log('Server closed !!!')
-                process.exit()
-            })
-        })
-    } catch (err) {
-        console.log(err)
+  try {
+    let res = await db.connect()
+    console.log(res)
+    if (process.env.NODE_ENV == 'dev') {
+      await TempScript.run()
     }
-
+    await Crontab.setup()
+    app.use(MidConfig())
+    app.use(RegisterRouter())
+    const conn = app.listen(port, () => {
+      console.log(
+        `👻  :Server is now listening for the requests at port: ${port} `
+      )
+      process.send('ready')
+    })
+    process.on('SIGINT', () => {
+      conn.keepAliveTimeout = 1
+      console.log('Closing server...')
+      conn.close(() => {
+        console.log('Server closed !!!')
+        process.exit()
+      })
+    })
+  } catch (err) {
+    console.log(err)
+  }
 }

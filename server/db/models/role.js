@@ -1,16 +1,16 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
 
-const ObjectId = mongoose.Schema.Types.ObjectId;
+const ObjectId = mongoose.Schema.Types.ObjectId
 
 const Schema = mongoose.Schema({
   name: String,
   desc: String,
   pageAuths: [String],
-  pageCheckedAuths:[String],
+  pageCheckedAuths: [String],
   contentAuths: [String],
   logicAuths: [String],
-  users: [{ type: ObjectId, ref: "User" }],
+  users: [{ type: ObjectId, ref: 'User' }],
   createdAt: Date,
-});
+})
 
-module.exports = mongoose.model("Role", Schema);
+module.exports = mongoose.model('Role', Schema)
