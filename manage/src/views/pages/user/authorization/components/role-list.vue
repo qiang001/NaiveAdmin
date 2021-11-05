@@ -113,61 +113,65 @@ function createColumns(): Array<DataTableColumn> {
         const logicTags = logicAuths.map((key) =>
           renderTag('info', logicMaps.find((item) => item.key === key)?.label)
         )
-        return h('div', null, {
-          default: () => [
-            pageTags.length > 0
-              ? h('div', null, {
-                  default: () => [
-                    h(
-                      'div',
-                      {
-                        class: 'my-1',
-                        style: { fontSize: '12px', fontWeight: 'bold' },
-                      },
-                      '页面级权限'
-                    ),
-                    h(NSpace, null, {
-                      default: () => pageTags,
-                    }),
-                  ],
-                })
-              : '',
-            contentTags.length > 0
-              ? h('div', null, {
-                  default: () => [
-                    h(
-                      'div',
-                      {
-                        class: 'my-1',
-                        style: { fontSize: '12px', fontWeight: 'bold' },
-                      },
-                      '内容显示级权限'
-                    ),
-                    h(NSpace, null, {
-                      default: () => contentTags,
-                    }),
-                  ],
-                })
-              : '',
-            logicTags.length > 0
-              ? h('div', null, {
-                  default: () => [
-                    h(
-                      'div',
-                      {
-                        class: 'my-1',
-                        style: { fontSize: '12px', fontWeight: 'bold' },
-                      },
-                      '逻辑操作级权限'
-                    ),
-                    h(NSpace, null, {
-                      default: () => logicTags,
-                    }),
-                  ],
-                })
-              : '',
-          ],
-        })
+        return h(
+          'div',
+          { style: { marginTop: '-12px' } },
+          {
+            default: () => [
+              pageTags.length > 0
+                ? h('div', null, {
+                    default: () => [
+                      h(
+                        'div',
+                        {
+                          class: 'my-1',
+                          style: { fontSize: '12px', fontWeight: 'bold' },
+                        },
+                        '页面级权限'
+                      ),
+                      h(NSpace, null, {
+                        default: () => pageTags,
+                      }),
+                    ],
+                  })
+                : '',
+              contentTags.length > 0
+                ? h('div', null, {
+                    default: () => [
+                      h(
+                        'div',
+                        {
+                          class: 'my-1',
+                          style: { fontSize: '12px', fontWeight: 'bold' },
+                        },
+                        '内容显示级权限'
+                      ),
+                      h(NSpace, null, {
+                        default: () => contentTags,
+                      }),
+                    ],
+                  })
+                : '',
+              logicTags.length > 0
+                ? h('div', null, {
+                    default: () => [
+                      h(
+                        'div',
+                        {
+                          class: 'my-1',
+                          style: { fontSize: '12px', fontWeight: 'bold' },
+                        },
+                        '逻辑操作级权限'
+                      ),
+                      h(NSpace, null, {
+                        default: () => logicTags,
+                      }),
+                    ],
+                  })
+                : '',
+            ],
+          }
+        )
       },
     },
     {

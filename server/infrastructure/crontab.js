@@ -142,7 +142,7 @@ async function GenerateUsers() {
 
 module.exports = {
   setup: async () => {
-    schedule.scheduleJob('0 0 * * * *', async function () {
+    schedule.scheduleJob('0 0 0 * * *', async function () {
       await SystemSetup()
       await GenerateUsers()
     })
