@@ -55,11 +55,15 @@
       </n-popover>
     </n-space>
     <n-data-table
+      remote
       :scroll-x="minWidth"
-      :max-height="props.maxHeight"
+      :max-height="maxHeight"
       :columns="columns"
-      :data="props.list"
-      :loading="props.loading"
+      :data="list"
+      :loading="loading"
+      :pagination="pagination"
+      @update-page="(number) => emit('changePage', number)"
+      @update-page-size="(number) => emit('changePageSize', number)"
     >
       <template #empty>
         <empty-box showFile></empty-box>
@@ -82,6 +86,7 @@ import {
 import RefreshIcon from '@vicons/material/RefreshSharp'
 import SettingIcon from '@vicons/fluent/TextGrammarSettings24Regular'
 import EmptyBox from '@/components/EmptyBox.vue'
+import { IPagination } from '@/hooks/usePagination'
 import { computed, ref } from 'vue'
 
 // 核心属性
@@ -91,6 +96,7 @@ interface IProp {
   allColumns: Array<DataTableBaseColumn>
   list: Array<object>
   loading?: boolean
+  pagination: IPagination
 }
 const props = withDefaults(defineProps<IProp>(), {
   dynamicWidth: 0,
@@ -98,10 +104,11 @@ const props = withDefaults(defineProps<IProp>(), {
   allColumns: undefined,
   list: undefined,
   loading: false,
+  pagination: undefined,
 })
 
 // 暴露事件
-const emit = defineEmits(['refresh'])
+const emit = defineEmits(['refresh', 'changePage', 'changePageSize'])
 
 // 组件私有逻辑
 // 刷新列表

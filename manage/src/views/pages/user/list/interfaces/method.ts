@@ -1,9 +1,4 @@
-import {
-  IUserListItem,
-  IFilters,
-  IRoleOption,
-  IEditUser,
-} from './data'
+import { IUserListItem, IFilters, IRoleOption, IEditUser } from './data'
 import { IPagination } from '@/hooks/usePagination'
 import { modalType } from '@/hooks/useModal'
 // useActionHeader

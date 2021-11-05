@@ -5,6 +5,9 @@
     :allColumns="allColumns"
     :list="list"
     :loading="loading"
+    :pagination="pagination"
+    @changePage="changePage"
+    @changePageSize="changePageSize"
     @refresh="refresh"
   >
   </common-table>
@@ -22,15 +25,19 @@ import { useStatusTag } from '@/hooks/useStatusTag'
 import { useDateTime } from '@/hooks/useDateFormat'
 
 import { IUserListItem } from '../interfaces/data'
+import { IPagination } from '@/hooks/usePagination'
 import { h, inject, Ref } from 'vue'
 
 const maxHeight = inject('maxHeight') as Ref<number>
 const dynamicWidth = inject('dynamicWidth') as Ref<number>
 const list = inject('users') as Ref<Array<IUserListItem>>
 const loading = inject('loading') as Ref<boolean>
+const pagination = inject('pagination') as IPagination
 
 interface emitType {
   (e: 'refresh'): void
+  (e: 'changePage', data: number): void
+  (e: 'changePageSize', data: number): void
   (e: 'edit', data: IUserListItem): void
   (e: 'resetPassword', data: IUserListItem): void
   (e: '_delete', data: IUserListItem): void
@@ -39,6 +46,14 @@ const emit = defineEmits<emitType>()
 
 const refresh = () => {
   emit('refresh')
+}
+
+const changePage = (val: number) => {
+  emit('changePage', val)
+}
+
+const changePageSize = (val: number) => {
+  emit('changePageSize', val)
 }
 
 const allColumns = createAllColumns()

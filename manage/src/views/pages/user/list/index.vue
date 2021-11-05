@@ -12,11 +12,9 @@
       @edit="editUser"
       @resetPassword="resetPassword"
       @_delete="deleteUser"
-    ></user-list>
-    <pagination
       @changePage="changePage"
       @changePageSize="changePageSize"
-    ></pagination>
+    ></user-list>
     <edit-modal
       @cancel="closeEditModal"
       @confirm="confirmEditModal"
@@ -81,8 +79,6 @@ provide('users', users)
 provide('loading', readonly(loading))
 provide('dynamicWidth', readonly(dynamicWidth))
 provide('maxHeight', readonly(maxHeight))
-
-import Pagination from './components/pagination.vue'
 provide('pagination', pagination)
 
 import EditModal from './components/edit-modal.vue'

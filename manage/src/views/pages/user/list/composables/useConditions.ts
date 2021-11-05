@@ -1,4 +1,4 @@
-import { ref, reactive, unref, onMounted, nextTick } from 'vue'
+import { ref, reactive, unref, onMounted } from 'vue'
 import { IFilters, IUserListItem } from '../interfaces/data'
 import { usePagination } from '@/hooks/usePagination'
 import {
@@ -59,10 +59,8 @@ export const useConditions = ({ _getUsers }: Input) => {
   }
 
   const changePageSize: I_useConditions_changePageSize = async (pageSize) => {
-    nextTick(async () => {
-      setPagination({ page: 1, pageSize })
-      await queryUsers()
-    })
+    setPagination({ page: 1, pageSize })
+    await queryUsers()
   }
 
   // 数据交互

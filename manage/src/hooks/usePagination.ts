@@ -1,9 +1,10 @@
 import { reactive } from 'vue'
 export interface IPagination {
-  total: number
+  itemCount: number
   page: number
   pageSize: number
-  sizes: number[]
+  pageSizes: number[]
+  showSizePicker: boolean
 }
 
 interface ISetPagination {
@@ -14,15 +15,16 @@ interface ISetPagination {
 
 export const usePagination = () => {
   const pagination = reactive<IPagination>({
-    total: 0,
+    itemCount: 0,
     page: 1,
     pageSize: 5,
-    sizes: [5, 10, 15, 20],
+    pageSizes: [5, 10, 15, 20],
+    showSizePicker: true,
   })
 
   const setPagination = async (arg: ISetPagination) => {
     const { total, page, pageSize } = arg
-    total && (pagination.total = total)
+    total && (pagination.itemCount = total)
     page && (pagination.page = page)
     pageSize && (pagination.pageSize = pageSize)
   }

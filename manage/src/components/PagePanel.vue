@@ -20,7 +20,7 @@ import { toRefs, watchEffect, inject, Ref, computed } from 'vue'
 // 核心属性
 interface IProp {
   title: string
-  allowExpand: boolean
+  allowExpand?: boolean
 }
 const props = withDefaults(defineProps<IProp>(), {
   title: '',

@@ -43,7 +43,7 @@ import { NButton, NModal, NCard, NSpace, NIcon } from 'naive-ui'
 import CloseIcon from '@vicons/material/CloseOutlined'
 import FullscreenIcon from '@vicons/material/FullscreenFilled'
 import NormalscreenIcon from '@vicons/material/FullscreenExitFilled'
-import { toRefs, ref, computed } from 'vue'
+import { ref, computed } from 'vue'
 
 // 核心属性
 interface IProp {
@@ -62,15 +62,6 @@ const props = withDefaults(defineProps<IProp>(), {
   confirmBtnText: '确认',
   confirmLoading: false,
 })
-
-const {
-  showModal,
-  width,
-  title,
-  cancelBtnText,
-  confirmBtnText,
-  confirmLoading,
-} = toRefs(props)
 
 // 暴露事件
 const emit = defineEmits(['cancel', 'confirm'])
@@ -91,7 +82,7 @@ const handleFullscrenn = () => {
 
 // 组件宽度
 const cardWidth = computed(() =>
-  ifFullscreen.value ? 'min-height:100vh' : `max-width:${width.value}px`
+  ifFullscreen.value ? 'min-height:100vh' : `max-width:${props.width}px`
 )
 </script>
 
