@@ -1,8 +1,8 @@
 import { ref, onMounted } from 'vue'
-import { useActionHeader } from './hooks/useActionHeader'
-import { useApiCenter } from './hooks/useApiCenter'
-import { useRoleList } from './hooks/useRoleList'
-import { useEditModal } from './hooks/useEditModal'
+import { useActionHeader } from './composables/useActionHeader'
+import { useApiCenter } from './composables/useApiCenter'
+import { useRoleList } from './composables/useRoleList'
+import { useEditModal } from './composables/useEditModal'
 
 import { IRoleListItem } from './interfaces/data'
 import { I_initController_queryRoles } from './interfaces/method'

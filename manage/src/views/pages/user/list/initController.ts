@@ -1,9 +1,9 @@
-import { useActionHeader } from './hooks/useActionHeader'
-import { useApiCenter } from './hooks/useApiCenter'
-import { useUserList } from './hooks/useUserList'
-import { useConditions } from './hooks/useConditions'
-import { useEditModal } from './hooks/useEditModal'
-import { useResetPasswordModal } from './hooks/useResetPasswordModal'
+import { useActionHeader } from './composables/useActionHeader'
+import { useApiCenter } from './composables/useApiCenter'
+import { useUserList } from './composables/useUserList'
+import { useConditions } from './composables/useConditions'
+import { useEditModal } from './composables/useEditModal'
+import { useResetPasswordModal } from './composables/useResetPasswordModal'
 
 export const initController = () => {
   // [数据]逻辑 - 接口层

@@ -3,11 +3,11 @@
     style="width: 100%"
     class="page-panel"
     id="page-panel"
-    :class="`${store.state.ifDark ? 'page-panel-dark' : 'page-panel-light'}`"
-    :style="`${store.state.ifPageTitle ? 'padding-top:35px' : ''}`"
+    :class="`${ifDark ? 'page-panel-dark' : 'page-panel-light'}`"
+    :style="`${ifPageTitle ? 'padding-top:35px' : ''}`"
   >
     <transition name="slide" mode="out-in">
-      <div class="title" v-if="title && store.state.ifPageTitle">
+      <div class="title" v-if="title && ifPageTitle">
         {{ title }}
       </div>
     </transition>
@@ -16,31 +16,37 @@
 </template>
 
 <script setup lang="ts">
-import { useStore } from '@/hooks/useStore'
-const store = useStore()
-import { toRefs, watchEffect, inject, Ref } from 'vue'
-import type { PropType } from '@vue/runtime-core'
-const props = defineProps({
-  title: String as PropType<string>,
-  allowExpand: {
-    type: Boolean as PropType<boolean>,
-    default: true,
-  },
+import { toRefs, watchEffect, inject, Ref, computed } from 'vue'
+// 核心属性
+interface IProp {
+  title: string
+  allowExpand: boolean
+}
+const props = withDefaults(defineProps<IProp>(), {
+  title: '',
+  allowExpand: true,
 })
+
 const { title, allowExpand } = toRefs(props)
 
+// 组件核心逻辑
+// 主要是自适应铺满屏幕, 顺便通知外界自己的实时宽高
 import { useResizeContainer } from '../hooks/useResizeContainer'
 const { width, height, container } = useResizeContainer('page-panel')
 
+import { useStore } from '@/hooks/useStore'
+const store = useStore()
+
+const ifDark = computed(() => store.state.ifDark)
+const ifPageTitle = computed(() => store.state.ifPageTitle)
+const layoutStyle = computed(() => store.state.layoutStyle)
 const ifFullpage = inject('ifFullpage') as Ref<boolean>
-const setHeight = (key: string, val: number) => {
-  container.value.style.setProperty(key, `calc(100vh - ${val}px)`)
-}
 
 const emit = defineEmits(['resize'])
+
 watchEffect(() => {
   let otherHeight = 120
-  if (store.state.layoutStyle === 'left-right') {
+  if (layoutStyle.value === 'left-right') {
     otherHeight -= 64
   } else {
     if (ifFullpage.value) {
@@ -57,6 +63,10 @@ watchEffect(() => {
     emit('resize', { width: width.value, height: height.value })
   }
 })
+
+const setHeight = (key: string, val: number) => {
+  container.value.style.setProperty(key, `calc(100vh - ${val}px)`)
+}
 </script>
 
 <style scoped>

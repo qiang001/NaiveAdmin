@@ -1,9 +1,9 @@
 import { useStore } from '@/hooks/useStore'
 import { useRouter, useRoute } from 'vue-router'
-import { useFullscreen } from './hooks/useFullscreen'
-import { useMenu } from './hooks/useMenu'
-import { useHandleBar } from './hooks/useHandleBar'
-import { useSetting } from './hooks/useSetting'
+import { useFullscreen } from './composables/useFullscreen'
+import { useMenu } from './composables/useMenu'
+import { useHandleBar } from './composables/useHandleBar'
+import { useSetting } from './composables/useSetting'
 import { useLoadingBar } from 'naive-ui'
 
 export const initController = () => {

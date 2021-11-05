@@ -68,7 +68,7 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import {
   NDataTable,
   DataTableBaseColumn,
@@ -82,19 +82,29 @@ import {
 import RefreshIcon from '@vicons/material/RefreshSharp'
 import SettingIcon from '@vicons/fluent/TextGrammarSettings24Regular'
 import EmptyBox from '@/components/EmptyBox.vue'
-import type { PropType } from '@vue/runtime-core'
 import { computed, ref } from 'vue'
+
 // 核心属性
-const props = defineProps({
-  dynamicWidth: Number as PropType<number>,
-  maxHeight: Number as PropType<number>,
-  allColumns: Array as PropType<Array<DataTableBaseColumn>>,
-  list: Array as PropType<Array<object>>,
-  loading: Boolean as PropType<boolean>,
+interface IProp {
+  dynamicWidth: number
+  maxHeight?: number
+  allColumns: Array<DataTableBaseColumn>
+  list: Array<object>
+  loading?: boolean
+}
+const props = withDefaults(defineProps<IProp>(), {
+  dynamicWidth: 0,
+  maxHeight: undefined,
+  allColumns: undefined,
+  list: undefined,
+  loading: false,
 })
 
+// 暴露事件
 const emit = defineEmits(['refresh'])
 
+// 组件私有逻辑
+// 刷新列表
 const refreshing = ref(false)
 const refresh = () => {
   refreshing.value = true
@@ -103,27 +113,33 @@ const refresh = () => {
   }, 1000)
   emit('refresh')
 }
-
+// 筛选字段逻辑
 const ifCheckAll = ref(true)
 const ifCheckSome = ref(false)
-const dropdownOptions = ref([])
+interface IOption {
+  label: string
+  key: string
+  checked: boolean
+  width: number
+}
+const dropdownOptions = ref<Array<IOption>>([])
 dropdownOptions.value = props.allColumns.map((c) => {
   return {
-    label: c.title,
-    key: c.key,
+    label: c.title as string,
+    key: c.key as string,
     checked: true,
     width: c.width,
   }
 })
 
-const checkAll = (bool) => {
+const checkAll = (bool: boolean) => {
   ifCheckAll.value = bool
   ifCheckSome.value = false
   dropdownOptions.value.forEach((item) => (item.checked = bool))
 }
 
-const checkItem = (item, bool) => {
-  item.check = bool
+const checkItem = (item: IOption, bool: boolean) => {
+  item.checked = bool
   dropdownOptions.value.some((v) => v.checked) &&
     ((ifCheckAll.value = false), (ifCheckSome.value = true))
   dropdownOptions.value.every((v) => v.checked) &&
@@ -131,13 +147,13 @@ const checkItem = (item, bool) => {
   dropdownOptions.value.every((v) => !v.checked) &&
     ((ifCheckAll.value = false), (ifCheckSome.value = false))
 }
-
+// 筛选后最终列展示
 const columns = computed(() =>
   props.allColumns.filter((c) =>
     dropdownOptions.value.some((o) => o.checked && o.key === c.key)
   )
 )
-
+// 筛选后表格最终最小宽度
 const minWidth = computed(() => {
   const static_show_columns = dropdownOptions.value.filter(
     (o) => o.width && o.checked

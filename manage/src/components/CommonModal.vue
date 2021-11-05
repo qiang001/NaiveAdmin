@@ -39,23 +39,30 @@
 </template>
 
 <script setup lang="ts">
+import { NButton, NModal, NCard, NSpace, NIcon } from 'naive-ui'
 import CloseIcon from '@vicons/material/CloseOutlined'
 import FullscreenIcon from '@vicons/material/FullscreenFilled'
 import NormalscreenIcon from '@vicons/material/FullscreenExitFilled'
-import { NIcon } from 'naive-ui'
 import { toRefs, ref, computed } from 'vue'
-import type { PropType } from '@vue/runtime-core'
-import { NButton, NModal, NCard, NSpace } from 'naive-ui'
 
 // 核心属性
-const props = defineProps({
-  showModal: Boolean as PropType<boolean>,
-  width: Number as PropType<number>,
-  title: String as PropType<string>,
-  cancelBtnText: String as PropType<string>,
-  confirmBtnText: String as PropType<string>,
-  confirmLoading: Boolean as PropType<boolean>,
+interface IProp {
+  showModal: boolean
+  width?: number
+  title: string
+  cancelBtnText?: string
+  confirmBtnText?: string
+  confirmLoading: boolean
+}
+const props = withDefaults(defineProps<IProp>(), {
+  showModal: false,
+  width: 600,
+  title: '',
+  cancelBtnText: '取消',
+  confirmBtnText: '确认',
+  confirmLoading: false,
 })
+
 const {
   showModal,
   width,
@@ -75,6 +82,7 @@ const confirm = async () => {
   emit('confirm')
 }
 
+// 组件私有逻辑
 // 组件全屏
 const ifFullscreen = ref(false)
 const handleFullscrenn = () => {
@@ -82,10 +90,9 @@ const handleFullscrenn = () => {
 }
 
 // 组件宽度
-const cardWidth = computed(() => {
-  let value = width.value || 600
-  return ifFullscreen.value ? 'min-height:100vh' : `max-width:${value}px`
-})
+const cardWidth = computed(() =>
+  ifFullscreen.value ? 'min-height:100vh' : `max-width:${width.value}px`
+)
 </script>
 
 <style scoped>

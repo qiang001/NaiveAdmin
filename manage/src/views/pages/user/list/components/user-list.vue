@@ -16,16 +16,14 @@ import ResetIcon from '@vicons/fluent/Password24Filled'
 import EditIcon from '@vicons/material/EditNoteOutlined'
 import DeleteIcon from '@vicons/antd/DeleteOutlined'
 
-import { h, inject, Ref } from 'vue'
 import CommonTable from '@/components/CommonTable.vue'
 import { useIconButton } from '@/hooks/useIconButton'
 import { useStatusTag } from '@/hooks/useStatusTag'
 import { useDateTime } from '@/hooks/useDateFormat'
 
-import { useStore } from '@/hooks/useStore'
-const store = useStore()
-
 import { IUserListItem } from '../interfaces/data'
+import { h, inject, Ref } from 'vue'
+
 const maxHeight = inject('maxHeight') as Ref<number>
 const dynamicWidth = inject('dynamicWidth') as Ref<number>
 const list = inject('users') as Ref<Array<IUserListItem>>
@@ -98,12 +96,10 @@ function createAllColumns(): Array<DataTableBaseColumn> {
                 ? useStatusTag({
                     type: 'success',
                     text: '已激活',
-                    ifDark: store.state.ifDark,
                   })
                 : useStatusTag({
                     type: 'disabled',
                     text: '已离职',
-                    ifDark: store.state.ifDark,
                   }),
           }
         )

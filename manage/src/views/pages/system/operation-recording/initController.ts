@@ -1,5 +1,5 @@
 import { ref, onMounted } from 'vue'
-import { useApiCenter } from './hooks/useApiCenter'
+import { useApiCenter } from './composables/useApiCenter'
 import { IRecord } from './interfaces/data'
 import { I_initController_queryRecords } from './interfaces/method'
 

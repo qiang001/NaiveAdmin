@@ -1,22 +1,24 @@
-import { h } from 'vue'
+import { h, computed } from 'vue'
+import { useStore } from './useStore'
 interface Input {
   type: 'success' | 'disabled' | 'info'
   text: string
-  ifDark: boolean
 }
-export const useStatusTag = ({ type, text, ifDark }: Input) => {
+export const useStatusTag = ({ type, text }: Input) => {
+  const store = useStore()
+  const ifDark = computed(() => store.state.ifDark)
   const statusMap = {
     success: {
-      backgroundColor: !ifDark ? '#e2f4e3' : '#2c3c32',
-      textColor: !ifDark ? '#457a4c' : '#d0f0d1',
+      backgroundColor: !ifDark.value ? '#e2f4e3' : '#2c3c32',
+      textColor: !ifDark.value ? '#457a4c' : '#d0f0d1',
     },
     disabled: {
-      backgroundColor: !ifDark ? '#f2f2f2' : '#383838',
-      textColor: !ifDark ? '#95a4aa' : '#b2b2b2',
+      backgroundColor: !ifDark.value ? '#f2f2f2' : '#383838',
+      textColor: !ifDark.value ? '#95a4aa' : '#b2b2b2',
     },
     info: {
-      backgroundColor: !ifDark ? '#d9ebfe' : '#2b3849',
-      textColor: !ifDark ? '#2057a0' : '#cce4f6',
+      backgroundColor: !ifDark.value ? '#d9ebfe' : '#2b3849',
+      textColor: !ifDark.value ? '#2057a0' : '#cce4f6',
     },
   }
   const style = {

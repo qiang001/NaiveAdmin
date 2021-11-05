@@ -5,7 +5,7 @@
         src="../assets/images/empty-box.svg"
         alt=""
         style="width: 66px"
-        v-if="!store.state.ifDark"
+        v-if="!ifDark"
       />
       <img
         src="../assets/images/empty-box-dark.svg"
@@ -22,7 +22,7 @@
         src="../assets/images/empty-box-file.svg"
         alt=""
         style="width: 99px"
-        v-if="!store.state.ifDark"
+        v-if="!ifDark"
       />
       <img
         src="../assets/images/empty-box-file-dark.svg"
@@ -39,16 +39,22 @@
 
 <script setup lang="ts">
 import { NElement } from 'naive-ui'
-import { toRefs } from 'vue'
+import { toRefs, computed } from 'vue'
+
+// 核心属性
+interface IProp {
+  showFile: boolean
+}
+const props = withDefaults(defineProps<IProp>(), {
+  showFile: false,
+})
+
+const { showFile } = toRefs(props)
+
+// 组件私有逻辑
 import { useStore } from '@/hooks/useStore'
 const store = useStore()
-const props = defineProps({
-  showFile: {
-    type: Boolean,
-    default: false,
-  },
-})
-const { showFile } = toRefs(props)
+const ifDark = computed(() => store.state.ifDark)
 </script>
 
 <style scoped>

@@ -1,10 +1,10 @@
 import {
   IUserListItem,
   IFilters,
-  IPagination,
   IRoleOption,
   IEditUser,
 } from './data'
+import { IPagination } from '@/hooks/usePagination'
 import { modalType } from '@/hooks/useModal'
 // useActionHeader
 export interface I_useActionHeader_add {

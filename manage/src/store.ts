@@ -122,12 +122,15 @@ export const buildStore = (router: Router) => {
       SET_USERINFO(state, userInfo) {
         state.userInfo = userInfo
       },
-      SET_AUTH(state, AUTH_KEYS) {
-        state.authKeys = [...AUTH_KEYS]
+      SET_AUTH(state, auths) {
+        const { authKeys, contentAuths, logicAuths } = auths
+        state.authKeys = [...authKeys]
+        state.contentAuths = contentAuths
+        state.logicAuths = logicAuths
         const pages = buildPages(pageConfig)
         pages.forEach((page) => {
           const removeRoute = router.addRoute('Layout', page)
-          if (!AUTH_KEYS.includes(page.name)) {
+          if (!authKeys.includes(page.name)) {
             removeRoute()
           } else {
             page?.meta?.ifCache &&
@@ -136,18 +139,14 @@ export const buildStore = (router: Router) => {
           }
         })
         state.menuOptions = buildMenuOptions(pageConfig, {
-          AUTH_KEYS,
+          AUTH_KEYS: authKeys,
           ifHideIcon: false,
         })
         state.menuOptionsWithoutIcon = buildMenuOptions(pageConfig, {
-          AUTH_KEYS,
+          AUTH_KEYS: authKeys,
           ifHideIcon: true,
         })
         prevent404()
-      },
-      SET_PERMISSION(state, data) {
-        state.contentAuths = data.contentAuths
-        state.logicAuths = data.logicAuths
       },
       CLEAR_LOGIN_MESSAGE(state) {
         state.loginPageMessage.type = null
@@ -159,19 +158,36 @@ export const buildStore = (router: Router) => {
       },
     },
     actions: {
-      logout: ({ commit }) => {
-        commit('SET_TOKEN', '')
-        commit('SET_USERINFO', '')
-        commit('SET_AUTH', [])
-        commit('SET_PERMISSION', { contentAuths: [], logicAuths: [] })
-        commit('SET_LOGIN_MESSAGE', { type: 'success', text: '成功退出系统！' })
-        router.replace('/login')
-      },
-      login: async ({ commit }, data) => {
+      login: async ({ dispatch }, data) => {
         const token = await loginUser(data)
         if (!token) {
           return
         }
+        await dispatch('setupAuths', token)
+        router.replace('/')
+      },
+      refreshLogin: async ({ commit, dispatch }, token) => {
+        try {
+          await dispatch('setupAuths', token)
+          router.replace(router.currentRoute.value.fullPath)
+        } catch (error) {
+          dispatch('clearAuths')
+          commit('SET_LOGIN_MESSAGE', {
+            type: 'error',
+            text:
+              error.message == '服务器连接失败，请检查网络状态'
+                ? error.message
+                : 'token 已过期，请重新登录',
+          })
+          router.replace('/login')
+        }
+      },
+      logout: ({ commit, dispatch }) => {
+        dispatch('clearAuths')
+        commit('SET_LOGIN_MESSAGE', { type: 'success', text: '成功退出系统！' })
+        router.replace('/login')
+      },
+      setupAuths: async ({ commit }, token) => {
         commit('SET_TOKEN', token)
         const userInfo = await getUserInfo(token)
         commit('SET_USERINFO', userInfo)
@@ -206,62 +222,12 @@ export const buildStore = (router: Router) => {
           contentAuths = permission.contentAuths
           logicAuths = permission.logicAuths
         }
-        commit('SET_AUTH', authKeys)
-        commit('SET_PERMISSION', { contentAuths, logicAuths })
-        router.replace('/')
+        commit('SET_AUTH', { authKeys, contentAuths, logicAuths })
       },
-      refreshLogin: async ({ commit }, token) => {
-        try {
-          commit('SET_TOKEN', token)
-          const userInfo = await getUserInfo(token)
-          commit('SET_USERINFO', userInfo)
-          let authKeys = []
-          let contentAuths = []
-          let logicAuths = []
-          if (userInfo.name == '超级管理员') {
-            authKeys = ALL_AUTH_KEYS
-          } else {
-            const permission = userInfo.roles.reduce(
-              (acc, cur) => {
-                cur.pageAuths.forEach((key) => {
-                  acc.authKeys = acc.authKeys.includes(key)
-                    ? [...acc.authKeys]
-                    : [...acc.authKeys, key]
-                })
-                cur.contentAuths.forEach((key) => {
-                  acc.contentAuths = acc.contentAuths.includes(key)
-                    ? [...acc.contentAuths]
-                    : [...acc.contentAuths, key]
-                })
-                cur.logicAuths.forEach((key) => {
-                  acc.logicAuths = acc.logicAuths.includes(key)
-                    ? [...acc.logicAuths]
-                    : [...acc.logicAuths, key]
-                })
-                return acc
-              },
-              { authKeys: [], contentAuths: [], logicAuths: [] }
-            )
-            authKeys = permission.authKeys
-            contentAuths = permission.contentAuths
-            logicAuths = permission.logicAuths
-          }
-          commit('SET_AUTH', authKeys)
-          commit('SET_PERMISSION', { contentAuths, logicAuths })
-          router.replace(router.currentRoute.value.fullPath)
-        } catch (error) {
-          commit('SET_TOKEN', '')
-          commit('SET_AUTH', [])
-          store.commit('SET_PERMISSION', { contentAuths: [], logicAuths: [] })
-          commit('SET_LOGIN_MESSAGE', {
-            type: 'error',
-            text:
-              error.message == '服务器连接失败，请检查网络状态'
-                ? error.message
-                : 'token 已过期，请重新登录',
-          })
-          router.replace('/login')
-        }
+      clearAuths: ({ commit }) => {
+        commit('SET_TOKEN', '')
+        commit('SET_USERINFO', '')
+        commit('SET_AUTH', { authKeys: [], contentAuths: [], logicAuths: [] })
       },
     },
   })

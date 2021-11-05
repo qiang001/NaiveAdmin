@@ -1,5 +1,5 @@
 <template>
-  <page-panel :title="'操作记录'" :allow-expand="true">
+  <page-panel :title="'操作记录'">
     <record-list></record-list>
   </page-panel>
 </template>

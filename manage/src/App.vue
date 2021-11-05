@@ -43,20 +43,6 @@ onMounted(() => {
     store.commit('SET_IFDARK', _ifDark)
     store.commit('SET_IFPAGETITLE', _ifPageTitle)
   }
-  // 刷新自动登录
-  const token = localStorage.getItem('token')
-  if (token) {
-    store.dispatch('refreshLogin', token)
-  } else {
-    store.commit('SET_TOKEN', '')
-    store.commit('SET_AUTH', [])
-    store.commit('SET_PERMISSION', { contentAuths: [], logicAuths: [] })
-    store.commit('SET_LOGIN_MESSAGE', {
-      type: 'success',
-      text: '欢迎光临，赶快立即登录体验吧！',
-    })
-    router.replace('/login')
-  }
   // 本地持久化存储
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'hidden') {
@@ -71,6 +57,18 @@ onMounted(() => {
       localStorage.setItem('token', store.state.token)
     }
   })
+  // 刷新自动登录
+  const token = localStorage.getItem('token')
+  if (token) {
+    store.dispatch('refreshLogin', token)
+  } else {
+    store.dispatch('clearAuths')
+    store.commit('SET_LOGIN_MESSAGE', {
+      type: 'success',
+      text: '欢迎光临，赶快立即登录体验吧！',
+    })
+    router.replace('/login')
+  }
 })
 </script>
 

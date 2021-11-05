@@ -1,5 +1,5 @@
 import { reactive } from 'vue'
-interface IPagination {
+export interface IPagination {
   total: number
   page: number
   pageSize: number
