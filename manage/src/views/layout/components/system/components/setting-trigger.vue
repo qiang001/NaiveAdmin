@@ -4,7 +4,11 @@
       v-if="!collapsed || store.state.layoutStyle === 'top-left-right'"
       size="small"
       :text="true"
-      :text-color="inverted ? '#eeeeee' : undefined"
+      :text-color="
+        inverted && store.state.layoutStyle === 'left-right'
+          ? '#eeeeee'
+          : undefined
+      "
       @click="() => emit('openSetting')"
     >
       <template #icon>

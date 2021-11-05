@@ -16,7 +16,11 @@
       <n-button
         size="small"
         :text="true"
-        :text-color="inverted ? '#eeeeee' : undefined"
+        :text-color="
+          inverted && store.state.layoutStyle === 'left-right'
+            ? '#eeeeee'
+            : undefined
+        "
       >
         <div class="d-flex a-center j-center">
           <div class="d-flex a-center j-center">
