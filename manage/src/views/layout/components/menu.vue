@@ -144,5 +144,6 @@ const activeBarColor = computed(() =>
 }
 :deep(.n-menu .n-menu-item.n-menu-item--selected::before) {
   border-right: 3px solid v-bind(activeBarColor);
+  transition: all 0.3s var(--bezier);
 }
 </style>
