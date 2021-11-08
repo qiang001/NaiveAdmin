@@ -1,6 +1,5 @@
-import { useDebounce } from '@/hooks/useDebounce'
 import { useModal, modalType } from '@/hooks/useModal'
-import { ref, reactive, unref, Ref } from 'vue'
+import { reactive, unref } from 'vue'
 import { IRoleListItem } from '../interfaces/data'
 import {
   // Input
@@ -13,9 +12,9 @@ import {
 } from '../interfaces/method'
 interface Input {
   queryRoles: I_initController_queryRoles
-  saveToDB: I_useApiCenter_saveToDB
+  _saveToDB: I_useApiCenter_saveToDB
 }
-export const useEditModal = ({ queryRoles, saveToDB }: Input) => {
+export const useEditModal = ({ queryRoles, _saveToDB }: Input) => {
   // 引入基本弹窗
   const {
     modalShow: editModal,
@@ -24,12 +23,7 @@ export const useEditModal = ({ queryRoles, saveToDB }: Input) => {
     closeModal,
     setModalType,
   } = useModal()
-  // 防抖包裹
-  const {
-    ifProcessing: confirmLoading,
-    func: _saveToDB,
-  }: { ifProcessing: Ref<boolean>; func: I_useApiCenter_saveToDB } =
-    useDebounce(saveToDB)
+
   // 核心数据
   const role = reactive<IRoleListItem>({
     _id: null,
@@ -104,7 +98,7 @@ export const useEditModal = ({ queryRoles, saveToDB }: Input) => {
     setModalType('create')
   }
   // 最终对外暴露
-  const data = { editModalType, editModal, confirmLoading, role }
+  const data = { editModalType, editModal, role }
   const methods = { open, close, confirm }
   return {
     ...data,

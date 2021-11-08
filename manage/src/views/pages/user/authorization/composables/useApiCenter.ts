@@ -33,18 +33,29 @@ export const useApiCenter = () => {
     func: _getRoles,
   }: { ifProcessing: Ref<boolean>; func: I_useApiCenter_getRoles } =
     useDebounce(getRoles, 200)
+
   // 保存编辑后的数据
   const saveToDB: I_useApiCenter_saveToDB = async ({ data, type }) => {
     return type == 'edit'
       ? await request.put(`/v1/roles/${data._id}`, data)
       : await request.post('/v1/roles', data)
   }
+  const {
+    ifProcessing: confirmLoading,
+    func: _saveToDB,
+  }: { ifProcessing: Ref<boolean>; func: I_useApiCenter_saveToDB } =
+    useDebounce(saveToDB)
+
   // 删除数据
   const deleteFromDB: I_useApiCenter_deleteFromDB = async ({ data }) => {
     return await request.delete(`/v1/roles/${data._id}`)
   }
-  const data = { loading }
-  const method = { exportData, _getRoles, saveToDB, deleteFromDB }
+  const {
+    func: _deleteFromDB,
+  }: { ifProcessing: Ref<boolean>; func: I_useApiCenter_deleteFromDB } =
+    useDebounce(deleteFromDB)
+  const data = { loading, confirmLoading }
+  const method = { exportData, _getRoles, _saveToDB, _deleteFromDB }
   return {
     ...data,
     ...method,

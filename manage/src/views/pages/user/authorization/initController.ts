@@ -9,8 +9,14 @@ import { I_initController_queryRoles } from './interfaces/method'
 
 export const initController = () => {
   // 接口层
-  const { exportData, loading, _getRoles, saveToDB, deleteFromDB } =
-    useApiCenter()
+  const {
+    exportData,
+    loading,
+    _getRoles,
+    confirmLoading,
+    _saveToDB,
+    _deleteFromDB,
+  } = useApiCenter()
   // 初始化数据
   const roles = ref<Array<IRoleListItem>>([])
   const queryRoles: I_initController_queryRoles = async () => {
@@ -23,12 +29,11 @@ export const initController = () => {
   const {
     editModalType,
     editModal,
-    confirmLoading,
     role,
     open: openEditModal,
     close: closeEditModal,
     confirm: confirmEditModal,
-  } = useEditModal({ queryRoles, saveToDB })
+  } = useEditModal({ queryRoles, _saveToDB })
   // 按钮组逻辑
   const {
     exportLoading,
@@ -46,7 +51,7 @@ export const initController = () => {
   } = useRoleList({
     queryRoles,
     openEditModal,
-    deleteFromDB,
+    _deleteFromDB,
   })
 
   // 最终对外暴露
