@@ -12,7 +12,8 @@ export const initController = () => {
     _getUsers,
     rolesLoading,
     _getRoleOptions,
-    saveToDB,
+    confirmLoading,
+    _saveToDB,
     changePassword,
     deleteFromDB,
   } = useApiCenter()
@@ -37,7 +38,6 @@ export const initController = () => {
   const {
     editModalType,
     editModal,
-    confirmLoading,
     user,
     roleOptions,
     open: openEditModal,
@@ -45,7 +45,7 @@ export const initController = () => {
     confirm: confirmEditModal,
   } = useEditModal({
     _getRoleOptions,
-    saveToDB,
+    _saveToDB,
     resetFilters,
     resetSort,
     resetPage,

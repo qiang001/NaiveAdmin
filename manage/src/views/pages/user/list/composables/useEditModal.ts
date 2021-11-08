@@ -17,7 +17,7 @@ import {
 } from '../interfaces/method'
 interface Input {
   _getRoleOptions: I_useApiCenter_getRoleOptions
-  saveToDB: I_useApiCenter_saveToDB
+  _saveToDB: I_useApiCenter_saveToDB
   resetFilters: I_useConditions_resetFilters
   resetSort: I_useConditions_resetSort
   resetPage: I_useConditions_resetPage
@@ -25,7 +25,7 @@ interface Input {
 }
 export const useEditModal = ({
   _getRoleOptions,
-  saveToDB,
+  _saveToDB,
   resetFilters,
   resetSort,
   resetPage,
@@ -39,12 +39,7 @@ export const useEditModal = ({
     closeModal,
     setModalType,
   } = useModal()
-  // 防抖包裹
-  const {
-    ifProcessing: confirmLoading,
-    func: _saveToDB,
-  }: { ifProcessing: Ref<boolean>; func: I_useApiCenter_saveToDB } =
-    useDebounce(saveToDB)
+
   // 核心数据
   const user = reactive<IEditUser>({
     _id: null,
@@ -112,7 +107,7 @@ export const useEditModal = ({
   }
 
   // 最终对外暴露
-  const data = { editModalType, editModal, confirmLoading, user, roleOptions }
+  const data = { editModalType, editModal, user, roleOptions }
   const methods = { open, close, confirm }
   return {
     ...data,

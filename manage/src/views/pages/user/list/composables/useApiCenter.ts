@@ -66,6 +66,12 @@ export const useApiCenter = () => {
       ? await request.put(`/v1/users/${data._id}`, data)
       : await request.post('/v1/users', data)
   }
+  const {
+    ifProcessing: confirmLoading,
+    func: _saveToDB,
+  }: { ifProcessing: Ref<boolean>; func: I_useApiCenter_saveToDB } =
+    useDebounce(saveToDB)
+  // 修改密码
   const changePassword: I_useApiCenter_changePassword = async ({ data }) => {
     return await request.patch(`/v1/users/${data._id}`, data)
   }
@@ -73,11 +79,11 @@ export const useApiCenter = () => {
   const deleteFromDB: I_useApiCenter_deleteFromDB = async ({ data }) => {
     return await request.delete(`/v1/users/${data._id}`)
   }
-  const data = { loading, rolesLoading }
+  const data = { loading, rolesLoading, confirmLoading }
   const method = {
     _getUsers,
     _getRoleOptions,
-    saveToDB,
+    _saveToDB,
     changePassword,
     deleteFromDB,
   }
