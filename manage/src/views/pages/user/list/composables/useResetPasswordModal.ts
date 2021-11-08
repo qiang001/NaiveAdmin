@@ -11,17 +11,12 @@ import {
   I_useResetPasswordModal_confirm,
 } from '../interfaces/method'
 interface Input {
-  changePassword: I_useApiCenter_changePassword
+  _changePassword: I_useApiCenter_changePassword
 }
-export const useResetPasswordModal = ({ changePassword }: Input) => {
+export const useResetPasswordModal = ({ _changePassword }: Input) => {
   // 维护状态数据
   const { modalShow: resetPasswordModal, closeModal, openModal } = useModal()
-  // 防抖包裹
-  const {
-    ifProcessing: confirmLoading,
-    func: _changePassword,
-  }: { ifProcessing: Ref<boolean>; func: I_useApiCenter_changePassword } =
-    useDebounce(changePassword)
+
   const user = reactive<IUserResetPassword>({
     _id: null,
     password: '',
@@ -64,7 +59,7 @@ export const useResetPasswordModal = ({ changePassword }: Input) => {
   }
 
   // 最终对外暴露
-  const data = { resetPasswordModal, confirmLoading, user }
+  const data = { resetPasswordModal, user }
   const methods = { open, close, confirm }
   return {
     ...data,

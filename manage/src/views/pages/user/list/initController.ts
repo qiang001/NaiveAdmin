@@ -14,7 +14,8 @@ export const initController = () => {
     _getRoleOptions,
     confirmLoading,
     _saveToDB,
-    changePassword,
+    resetLoading,
+    _changePassword,
     deleteFromDB,
   } = useApiCenter()
 
@@ -54,12 +55,11 @@ export const initController = () => {
   // 密码重置框
   const {
     resetPasswordModal,
-    confirmLoading: resetLoading,
     user: resetUser,
     open: openResetPasswordModal,
     close: closeResetPasswordModal,
     confirm: confirmResetPasswordModal,
-  } = useResetPasswordModal({ changePassword })
+  } = useResetPasswordModal({ _changePassword })
   // Action 页面
   const {
     add: addUser,
