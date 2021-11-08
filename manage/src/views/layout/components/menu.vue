@@ -142,6 +142,10 @@ const activeBarColor = computed(() =>
   right: 0;
   border-radius: 0;
 }
+:deep(.n-menu .n-menu-item::before) {
+  border-right: 3px solid transparent;
+  transition: all 0.3s var(--bezier);
+}
 :deep(.n-menu .n-menu-item.n-menu-item--selected::before) {
   border-right: 3px solid v-bind(activeBarColor);
   transition: all 0.3s var(--bezier);
