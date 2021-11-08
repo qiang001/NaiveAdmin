@@ -19,7 +19,7 @@
         </div>
       </template>
       <template #default> <slot></slot> </template>
-      <template #action>
+      <template #action v-if="footer">
         <div class="d-flex a-center j-center">
           <n-space>
             <n-button @click="cancel">{{ cancelBtnText }}</n-button>
@@ -50,6 +50,7 @@ interface IProp {
   showModal: boolean
   width?: number
   title: string
+  footer: boolean
   cancelBtnText?: string
   confirmBtnText?: string
   confirmLoading?: boolean
@@ -58,6 +59,7 @@ const props = withDefaults(defineProps<IProp>(), {
   showModal: false,
   width: 600,
   title: '',
+  footer: true,
   cancelBtnText: '取消',
   confirmBtnText: '确认',
   confirmLoading: false,
