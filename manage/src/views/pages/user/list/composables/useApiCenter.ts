@@ -86,13 +86,18 @@ export const useApiCenter = () => {
   const deleteFromDB: I_useApiCenter_deleteFromDB = async ({ data }) => {
     return await request.delete(`/v1/users/${data._id}`)
   }
+  const {
+    func: _deleteFromDB,
+  }: { ifProcessing: Ref<boolean>; func: I_useApiCenter_deleteFromDB } =
+    useDebounce(deleteFromDB)
+
   const data = { loading, rolesLoading, confirmLoading, resetLoading }
   const method = {
     _getUsers,
     _getRoleOptions,
     _saveToDB,
     _changePassword,
-    deleteFromDB,
+    _deleteFromDB,
   }
   return {
     ...data,

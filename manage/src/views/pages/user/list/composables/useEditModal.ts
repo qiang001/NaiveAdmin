@@ -1,6 +1,5 @@
-import { useDebounce } from '@/hooks/useDebounce'
 import { useModal, modalType } from '@/hooks/useModal'
-import { ref, reactive, unref, Ref } from 'vue'
+import { ref, reactive, unref } from 'vue'
 import { IUserListItem, IEditUser, IRoleOption } from '../interfaces/data'
 import {
   // Input

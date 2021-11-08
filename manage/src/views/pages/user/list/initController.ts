@@ -16,7 +16,7 @@ export const initController = () => {
     _saveToDB,
     resetLoading,
     _changePassword,
-    deleteFromDB,
+    _deleteFromDB,
   } = useApiCenter()
 
   // [搜索、排序、分页]逻辑 - 列表数据初始化放这里面比较好
@@ -89,7 +89,7 @@ export const initController = () => {
   } = useUserList({
     openEditModal,
     openResetPasswordModal,
-    deleteFromDB,
+    _deleteFromDB,
     resetPage,
     queryUsers,
   })

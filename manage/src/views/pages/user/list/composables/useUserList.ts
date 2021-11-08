@@ -18,7 +18,7 @@ import {
 interface Input {
   openEditModal: I_useEditModal_open
   openResetPasswordModal: I_useResetPasswordModal_open
-  deleteFromDB: I_useApiCenter_deleteFromDB
+  _deleteFromDB: I_useApiCenter_deleteFromDB
   resetPage: I_useConditions_resetPage
   queryUsers: I_useConditions_queryUsers
 }
@@ -26,7 +26,7 @@ interface Input {
 export const useUserList = ({
   openEditModal,
   openResetPasswordModal,
-  deleteFromDB,
+  _deleteFromDB,
   resetPage,
   queryUsers,
 }: Input) => {
@@ -37,11 +37,6 @@ export const useUserList = ({
     otherHeightTotalStatic: 166,
     otherElementIds: ['action-header'],
   })
-  // 防抖包裹
-  const {
-    func: _deleteFromDB,
-  }: { ifProcessing: Ref<boolean>; func: I_useApiCenter_deleteFromDB } =
-    useDebounce(deleteFromDB)
 
   // 核心方法
   const refresh: I_useUserList_refresh = async () => {

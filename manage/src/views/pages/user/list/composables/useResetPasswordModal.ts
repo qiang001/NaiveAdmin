@@ -1,6 +1,5 @@
-import { useDebounce } from '@/hooks/useDebounce'
 import { useModal } from '@/hooks/useModal'
-import { reactive, unref, Ref } from 'vue'
+import { reactive, unref } from 'vue'
 import { IUserResetPassword, IUserListItem } from '../interfaces/data'
 import {
   // Input
@@ -14,14 +13,16 @@ interface Input {
   _changePassword: I_useApiCenter_changePassword
 }
 export const useResetPasswordModal = ({ _changePassword }: Input) => {
-  // 维护状态数据
+  // 引入基本弹窗
   const { modalShow: resetPasswordModal, closeModal, openModal } = useModal()
 
+  // 核心数据
   const user = reactive<IUserResetPassword>({
     _id: null,
     password: '',
     passwordConfirm: '',
   })
+
   // 核心方法
   const open: I_useResetPasswordModal_open = async ({ data }) => {
     setUser(data)
