@@ -54,6 +54,7 @@ const {
   editModalType,
   editModal,
   user,
+  rolesLoading,
   roleOptions,
   confirmLoading,
   closeEditModal,
@@ -85,6 +86,7 @@ import EditModal from './components/edit-modal.vue'
 provide('editModalType', readonly(editModalType))
 provide('editModal', readonly(editModal))
 provide('user', user)
+provide('rolesLoading', readonly(rolesLoading))
 provide('roleOptions', readonly(roleOptions))
 provide('confirmLoading', readonly(confirmLoading))
 

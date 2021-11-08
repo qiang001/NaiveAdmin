@@ -36,12 +36,21 @@
       </n-form-item>
       <n-form-item label="权限设置" path="roles" rule-path="user.roles">
         <n-select
+          v-if="!rolesLoading"
           placeholder="设置角色"
           :options="roleOptions"
           v-model:value="user.roles"
           multiple
           clearable
         />
+        <n-button
+          v-else
+          :text="true"
+          :loading="rolesLoading"
+          :disabled="rolesLoading"
+        >
+          Loading...
+        </n-button>
       </n-form-item>
       <n-form-item label="当前状态">
         <n-switch v-model:value="user.ifActive">
@@ -61,6 +70,7 @@ import {
   NSelect,
   SelectOption,
   NSwitch,
+  NButton,
 } from 'naive-ui'
 import CommonModal from '@/components/CommonModal.vue'
 import { ref, inject, Ref } from 'vue'
@@ -71,6 +81,7 @@ const editModal = inject('editModal') as Ref<boolean>
 const confirmLoading = inject('confirmLoading') as Ref<boolean>
 import { IEditUser } from '../interfaces/data'
 const user = inject('user') as IEditUser
+const rolesLoading = inject('rolesLoading') as Ref<boolean>
 const roleOptions = inject('roleOptions') as Array<SelectOption>
 // 表单相关
 const formRef = ref(null)

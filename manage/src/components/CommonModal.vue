@@ -52,7 +52,7 @@ interface IProp {
   title: string
   cancelBtnText?: string
   confirmBtnText?: string
-  confirmLoading: boolean
+  confirmLoading?: boolean
 }
 const props = withDefaults(defineProps<IProp>(), {
   showModal: false,

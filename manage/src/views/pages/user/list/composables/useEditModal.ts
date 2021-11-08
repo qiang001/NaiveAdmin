@@ -16,7 +16,7 @@ import {
   I_useEditModal_confirm,
 } from '../interfaces/method'
 interface Input {
-  getRoleOptions: I_useApiCenter_getRoleOptions
+  _getRoleOptions: I_useApiCenter_getRoleOptions
   saveToDB: I_useApiCenter_saveToDB
   resetFilters: I_useConditions_resetFilters
   resetSort: I_useConditions_resetSort
@@ -24,7 +24,7 @@ interface Input {
   queryUsers: I_useConditions_queryUsers
 }
 export const useEditModal = ({
-  getRoleOptions,
+  _getRoleOptions,
   saveToDB,
   resetFilters,
   resetSort,
@@ -62,8 +62,8 @@ export const useEditModal = ({
     } else {
       resetUser()
     }
-    roleOptions.value = await getRoleOptions()
     openModal()
+    roleOptions.value = await _getRoleOptions()
   }
 
   const close: I_useEditModal_close = () => {

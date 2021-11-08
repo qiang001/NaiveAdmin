@@ -10,7 +10,8 @@ export const initController = () => {
   const {
     loading,
     _getUsers,
-    getRoleOptions,
+    rolesLoading,
+    _getRoleOptions,
     saveToDB,
     changePassword,
     deleteFromDB,
@@ -43,7 +44,7 @@ export const initController = () => {
     close: closeEditModal,
     confirm: confirmEditModal,
   } = useEditModal({
-    getRoleOptions,
+    _getRoleOptions,
     saveToDB,
     resetFilters,
     resetSort,
@@ -104,6 +105,7 @@ export const initController = () => {
     editModal,
     confirmLoading,
     user,
+    rolesLoading,
     roleOptions,
     resetPasswordModal,
     resetLoading,

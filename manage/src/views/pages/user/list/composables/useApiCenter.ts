@@ -54,6 +54,11 @@ export const useApiCenter = () => {
   const getRoleOptions: I_useApiCenter_getRoleOptions = async () => {
     return await request.get('/v1/users/roles')
   }
+  const {
+    ifProcessing: rolesLoading,
+    func: _getRoleOptions,
+  }: { ifProcessing: Ref<boolean>; func: I_useApiCenter_getRoleOptions } =
+    useDebounce(getRoleOptions, 200)
 
   // 保存编辑后的数据
   const saveToDB: I_useApiCenter_saveToDB = async ({ data, type }) => {
@@ -68,10 +73,10 @@ export const useApiCenter = () => {
   const deleteFromDB: I_useApiCenter_deleteFromDB = async ({ data }) => {
     return await request.delete(`/v1/users/${data._id}`)
   }
-  const data = { loading }
+  const data = { loading,rolesLoading }
   const method = {
     _getUsers,
-    getRoleOptions,
+    _getRoleOptions,
     saveToDB,
     changePassword,
     deleteFromDB,

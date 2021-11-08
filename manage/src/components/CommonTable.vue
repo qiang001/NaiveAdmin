@@ -91,7 +91,7 @@ import { computed, ref } from 'vue'
 
 // 核心属性
 interface IProp {
-  dynamicWidth: number
+  dynamicWidth?: number
   maxHeight?: number
   allColumns: Array<DataTableBaseColumn>
   list: Array<object>
