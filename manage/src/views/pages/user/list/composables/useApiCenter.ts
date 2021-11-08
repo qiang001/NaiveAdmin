@@ -73,7 +73,7 @@ export const useApiCenter = () => {
   const deleteFromDB: I_useApiCenter_deleteFromDB = async ({ data }) => {
     return await request.delete(`/v1/users/${data._id}`)
   }
-  const data = { loading,rolesLoading }
+  const data = { loading, rolesLoading }
   const method = {
     _getUsers,
     _getRoleOptions,
