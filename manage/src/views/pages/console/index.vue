@@ -56,7 +56,7 @@ provide('ifSizeChange', ifSizeChange)
 provide('walden', walden)
 provide('essos', essos)
 const handleResize = ({ width }) => {
-  ifSizeChange.value = width - 40 || 0
+  ifSizeChange.value = width || 0
 }
 
 import { gsap } from 'gsap'

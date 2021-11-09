@@ -10,9 +10,12 @@ export const useResponsiveTable = (config: ITableConfig) => {
   const dynamicWidth = ref<number>(undefined)
   config.dynamicWidth && (dynamicWidth.value = config.dynamicWidth)
   const maxHeight = ref<number>(undefined)
-  const { height: containerHeight } = useResizeContainer(config.containerId)
+  const { height: containerHeight } = useResizeContainer(
+    config.containerId,
+    'inner'
+  )
   const dynamicHeights = config.otherElementIds.map((id) => {
-    const { height } = useResizeContainer(id)
+    const { height } = useResizeContainer(id, 'outer')
     return height
   })
   watchEffect(() => {

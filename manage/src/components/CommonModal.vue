@@ -50,7 +50,7 @@ interface IProp {
   showModal: boolean
   width?: number
   title: string
-  footer: boolean
+  footer?: boolean
   cancelBtnText?: string
   confirmBtnText?: string
   confirmLoading?: boolean

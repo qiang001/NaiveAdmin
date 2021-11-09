@@ -32,7 +32,7 @@ export const useUserList = ({
   const { dynamicWidth, maxHeight } = useResponsiveTable({
     dynamicWidth: 480,
     containerId: 'page-panel',
-    otherHeightTotalStatic: 166,
+    otherHeightTotalStatic: 115,
     otherElementIds: ['action-header'],
   })
 

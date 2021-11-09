@@ -58,8 +58,8 @@ const handleSave = (params) => {
 const editorWidth = ref('')
 const editorHeight = ref('')
 const handleResize = ({ width, height }) => {
-  editorWidth.value = width - 40 + 'px'
-  editorHeight.value = height - 55 + 'px'
+  editorWidth.value = width + 'px'
+  editorHeight.value = height + 'px'
 }
 const tempHeight = ref('')
 const handleFullScreen = (params) => {
