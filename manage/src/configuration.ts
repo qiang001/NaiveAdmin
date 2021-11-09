@@ -440,7 +440,7 @@ export const themeOverrides: (mainColor: string, ifDark: boolean) => any = (
     borderHover: !ifDark ? '1px solid rgb(224,224,230)' : '1px solid #555555',
     borderPressed: !ifDark ? '1px solid rgb(224,224,230)' : '1px solid #555555',
     borderFocus: !ifDark ? '1px solid rgb(224,224,230)' : '1px solid #555555',
-    rippleColor: !ifDark ? '#EEEEEE' : '#EEEEEE',
+    rippleColor: !ifDark ? '#EEEEEE' : '#333333',
   }
   if (setting.Button) Button = { ...Button, ...setting.Button }
 
