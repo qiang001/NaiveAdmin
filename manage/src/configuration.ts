@@ -30,6 +30,7 @@ import AuthorizationIcon from '@vicons/carbon/FingerprintRecognition'
 import SystemIcon from '@vicons/fluent/DesktopSync16Regular'
 import AccessControlIcon from '@vicons/material/HttpsRound'
 import OperationRecordingIcon from '@vicons/fluent/Record24Regular'
+import DocsIcon from '@vicons/tabler/Book'
 
 export const pageConfig: IPageItem[] = [
   {
@@ -194,6 +195,13 @@ export const pageConfig: IPageItem[] = [
         label: '访问控制',
         labelPinYin: 'fangwenkongzhi_fwkz',
         icon: AccessControlIcon,
+      },
+      {
+        name: 'Docs',
+        path: 'system/docs',
+        label: '文档中心',
+        labelPinYin: 'wendangzhongxin_wdzx',
+        icon: DocsIcon,
       },
     ],
   },

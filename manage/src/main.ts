@@ -17,4 +17,8 @@ app.use(store, storeKey)
 // 其他权限 - 内容级&逻辑类 权限
 initOtherPermissions(app, store)
 
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
+app.use(mavonEditor)
+
 app.mount('#app')
