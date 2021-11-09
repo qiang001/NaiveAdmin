@@ -426,6 +426,24 @@ export const themeOverrides: (mainColor: string, ifDark: boolean) => any = (
   }
   if (setting.common) common = { ...common, ...setting.common }
 
+  let Button = {
+    textColorHover: !ifDark ? '#141414FF' : '#ffffff',
+    textColorPressed: !ifDark ? '#000000FF' : '#ffffff',
+    textColorFocus: !ifDark ? '#000000FF' : '#ffffff',
+    textColorGhostHover: !ifDark ? '#141414FF' : '#ffffff',
+    textColorGhostPressed: !ifDark ? '#000000FF' : '#ffffff',
+    textColorGhostFocus: !ifDark ? '#000000FF' : '#ffffff',
+    color: !ifDark ? '#ffffff' : '#ffffff0f',
+    colorHover: !ifDark ? '#00000005' : '#00000005',
+    colorPressed: !ifDark ? '#00000005' : '#00000005',
+    colorFocus: !ifDark ? '#00000005' : '#00000005',
+    borderHover: !ifDark ? '1px solid rgb(224,224,230)' : '1px solid #555555',
+    borderPressed: !ifDark ? '1px solid rgb(224,224,230)' : '1px solid #555555',
+    borderFocus: !ifDark ? '1px solid rgb(224,224,230)' : '1px solid #555555',
+    rippleColor: !ifDark ? '#EEEEEE' : '#EEEEEE',
+  }
+  if (setting.Button) Button = { ...Button, ...setting.Button }
+
   let Menu = {}
   if (setting.Menu) Menu = { ...Menu, ...setting.Menu }
 
@@ -446,6 +464,7 @@ export const themeOverrides: (mainColor: string, ifDark: boolean) => any = (
   }
   return {
     common,
+    Button,
     Menu,
     Checkbox,
     Radio,
