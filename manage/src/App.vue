@@ -36,12 +36,13 @@ onMounted(() => {
   // 本地初始化化加载
   const systemSetting = localStorage.getItem('systemSetting')
   if (systemSetting) {
-    let { _layoutStyle, _mainColor, _ifDark, _ifPageTitle } =
+    let { _layoutStyle, _mainColor, _ifDark, _ifPageTitle, _ifEmbedded } =
       JSON.parse(systemSetting)
     store.commit('SET_LAYOUTSTYLE', _layoutStyle)
     store.commit('SET_MAINCOLOR', _mainColor)
     store.commit('SET_IFDARK', _ifDark)
     store.commit('SET_IFPAGETITLE', _ifPageTitle)
+    store.commit('SET_IFEMBEDDED', _ifEmbedded)
   }
   // 本地持久化存储
   document.addEventListener('visibilitychange', () => {
@@ -51,6 +52,7 @@ onMounted(() => {
         _mainColor: store.state.mainColor,
         _ifDark: store.state.ifDark,
         _ifPageTitle: store.state.ifPageTitle,
+        _ifEmbedded: store.state.ifEmbedded,
       }
       localStorage.setItem('systemSetting', JSON.stringify(systemSetting))
       // token

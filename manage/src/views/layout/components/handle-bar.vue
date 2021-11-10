@@ -173,6 +173,7 @@ import {
   onMounted,
   onBeforeUnmount,
   Ref,
+  computed,
 } from 'vue'
 
 const collapsed = inject('collapsed') as Ref<boolean>
@@ -341,12 +342,17 @@ const ifFullpage = inject('ifFullpage') as Ref<boolean>
 const setFullpage = () => {
   emit('setFullpage', !ifFullpage.value)
 }
+
+// arrow-border-color
+const arrowBorderColor = computed(() => {
+  return !store.state.ifDark ? '#f7f7f7' : '#1d1d20'
+})
 </script>
 
 <style scoped>
 .handle-bar {
   /* border-bottom: 1px solid var(--border-color); */
-  box-shadow: 0 0 8px 0 #80808026;
+  box-shadow: 0 0 4px 0 #80808026;
   position: relative;
   height: 28px;
 }
@@ -363,7 +369,7 @@ const setFullpage = () => {
 }
 
 #right-arrow {
-  border-right: 1px solid var(--border-color);
+  border-right: 2px solid v-bind(arrowBorderColor);
   overflow: hidden;
   height: 100%;
   cursor: pointer;

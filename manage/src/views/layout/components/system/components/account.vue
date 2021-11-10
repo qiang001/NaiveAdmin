@@ -17,7 +17,8 @@
         size="small"
         :text="true"
         :text-color="
-          inverted && store.state.layoutStyle === 'left-right'
+          (inverted && store.state.layoutStyle === 'left-right') ||
+          store.state.layoutStyle === 'top-left-right-inverted'
             ? '#eeeeee'
             : undefined
         "

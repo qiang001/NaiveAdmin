@@ -118,6 +118,9 @@ async function GenerateUsers() {
         name: faker.name.findName(firstName, lastName),
         username: faker.internet.email(firstName, lastName),
         password: '123456',
+        gender: ['male', 'female'][Math.floor(Math.random() * 2)],
+        age: Math.floor(Math.random() * 10 + 18),
+        avatar: faker.image.avatar(),
         roles,
         ifActive: Math.random() >= 0.5,
       }

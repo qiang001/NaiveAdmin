@@ -2,6 +2,9 @@ export interface IUserListItem {
   _id: string
   name: string
   username: string
+  gender: string
+  age: number
+  avatar: string
   roles: Array<{
     name: string
     _id: string

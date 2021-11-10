@@ -134,7 +134,7 @@ onMounted(() => {
   }
   gsap.to('#username', { duration: 0.3, x: 0, opacity: 1, delay: 0.3 })
   gsap.to('#password', { duration: 0.5, x: 0, opacity: 1, delay: 0.35 })
-  gsap.to('#login-btn', { duration: 0.8, x: 0, opacity: 1, delay: 0.45 })
+  gsap.to('#login-btn', { duration: 0.8, x: 0, opacity: 1, delay: 0.4 })
 
   useGravityBall(
     width,

@@ -39,6 +39,7 @@ const store = useStore()
 
 const ifDark = computed(() => store.state.ifDark)
 const ifPageTitle = computed(() => store.state.ifPageTitle)
+const ifEmbedded = computed(() => store.state.ifEmbedded)
 const layoutStyle = computed(() => store.state.layoutStyle)
 const ifFullpage = inject('ifFullpage') as Ref<boolean>
 
@@ -46,6 +47,9 @@ const emit = defineEmits(['resize'])
 
 watchEffect(() => {
   let otherHeight = 120
+  if (!ifEmbedded.value) {
+    otherHeight -= 28
+  }
   if (layoutStyle.value === 'left-right') {
     otherHeight -= 64
   } else {

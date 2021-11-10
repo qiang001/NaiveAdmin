@@ -1,18 +1,28 @@
 import { NButton, NIcon } from 'naive-ui'
-import { h } from 'vue'
+import { h, Component } from 'vue'
+interface IConfig {
+  type: 'primary' | 'default'
+  dashed?: boolean
+  ghost?: boolean
+  icon: Component
+  text: string
+  event: () => void
+}
 export const useIconButton = ({
-  type = 'default',
-  dashed = false,
+  type,
+  dashed,
+  ghost,
   icon,
   text,
   event,
-}) => {
+}: IConfig) => {
   return h(
-    NButton as unknown,
+    NButton,
     {
       size: 'small',
       type,
       dashed,
+      ghost,
       onClick: event,
     },
     {

@@ -225,9 +225,46 @@ export const permissionConfig: IPermission[] = [
   },
 ]
 
+// 布局模式
+import { layoutStyleType } from '@/interfaces/store'
+export const getStyles: () => layoutStyleType[] = () => {
+  return ['left-right', 'top-left-right', 'top-left-right-inverted']
+}
+
 // 主题色预设
 export const getColors: (ifDark: boolean) => IColorCollection = (ifDark) => {
   return {
+    qingshandai: {
+      key: 'qingshandai',
+      label: '华为青山黛',
+      common: {
+        baseColor: '#fff',
+        primaryColor: !ifDark ? '#116958' : '#1e8f76',
+        primaryColorHover: !ifDark ? '#1e8f76' : '#116958',
+        primaryColorPressed: !ifDark ? '#074239' : '#30b695',
+        primaryColorSuppl: !ifDark ? '#1e8f76' : '#116958',
+      },
+      Menu: {
+        // 箭头原色
+        arrowColor: !ifDark ? '#333639' : '#ffffffd1',
+        // 箭头激活
+        arrowColorHover: !ifDark ? '#116958' : '#30b695',
+        arrowColorChildActive: !ifDark ? '#116958' : '#30b695',
+        arrowColorActive: !ifDark ? '#116958' : '#30b695',
+        // 背景激活
+        itemColorActive: !ifDark ? '#1169581a' : '#111111',
+        // 内容激活
+        itemTextColorActive: !ifDark ? '#116958' : '#30b695',
+        itemIconColorActive: !ifDark ? '#116958' : '#30b695',
+        itemTextColorChildActive: !ifDark ? '#116958' : '#30b695',
+        itemIconColorChildActive: !ifDark ? '#116958' : '#30b695',
+        itemTextColorHover: !ifDark ? '#116958' : '#30b695',
+        itemIconColorHover: !ifDark ? '#116958' : '#30b695',
+      },
+      Checkbox: {
+        checkMarkColor: !ifDark ? '#fff' : '#CDCDD4FF',
+      },
+    },
     green: {
       key: 'green',
       label: '微信原谅绿',
@@ -246,7 +283,7 @@ export const getColors: (ifDark: boolean) => IColorCollection = (ifDark) => {
         arrowColorChildActive: !ifDark ? '#00c250' : '#4aba7bFF',
         arrowColorActive: !ifDark ? '#00c250' : '#4aba7bFF',
         // 背景激活
-        itemColorActive: !ifDark ? '#b4f7d01a' : '#000000FF',
+        itemColorActive: !ifDark ? '#b4f7d01a' : '#111111',
         // 内容激活
         itemTextColorActive: !ifDark ? '#00c250' : '#4aba7bFF',
         itemIconColorActive: !ifDark ? '#00c250' : '#4aba7bFF',
@@ -277,7 +314,7 @@ export const getColors: (ifDark: boolean) => IColorCollection = (ifDark) => {
         arrowColorChildActive: !ifDark ? '#1890FFFF' : '#6DB4F6FF',
         arrowColorActive: !ifDark ? '#1890FFFF' : '#6DB4F6FF',
         // 背景激活
-        itemColorActive: !ifDark ? '#afd5f91a' : '#000000FF',
+        itemColorActive: !ifDark ? '#afd5f91a' : '#111111',
         // 内容激活
         itemTextColorActive: !ifDark ? '#1890FFFF' : '#6DB4F6FF',
         itemIconColorActive: !ifDark ? '#1890FFFF' : '#6DB4F6FF',
@@ -308,7 +345,7 @@ export const getColors: (ifDark: boolean) => IColorCollection = (ifDark) => {
         arrowColorChildActive: !ifDark ? '#172991FF' : '#634fc2',
         arrowColorActive: !ifDark ? '#172991FF' : '#634fc2',
         // 背景激活
-        itemColorActive: !ifDark ? '#959ed31a' : '#000000FF',
+        itemColorActive: !ifDark ? '#959ed31a' : '#111111',
         // 内容激活
         itemTextColorActive: !ifDark ? '#172991FF' : '#634fc2',
         itemIconColorActive: !ifDark ? '#172991FF' : '#634fc2',
@@ -341,7 +378,7 @@ export const getColors: (ifDark: boolean) => IColorCollection = (ifDark) => {
         arrowColorHover: !ifDark ? '#722ED1FF' : '#BE92FCFF',
         arrowColorChildActive: !ifDark ? '#722ED1FF' : '#BE92FCFF',
         arrowColorActive: !ifDark ? '#722ED1FF' : '#BE92FCFF',
-        itemColorActive: !ifDark ? '#ceb7ef1a' : '#000000FF',
+        itemColorActive: !ifDark ? '#ceb7ef1a' : '#111111',
         itemTextColorActive: !ifDark ? '#722ED1FF' : '#BE92FCFF',
         itemIconColorActive: !ifDark ? '#722ED1FF' : '#BE92FCFF',
         itemTextColorChildActive: !ifDark ? '#722ED1FF' : '#BE92FCFF',
@@ -365,7 +402,7 @@ export const getColors: (ifDark: boolean) => IColorCollection = (ifDark) => {
       },
       Menu: {
         arrowColor: !ifDark ? '#333639' : '#ffffffd1',
-        itemColorActive: !ifDark ? '#f5eabe1a' : '#000000FF',
+        itemColorActive: !ifDark ? '#f5eabe1a' : '#111111',
         itemTextColorActiveInverted: '#000',
         itemIconColorActiveInverted: '#000',
       },
@@ -377,37 +414,6 @@ export const getColors: (ifDark: boolean) => IColorCollection = (ifDark) => {
       },
       Switch: {
         textColor: '#222',
-      },
-    },
-    orange: {
-      key: 'orange',
-      label: '阿里淘宝橙',
-      common: {
-        baseColor: '#fff',
-        primaryColor: !ifDark ? '#ff6a00' : '#ec6f00',
-        primaryColorHover: !ifDark ? '#ff8929' : '#c75600',
-        primaryColorPressed: !ifDark ? '#d95300' : '#fa9128',
-        primaryColorSuppl: !ifDark ? '#ff8929' : '#c75600',
-      },
-      Menu: {
-        // 箭头原色
-        arrowColor: !ifDark ? '#333639' : '#ffffffd1',
-        // 箭头激活
-        arrowColorHover: !ifDark ? '#ff6a00' : '#fa9128',
-        arrowColorChildActive: !ifDark ? '#ff6a00' : '#fa9128',
-        arrowColorActive: !ifDark ? '#ff6a00' : '#fa9128',
-        // 背景激活
-        itemColorActive: !ifDark ? '#fbc9a51a' : '#000000FF',
-        // 内容激活
-        itemTextColorActive: !ifDark ? '#ff6a00' : '#fa9128',
-        itemIconColorActive: !ifDark ? '#ff6a00' : '#fa9128',
-        itemTextColorChildActive: !ifDark ? '#ff6a00' : '#fa9128',
-        itemIconColorChildActive: !ifDark ? '#ff6a00' : '#fa9128',
-        itemTextColorHover: !ifDark ? '#ff6a00' : '#fa9128',
-        itemIconColorHover: !ifDark ? '#ff6a00' : '#fa9128',
-      },
-      Checkbox: {
-        checkMarkColor: !ifDark ? '#fff' : '#CDCDD4FF',
       },
     },
   }
@@ -440,7 +446,7 @@ export const themeOverrides: (mainColor: string, ifDark: boolean) => any = (
     borderHover: !ifDark ? '1px solid rgb(224,224,230)' : '1px solid #555555',
     borderPressed: !ifDark ? '1px solid rgb(224,224,230)' : '1px solid #555555',
     borderFocus: !ifDark ? '1px solid rgb(224,224,230)' : '1px solid #555555',
-    rippleColor: !ifDark ? '#EEEEEE' : '#333333',
+    rippleColor: !ifDark ? '#dddddd' : '#444444',
   }
   if (setting.Button) Button = { ...Button, ...setting.Button }
 

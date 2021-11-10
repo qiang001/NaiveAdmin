@@ -6,7 +6,12 @@ const { loginUser, getUserInfo } = useLoginApi()
 
 import { IColorCollection } from '@/interfaces/configuration'
 
-import { pageConfig, getColors, themeOverrides } from './configuration'
+import {
+  pageConfig,
+  getStyles,
+  getColors,
+  themeOverrides,
+} from './configuration'
 import {
   buildPages,
   buildMenuOptions,
@@ -31,13 +36,16 @@ export const buildStore = (router: Router) => {
       },
     })
   }
+  // layoutStyles
+  const styles = getStyles()
   const store = createStore<State>({
     state() {
       return {
-        layoutStyle: 'left-right',
+        layoutStyle: styles[0],
         mainColor: Object.keys(getColors(false))[0],
         ifDark: false,
-        ifPageTitle: true,
+        ifPageTitle: false,
+        ifEmbedded: false,
         cacheList: [],
         menuOptions: [],
         menuOptionsWithoutIcon: [],
@@ -54,7 +62,7 @@ export const buildStore = (router: Router) => {
     },
     getters: {
       getLayoutStyles(state) {
-        return ['left-right', 'top-left-right'].map((item) => {
+        return styles.map((item) => {
           return {
             styleName: item,
             checked: item === state.layoutStyle,
@@ -99,8 +107,8 @@ export const buildStore = (router: Router) => {
     },
     mutations: {
       SET_LAYOUTSTYLE(state, key) {
-        state.layoutStyle =
-          key === 'left-right' ? 'left-right' : 'top-left-right'
+        let style = styles.find((s) => s === key)
+        state.layoutStyle = style || styles[0]
       },
       SET_MAINCOLOR(state, key) {
         let colors = Object.keys(getColors(false))
@@ -112,6 +120,9 @@ export const buildStore = (router: Router) => {
       },
       SET_IFPAGETITLE(state, bool) {
         state.ifPageTitle = bool
+      },
+      SET_IFEMBEDDED(state, bool) {
+        state.ifEmbedded = bool
       },
       REMOVE_CACHE(state, name) {
         state.cacheList = state.cacheList.filter((n) => n !== name)

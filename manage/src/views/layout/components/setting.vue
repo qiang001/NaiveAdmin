@@ -1,6 +1,6 @@
 <template>
   <div>
-    <n-drawer v-model:show="settingShow" :width="240" placement="right">
+    <n-drawer v-model:show="settingShow" :width="280" placement="right">
       <n-drawer-content title="全局配置" closable :native-scrollbar="false">
         <n-divider>「布局风格」</n-divider>
         <div class="d-flex a-center j-sb">
@@ -11,15 +11,15 @@
           >
             <n-checkbox
               v-model:checked="item.checked"
-              :on-update:checked="(bool) => handleStyle(item.styleName, bool)"
+              :on-update:checked="(bool) => setStyle(item.styleName, bool)"
             >
               <div class="d-flex a-center">
                 <n-element
                   class="d-flex"
                   style="
                     flex-direction: column;
-                    width: 50px;
-                    height: 50px;
+                    width: 46px;
+                    height: 46px;
                     box-shadow: 0 0 6px 0 #80808026;
                   "
                 >
@@ -31,6 +31,13 @@
                         : 'var(--table-color)',
                     }"
                     v-if="item.styleName === 'top-left-right'"
+                  ></div>
+                  <div
+                    style="height: 10px; background-color: var(--base-color)"
+                    :style="{
+                      backgroundColor: 'var(--inverted-color)',
+                    }"
+                    v-if="item.styleName === 'top-left-right-inverted'"
                   ></div>
                   <div class="d-flex" style="flex: 1">
                     <div
@@ -124,6 +131,19 @@
                 <span style="font-size: 12px">点击显示标题</span>
               </template>
             </n-switch>
+            <n-switch
+              v-model:value="ifEmbedded"
+              :on-update:value="ifEmbeddedChange"
+              size="small"
+              :disabled="ifPageTitle"
+            >
+              <template #checked>
+                <span style="font-size: 12px">切为填充效果</span>
+              </template>
+              <template #unchecked>
+                <span style="font-size: 12px">切为嵌入效果</span>
+              </template>
+            </n-switch>
           </n-space>
         </div>
         <n-divider>「左侧菜单」</n-divider>
@@ -145,6 +165,7 @@
               v-model:value="ifHideIcon"
               :on-update:value="ifHideIconChange"
               size="small"
+              :disabled="inverted"
             >
               <template #checked>
                 <span style="font-size: 12px">点击显示图标</span>
@@ -200,7 +221,7 @@ const settingShow = inject('settingShow') as Ref<boolean>
 import { layoutStyleType } from '@/interfaces/store'
 const styles = ref<Array<{ styleName: layoutStyleType; checked: boolean }>>([])
 styles.value = store.getters.getLayoutStyles
-const handleStyle = (style: layoutStyleType, bool: boolean) => {
+const setStyle = (style: layoutStyleType, bool: boolean) => {
   if (!bool) return
   styles.value.forEach((s) => {
     style == s.styleName
@@ -243,34 +264,46 @@ const switchTheme = () => {
   }
 }
 
-const inverted = inject('inverted') as Ref<boolean>
-const ifHideIcon = inject('ifHideIcon') as Ref<boolean>
-
-const invertedChange = (val: boolean) => {
-  inverted.value = val
-}
-const ifHideIconChange = (val: boolean) => {
-  ifHideIcon.value = val
-}
-
 const ifPageTitle = ref(true)
 ifPageTitle.value = store.state.ifPageTitle
 
 const ifPageTitleChange = (val: boolean) => {
   ifPageTitle.value = val
   store.commit('SET_IFPAGETITLE', val)
+  val && ifEmbeddedChange(true)
+}
+
+const ifEmbedded = ref(true)
+ifEmbedded.value = store.state.ifEmbedded
+
+const ifEmbeddedChange = (val: boolean) => {
+  ifEmbedded.value = val
+  store.commit('SET_IFEMBEDDED', val)
+}
+
+const inverted = inject('inverted') as Ref<boolean>
+const ifHideIcon = inject('ifHideIcon') as Ref<boolean>
+
+const invertedChange = (val: boolean) => {
+  inverted.value = val
+  val && ifHideIconChange(false)
+}
+const ifHideIconChange = (val: boolean) => {
+  ifHideIcon.value = val
 }
 
 import { useDebounce } from '@/hooks/useDebounce'
 const emit = defineEmits(['close'])
 const { ifProcessing: loading, func: resetSetting } = useDebounce(() => {
-  handleStyle('left-right', true)
+  let defaultStyle = styles.value[0].styleName
+  setStyle(defaultStyle, true)
   let defaultColor = colors.value[0]
   setColor(defaultColor, true)
   if (ifDark.value) {
     switchTheme()
   }
-  ifPageTitleChange(true)
+  ifPageTitleChange(false)
+  ifEmbeddedChange(false)
   invertedChange(false)
   ifHideIconChange(false)
   emit('close')

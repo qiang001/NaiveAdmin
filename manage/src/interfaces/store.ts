@@ -11,13 +11,17 @@ export interface IUserInfo {
   }>
 }
 
-export type layoutStyleType = 'top-left-right' | 'left-right'
+export type layoutStyleType =
+  | 'top-left-right'
+  | 'top-left-right-inverted'
+  | 'left-right'
 
 export interface State {
   layoutStyle: layoutStyleType
   mainColor: string
   ifDark: boolean
   ifPageTitle: boolean
+  ifEmbedded: boolean
   cacheList: string[]
   menuOptions: IMenuItem[]
   menuOptionsWithoutIcon: IMenuItem[]

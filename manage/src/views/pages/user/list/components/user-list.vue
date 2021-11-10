@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { NTag, DataTableBaseColumn, NSpace } from 'naive-ui'
+import { NTag, DataTableBaseColumn, NSpace, NAvatar, NElement } from 'naive-ui'
 import ResetIcon from '@vicons/fluent/Password24Filled'
 import EditIcon from '@vicons/material/EditNoteOutlined'
 import DeleteIcon from '@vicons/antd/DeleteOutlined'
@@ -60,17 +60,70 @@ const allColumns = createAllColumns()
 function createAllColumns(): Array<DataTableBaseColumn> {
   return [
     {
-      title: '昵称',
+      title: '用户信息',
       key: 'name',
-      width: 180,
-      fixed: 'left',
-    },
-    {
-      title: '用户名',
-      key: 'username',
       width: 280,
-      ellipsis: {
-        tooltip: true,
+      fixed: 'left',
+      render(row) {
+        let { avatar, gender, age, name, username } =
+          row as unknown as IUserListItem
+        return h(
+          NSpace,
+          { align: 'center' },
+          {
+            default: () => [
+              h(
+                NAvatar,
+                { src: avatar, size: 52, class: 'd-flex a-center' },
+                ''
+              ),
+              h('div', null, {
+                default: () => [
+                  h('div', null, name),
+                  h(
+                    NSpace,
+                    { align: 'center' },
+                    {
+                      default: () => [
+                        h(
+                          NElement,
+                          {
+                            style: {
+                              fontSize: '12px',
+                              color: 'var(--text-color-3)',
+                            },
+                          },
+                          {
+                            default: () =>
+                              h(
+                                'div',
+                                { class: 'd-flex a-center' },
+                                {
+                                  default: () => [
+                                    h('div', null, gender),
+                                    h('div', { class: 'ml' }, age),
+                                  ],
+                                }
+                              ),
+                          }
+                        ),
+                      ],
+                    }
+                  ),
+                  h(
+                    NElement,
+                    {
+                      style: { fontSize: '12px', color: 'var(--text-color-2)' },
+                    },
+                    {
+                      default: () => username,
+                    }
+                  ),
+                ],
+              }),
+            ],
+          }
+        )
       },
     },
     {
@@ -144,7 +197,7 @@ function createAllColumns(): Array<DataTableBaseColumn> {
             }),
             useIconButton({
               type: 'default',
-              dashed: true,
+              ghost: true,
               icon: ResetIcon,
               text: '重置密码',
               event: () =>

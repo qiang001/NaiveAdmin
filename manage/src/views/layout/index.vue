@@ -3,17 +3,28 @@
     <n-layout
       position="absolute"
       class="page-plane"
-      v-if="store.state.layoutStyle === 'top-left-right'"
+      v-if="
+        ['top-left-right', 'top-left-right-inverted'].includes(
+          store.state.layoutStyle
+        )
+      "
     >
-      <Header
-        @open="openSetting"
-        id="header"
-        :style="`${
-          ifFullpage
-            ? 'top:-64px!important;'
-            : 'top:0px!important;transition-delay:0.1s'
-        }`"
-      ></Header>
+      <n-layout-header
+        bordered
+        :inverted="store.state.layoutStyle === 'top-left-right-inverted'"
+        position="absolute"
+        class="nav"
+      >
+        <Header
+          @open="openSetting"
+          id="header"
+          :style="`${
+            ifFullpage
+              ? 'top:-64px!important;'
+              : 'top:0px!important;transition-delay:0.1s'
+          }`"
+        ></Header>
+      </n-layout-header>
       <n-layout
         position="absolute"
         class="main-top-left-right"
@@ -62,7 +73,13 @@
             id="page"
             :native-scrollbar="false"
             embedded
-            :content-style="`${route.name != 'Layout' ? 'padding: 14px;' : ''}`"
+            :content-style="`${
+              route.name != 'Layout'
+                ? store.state.ifEmbedded
+                  ? 'padding: 14px;transition: all 0.3s ease;'
+                  : 'padding: 0;transition: all 0.3s ease;'
+                : ''
+            }`"
           >
             <Page></Page>
           </n-layout-content>
@@ -115,7 +132,13 @@
             id="page"
             :native-scrollbar="false"
             embedded
-            :content-style="`${route.name != 'Layout' ? 'padding: 14px;' : ''}`"
+            :content-style="`${
+              route.name != 'Layout'
+                ? store.state.ifEmbedded
+                  ? 'padding: 14px;transition: all 0.3s ease;'
+                  : 'padding: 0;transition: all 0.3s ease;'
+                : ''
+            }`"
           >
             <Page></Page>
           </n-layout-content>
@@ -190,6 +213,10 @@ import Setting from './components/setting.vue'
 </script>
 
 <style scoped>
+.nav {
+  height: 64px;
+}
+
 #header {
   top: 0;
   transition: all 0.3s ease;
