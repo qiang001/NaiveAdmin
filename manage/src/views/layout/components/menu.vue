@@ -122,11 +122,7 @@ const handleSelected = (key: string) => {
 
 // vue3.2新特性 v-bind style 解决在框架主题限制下的自定义样式痛点
 const activeBarColor = computed(() =>
-  !store.state.ifDark
-    ? themeVars.value.primaryColor
-    : inverted.value
-    ? themeVars.value.primaryColorHover
-    : themeVars.value.primaryColor
+  inverted.value ? 'transparent' : themeVars.value.primaryColor
 )
 </script>
 
@@ -141,13 +137,10 @@ const activeBarColor = computed(() =>
   left: 0;
   right: 0;
   border-radius: 0;
-}
-:deep(.n-menu .n-menu-item::before) {
   border-right: 3px solid transparent;
   transition: all 0.3s var(--bezier);
 }
 :deep(.n-menu .n-menu-item.n-menu-item--selected::before) {
   border-right: 3px solid v-bind(activeBarColor);
-  transition: all 0.3s var(--bezier);
 }
 </style>
