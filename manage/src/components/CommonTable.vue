@@ -56,6 +56,7 @@
     </n-space>
     <n-data-table
       remote
+      :row-key="(row) => row._id"
       :scroll-x="minWidth"
       :max-height="maxHeight"
       :columns="columns"
