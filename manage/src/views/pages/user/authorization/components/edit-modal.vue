@@ -147,17 +147,40 @@ const validation = () => {
   })
 }
 
+// 前置说明：
+// 1. checkedAuths/pageCheckedAuths - 严格的权限列表：有访问权限, 且权限树为【勾选状态】
+// 2. authKeys/pageAuths - 非严格权限列表：有访问权限, 但权限树为【半勾选状态】
+
 // 菜单权限树相关
 import { useStore } from '@/hooks/useStore'
 const store = useStore()
 const menuAuthTree = ref([])
 menuAuthTree.value = store.getters.getMenuAuthTree
 const checkedKeys = ref([])
-
 const hideAuthKeys = store.getters.getHideAuthKeys
 
 const updateCheckedKeys = (keys) => {
+  // 去除无效父节点 - 数据库数据滞后带来的影响
+  // 先前为 checkedAuths, 但是由于业务开发新增或减少页面, 而数据库还是旧数据
+  // 对于当前时间节点来说, 旧数据的某些父节点可能实际已经是【半勾选状态】(新增子页面)/【勾选状态】(删除子页面)了
+  checkFatherValid(menuAuthTree.value)
+  function checkFatherValid(arr) {
+    arr.forEach((item) => {
+      if (item.children) {
+        checkFatherValid(item.children)
+        if (item.children.every((c) => keys.includes(c.key))) {
+          !keys.includes(item.key) && keys.push(item.key)
+        } else {
+          if (keys.includes(item.key)) {
+            let index = keys.findIndex((k) => k === item.key)
+            keys.splice(index, 1)
+          }
+        }
+      }
+    })
+  }
   checkedKeys.value = keys
+  // 隐藏节点若勾选 - 则对应的强相关节点必须强制勾选, 保存为 checkedAuths
   let relatedKeys = []
   keys.forEach((k) => {
     let hide = hideAuthKeys.find((hk) => k == hk.name)
@@ -189,7 +212,7 @@ const getPageAuthKeys = () => {
     pageAuths: authKeys,
     pageCheckedAuths: [...unref(checkedKeys)],
   }
-
+  // 至少一个子节点选中后 - 对应的父节点虽然不是checked状态, 但是需要保存为 authKeys
   function addNodes(children) {
     children.forEach((child) => {
       if (authKeys.includes(child.key)) {
