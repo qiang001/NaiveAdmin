@@ -1,4 +1,4 @@
-import { ref, reactive, unref, onMounted } from 'vue'
+import { ref, reactive, unref, onMounted, nextTick } from 'vue'
 import { IFilters, IUserListItem } from '../interfaces/data'
 import { usePagination } from '@/hooks/usePagination'
 import {
@@ -50,7 +50,8 @@ export const useConditions = ({ _getUsers }: Input) => {
   const { pagination, setPagination } = usePagination()
 
   const resetPage: I_useConditions_resetPage = function () {
-    setPagination({ page: 1 })
+    pagination.page === 1 && setPagination({ page: 2 })
+    nextTick(() => setPagination({ page: 1 }))
   }
 
   const changePage: I_useConditions_changePage = async (page) => {
