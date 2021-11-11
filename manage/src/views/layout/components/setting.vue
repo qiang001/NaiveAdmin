@@ -18,8 +18,8 @@
                   class="d-flex"
                   style="
                     flex-direction: column;
-                    width: 46px;
-                    height: 46px;
+                    width: 40px;
+                    height: 40px;
                     box-shadow: 0 0 6px 0 #80808026;
                   "
                 >
@@ -101,7 +101,7 @@
               v-model:checked="item.checked"
               :on-update:checked="(bool) => setColor(item, bool)"
             >
-              <div class="d-flex a-center py-1" style="width: 169px">
+              <div class="d-flex a-center py-1" style="width: 209px">
                 <div>{{ item.label }}</div>
                 <div
                   style="width: 38px"
