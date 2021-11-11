@@ -85,7 +85,7 @@ import {
   NPopover,
 } from 'naive-ui'
 import RefreshIcon from '@vicons/material/RefreshSharp'
-import SettingIcon from '@vicons/fluent/TextGrammarSettings24Regular'
+import SettingIcon from '@vicons/material/SettingsInputCompositeTwotone'
 import EmptyBox from '@/components/EmptyBox.vue'
 import { IPagination } from '@/hooks/usePagination'
 import { computed, ref } from 'vue'

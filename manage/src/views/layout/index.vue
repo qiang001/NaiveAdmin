@@ -1,19 +1,16 @@
 <template>
   <div>
-    <n-layout
-      position="absolute"
-      class="page-plane"
-      v-if="
-        ['top-left-right', 'top-left-right-inverted'].includes(
-          store.state.layoutStyle
-        )
-      "
-    >
+    <n-layout position="absolute" class="page-plane">
       <n-layout-header
         bordered
         :inverted="store.state.layoutStyle === 'top-left-right-inverted'"
         position="absolute"
         class="nav"
+        v-if="
+          ['top-left-right', 'top-left-right-inverted'].includes(
+            store.state.layoutStyle
+          )
+        "
       >
         <Header
           @open="openSetting"
@@ -27,12 +24,16 @@
       </n-layout-header>
       <n-layout
         position="absolute"
-        class="main-top-left-right"
+        :class="`main-${store.state.layoutStyle}`"
         :has-sider="!ifFullpage"
         :style="`${
-          ifFullpage
-            ? 'top:0px!important;transition-delay:0.1s'
-            : 'top:64px!important;'
+          ['top-left-right', 'top-left-right-inverted'].includes(
+            store.state.layoutStyle
+          )
+            ? ifFullpage
+              ? 'top:0px!important;transition-delay:0.1s'
+              : 'top:64px!important;'
+            : ''
         }`"
       >
         <n-layout-sider
@@ -49,64 +50,15 @@
           @collapse="collapsedChange(true)"
           @expand="collapsedChange(false)"
         >
-          <Menu @navigateTo="navigateTo"></Menu>
-          <resize-bar
-            v-if="!collapsed"
-            @widthChange="widthChange"
-            @widthChangeDone="widthChangeDone"
-          ></resize-bar>
-        </n-layout-sider>
-        <n-layout-content :native-scrollbar="false">
-          <n-layout-header
-            class="handle-bar-wrapper"
-            v-if="route.name != 'Layout'"
-          >
-            <handle-bar
-              @collapse="collapsedChange"
-              @gotoTab="gotoTab"
-              @deleteTab="deleteTab"
-              @refreshPage="refreshRoute"
-              @setFullpage="setFullpage"
-            ></handle-bar>
-          </n-layout-header>
-          <n-layout-content
-            id="page"
-            :native-scrollbar="false"
-            embedded
-            :content-style="`${
-              route.name != 'Layout'
-                ? store.state.ifEmbedded
-                  ? 'padding: 14px;transition: all 0.3s ease;'
-                  : 'padding: 0;transition: all 0.3s ease;'
-                : ''
-            }`"
-          >
-            <Page></Page>
-          </n-layout-content>
-        </n-layout-content>
-      </n-layout>
-    </n-layout>
-    <n-layout position="absolute" class="page-plane" v-else>
-      <n-layout
-        position="absolute"
-        class="main-left-right"
-        :has-sider="!ifFullpage"
-      >
-        <n-layout-sider
-          id="sider"
-          v-show="!ifFullpage"
-          bordered
-          :show-trigger="false"
-          collapse-mode="width"
-          :collapsed-width="48"
-          :width="sectionWidth"
-          :inverted="inverted"
-          :collapsed="collapsed"
-          :native-scrollbar="false"
-          @collapse="collapsedChange(true)"
-          @expand="collapsedChange(false)"
-        >
-          <side-container @open="openSetting">
+          <Menu
+            @navigateTo="navigateTo"
+            v-if="
+              ['top-left-right', 'top-left-right-inverted'].includes(
+                store.state.layoutStyle
+              )
+            "
+          ></Menu>
+          <side-container @open="openSetting" v-else>
             <Menu @navigateTo="navigateTo"></Menu>
           </side-container>
           <resize-bar
@@ -221,8 +173,12 @@ import Setting from './components/setting.vue'
   top: 0;
   transition: all 0.3s ease;
 }
-.main-top-left-right {
+.main-top-left-right,
+.main-top-left-right-inverted {
   top: 64px !important;
+  transition: all 0.3s ease;
+}
+.main-left-right {
   transition: all 0.3s ease;
 }
 .delay {
@@ -247,12 +203,4 @@ import Setting from './components/setting.vue'
     user-select: none;
   }
 }
-
-/* @media only screen and (min-width: 1800px) {
-  #header, .main {
-    max-width: 1800px;
-    margin: auto;
-    box-shadow: 0 0 8px 0 #3d3b3b26;
-  }
-} */
 </style>
