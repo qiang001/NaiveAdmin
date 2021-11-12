@@ -1,6 +1,6 @@
 import { InjectionKey } from 'vue'
 import { Store, useStore as _useStore } from 'vuex'
-import { State } from '../interfaces/store'
+import { State } from '@/store'
 
 export const storeKey: InjectionKey<Store<State>> = Symbol()
 

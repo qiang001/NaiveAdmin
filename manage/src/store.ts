@@ -1,11 +1,8 @@
 import { createStore } from 'vuex'
-import { State } from '@/interfaces/store'
 import { darkTheme } from 'naive-ui'
-import { useLoginApi } from '@/api/useLoginApi'
+import { useLoginApi, IUserInfo } from '@/api/useLoginApi'
 const { loginUser, getUserInfo } = useLoginApi()
-
-import { IColorCollection } from '@/interfaces/configuration'
-
+import { IColorCollection } from '@/configuration'
 import {
   pageConfig,
   getStyles,
@@ -17,9 +14,32 @@ import {
   buildMenuOptions,
   buildMenuAuthTree,
   getAuthKeys,
+  IMenuItem,
 } from './authorization'
-
 import { Router } from 'vue-router'
+export type layoutStyleType =
+  | 'top-left-right'
+  | 'top-left-right-inverted'
+  | 'left-right'
+export interface State {
+  layoutStyle: layoutStyleType
+  mainColor: string
+  ifDark: boolean
+  ifPageTitle: boolean
+  ifEmbedded: boolean
+  cacheList: string[]
+  menuOptions: IMenuItem[]
+  menuOptionsWithoutIcon: IMenuItem[]
+  token: string
+  userInfo: IUserInfo
+  authKeys: string[]
+  contentAuths: string[]
+  logicAuths: string[]
+  loginPageMessage: {
+    type: string | null
+    text: string | null
+  }
+}
 export const buildStore = (router: Router) => {
   // menu auth tree
   const menuAuthTree = buildMenuAuthTree(pageConfig)

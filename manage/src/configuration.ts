@@ -1,9 +1,4 @@
 // 路由-菜单
-import {
-  IPageItem,
-  IPermission,
-  IColorCollection,
-} from '@/interfaces/configuration'
 import ConsoleIcon from '@vicons/material/MonitorRound'
 
 import GoodIcon from '@vicons/fa/Cubes'
@@ -31,6 +26,19 @@ import SystemIcon from '@vicons/fluent/DesktopSync16Regular'
 import AccessControlIcon from '@vicons/material/HttpsRound'
 import OperationRecordingIcon from '@vicons/fluent/Record24Regular'
 import DocsIcon from '@vicons/tabler/Book'
+
+import { Component } from 'vue'
+export interface IPageItem {
+  name: string
+  label: string
+  labelPinYin?: string
+  icon?: Component
+  path?: string
+  ifCache?: boolean
+  ifHide?: boolean
+  belongsTo?: string
+  children?: IPageItem[]
+}
 
 export const pageConfig: IPageItem[] = [
   {
@@ -207,6 +215,13 @@ export const pageConfig: IPageItem[] = [
   },
 ]
 
+interface IPermission {
+  page: string
+  label: string
+  contentAuths: Array<{ key: string; desc: string }>
+  logicAuths: Array<{ key: string; desc: string }>
+}
+
 export const permissionConfig: IPermission[] = [
   {
     page: 'Console',
@@ -226,12 +241,30 @@ export const permissionConfig: IPermission[] = [
 ]
 
 // 布局模式
-import { layoutStyleType } from '@/interfaces/store'
+import { layoutStyleType } from '@/store'
 export const getStyles: () => layoutStyleType[] = () => {
   return ['left-right', 'top-left-right', 'top-left-right-inverted']
 }
 
 // 主题色预设
+export interface IColorInfo {
+  key: string
+  label: string
+  common: {
+    baseColor?: string
+    primaryColor: string
+    primaryColorHover: string
+    primaryColorPressed: string
+    primaryColorSuppl: string
+    [otherKey: string]: any
+  }
+  [otherComponentName: string]: any
+}
+
+export interface IColorCollection {
+  [colorName: string]: IColorInfo
+}
+
 export const getColors: (ifDark: boolean) => IColorCollection = (ifDark) => {
   return {
     qingshandai: {

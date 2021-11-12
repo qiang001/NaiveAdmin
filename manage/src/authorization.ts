@@ -55,7 +55,7 @@ function buildRouter() {
   })
 }
 
-import { IPageItem } from '@/interfaces/configuration'
+import { IPageItem } from '@/configuration'
 import { RouteRecordRaw } from 'vue-router'
 function buildPages(configuration: Array<IPageItem>): Array<RouteRecordRaw> {
   // 动态引入神坑
@@ -107,9 +107,15 @@ function buildPages(configuration: Array<IPageItem>): Array<RouteRecordRaw> {
 
 import { h } from 'vue'
 import { NIcon } from 'naive-ui'
-import { IMenuItem } from '@/interfaces/authorization'
-
 // 渲染菜单
+export interface IMenuItem {
+  icon?: any
+  label: string
+  key: string
+  expandedKey: string
+  children?: IMenuItem[]
+}
+
 function buildMenuOptions(
   configuration: Array<IPageItem>,
   { AUTH_KEYS, ifHideIcon }
@@ -161,8 +167,15 @@ function buildMenuOptions(
   }
 }
 
-import { IMenuAuth } from '@/interfaces/authorization'
 // 渲染菜单权限树
+interface IMenuAuth {
+  label: string
+  key: string
+  belongsTo?: string
+  expandedKey: string
+  children?: IMenuAuth[]
+}
+
 function buildMenuAuthTree(configuration: Array<IPageItem>): Array<IMenuAuth> {
   return recursion(configuration, [])
   function recursion(
@@ -191,8 +204,28 @@ function buildMenuAuthTree(configuration: Array<IPageItem>): Array<IMenuAuth> {
   }
 }
 
-import { IMenuAuthsFlated } from '@/interfaces/authorization'
 // 路由权限拍平
+export interface ISearchOption {
+  label: string
+  labelPinYin: string
+  value: string
+}
+
+interface IKeyOption {
+  label: string
+  name: string
+}
+
+interface IMenuAuthsFlated {
+  ALL_AUTH_KEYS: string[]
+  HIDE_AUTH_KEYS: Array<{
+    name: string
+    belongsTo: string
+  }>
+  searchOptions: ISearchOption[]
+  keyOptions: IKeyOption[]
+}
+
 function getAuthKeys(configuration: Array<IPageItem>): IMenuAuthsFlated {
   let keys = []
   let hides = []
@@ -244,7 +277,7 @@ function getAuthKeys(configuration: Array<IPageItem>): IMenuAuthsFlated {
 
 import { App } from 'vue'
 import { Store } from 'vuex'
-import { State } from '@/interfaces/store'
+import { State } from '@/store'
 function initOtherPermissions(app: App, store: Store<State>): void {
   app.directive('permission', {
     beforeMount(el, binding) {

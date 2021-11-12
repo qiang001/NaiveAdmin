@@ -1,5 +1,15 @@
 import axios from 'axios'
-import { IUserInfo } from '@/interfaces/store'
+
+export interface IUserInfo {
+  _id: string
+  username: string
+  name: string
+  roles: Array<{
+    pageAuths: string[]
+    contentAuths: string[]
+    logicAuths: string[]
+  }>
+}
 
 export const useLoginApi = () => {
   const instance = axios.create({

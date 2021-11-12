@@ -38,7 +38,7 @@ import { useRoute } from 'vue-router'
 const route = useRoute()
 
 // 快捷搜索
-import { ISearchOption } from '@/interfaces/authorization'
+import { ISearchOption } from '@/authorization'
 const keyword = ref('')
 const options = computed(() => {
   return fuzzyQuery(store.getters.getSearchOptions, keyword.value)
@@ -64,7 +64,7 @@ const options = computed(() => {
 const inverted = inject('inverted') as Ref<boolean>
 const collapsed = inject('collapsed') as Ref<boolean>
 const ifHideIcon = inject('ifHideIcon') as Ref<boolean>
-import { IMenuItem } from '@/interfaces/authorization'
+import { IMenuItem } from '@/authorization'
 const menu = computed(() => store.getters.getMenu(ifHideIcon.value))
 
 // 拍平菜单

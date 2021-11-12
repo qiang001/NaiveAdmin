@@ -218,7 +218,7 @@ import { ref, inject, Ref } from 'vue'
 
 const settingShow = inject('settingShow') as Ref<boolean>
 
-import { layoutStyleType } from '@/interfaces/store'
+import { layoutStyleType } from '@/store'
 const styles = ref<Array<{ styleName: layoutStyleType; checked: boolean }>>([])
 styles.value = store.getters.getLayoutStyles
 const setStyle = (style: layoutStyleType, bool: boolean) => {
@@ -230,7 +230,7 @@ const setStyle = (style: layoutStyleType, bool: boolean) => {
   })
 }
 
-import { IColorInfo } from '@/interfaces/configuration'
+import { IColorInfo } from '@/configuration'
 const colors = ref<Array<IColorInfo>>([])
 colors.value = store.getters.getMainColors
 
