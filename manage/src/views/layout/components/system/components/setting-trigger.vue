@@ -1,7 +1,12 @@
 <template>
   <div>
     <n-button
-      v-if="!collapsed || store.state.layoutStyle === 'top-left-right'"
+      v-if="
+        !collapsed ||
+        ['top-left-right', 'top-left-right-inverted'].includes(
+          store.state.layoutStyle
+        )
+      "
       size="small"
       :text="true"
       :text-color="

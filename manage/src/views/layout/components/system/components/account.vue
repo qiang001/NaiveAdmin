@@ -33,7 +33,12 @@
           </div>
           <div
             class="ml-1"
-            v-if="!collapsed || store.state.layoutStyle === 'top-left-right'"
+            v-if="
+              !collapsed ||
+              ['top-left-right', 'top-left-right-inverted'].includes(
+                store.state.layoutStyle
+              )
+            "
           >
             {{ store.state.userInfo.name }}
           </div>
