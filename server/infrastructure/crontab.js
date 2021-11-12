@@ -4,6 +4,7 @@ const User = require('../db/models/user')
 const OperationRecord = require('../db/models/operationRecord')
 const CryptoJS = require('crypto-js')
 const faker = require('faker')
+faker.locale = 'zh_CN'
 const Services = require('../api/user/services')
 
 async function SystemSetup() {
