@@ -78,9 +78,11 @@ function createColumns(): Array<DataTableColumn> {
   return [
     {
       type: 'selection',
+      fixed: 'left',
     },
     {
       type: 'expand',
+      fixed: 'left',
       expandable: (row) => {
         const { pageCheckedAuths, contentAuths, logicAuths } =
           row as unknown as IRoleListItem
