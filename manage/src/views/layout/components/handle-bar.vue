@@ -156,8 +156,8 @@ import CloseIcon from '@vicons/material/CloseOutlined'
 import FullpageIcon from '@vicons/material/FullscreenFilled'
 import NormalPageIcon from '@vicons/material/FullscreenExitFilled'
 
-import CollapsedTriggerLeftIcon from '@vicons/tabler/AlignLeft'
-import CollapsedTriggerRightIcon from '@vicons/tabler/AlignRight'
+import CollapsedTriggerLeftIcon from '@vicons/ionicons4/MdArrowRoundBack'
+import CollapsedTriggerRightIcon from '@vicons/ionicons4/MdArrowRoundForward'
 
 import draggable from 'vuedraggable/src/vuedraggable'
 

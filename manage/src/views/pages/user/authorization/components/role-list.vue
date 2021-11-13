@@ -62,16 +62,18 @@ permissionConfig.forEach((page) => {
   })
 })
 const renderTag = (type: 'default' | 'success' | 'info', text: string) => {
-  return h(
-    NTag,
-    {
-      size: 'small',
-      type,
-    },
-    {
-      default: () => text,
-    }
-  )
+  return text
+    ? h(
+        NTag,
+        {
+          size: 'small',
+          type,
+        },
+        {
+          default: () => text,
+        }
+      )
+    : null
 }
 const columns = createColumns()
 function createColumns(): Array<DataTableColumn> {

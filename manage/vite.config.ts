@@ -13,4 +13,9 @@ export default defineConfig({
       },
     ],
   },
+  server: {
+    proxy: {
+      '/api': 'https://www.hi-otter.com/seamless',
+    },
+  },
 })

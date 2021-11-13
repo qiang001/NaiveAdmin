@@ -113,6 +113,9 @@ export const buildStore = (router: Router) => {
       getMenuAuthTree(state) {
         return menuAuthTree
       },
+      getAllAuthKeys(state) {
+        return ALL_AUTH_KEYS
+      },
       getHideAuthKeys(state) {
         return HIDE_AUTH_KEYS
       },

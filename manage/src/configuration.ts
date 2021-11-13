@@ -1,31 +1,16 @@
 // 路由-菜单
-import ConsoleIcon from '@vicons/material/MonitorRound'
-
-import GoodIcon from '@vicons/fa/Cubes'
-import GoodListIcon from '@vicons/material/FormatListNumberedRound'
-import GoodCategoryIcon from '@vicons/material/CategoryOutlined'
-
-import OrderIcon from '@vicons/fluent/ClipboardBulletListLtr20Regular'
-import OrderListIcon from '@vicons/fluent/ClipboardSearch24Filled'
-
-import MarketingIcon from '@vicons/carbon/Cognitive'
-import OverviewIcon from '@vicons/fluent/FlagPride16Filled'
-import PlanIcon from '@vicons/tabler/Bulb'
-import BillionsAssistanceIcon from '@vicons/material/AttachMoneyRound'
-import NewcomerIcon from '@vicons/antd/GiftOutlined'
-
-import CustomerIcon from '@vicons/antd/TeamOutlined'
-import CustomerListIcon from '@vicons/fluent/PeopleSearch24Filled'
-import CustomerTypeIcon from '@vicons/material/AccountTreeRound'
+import ComponentIcon from '@vicons/material/AppsFilled'
+import CommonModalIcon from '@vicons/material/PostAddSharp'
+import CommonTableIcon from '@vicons/fluent/TextNumberListLtr20Regular'
 
 import UserIcon from '@vicons/carbon/User'
 import UserListIcon from '@vicons/carbon/UserMultiple'
 import AuthorizationIcon from '@vicons/carbon/FingerprintRecognition'
 
 import SystemIcon from '@vicons/fluent/DesktopSync16Regular'
-import AccessControlIcon from '@vicons/material/HttpsRound'
 import OperationRecordingIcon from '@vicons/fluent/Record24Regular'
-import DocsIcon from '@vicons/tabler/Book'
+import AccessControlIcon from '@vicons/antd/SecurityScanFilled'
+import DocsIcon from '@vicons/material/ChromeReaderModeSharp'
 
 import { Component } from 'vue'
 export interface IPageItem {
@@ -42,122 +27,23 @@ export interface IPageItem {
 
 export const pageConfig: IPageItem[] = [
   {
-    name: 'Console',
-    path: 'console',
-    label: '主控台',
-    labelPinYin: 'zhukongtai_zkt',
-    icon: ConsoleIcon,
-  },
-  {
-    name: 'Good',
-    label: '商品管理',
-    icon: GoodIcon,
+    name: 'ComponentCollection',
+    label: '组件管理',
+    icon: ComponentIcon,
     children: [
       {
-        name: 'GoodList',
-        path: 'good/list',
-        label: '商品列表',
-        labelPinYin: 'shangpinliebiao_splb',
-        icon: GoodListIcon,
+        name: 'CommonModal',
+        path: 'component-collection/common-modal',
+        label: '通用弹窗',
+        labelPinYin: 'tongyongtanchuang_tytc',
+        icon: CommonModalIcon,
       },
       {
-        name: 'GoodDetails',
-        path: 'good/details',
-        label: '商品详情',
-        ifHide: true,
-        belongsTo: 'GoodList',
-      },
-      {
-        name: 'GoodCategory',
-        path: 'good/category',
-        label: '商品分类',
-        labelPinYin: 'shangpinfenlei_spfl',
-        icon: GoodCategoryIcon,
-      },
-    ],
-  },
-  {
-    name: 'Order',
-    label: '订单管理',
-    icon: OrderIcon,
-    children: [
-      {
-        name: 'OrderList',
-        path: 'order/list',
-        label: '订单列表',
-        labelPinYin: 'dingdanliebiao_ddlb',
-        icon: OrderListIcon,
-      },
-      {
-        name: 'OrderDetails',
-        path: 'order/details',
-        label: '订单详情',
-        ifHide: true,
-        belongsTo: 'OrderList',
-      },
-    ],
-  },
-  {
-    name: 'Marketing',
-    label: '营销管理',
-    icon: MarketingIcon,
-    children: [
-      {
-        name: 'Overview',
-        path: 'marketing/overview',
-        label: '概况总览',
-        labelPinYin: 'gaikuangzonglan_gkzl',
-        icon: OverviewIcon,
-      },
-      {
-        name: 'Plan',
-        label: '策略模块',
-        icon: PlanIcon,
-        children: [
-          {
-            name: 'BillionsAssistance',
-            path: 'marketing/plan/billions-assistance',
-            label: '百亿补贴',
-            labelPinYin: 'baiyibutie_bybt',
-            icon: BillionsAssistanceIcon,
-          },
-          {
-            name: 'Newcomer',
-            path: 'marketing/plan/newcomer',
-            label: '新人专享',
-            labelPinYin: 'xinrenzhuanxiang_xrzx',
-            icon: NewcomerIcon,
-          },
-        ],
-      },
-    ],
-  },
-  {
-    name: 'Customer',
-    path: 'customer',
-    label: '客户管理',
-    icon: CustomerIcon,
-    children: [
-      {
-        name: 'CustomerList',
-        path: 'customer/list',
-        label: '客户列表',
-        labelPinYin: 'kehuliebiao_khlb',
-        icon: CustomerListIcon,
-      },
-      {
-        name: 'CustomerDetails',
-        path: 'customer/details',
-        label: '客户详情',
-        ifHide: true,
-        belongsTo: 'CustomerList',
-      },
-      {
-        name: 'CustomerType',
-        path: 'customer/type',
-        label: '客户类型',
-        labelPinYin: 'kehuleixing_khlx',
-        icon: CustomerTypeIcon,
+        name: 'CommonTable',
+        path: 'component-collection/common-table',
+        label: '通用表格',
+        labelPinYin: 'tongyongbiaoge_tybg',
+        icon: CommonTableIcon,
       },
     ],
   },

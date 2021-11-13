@@ -162,6 +162,11 @@
   resolved "https://registry.yarnpkg.com/@vicons/fluent/-/fluent-0.11.0.tgz#84f3cda255539cb96f45c89c1601e2892d79826f"
   integrity sha512-5sbdKLijk5/PBtsapDjBodskSCrfOsqOlpCbXQ33pZmY0VZ62N46Yq6SFJXHyUgFhjvReRrFe4wCGVAktchHFg==
 
+"@vicons/ionicons4@^0.11.0":
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/@vicons/ionicons4/-/ionicons4-0.11.0.tgz#a60f5ead661d473f17103ad0051ce82ad771bbe6"
+  integrity sha512-2wgc2WZiQhR5AwNfiJcjxjNb910QBqeEYFXnZ0IJtfSgSUPH7lX6HEXegly3zqvLA0dmdUvyo2kI9lF/2PSbnQ==
+
 "@vicons/material@^0.11.0":
   version "0.11.0"
   resolved "https://registry.yarnpkg.com/@vicons/material/-/material-0.11.0.tgz#2c209121f3ff6a46450f4968397df6c3008df8d1"

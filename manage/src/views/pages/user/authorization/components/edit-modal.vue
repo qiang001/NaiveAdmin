@@ -157,6 +157,7 @@ const store = useStore()
 const menuAuthTree = ref([])
 menuAuthTree.value = store.getters.getMenuAuthTree
 const checkedKeys = ref([])
+const allAuthKeys = store.getters.getAllAuthKeys
 const hideAuthKeys = store.getters.getHideAuthKeys
 
 const updateCheckedKeys = (keys) => {
@@ -179,7 +180,11 @@ const updateCheckedKeys = (keys) => {
       }
     })
   }
+  // 去除无效页面
+  keys = keys.filter((k) => allAuthKeys.includes(k))
+
   checkedKeys.value = keys
+
   // 隐藏节点若勾选 - 则对应的强相关节点必须强制勾选, 保存为 checkedAuths
   let relatedKeys = []
   keys.forEach((k) => {
