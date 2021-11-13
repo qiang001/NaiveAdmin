@@ -165,7 +165,7 @@
               v-model:value="ifHideIcon"
               :on-update:value="ifHideIconChange"
               size="small"
-              :disabled="inverted"
+              :disabled="collapsed"
             >
               <template #checked>
                 <span style="font-size: 12px">点击显示图标</span>
@@ -283,6 +283,7 @@ const ifEmbeddedChange = (val: boolean) => {
 
 const inverted = inject('inverted') as Ref<boolean>
 const ifHideIcon = inject('ifHideIcon') as Ref<boolean>
+const collapsed = inject('collapsed') as Ref<boolean>
 
 const invertedChange = (val: boolean) => {
   inverted.value = val

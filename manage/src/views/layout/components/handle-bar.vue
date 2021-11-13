@@ -176,8 +176,6 @@ import {
   computed,
 } from 'vue'
 
-const collapsed = inject('collapsed') as Ref<boolean>
-
 // 拖动tab
 const drag = ref(false)
 const dragOptions = reactive({
@@ -317,7 +315,16 @@ const emit = defineEmits([
   'setFullpage',
 ])
 
+const collapsed = inject('collapsed') as Ref<boolean>
+const ifHideIcon = inject('ifHideIcon') as Ref<boolean>
+const recordIfHideIcon = ref(false)
 const collapse = () => {
+  if (!collapsed.value) {
+    recordIfHideIcon.value = ifHideIcon.value
+    recordIfHideIcon.value && (ifHideIcon.value = false)
+  } else {
+    ifHideIcon.value = recordIfHideIcon.value
+  }
   emit('collapse', !collapsed.value)
 }
 

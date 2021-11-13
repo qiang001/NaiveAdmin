@@ -143,9 +143,9 @@ const {
 
 provide('inverted', inverted)
 provide('ifHideIcon', ifHideIcon)
+provide('collapsed', readonly(collapsed))
 
 import Menu from './components/menu.vue'
-provide('collapsed', readonly(collapsed))
 
 import ResizeBar from './components/resize-bar.vue'
 provide('sectionWidth', readonly(sectionWidth))
