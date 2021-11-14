@@ -195,6 +195,10 @@ import Setting from './components/setting.vue'
   transition: all 0.3s ease;
 }
 
+:deep(.n-scrollbar) {
+  overflow: visible;
+}
+
 @media only screen and (max-width: 720px) {
   .n-layout-content {
     pointer-events: none;

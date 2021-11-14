@@ -14,9 +14,14 @@
 
 <script setup lang="ts">
 import { h, inject, Ref } from 'vue'
-import { NDataTable, DataTableColumn, NCollapse, NCollapseItem } from 'naive-ui'
+import {
+  NDataTable,
+  DataTableColumn,
+  NCollapse,
+  NCollapseItem,
+  NTime,
+} from 'naive-ui'
 import EmptyBox from '@/components/EmptyBox.vue'
-import { useDateTime } from '@/hooks/useDateFormat'
 import { useStore } from '@/hooks/useStore'
 const store = useStore()
 const loading = inject('loading') as Ref<boolean>
@@ -54,7 +59,7 @@ function createColumns(): Array<DataTableColumn> {
               ),
               h('div', null, {
                 default: () => {
-                  return useDateTime(createdAt)
+                  return h(NTime, { time: new Date(createdAt) })
                 },
               }),
             ]

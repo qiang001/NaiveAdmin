@@ -21,12 +21,18 @@ interface emitType {
 }
 const emit = defineEmits<emitType>()
 import { h, inject, Ref } from 'vue'
-import { NTag, NDataTable, DataTableColumn, NSpace } from 'naive-ui'
+import {
+  NTag,
+  NDataTable,
+  DataTableColumn,
+  NSpace,
+  NTime,
+  NButton,
+  NIcon,
+} from 'naive-ui'
 import EditIcon from '@vicons/material/EditNoteOutlined'
 import DeleteIcon from '@vicons/antd/DeleteOutlined'
 import EmptyBox from '@/components/EmptyBox.vue'
-import { useIconButton } from '@/hooks/useIconButton'
-import { useDateTime } from '@/hooks/useDateFormat'
 
 const maxHeight = inject('maxHeight') as Ref<number>
 const loading = inject('loading') as Ref<boolean>
@@ -204,7 +210,7 @@ function createColumns(): Array<DataTableColumn> {
       key: 'createdAt',
       width: 166,
       render(row) {
-        return useDateTime(row.createdAt as string)
+        return h(NTime, { time: new Date(row.createdAt as string) })
       },
     },
     {
@@ -215,23 +221,37 @@ function createColumns(): Array<DataTableColumn> {
           ? ''
           : h(NSpace, null, {
               default: () => [
-                useIconButton({
-                  type: 'primary',
-                  icon: EditIcon,
-                  text: '编辑',
-                  event: () => emit('edit', row as unknown as IRoleListItem),
-                }),
-                useIconButton({
-                  type: 'default',
-                  dashed: true,
-                  icon: DeleteIcon,
-                  text: '删除',
-                  event: () => emit('_delete', row as unknown as IRoleListItem),
-                }),
+                h(
+                  NButton,
+                  {
+                    type: 'primary',
+                    size: 'small',
+                    onClick: () =>
+                      emit('edit', row as unknown as IRoleListItem),
+                  },
+                  {
+                    icon: () => h(NIcon, null, { default: () => h(EditIcon) }),
+                    default: () => '编辑',
+                  }
+                ),
+                h(
+                  NButton,
+                  {
+                    size: 'small',
+                    dashed: true,
+                    onClick: () =>
+                      emit('_delete', row as unknown as IRoleListItem),
+                  },
+                  {
+                    icon: () =>
+                      h(NIcon, null, { default: () => h(DeleteIcon) }),
+                    default: () => '删除',
+                  }
+                ),
               ],
             })
       },
-      width: 256,
+      width: 140,
       fixed: 'right',
     },
   ]

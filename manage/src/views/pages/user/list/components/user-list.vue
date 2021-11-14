@@ -14,15 +14,22 @@
 </template>
 
 <script setup lang="ts">
-import { NTag, DataTableBaseColumn, NSpace, NAvatar, NElement } from 'naive-ui'
+import {
+  NTag,
+  DataTableBaseColumn,
+  NSpace,
+  NAvatar,
+  NElement,
+  NTime,
+  NButton,
+  NIcon,
+} from 'naive-ui'
 import ResetIcon from '@vicons/fluent/Password24Filled'
 import EditIcon from '@vicons/material/EditNoteOutlined'
 import DeleteIcon from '@vicons/antd/DeleteOutlined'
 
 import CommonTable from '@/components/CommonTable.vue'
-import { useIconButton } from '@/hooks/useIconButton'
-import { useStatusTag } from '@/hooks/useStatusTag'
-import { useDateTime } from '@/hooks/useDateFormat'
+import { renderStatusTag } from '@/components/StatusTag/renderStatusTag'
 
 import { IUserListItem } from '../interfaces/data'
 import { IPagination } from '@/hooks/usePagination'
@@ -132,20 +139,9 @@ function createAllColumns(): Array<DataTableBaseColumn> {
       render(row) {
         let { roles } = row as unknown as IUserListItem
         const tags = roles.map((role) => {
-          return h(
-            NTag,
-            {
-              style: {
-                marginRight: '6px',
-              },
-              size: 'small',
-            },
-            {
-              default: () => role.name,
-            }
-          )
+          return h(NTag, { size: 'small' }, { default: () => role.name })
         })
-        return tags
+        return h(NSpace, { size: 'small' }, { default: () => tags })
       },
       ellipsis: {
         tooltip: true,
@@ -161,12 +157,12 @@ function createAllColumns(): Array<DataTableBaseColumn> {
           {
             default: () =>
               row.ifActive
-                ? useStatusTag({
+                ? renderStatusTag({
                     type: 'success',
                     text: '已激活',
                   })
-                : useStatusTag({
-                    type: 'disabled',
+                : renderStatusTag({
+                    type: 'default',
                     text: '已离职',
                   }),
           }
@@ -180,7 +176,7 @@ function createAllColumns(): Array<DataTableBaseColumn> {
       key: 'createdAt',
       width: 180,
       render(row) {
-        return useDateTime(row.createdAt as string)
+        return h(NTime, { time: new Date(row.createdAt as string) })
       },
     },
     {
@@ -189,31 +185,47 @@ function createAllColumns(): Array<DataTableBaseColumn> {
       render(row) {
         return h(NSpace, null, {
           default: () => [
-            useIconButton({
-              type: 'primary',
-              icon: EditIcon,
-              text: '编辑',
-              event: () => emit('edit', row as unknown as IUserListItem),
-            }),
-            useIconButton({
-              type: 'default',
-              ghost: true,
-              icon: ResetIcon,
-              text: '重置密码',
-              event: () =>
-                emit('resetPassword', row as unknown as IUserListItem),
-            }),
-            useIconButton({
-              type: 'default',
-              dashed: true,
-              icon: DeleteIcon,
-              text: '删除',
-              event: () => emit('_delete', row as unknown as IUserListItem),
-            }),
+            h(
+              NButton,
+              {
+                type: 'primary',
+                size: 'small',
+                onClick: () => emit('edit', row as unknown as IUserListItem),
+              },
+              {
+                icon: () => h(NIcon, null, { default: () => h(EditIcon) }),
+                default: () => '编辑',
+              }
+            ),
+            h(
+              NButton,
+              {
+                size: 'small',
+                ghost: true,
+                onClick: () =>
+                  emit('resetPassword', row as unknown as IUserListItem),
+              },
+              {
+                icon: () => h(NIcon, null, { default: () => h(ResetIcon) }),
+                default: () => '重置密码',
+              }
+            ),
+            h(
+              NButton,
+              {
+                size: 'small',
+                dashed: true,
+                onClick: () => emit('_delete', row as unknown as IUserListItem),
+              },
+              {
+                icon: () => h(NIcon, null, { default: () => h(DeleteIcon) }),
+                default: () => '删除',
+              }
+            ),
           ],
         })
       },
-      width: 290,
+      width: 300,
       fixed: 'right',
     },
   ]

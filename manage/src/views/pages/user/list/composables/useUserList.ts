@@ -30,7 +30,7 @@ export const useUserList = ({
 }: Input) => {
   // 响应式表格
   const { dynamicWidth, maxHeight } = useResponsiveTable({
-    dynamicWidth: 480,
+    dynamicWidth: 240,
     containerId: 'page-panel',
     otherHeightTotalStatic: 115,
     otherElementIds: ['action-header'],

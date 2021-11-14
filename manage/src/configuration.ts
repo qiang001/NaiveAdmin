@@ -1,5 +1,6 @@
 // 路由-菜单
 import ComponentIcon from '@vicons/material/AppsFilled'
+import CommonBasisIcon from '@vicons/fluent/BookNumber20Regular'
 import CommonModalIcon from '@vicons/material/PostAddSharp'
 import CommonTableIcon from '@vicons/fluent/TextNumberListLtr20Regular'
 
@@ -31,6 +32,13 @@ export const pageConfig: IPageItem[] = [
     label: '组件管理',
     icon: ComponentIcon,
     children: [
+      {
+        name: 'CommonBasis',
+        path: 'component-collection/common-basis',
+        label: '通用规范',
+        labelPinYin: 'tongyongguifan_tygf',
+        icon: CommonBasisIcon,
+      },
       {
         name: 'CommonModal',
         path: 'component-collection/common-modal',

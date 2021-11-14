@@ -4,6 +4,7 @@
       <template #header> {{ title }} </template>
       <template #header-extra>
         <div
+          v-if="fullscreen"
           class="d-flex a-center j-center fullscreen-btn mr-1"
           @click="handleFullscrenn"
         >
@@ -22,14 +23,14 @@
       <template #action v-if="footer">
         <div class="d-flex a-center j-center">
           <n-space>
-            <n-button @click="cancel">{{ cancelBtnText }}</n-button>
+            <n-button @click="cancel">{{ cancelBtnText || '取消' }}</n-button>
             <n-button
               @click="confirm"
               type="primary"
               :loading="confirmLoading"
               :disabled="confirmLoading"
             >
-              {{ confirmBtnText }}
+              {{ confirmBtnText || '确认' }}
             </n-button>
           </n-space>
         </div>
@@ -49,7 +50,8 @@ import { ref, computed } from 'vue'
 interface IProp {
   showModal: boolean
   width?: number
-  title: string
+  title?: string
+  fullscreen?: boolean
   footer?: boolean
   cancelBtnText?: string
   confirmBtnText?: string
@@ -59,6 +61,7 @@ const props = withDefaults(defineProps<IProp>(), {
   showModal: false,
   width: 600,
   title: '',
+  fullscreen: true,
   footer: true,
   cancelBtnText: '取消',
   confirmBtnText: '确认',
