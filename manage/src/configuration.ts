@@ -342,6 +342,12 @@ export const getColors: (ifDark: boolean) => IColorCollection = (ifDark) => {
       Switch: {
         textColor: '#222',
       },
+      Alert: {
+        colorInfo: !ifDark ? '#EDF5FEFF' : '#3889C540',
+        borderInfo: !ifDark
+          ? '1px solid rgba(199,223,251,1)'
+          : '1px solid rgba(56,137,197,0.35)',
+      },
     },
   }
 }
@@ -392,6 +398,9 @@ export const themeOverrides: (mainColor: string, ifDark: boolean) => any = (
   let Tabs = {}
   if (setting.Tabs) Tabs = { ...Tabs, ...setting.Tabs }
 
+  let Alert = {}
+  if (setting.Alert) Alert = { ...Alert, ...setting.Alert }
+
   let Spin = {
     sizeTiny: '18px',
   }
@@ -403,6 +412,7 @@ export const themeOverrides: (mainColor: string, ifDark: boolean) => any = (
     Radio,
     Switch,
     Tabs,
+    Alert,
     Spin,
   }
 }
