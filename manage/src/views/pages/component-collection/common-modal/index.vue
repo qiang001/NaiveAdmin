@@ -6,7 +6,7 @@
         <br />
         本组件仅用于强交互场景 ( 点击遮罩无法关闭弹窗 )
       </n-alert>
-      <n-card title="定制化" embedded>
+      <n-card title="定制化演示" embedded>
         <n-space vertical size="large">
           <n-space align="center">
             <div>宽度</div>
