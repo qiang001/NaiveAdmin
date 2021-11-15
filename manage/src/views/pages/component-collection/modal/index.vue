@@ -2,7 +2,7 @@
   <page-panel :title="'弹窗'">
     <n-space vertical size="large">
       <n-alert title="通用弹窗 CommonModal" type="info">
-        基于 Naive UI 的模态框 Modal 组件 + 卡片 Card 组件封装了一些其他的功能
+        基于 Naive UI 的模态框 NModal 组件扩展了一些其他的功能
         <br />
         本组件仅用于强交互场景 ( 点击遮罩无法关闭弹窗 )
       </n-alert>
@@ -51,6 +51,58 @@
           </n-space>
         </n-space>
       </n-card>
+      <n-alert title="结果弹窗 ResultModal" type="info">
+        基于 Naive UI 的模态框 NModal 组件封装的特定业务组件
+      </n-alert>
+      <n-card title="定制化演示" embedded>
+        <n-space vertical size="large">
+          <n-space align="center">
+            <div>弹窗类型</div>
+            <n-checkbox
+              v-model:checked="resultModalOptions.ifSuccess"
+              :on-update:checked="(bool) => handleResultType('success', bool)"
+              >成功</n-checkbox
+            >
+            <n-checkbox
+              v-model:checked="resultModalOptions.ifError"
+              :on-update:checked="(bool) => handleResultType('error', bool)"
+              >失败</n-checkbox
+            >
+          </n-space>
+          <n-space align="center">
+            <div>内容文本</div>
+            <n-input
+              v-model:value="resultModalOptions.content"
+              type="text"
+              placeholder="内容文本"
+              clearable
+            />
+          </n-space>
+          <n-space align="center">
+            <div>描述文本</div>
+            <n-input
+              v-model:value="resultModalOptions.description"
+              type="text"
+              placeholder="描述文本"
+              clearable
+            />
+          </n-space>
+          <n-space align="center">
+            <div>按钮文本</div>
+            <n-input
+              v-model:value="resultModalOptions.confirmBtnText"
+              type="text"
+              placeholder="按钮文本"
+              clearable
+            />
+          </n-space>
+        </n-space>
+        <n-space justify="end">
+          <n-button type="primary" @click="resultModalOptions.showModal = true"
+            >点击打开</n-button
+          >
+        </n-space>
+      </n-card>
     </n-space>
 
     <common-modal
@@ -76,6 +128,15 @@
       </n-space>
       <div style="height: 267px" v-else></div>
     </common-modal>
+
+    <result-modal
+      :showModal="resultModalOptions.showModal"
+      :type="resultModalOptions.type"
+      :content="resultModalOptions.content"
+      :description="resultModalOptions.description"
+      :confirmBtnText="resultModalOptions.confirmBtnText"
+      @confirm="resultModalOptions.showModal = false"
+    ></result-modal>
   </page-panel>
 </template>
 
@@ -118,6 +179,33 @@ const confirm = () => {
     options.confirmLoading = false
     close()
   }, 1000)
+}
+import ResultModal from '@/components/ResultModal.vue'
+type resultModalType = 'success' | 'error'
+const resultModalOptions = reactive({
+  showModal: false,
+  ifSuccess: true,
+  ifError: false,
+  type: 'success' as resultModalType,
+  content: '',
+  description: '',
+  confirmBtnText: '',
+})
+
+const handleResultType = (type: resultModalType, bool: boolean) => {
+  if (!bool) return
+  if (type === 'success') {
+    resultModalOptions.ifSuccess = true
+    resultModalOptions.ifError = false
+  }
+  if (type === 'error') {
+    resultModalOptions.ifSuccess = false
+    resultModalOptions.ifError = true
+  }
+  resultModalOptions.type = type
+  resultModalOptions.content = ''
+  resultModalOptions.description = ''
+  resultModalOptions.confirmBtnText = ''
 }
 </script>
 

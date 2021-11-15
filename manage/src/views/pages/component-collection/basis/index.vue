@@ -3,7 +3,7 @@
     <n-space vertical size="large">
       <n-alert title="按钮 NButton" type="info">
         基于 Naive UI 的主题定制化对按钮样式进行了微调，建议尽量只使用
-        Default、Primary 此两种类型的按钮
+        default、primary 此两种类型的按钮
       </n-alert>
       <n-card title="演示" embedded>
         <n-space vertical size="large">

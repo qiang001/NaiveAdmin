@@ -275,7 +275,7 @@ export const buildStore = (router: Router) => {
       to.name === 'Layout' &&
       store.state.userInfo?.name === '超级管理员'
     ) {
-      next({ path: '/layout/component-collection/common-basis', replace: true })
+      next({ path: '/layout/component-collection/basis', replace: true })
     } else {
       next()
     }

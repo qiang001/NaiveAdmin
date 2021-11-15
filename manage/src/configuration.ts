@@ -1,5 +1,5 @@
 // 路由-菜单
-import ComponentIcon from '@vicons/material/AppsFilled'
+import ComponentIcon from '@vicons/ionicons5/Apps'
 import BasisIcon from '@vicons/fluent/BookNumber20Regular'
 import ModalIcon from '@vicons/fluent/PositionBackward20Regular'
 import TableIcon from '@vicons/fluent/TextBulletListSquare24Regular'
