@@ -9,15 +9,17 @@
         <n-space vertical size="large">
           <n-space align="center">
             <n-button size="tiny">默认按钮</n-button>
-            <n-button size="small">默认按钮</n-button>
-            <n-button>默认按钮</n-button>
-            <n-button size="large">默认按钮</n-button>
+            <n-button size="small" loading>默认按钮</n-button>
+            <n-button disabled>默认按钮</n-button>
+            <n-button size="large" loading disabled>默认按钮</n-button>
           </n-space>
           <n-space align="center">
             <n-button size="tiny" type="primary">主要按钮</n-button>
-            <n-button size="small" type="primary">主要按钮</n-button>
-            <n-button type="primary">主要按钮</n-button>
-            <n-button size="large" type="primary">主要按钮</n-button>
+            <n-button size="small" type="primary" loading>主要按钮</n-button>
+            <n-button type="primary" disabled>主要按钮</n-button>
+            <n-button size="large" type="primary" loading disabled
+              >主要按钮</n-button
+            >
           </n-space>
         </n-space>
       </n-card>
