@@ -10,7 +10,7 @@
             <div>宽度</div>
             <n-input-number
               v-model:value="options.width"
-              clearable
+              :min="340"
               :step="20"
             />
           </n-space>

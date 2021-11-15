@@ -28,8 +28,8 @@
       <n-space align="center">
         <status-tag>恕瑞玛</status-tag>
         <status-tag type="success" size="large">艾欧尼亚</status-tag>
-        <status-tag type="info" shape="round">弗雷尔卓德</status-tag>
-        <status-tag type="warning" shape="square">诺克萨斯</status-tag>
+        <status-tag type="info" shape="square">弗雷尔卓德</status-tag>
+        <status-tag type="warning" shape="round">诺克萨斯</status-tag>
         <status-tag type="error" bold>暗影岛</status-tag>
       </n-space>
     </n-space>
