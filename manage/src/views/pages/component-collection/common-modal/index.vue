@@ -3,6 +3,8 @@
     <n-space vertical size="large">
       <n-alert title="自定义弹窗" type="info">
         基于 Naive UI 的模态框 Modal 组件 + 卡片 Card 组件封装了一些其他的功能
+        <br />
+        本组件仅用于强交互场景 ( 点击遮罩无法关闭弹窗 )
       </n-alert>
       <n-card title="定制化" embedded>
         <n-space vertical size="large">
@@ -14,7 +16,8 @@
               :step="20"
             />
           </n-space>
-          <n-space align="center">
+          <n-checkbox v-model:checked="options.header">显示 header</n-checkbox>
+          <n-space align="center" v-if="options.header">
             <div>标题</div>
             <n-input
               v-model:value="options.title"
@@ -22,10 +25,10 @@
               placeholder="弹窗标题"
               clearable
             />
+            <n-checkbox v-model:checked="options.fullscreen"
+              >可全屏展开</n-checkbox
+            >
           </n-space>
-          <n-checkbox v-model:checked="options.fullscreen"
-            >可全屏展开</n-checkbox
-          >
           <n-checkbox v-model:checked="options.footer">显示 footer</n-checkbox>
           <n-space align="center" v-if="options.footer">
             <div>取消按钮文本</div>
@@ -54,6 +57,7 @@
     <common-modal
       :showModal="options.showModal"
       :width="options.width"
+      :header="options.header"
       :title="options.title"
       :fullscreen="options.fullscreen"
       :footer="options.footer"
@@ -73,6 +77,11 @@
         <n-skeleton text style="width: 80%" />
       </n-space>
       <div style="height: 267px" v-else></div>
+      <n-space justify="center" v-if="!options.header && !options.footer">
+        <n-button type="primary" class="mt-2" @click="cancel"
+          >此时你需要自己写一个按钮关闭弹窗</n-button
+        >
+      </n-space>
     </common-modal>
   </page-panel>
 </template>
@@ -94,6 +103,7 @@ import { reactive } from 'vue'
 const options = reactive({
   showModal: false,
   width: 600,
+  header: true,
   title: '标题',
   fullscreen: true,
   footer: true,

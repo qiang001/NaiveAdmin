@@ -1,7 +1,7 @@
 <template>
   <n-modal v-model:show="showModal" :mask-closable="false" id="common-modal">
     <n-card :style="cardWidth">
-      <template #header> {{ title }} </template>
+      <template #header v-if="header"> {{ title }} </template>
       <template #header-extra>
         <div
           v-if="fullscreen"
@@ -50,6 +50,7 @@ import { ref, computed } from 'vue'
 interface IProp {
   showModal: boolean
   width?: number
+  header?: boolean
   title?: string
   fullscreen?: boolean
   footer?: boolean
@@ -60,6 +61,7 @@ interface IProp {
 const props = withDefaults(defineProps<IProp>(), {
   showModal: false,
   width: 600,
+  header: true,
   title: '',
   fullscreen: true,
   footer: true,
