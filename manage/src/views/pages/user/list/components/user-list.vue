@@ -29,7 +29,7 @@ import EditIcon from '@vicons/material/EditNoteOutlined'
 import DeleteIcon from '@vicons/antd/DeleteOutlined'
 
 import CommonTable from '@/components/CommonTable.vue'
-import { renderStatusTag } from '@/components/StatusTag/renderStatusTag'
+import StatusTag from '@/components/StatusTag/StatusTag'
 
 import { IUserListItem } from '../interfaces/data'
 import { IPagination } from '@/hooks/usePagination'
@@ -157,14 +157,24 @@ function createAllColumns(): Array<DataTableBaseColumn> {
           {
             default: () =>
               row.ifActive
-                ? renderStatusTag({
-                    type: 'success',
-                    text: '已激活',
-                  })
-                : renderStatusTag({
-                    type: 'default',
-                    text: '已离职',
-                  }),
+                ? h(
+                    StatusTag,
+                    {
+                      type: 'success',
+                    },
+                    {
+                      default: () => '已激活',
+                    }
+                  )
+                : h(
+                    StatusTag,
+                    {
+                      type: 'default',
+                    },
+                    {
+                      default: () => '已离职',
+                    }
+                  ),
           }
         )
       },

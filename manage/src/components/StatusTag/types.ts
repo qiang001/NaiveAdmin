@@ -8,16 +8,12 @@ export const statusTagProps = {
     default: 'default',
   },
   size: {
-    type: String as PropType<'default' | 'small'>,
+    type: String as PropType<'default' | 'large'>,
     default: 'default',
   },
   shape: {
     type: String as PropType<'default' | 'square' | 'round'>,
     default: 'default',
-  },
-  text: {
-    type: String as PropType<string>,
-    default: '默认类型',
   },
 }
 

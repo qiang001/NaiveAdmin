@@ -1,0 +1,71 @@
+.hita-status-tag-default-light {
+  background-color: #f2f2f2;
+  color: #95a4aa;
+}
+
+.hita-status-tag-default-dark {
+  background-color: #383838;
+  color: #b2b2b2;
+}
+
+.hita-status-tag-success-light {
+  background-color: #e2f4e3;
+  color: #457a4c;
+}
+
+.hita-status-tag-success-dark {
+  background-color: #2c3c32;
+  color: #d0f0d1;
+}
+
+.hita-status-tag-info-light {
+  background-color: #d9ebfe;
+  color: #2057a0;
+}
+
+.hita-status-tag-info-dark {
+  background-color: #2b3849;
+  color: #cce4f6;
+}
+
+.hita-status-tag-warning-light {
+  background-color: #ffe7da;
+  color: #ff6207;
+}
+
+.hita-status-tag-warning-dark {
+  background-color: #574236;
+  color: #ffceb1;
+}
+
+.hita-status-tag-error-light {
+  background-color: #ffe4e4;
+  color: #f52d5b;
+}
+
+.hita-status-tag-error-dark {
+  background-color: #472930;
+  color: #f7a7b9;
+}
+
+.hita-status-tag-default-size {
+  font-size: 12px;
+  padding: 0 4px;
+}
+
+.hita-status-tag-large-size {
+  font-size: 14px;
+  padding: 1px 8px;
+}
+
+.hita-status-tag-default-shape {
+  border-radius: 3px;
+}
+
+.hita-status-tag-square-shape {
+  border-radius: 0;
+}
+
+.hita-status-tag-round-shape {
+  border-radius: 50px;
+}

@@ -25,91 +25,65 @@
       <n-space align="center">
         <div>默认边框</div>
         <status-tag></status-tag>
-        <status-tag type="success" text="成功类型"></status-tag>
-        <status-tag type="info" text="信息类型"></status-tag>
-        <status-tag type="warning" text="警告类型"></status-tag>
-        <status-tag type="error" text="错误类型"></status-tag>
+        <status-tag type="success">成功类型</status-tag>
+        <status-tag type="info">信息类型</status-tag>
+        <status-tag type="warning">警告类型</status-tag>
+        <status-tag type="error">错误类型</status-tag>
       </n-space>
       <n-space align="center">
         <div>圆形边框</div>
         <status-tag shape="round"></status-tag>
-        <status-tag type="success" shape="round" text="成功类型"></status-tag>
-        <status-tag type="info" shape="round" text="信息类型"></status-tag>
-        <status-tag type="warning" shape="round" text="警告类型"></status-tag>
-        <status-tag type="error" shape="round" text="错误类型"></status-tag>
+        <status-tag type="success" shape="round">成功类型</status-tag>
+        <status-tag type="info" shape="round">信息类型</status-tag>
+        <status-tag type="warning" shape="round">警告类型</status-tag>
+        <status-tag type="error" shape="round">错误类型</status-tag>
       </n-space>
       <n-space align="center">
         <div>方形边框</div>
         <status-tag shape="square"></status-tag>
-        <status-tag type="success" shape="square" text="成功类型"></status-tag>
-        <status-tag type="info" shape="square" text="信息类型"></status-tag>
-        <status-tag type="warning" shape="square" text="警告类型"></status-tag>
-        <status-tag type="error" shape="square" text="错误类型"></status-tag>
+        <status-tag type="success" shape="square">成功类型</status-tag>
+        <status-tag type="info" shape="square">信息类型</status-tag>
+        <status-tag type="warning" shape="square">警告类型</status-tag>
+        <status-tag type="error" shape="square">错误类型</status-tag>
       </n-space>
-      <div style="font-size: 12px; font-weight: bold">小亿点点</div>
+      <div style="font-size: 12px; font-weight: bold">大亿点点</div>
       <n-space align="center">
         <div>默认边框</div>
-        <status-tag size="small"></status-tag>
-        <status-tag type="success" size="small" text="成功类型"></status-tag>
-        <status-tag type="info" size="small" text="信息类型"></status-tag>
-        <status-tag type="warning" size="small" text="警告类型"></status-tag>
-        <status-tag type="error" size="small" text="错误类型"></status-tag>
+        <status-tag size="large"></status-tag>
+        <status-tag size="large" type="success">成功类型</status-tag>
+        <status-tag size="large" type="info">信息类型</status-tag>
+        <status-tag size="large" type="warning">警告类型</status-tag>
+        <status-tag size="large" type="error">错误类型</status-tag>
       </n-space>
       <n-space align="center">
         <div>圆形边框</div>
-        <status-tag size="small" shape="round"></status-tag>
-        <status-tag
-          type="success"
-          size="small"
-          shape="round"
-          text="成功类型"
-        ></status-tag>
-        <status-tag
-          type="info"
-          size="small"
-          shape="round"
-          text="信息类型"
-        ></status-tag>
-        <status-tag
-          type="warning"
-          size="small"
-          shape="round"
-          text="警告类型"
-        ></status-tag>
-        <status-tag
-          type="error"
-          size="small"
-          shape="round"
-          text="错误类型"
-        ></status-tag>
+        <status-tag size="large" shape="round"></status-tag>
+        <status-tag size="large" type="success" shape="round"
+          >成功类型</status-tag
+        >
+        <status-tag size="large" type="info" shape="round">信息类型</status-tag>
+        <status-tag size="large" type="warning" shape="round"
+          >警告类型</status-tag
+        >
+        <status-tag size="large" type="error" shape="round"
+          >错误类型</status-tag
+        >
       </n-space>
       <n-space align="center">
         <div>方形边框</div>
-        <status-tag size="small" shape="square"></status-tag>
-        <status-tag
-          type="success"
-          size="small"
-          shape="square"
-          text="成功类型"
-        ></status-tag>
-        <status-tag
-          type="info"
-          size="small"
-          shape="square"
-          text="信息类型"
-        ></status-tag>
-        <status-tag
-          type="warning"
-          size="small"
-          shape="square"
-          text="警告类型"
-        ></status-tag>
-        <status-tag
-          type="error"
-          size="small"
-          shape="square"
-          text="错误类型"
-        ></status-tag>
+        <status-tag size="large" shape="square"></status-tag>
+        <status-tag size="large" type="success" shape="square"
+          >成功类型</status-tag
+        >
+        <status-tag size="large" type="info" shape="square"
+          >信息类型</status-tag
+        >
+        <status-tag size="large" type="warning" shape="square"
+          >警告类型</status-tag
+        >
+        <status-tag size="large" type="error" shape="square"
+          >错误类型</status-tag
+        >
       </n-space>
     </n-space>
   </page-panel>
