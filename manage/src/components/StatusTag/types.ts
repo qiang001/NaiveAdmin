@@ -15,6 +15,10 @@ export const statusTagProps = {
     type: String as PropType<'default' | 'square' | 'round'>,
     default: 'default',
   },
+  bold: {
+    type: Boolean as PropType<boolean>,
+    default: false,
+  },
 }
 
 type tStatusTag = ExtractPropTypes<typeof statusTagProps>

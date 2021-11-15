@@ -6,10 +6,10 @@ export default defineComponent({
   name: 'StatusTag',
   props: statusTagProps,
   setup(props, ctx) {
+    const { type, size, shape, bold } = props
     const store = useStore()
     const theme = computed(() => (store.state.ifDark ? 'dark' : 'light'))
     const tagClass = computed(() => {
-      const { type, size, shape } = props
       return `hita-status-tag-${type}-${theme.value} hita-status-tag-${size}-size hita-status-tag-${shape}-shape`
     })
     return () => {
@@ -17,12 +17,12 @@ export default defineComponent({
         <div
           class={tagClass.value}
           style={{
-            'font-weight': 'bold',
+            'font-weight': bold ? 'bold' : 'normal',
             cursor: 'default',
             'user-select': 'none',
           }}
         >
-          {ctx.slots.default?.() || '默认类型'}
+          {ctx.slots.default?.()}
         </div>
       )
     }
