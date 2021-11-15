@@ -1,7 +1,7 @@
 <template>
-  <page-panel :title="'通用弹窗'">
+  <page-panel :title="'弹窗'">
     <n-space vertical size="large">
-      <n-alert title="自定义弹窗" type="info">
+      <n-alert title="通用弹窗 CommonModal" type="info">
         基于 Naive UI 的模态框 Modal 组件 + 卡片 Card 组件封装了一些其他的功能
         <br />
         本组件仅用于强交互场景 ( 点击遮罩无法关闭弹窗 )

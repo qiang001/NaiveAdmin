@@ -1,14 +1,14 @@
 // 路由-菜单
 import ComponentIcon from '@vicons/material/AppsFilled'
-import CommonBasisIcon from '@vicons/fluent/BookNumber20Regular'
-import CommonModalIcon from '@vicons/material/PostAddSharp'
-import CommonTableIcon from '@vicons/fluent/TextNumberListLtr20Regular'
+import BasisIcon from '@vicons/fluent/BookNumber20Regular'
+import ModalIcon from '@vicons/fluent/PositionBackward20Regular'
+import TableIcon from '@vicons/fluent/TextBulletListSquare24Regular'
 
 import UserIcon from '@vicons/carbon/User'
 import UserListIcon from '@vicons/carbon/UserMultiple'
 import AuthorizationIcon from '@vicons/carbon/FingerprintRecognition'
 
-import SystemIcon from '@vicons/fluent/DesktopSync16Regular'
+import SystemIcon from '@vicons/fluent/Server20Filled'
 import OperationRecordingIcon from '@vicons/fluent/Record24Regular'
 import AccessControlIcon from '@vicons/antd/SecurityScanFilled'
 import DocsIcon from '@vicons/material/ChromeReaderModeSharp'
@@ -33,25 +33,25 @@ export const pageConfig: IPageItem[] = [
     icon: ComponentIcon,
     children: [
       {
-        name: 'CommonBasis',
-        path: 'component-collection/common-basis',
-        label: '通用规范',
-        labelPinYin: 'tongyongguifan_tygf',
-        icon: CommonBasisIcon,
+        name: 'Basis',
+        path: 'component-collection/basis',
+        label: '基础规范',
+        labelPinYin: 'jichuguifan_jcgf',
+        icon: BasisIcon,
       },
       {
-        name: 'CommonModal',
-        path: 'component-collection/common-modal',
-        label: '通用弹窗',
-        labelPinYin: 'tongyongtanchuang_tytc',
-        icon: CommonModalIcon,
+        name: 'Modal',
+        path: 'component-collection/modal',
+        label: '弹窗',
+        labelPinYin: 'tanchuang_tc',
+        icon: ModalIcon,
       },
       {
-        name: 'CommonTable',
-        path: 'component-collection/common-table',
-        label: '通用表格',
-        labelPinYin: 'tongyongbiaoge_tybg',
-        icon: CommonTableIcon,
+        name: 'Table',
+        path: 'component-collection/table',
+        label: '表格',
+        labelPinYin: 'biaoge_bg',
+        icon: TableIcon,
       },
     ],
   },
