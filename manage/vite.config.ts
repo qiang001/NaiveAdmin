@@ -8,7 +8,7 @@ const baseMap = {
   production: '/seamless/',
 }
 export default defineConfig({
-  base: baseMap[process.env.NODE_MODE] || '/',
+  base: baseMap[process.env.NODE_MODE],
   plugins: [vue(), vueJsx({})],
   resolve: {
     alias: [

@@ -1,8 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
+const base = import.meta.env.VITE_APP_SITE_BASE_URL as string
+
 function buildRouter() {
   return createRouter({
-    history: createWebHistory(),
+    history: base ? createWebHistory() : createWebHistory(base),
     routes: [
       {
         path: '/layout',
