@@ -6,13 +6,14 @@ export default defineComponent({
   name: 'StatusTag',
   props: statusTagProps,
   setup(props, ctx) {
-    const { type, size, shape, bold } = props
     const store = useStore()
     const theme = computed(() => (store.state.ifDark ? 'dark' : 'light'))
     const tagClass = computed(() => {
+      const { type, size, shape } = props
       return `hita-status-tag-${type}-${theme.value} hita-status-tag-${size}-size hita-status-tag-${shape}-shape`
     })
     return () => {
+      const { type, bold } = props
       return (
         <div
           class={tagClass.value}

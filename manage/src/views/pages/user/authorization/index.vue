@@ -6,6 +6,14 @@
       @cancel="closeEditModal"
       @confirm="confirmEditModal"
     ></edit-modal>
+    <result-modal
+      :showModal="resultOptions.showModal"
+      :type="resultOptions.type"
+      :content="resultOptions.content"
+      :description="resultOptions.description"
+      :confirmBtnText="resultOptions.confirmBtnText"
+      @confirm="closeResultModal"
+    />
   </page-panel>
 </template>
 
@@ -27,9 +35,12 @@ const {
   confirmLoading,
   closeEditModal,
   confirmEditModal,
+  resultOptions,
+  closeResultModal,
 } = initController()
 
 import PagePanel from '@/components/PagePanel.vue'
+import ResultModal from '@/components/ResultModal.vue'
 
 import ActionHeader from './components/action-header.vue'
 provide('exportLoading', readonly(exportLoading))

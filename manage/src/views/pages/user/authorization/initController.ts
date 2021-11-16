@@ -1,4 +1,5 @@
 import { ref, onMounted } from 'vue'
+import { useResultModal } from '@/hooks/useResultModal'
 import { useActionHeader } from './composables/useActionHeader'
 import { useApiCenter } from './composables/useApiCenter'
 import { useRoleList } from './composables/useRoleList'
@@ -8,6 +9,14 @@ import { IRoleListItem } from './interfaces/data'
 import { I_initController_queryRoles } from './interfaces/method'
 
 export const initController = () => {
+  // 引入结果弹窗
+  const {
+    resultOptions,
+    setTexts,
+    setResultType,
+    openResultModal,
+    closeResultModal,
+  } = useResultModal()
   // 接口层
   const {
     exportData,
@@ -52,6 +61,9 @@ export const initController = () => {
     queryRoles,
     openEditModal,
     _deleteFromDB,
+    setTexts,
+    setResultType,
+    openResultModal,
   })
 
   // 最终对外暴露
@@ -64,12 +76,14 @@ export const initController = () => {
     role,
     exportLoading,
     maxHeight,
+    resultOptions,
   }
   const methods = {
     exportExcel,
     addRole,
     editRole,
     deleteRole,
+    closeResultModal,
     closeEditModal,
     confirmEditModal,
   }

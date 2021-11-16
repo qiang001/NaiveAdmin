@@ -9,16 +9,27 @@ import {
   I_useRoleList_edit,
   I_useRoleList__delete,
 } from '../interfaces/method'
-
+import {
+  // Input
+  I_useResultModal_openResultModal,
+  I_useResultModal_setResultType,
+  I_useResultModal_setTexts,
+} from '@/hooks/useResultModal'
 interface Input {
   queryRoles: I_initController_queryRoles
   openEditModal: I_useEditModal_open
   _deleteFromDB: I_useApiCenter_deleteFromDB
+  setTexts: I_useResultModal_setTexts
+  setResultType: I_useResultModal_setResultType
+  openResultModal: I_useResultModal_openResultModal
 }
 export const useRoleList = ({
   queryRoles,
   openEditModal,
   _deleteFromDB,
+  setTexts,
+  setResultType,
+  openResultModal,
 }: Input) => {
   // 响应式表格
   const { maxHeight } = useResponsiveTable({
@@ -43,10 +54,13 @@ export const useRoleList = ({
         d.loading = true
         try {
           await _deleteFromDB({ data: { ...unref(row) } })
-          window.$message.success(`恭喜你，删除成功！`)
+          setResultType('success')
+          setTexts({ description: '删除成功' })
         } catch (error) {
-          window.$message.error(error)
+          setResultType('error')
+          setTexts({ description: error, confirmBtnText: '好吧，了解了' })
         }
+        openResultModal()
         return await queryRoles()
       },
     })

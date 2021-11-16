@@ -12,13 +12,22 @@ import {
   I_useUserList_resetPassword,
   I_useUserList__delete,
 } from '../interfaces/method'
-
+import {
+  // Input
+  I_useResultModal_openResultModal,
+  I_useResultModal_openResultModalAsync,
+  I_useResultModal_setResultType,
+  I_useResultModal_setTexts,
+} from '@/hooks/useResultModal'
 interface Input {
   openEditModal: I_useEditModal_open
   openResetPasswordModal: I_useResetPasswordModal_open
   _deleteFromDB: I_useApiCenter_deleteFromDB
   resetPage: I_useConditions_resetPage
   queryUsers: I_useConditions_queryUsers
+  setTexts: I_useResultModal_setTexts
+  setResultType: I_useResultModal_setResultType
+  openResultModalAsync: I_useResultModal_openResultModalAsync
 }
 
 export const useUserList = ({
@@ -27,6 +36,9 @@ export const useUserList = ({
   _deleteFromDB,
   resetPage,
   queryUsers,
+  setTexts,
+  setResultType,
+  openResultModalAsync,
 }: Input) => {
   // 响应式表格
   const { dynamicWidth, maxHeight } = useResponsiveTable({
@@ -61,10 +73,17 @@ export const useUserList = ({
         d.loading = true
         try {
           await _deleteFromDB({ data: row })
-          window.$message.success(`恭喜你，删除成功！`)
+          setResultType('success')
+          setTexts({ description: '删除成功', confirmBtnText: '点击继续' })
         } catch (error) {
-          window.$message.error(error)
+          setResultType('error')
+          setTexts({
+            content: '抱歉',
+            description: error,
+            confirmBtnText: 'OK，了解了',
+          })
         }
+        await openResultModalAsync()
         return await queryUsers()
       },
     })

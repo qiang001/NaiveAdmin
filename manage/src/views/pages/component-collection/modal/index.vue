@@ -59,12 +59,12 @@
           <n-space align="center">
             <div>弹窗类型</div>
             <n-checkbox
-              v-model:checked="resultModalOptions.ifSuccess"
+              v-model:checked="checkBox.ifSuccess"
               :on-update:checked="(bool) => handleResultType('success', bool)"
               >成功</n-checkbox
             >
             <n-checkbox
-              v-model:checked="resultModalOptions.ifError"
+              v-model:checked="checkBox.ifError"
               :on-update:checked="(bool) => handleResultType('error', bool)"
               >失败</n-checkbox
             >
@@ -181,31 +181,28 @@ const confirm = () => {
   }, 1000)
 }
 import ResultModal from '@/components/ResultModal.vue'
-type resultModalType = 'success' | 'error'
-const resultModalOptions = reactive({
-  showModal: false,
+import { useResultModal, resultType } from '@/hooks/useResultModal'
+const {
+  resultOptions: resultModalOptions,
+  setTexts,
+  setResultType,
+} = useResultModal()
+const checkBox = reactive({
   ifSuccess: true,
   ifError: false,
-  type: 'success' as resultModalType,
-  content: '',
-  description: '',
-  confirmBtnText: '',
 })
-
-const handleResultType = (type: resultModalType, bool: boolean) => {
+const handleResultType = (type: resultType, bool: boolean) => {
   if (!bool) return
   if (type === 'success') {
-    resultModalOptions.ifSuccess = true
-    resultModalOptions.ifError = false
+    checkBox.ifSuccess = true
+    checkBox.ifError = false
   }
   if (type === 'error') {
-    resultModalOptions.ifSuccess = false
-    resultModalOptions.ifError = true
+    checkBox.ifSuccess = false
+    checkBox.ifError = true
   }
-  resultModalOptions.type = type
-  resultModalOptions.content = ''
-  resultModalOptions.description = ''
-  resultModalOptions.confirmBtnText = ''
+  setResultType(type)
+  setTexts({ content: '', description: '', confirmBtnText: '' })
 }
 </script>
 

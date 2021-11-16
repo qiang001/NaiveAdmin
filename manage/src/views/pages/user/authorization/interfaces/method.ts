@@ -49,3 +49,6 @@ export interface I_useRoleList_edit {
 export interface I_useRoleList__delete {
   (row: IRoleListItem): void
 }
+export interface I_useRoleList_closeResultModal {
+  (): void
+}

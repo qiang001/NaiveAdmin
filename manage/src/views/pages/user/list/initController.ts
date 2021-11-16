@@ -1,3 +1,4 @@
+import { useResultModal } from '@/hooks/useResultModal'
 import { useActionHeader } from './composables/useActionHeader'
 import { useApiCenter } from './composables/useApiCenter'
 import { useUserList } from './composables/useUserList'
@@ -6,6 +7,15 @@ import { useEditModal } from './composables/useEditModal'
 import { useResetPasswordModal } from './composables/useResetPasswordModal'
 
 export const initController = () => {
+  // 引入结果弹窗
+  const {
+    resultOptions,
+    setTexts,
+    setResultType,
+    openResultModal,
+    openResultModalAsync,
+    closeResultModal,
+  } = useResultModal()
   // [数据]逻辑 - 接口层
   const {
     loading,
@@ -59,7 +69,12 @@ export const initController = () => {
     open: openResetPasswordModal,
     close: closeResetPasswordModal,
     confirm: confirmResetPasswordModal,
-  } = useResetPasswordModal({ _changePassword })
+  } = useResetPasswordModal({
+    _changePassword,
+    setTexts,
+    setResultType,
+    openResultModal,
+  })
   // Action 页面
   const {
     add: addUser,
@@ -92,6 +107,9 @@ export const initController = () => {
     _deleteFromDB,
     resetPage,
     queryUsers,
+    setTexts,
+    setResultType,
+    openResultModalAsync,
   })
 
   // 最终对外暴露
@@ -113,6 +131,7 @@ export const initController = () => {
     searching,
     dynamicWidth,
     maxHeight,
+    resultOptions,
   }
   const methods = {
     changePage,
@@ -130,6 +149,7 @@ export const initController = () => {
     editUser,
     resetPassword,
     deleteUser,
+    closeResultModal,
   }
 
   return {

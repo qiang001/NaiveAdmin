@@ -9,10 +9,24 @@ import {
   I_useResetPasswordModal_close,
   I_useResetPasswordModal_confirm,
 } from '../interfaces/method'
+import {
+  // Input
+  I_useResultModal_openResultModal,
+  I_useResultModal_setResultType,
+  I_useResultModal_setTexts,
+} from '@/hooks/useResultModal'
 interface Input {
   _changePassword: I_useApiCenter_changePassword
+  setTexts: I_useResultModal_setTexts
+  setResultType: I_useResultModal_setResultType
+  openResultModal: I_useResultModal_openResultModal
 }
-export const useResetPasswordModal = ({ _changePassword }: Input) => {
+export const useResetPasswordModal = ({
+  _changePassword,
+  setTexts,
+  setResultType,
+  openResultModal,
+}: Input) => {
   // 引入基本弹窗
   const { modalShow: resetPasswordModal, closeModal, openModal } = useModal()
 
@@ -40,11 +54,14 @@ export const useResetPasswordModal = ({ _changePassword }: Input) => {
         data: { ...unref(user) },
       }
       await _changePassword(obj)
-      window.$message.success(`恭喜你，密码重置成功！`)
+      setResultType('success')
+      setTexts({ description: '密码重置成功！' })
       close()
     } catch (error) {
-      window.$message.error(error.message)
+      setResultType('error')
+      setTexts({ description: error })
     }
+    openResultModal()
   }
 
   function setUser(data: IUserListItem) {
