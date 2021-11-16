@@ -13,7 +13,7 @@ export default defineComponent({
       return `hita-status-tag-${type}-${theme.value} hita-status-tag-${size}-size hita-status-tag-${shape}-shape`
     })
     return () => {
-      const { type, bold } = props
+      const { bold } = props
       return (
         <div
           class={tagClass.value}
