@@ -12,6 +12,8 @@
       />
     </div>
     <n-menu
+      :icon-size="14"
+      :collapsed-icon-size="20"
       :root-indent="18"
       :indent="24"
       :collapsed-width="48"

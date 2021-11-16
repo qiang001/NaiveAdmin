@@ -157,13 +157,9 @@ function buildMenuOptions(
     }
     function renderIcon(icon) {
       return () => {
-        return h(
-          NIcon,
-          { size: 18 },
-          {
-            default: () => h(icon),
-          }
-        )
+        return h(NIcon, null, {
+          default: () => h(icon),
+        })
       }
     }
   }
