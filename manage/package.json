@@ -1,9 +1,9 @@
 {
   "version": "0.0.0",
   "scripts": {
-    "start": "vite",
-    "dev": "prettier --write . && vite",
-    "build": "prettier --check . && vue-tsc --noEmit && vite build",
+    "start": "cross-env NODE_MODE=development vite",
+    "dev": "cross-env NODE_MODE=development prettier --write . && vite",
+    "build": "cross-env NODE_MODE=production prettier --check . && vue-tsc --noEmit && vite build",
     "serve": "vite preview"
   },
   "dependencies": {
@@ -27,6 +27,7 @@
     "@vitejs/plugin-vue": "^1.2.3",
     "@vitejs/plugin-vue-jsx": "^1.2.0",
     "@vue/compiler-sfc": "^3.0.5",
+    "cross-env": "^7.0.3",
     "mavon-editor": "^3.0.0-beta",
     "naive-ui": "^2.20.2",
     "prettier": "2.4.1",
