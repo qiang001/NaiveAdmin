@@ -179,7 +179,7 @@ export const getColors: (ifDark: boolean) => IColorCollection = (ifDark) => {
         arrowColorChildActive: !ifDark ? '#116958' : '#30b695',
         arrowColorActive: !ifDark ? '#116958' : '#30b695',
         // 背景激活
-        itemColorActive: !ifDark ? '#1169581a' : '#111111',
+        itemColorActive: !ifDark ? '#f3f8f7' : '#111111',
         // 内容激活
         itemTextColorActive: !ifDark ? '#116958' : '#30b695',
         itemIconColorActive: !ifDark ? '#116958' : '#30b695',
