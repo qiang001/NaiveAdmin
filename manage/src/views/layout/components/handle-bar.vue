@@ -44,6 +44,7 @@
               <n-element
                 class="tab tab-current d-flex a-center"
                 v-if="tab.ifCurrent"
+                @click="gotoTab(tab)"
               >
                 <transition name="slide-vertical" mode="out-in">
                   <div
@@ -53,7 +54,7 @@
                     <div class="tab-cached"></div>
                   </div>
                 </transition>
-                <div class="tab-text d-flex a-center" @click="gotoTab(tab)">
+                <div class="tab-text d-flex a-center">
                   {{ tab.label }}
                   <span v-if="Object.keys(tab.query).length > 0">
                     :
@@ -66,7 +67,7 @@
                 </div>
                 <div
                   class="d-flex a-center j-center close-btn"
-                  @click="deleteTab(tab)"
+                  @click.stop="deleteTab(tab)"
                   v-if="history.length > 1"
                 >
                   <n-icon size="12">
@@ -74,7 +75,11 @@
                   </n-icon>
                 </div>
               </n-element>
-              <n-element class="tab tab-no-current d-flex a-center" v-else>
+              <n-element
+                class="tab tab-no-current d-flex a-center"
+                v-else
+                @click="gotoTab(tab)"
+              >
                 <transition name="slide-vertical" mode="out-in">
                   <div
                     class="d-flex a-center j-center pr"
@@ -83,7 +88,7 @@
                     <div class="tab-cached"></div>
                   </div>
                 </transition>
-                <div class="tab-text d-flex a-center" @click="gotoTab(tab)">
+                <div class="tab-text d-flex a-center">
                   {{ tab.label }}
                   <span v-if="Object.keys(tab.query).length > 0">
                     :
@@ -96,7 +101,7 @@
                 </div>
                 <div
                   class="d-flex a-center j-center close-btn"
-                  @click="deleteTab(tab)"
+                  @click.stop="deleteTab(tab)"
                 >
                   <n-icon size="12">
                     <close-icon />
@@ -400,6 +405,7 @@ const arrowBorderColor = computed(() => {
   flex-shrink: 0;
 }
 .tab {
+  cursor: pointer;
   padding: 3px 6px 3px 6px;
   margin: 0 3px;
   user-select: none;
