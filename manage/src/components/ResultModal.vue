@@ -39,7 +39,7 @@
               border: 5px solid;
             "
             :style="{
-              borderColor: !store.state.ifDark ? '#ffcfcf' : '#443535',
+              borderColor: !store.state.ifDark ? '#ffe5e5' : '#443535',
             }"
           >
             <n-icon

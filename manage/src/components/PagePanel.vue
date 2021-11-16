@@ -46,22 +46,25 @@ const ifFullpage = inject('ifFullpage') as Ref<boolean>
 const emit = defineEmits(['resize'])
 
 watchEffect(() => {
-  let otherHeight = 120
-  if (!ifEmbedded.value) {
-    otherHeight -= 28
-  }
-  if (layoutStyle.value === 'left-right') {
-    otherHeight -= 64
-  } else {
-    if (ifFullpage.value) {
-      otherHeight -= 64
-    }
-  }
   if (container.value) {
+    let headerHeight = 64
+    let handleBarHeight = 36
+    let pageEmbedded = 28
+    let totalOtherHeight = headerHeight + handleBarHeight
+    if (ifEmbedded.value) {
+      totalOtherHeight += pageEmbedded
+    }
+    if (layoutStyle.value === 'left-right') {
+      totalOtherHeight -= headerHeight
+    } else {
+      if (ifFullpage.value) {
+        totalOtherHeight -= headerHeight
+      }
+    }
     setTimeout(() => {
-      setHeight('min-height', otherHeight)
+      setHeight('min-height', totalOtherHeight)
       if (!allowExpand.value) {
-        setHeight('max-height', otherHeight)
+        setHeight('max-height', totalOtherHeight)
       }
     })
     emit('resize', { width: width.value, height: height.value })

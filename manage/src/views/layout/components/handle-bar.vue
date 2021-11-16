@@ -2,7 +2,7 @@
   <div class="d-flex handle-bar">
     <n-element
       class="d-flex a-center j-center"
-      style="width: 30px; cursor: pointer"
+      style="width: 36px; cursor: pointer"
       @click="collapse"
       v-if="!ifFullpage"
     >
@@ -361,7 +361,7 @@ const arrowBorderColor = computed(() => {
   /* border-bottom: 1px solid var(--border-color); */
   box-shadow: 0 0 4px 0 #80808026;
   position: relative;
-  height: 28px;
+  height: 36px;
 }
 
 #left-arrow {
@@ -400,8 +400,8 @@ const arrowBorderColor = computed(() => {
   flex-shrink: 0;
 }
 .tab {
-  padding: 0 6px 0 6px;
-  margin: 0 2px;
+  padding: 3px 6px 3px 6px;
+  margin: 0 3px;
   user-select: none;
   font-size: 12px;
   border-radius: 1px;
