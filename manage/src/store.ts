@@ -64,8 +64,8 @@ export const buildStore = (router: Router) => {
         layoutStyle: styles[0],
         mainColor: Object.keys(getColors(false))[0],
         ifDark: false,
-        ifPageTitle: false,
-        ifEmbedded: false,
+        ifPageTitle: true,
+        ifEmbedded: true,
         cacheList: [],
         menuOptions: [],
         menuOptionsWithoutIcon: [],
@@ -275,7 +275,7 @@ export const buildStore = (router: Router) => {
       to.name === 'Layout' &&
       store.state.userInfo?.name === '超级管理员'
     ) {
-      next({ path: '/layout/component-collection/basis', replace: true })
+      next({ path: '/layout/design-standard', replace: true })
     } else {
       next()
     }

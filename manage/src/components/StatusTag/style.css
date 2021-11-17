@@ -48,6 +48,16 @@
   color: #f7a7b9;
 }
 
+.hita-status-tag-black-light {
+  background-color: #313131;
+  color: #ededed;
+}
+
+.hita-status-tag-black-dark {
+  background-color: #292a2b;
+  color: #cdcdcd;
+}
+
 .hita-status-tag-default-size {
   font-size: 12px;
   padding: 0 4px;
@@ -68,4 +78,8 @@
 
 .hita-status-tag-round-shape {
   border-radius: 50px;
+}
+
+.hita-status-tag-default-size.hita-status-tag-round-shape {
+  padding: 0 8px;
 }

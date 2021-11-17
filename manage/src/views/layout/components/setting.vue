@@ -303,8 +303,8 @@ const { ifProcessing: loading, func: resetSetting } = useDebounce(() => {
   if (ifDark.value) {
     switchTheme()
   }
-  ifPageTitleChange(false)
-  ifEmbeddedChange(false)
+  ifPageTitleChange(true)
+  ifEmbeddedChange(true)
   invertedChange(false)
   ifHideIconChange(false)
   emit('close')

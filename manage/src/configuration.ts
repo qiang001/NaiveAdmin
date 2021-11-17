@@ -1,6 +1,8 @@
 // 路由-菜单
-import ComponentIcon from '@vicons/ionicons5/Apps'
-import BasisIcon from '@vicons/fluent/BookNumber20Regular'
+import DesignStandardIcon from '@vicons/material/MenuBookRound'
+import ComponentIcon from '@vicons/fa/AppStoreIos'
+import ButtonIcon from '@vicons/material/BoltRound'
+import TagIcon from '@vicons/fluent/TagMultiple20Regular'
 import ModalIcon from '@vicons/fluent/PositionBackward20Regular'
 import TableIcon from '@vicons/fluent/TextBulletListSquare24Regular'
 
@@ -8,7 +10,7 @@ import UserIcon from '@vicons/carbon/User'
 import UserListIcon from '@vicons/carbon/UserMultiple'
 import AuthorizationIcon from '@vicons/carbon/FingerprintRecognition'
 
-import SystemIcon from '@vicons/fluent/Server20Filled'
+import SystemIcon from '@vicons/ionicons5/Bug'
 import OperationRecordingIcon from '@vicons/fluent/Record24Regular'
 import AccessControlIcon from '@vicons/antd/SecurityScanFilled'
 import DocsIcon from '@vicons/material/ChromeReaderModeSharp'
@@ -28,16 +30,29 @@ export interface IPageItem {
 
 export const pageConfig: IPageItem[] = [
   {
+    name: 'DesignStandard',
+    path: 'design-standard',
+    label: '设计规范',
+    icon: DesignStandardIcon,
+  },
+  {
     name: 'ComponentCollection',
     label: '组件管理',
     icon: ComponentIcon,
     children: [
       {
-        name: 'Basis',
-        path: 'component-collection/basis',
-        label: '基础规范',
-        labelPinYin: 'jichuguifan_jcgf',
-        icon: BasisIcon,
+        name: 'Button',
+        path: 'component-collection/button',
+        label: '按钮',
+        labelPinYin: 'anniu_an_button',
+        icon: ButtonIcon,
+      },
+      {
+        name: 'Tag',
+        path: 'component-collection/tag',
+        label: '标签',
+        labelPinYin: 'biaoqian_bq_tag',
+        icon: TagIcon,
       },
       {
         name: 'Modal',

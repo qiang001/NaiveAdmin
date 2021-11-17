@@ -91,8 +91,7 @@ const expandedKeys = ref((route.meta.expandedKey as string).split(','))
 watch(
   () => route.name,
   () => {
-    document.title =
-      route.meta.label + ' - 通用后台管理系统 Common Content Manage System'
+    document.title = route.meta.label + ' - 海獭 Design'
     if (route.name != 'Redirect') {
       expandedKeys.value = (route.meta.expandedKey as string).split(',')
     }

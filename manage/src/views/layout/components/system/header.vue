@@ -5,10 +5,10 @@
     </div>
     <div class="ml-2 title">
       <div style="font-size: 18px; font-weight: bold; font-family: PingFang SC">
-        通用后台管理系统
+        海獭后台设计
       </div>
       <div style="font-size: 12px; font-family: PingFang SC, Segoe UI">
-        Common Content Manage System
+        Content Manage System Design
       </div>
     </div>
     <div class="ml-auto d-flex a-center">

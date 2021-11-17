@@ -161,6 +161,7 @@ function createAllColumns(): Array<DataTableBaseColumn> {
                     StatusTag,
                     {
                       type: 'success',
+                      bold: true,
                     },
                     {
                       default: () => '已激活',
@@ -170,6 +171,7 @@ function createAllColumns(): Array<DataTableBaseColumn> {
                     StatusTag,
                     {
                       type: 'default',
+                      bold: true,
                     },
                     {
                       default: () => '已离职',
