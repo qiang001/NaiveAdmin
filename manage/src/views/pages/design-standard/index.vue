@@ -218,7 +218,7 @@ const openWebsite = (url: string) => {
 </script>
 
 <style scoped>
-.page-panel {
+#page-panel.page-panel {
   transform: rotate(-361deg);
   display: flex;
   align-items: center;
