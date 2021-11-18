@@ -1,6 +1,8 @@
 <template>
   <page-panel :title="'设计规范'">
-    <n-element>
+    <n-element class="root">
+      <div class="bg-1"></div>
+      <div class="bg-2"></div>
       <div class="card">
         <div
           style="font-size: 22px"
@@ -16,7 +18,7 @@
           class="my-2"
         ></div>
 
-        <n-space align="center" justify="space-between">
+        <n-space align="center" justify="space-between" class="naive-ui">
           <n-space align="center">
             <div class="d-flex a-center j-center">
               <img src="@/assets/icons/naivelogo.svg" style="width: 32px" />
@@ -49,7 +51,7 @@
           }"
           class="my-2"
         ></div>
-        <n-space align="center" justify="space-between">
+        <n-space align="center" justify="space-between" class="xicons">
           <n-space align="center">
             <div class="d-flex a-center j-center">
               <img src="@/assets/icons/naivelogo.svg" style="width: 32px" />
@@ -82,7 +84,7 @@
           }"
           class="my-2"
         ></div>
-        <n-space align="center" justify="space-between">
+        <n-space align="center" justify="space-between" class="ant-design">
           <n-space align="center">
             <div class="d-flex a-center j-center">
               <img src="@/assets/icons/antdesign.svg" style="width: 32px" />
@@ -115,7 +117,7 @@
           }"
           class="my-2"
         ></div>
-        <n-space align="center" justify="space-between">
+        <n-space align="center" justify="space-between" class="arco-design">
           <n-space align="center">
             <div class="d-flex a-center j-center">
               <svg
@@ -201,7 +203,7 @@
 <script setup lang="ts">
 import { NElement, NSpace, NButton } from 'naive-ui'
 import PagePanel from '@/components/PagePanel.vue'
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useStore } from '@/hooks/useStore'
 const store = useStore()
 const bgColor = computed(() =>
@@ -215,14 +217,48 @@ const borderColor = computed(() =>
 const openWebsite = (url: string) => {
   window.open(url)
 }
+import { gsap } from 'gsap'
+onMounted(() => {
+  gsap.to('.card', { duration: 0.8, y: 0, opacity: 1, delay: 0.3 })
+  gsap.to('.naive-ui', { duration: 0.8, x: 0, opacity: 1, delay: 0.4 })
+  gsap.to('.xicons', { duration: 0.8, x: 0, opacity: 1, delay: 0.6 })
+  gsap.to('.ant-design', { duration: 0.8, x: 0, opacity: 1, delay: 0.8 })
+  gsap.to('.arco-design', { duration: 0.8, x: 0, opacity: 1, delay: 1 })
+  gsap.to('.bg-1', { duration: 0.5, rotate: 2, opacity: 1, delay: 0.35 })
+  gsap.to('.bg-2', { duration: 0.8, rotate: -5, delay: 0.4 })
+  gsap.to('.bg-2', { duration: 0.6, rotate: -3, delay: 1.2 })
+})
 </script>
 
 <style scoped>
 #page-panel.page-panel {
-  transform: rotate(-361deg);
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.root {
+  position: relative;
+  width: 720px;
+  height: 540px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bg-1 {
+  opacity: 0;
+  height: 504px;
+  width: 720px;
+  background-color: var(--divider-color);
+  position: absolute;
+  border-radius: 8px;
+}
+
+.bg-2 {
+  position: absolute;
+  width: 720px;
+  height: 540px;
+  border-radius: 15px;
   background-color: #1e2a42;
   background-image: linear-gradient(
       30deg,
@@ -276,7 +312,8 @@ const openWebsite = (url: string) => {
   background-position: 0 0, 0 0, 37px 65px, 37px 65px, 0 0, 37px 65px;
 }
 .card {
-  transform: rotate(1deg);
+  transform: translateY(30px);
+  opacity: 0;
   box-sizing: border-box;
   padding: 24px;
   width: 480px;
@@ -285,5 +322,21 @@ const openWebsite = (url: string) => {
   background-color: v-bind(bgColor);
   border-radius: 12px;
   border: 1px solid v-bind(borderColor);
+}
+.naive-ui {
+  opacity: 0;
+  transform: translateX(100px);
+}
+.xicons {
+  opacity: 0;
+  transform: translateX(100px);
+}
+.ant-design {
+  opacity: 0;
+  transform: translateX(100px);
+}
+.arco-design {
+  opacity: 0;
+  transform: translateX(100px);
 }
 </style>
