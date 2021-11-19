@@ -170,7 +170,7 @@ function createAllColumns(): Array<DataTableBaseColumn> {
                 : h(
                     StatusTag,
                     {
-                      type: 'default',
+                      type: 'disabled',
                       bold: true,
                     },
                     {

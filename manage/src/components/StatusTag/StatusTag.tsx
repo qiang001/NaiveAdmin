@@ -13,13 +13,13 @@ export default defineComponent({
       return `hita-status-tag-${type}-${theme.value} hita-status-tag-${size}-size hita-status-tag-${shape}-shape`
     })
     return () => {
-      const { bold } = props
+      const { type, bold } = props
       return (
         <div
           class={tagClass.value}
           style={{
             'font-weight': bold ? 'bold' : 'normal',
-            cursor: 'default',
+            cursor: type === 'disabled' ? 'not-allowed' : 'default',
             'user-select': 'none',
           }}
         >
