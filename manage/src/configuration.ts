@@ -10,7 +10,7 @@ import UserIcon from '@vicons/carbon/User'
 import UserListIcon from '@vicons/carbon/UserMultiple'
 import AuthorizationIcon from '@vicons/carbon/FingerprintRecognition'
 
-import SystemIcon from '@vicons/ionicons5/Bug'
+import SystemIcon from '@vicons/ionicons5/InformationCircleOutline'
 import OperationRecordingIcon from '@vicons/fluent/Record24Regular'
 import AccessControlIcon from '@vicons/antd/SecurityScanFilled'
 import DocsIcon from '@vicons/material/ChromeReaderModeSharp'

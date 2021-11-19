@@ -107,8 +107,8 @@ export const buildStore = (router: Router) => {
       getCacheList(state) {
         return state.cacheList
       },
-      getMenu: (state) => (ifHideIcon: boolean) => {
-        return !ifHideIcon ? state.menuOptions : state.menuOptionsWithoutIcon
+      getMenu: (state) => (ifShowIcon: boolean) => {
+        return ifShowIcon ? state.menuOptions : state.menuOptionsWithoutIcon
       },
       getMenuAuthTree(state) {
         return menuAuthTree

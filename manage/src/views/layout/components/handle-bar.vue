@@ -321,15 +321,7 @@ const emit = defineEmits([
 ])
 
 const collapsed = inject('collapsed') as Ref<boolean>
-const ifHideIcon = inject('ifHideIcon') as Ref<boolean>
-const recordIfHideIcon = ref(false)
 const collapse = () => {
-  if (!collapsed.value) {
-    recordIfHideIcon.value = ifHideIcon.value
-    recordIfHideIcon.value && (ifHideIcon.value = false)
-  } else {
-    ifHideIcon.value = recordIfHideIcon.value
-  }
   emit('collapse', !collapsed.value)
 }
 

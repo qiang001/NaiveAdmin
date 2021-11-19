@@ -1,6 +1,12 @@
 <template>
-  <n-element>
-    <div class="quick-search" v-if="!collapsed">
+  <n-element
+    :style="
+      inverted && !store.state.ifDark
+        ? 'border-top: 1px solid #1d2022'
+        : 'border-top: 1px solid var(--divider-color)'
+    "
+  >
+    <div class="quick-search" v-if="!collapsed && ifShowSearch">
       <n-auto-complete
         :options="options"
         v-model:value="keyword"
@@ -19,6 +25,7 @@
       :collapsed-width="48"
       :collapsed="collapsed"
       :inverted="inverted"
+      :accordion="accordion"
       :options="menu"
       :value="defaultMenu"
       :on-update:value="handleSelected"
@@ -64,52 +71,40 @@ const options = computed(() => {
 
 // 渲染菜单
 const inverted = inject('inverted') as Ref<boolean>
+const accordion = inject('accordion') as Ref<boolean>
 const collapsed = inject('collapsed') as Ref<boolean>
-const ifHideIcon = inject('ifHideIcon') as Ref<boolean>
-import { IMenuItem } from '@/authorization'
-const menu = computed(() => store.getters.getMenu(ifHideIcon.value))
-
-// 拍平菜单
-const keyMap = computed(() => {
-  let list = []
-  return buildKeyMap(menu.value)
-  function buildKeyMap(arr: Array<IMenuItem>) {
-    arr.forEach((item) => {
-      let { key, expandedKey, children } = item
-      list = [...list, { key, expandedKey }]
-      if (children) {
-        buildKeyMap(children)
-      }
-    })
-    return list
-  }
+const ifShowIcon = inject('ifShowIcon') as Ref<boolean>
+const ifShowSearch = inject('ifShowSearch') as Ref<boolean>
+const menu = computed(() => {
+  const showIcon = collapsed.value ? true : ifShowIcon.value
+  return store.getters.getMenu(showIcon)
 })
 
 // 初始化菜单状态并配合当前路由实时选中、展开、修改网页标题
 const defaultMenu = computed(() => route.meta.menuKey as string)
 const expandedKeys = ref((route.meta.expandedKey as string).split(','))
 watch(
-  () => route.name,
+  () => [route.name, accordion.value],
   () => {
     document.title = route.meta.label + ' - 海獭 Design'
     if (route.name != 'Redirect') {
-      expandedKeys.value = (route.meta.expandedKey as string).split(',')
+      setExpandedKeys()
     }
   },
   { immediate: true }
 )
 
+function setExpandedKeys() {
+  let olds = expandedKeys.value
+  let keys = (route.meta.expandedKey as string).split(',')
+  let news = keys.filter((key) => !olds.includes(key))
+  let finals = accordion.value ? keys : [...olds, ...news]
+  expandedKeys.value = finals
+}
+
 // 菜单展开
 const handleExpanded = (keys: string[]) => {
-  let val = keys.reverse()[0]
-  if (val) {
-    let obj = keyMap.value.find((v) => v.key == val)
-    expandedKeys.value = obj.expandedKey
-      .split(',')
-      .filter((v: string) => keys.some((k) => k == v))
-  } else {
-    expandedKeys.value = []
-  }
+  expandedKeys.value = keys
 }
 
 const emit = defineEmits(['navigateTo'])

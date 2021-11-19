@@ -21,17 +21,28 @@ export const useMenu = ({ refreshRoute, router }) => {
 
   const collapsed = ref(false)
   const inverted = ref(false)
-  const ifHideIcon = ref(false)
+  const accordion = ref(false)
+  const ifShowIcon = ref(true)
+  const ifShowSearch = ref(true)
+
   onMounted(() => {
     // 本地缓存状态
     const menuSetting = localStorage.getItem('menuSetting')
     if (menuSetting) {
-      let { _sectionWidth, _collapsed, _inverted, _ifHideIcon } =
-        JSON.parse(menuSetting)
+      let {
+        _sectionWidth,
+        _collapsed,
+        _inverted,
+        _accordion,
+        _ifShowIcon,
+        _ifShowSearch,
+      } = JSON.parse(menuSetting)
       sectionWidth.value = _sectionWidth || widthSpan.min
-      collapsed.value = _collapsed
-      inverted.value = _inverted
-      ifHideIcon.value = _ifHideIcon
+      collapsed.value = !!_collapsed
+      inverted.value = !!_inverted
+      accordion.value = !!_accordion
+      ifShowIcon.value = !!_ifShowIcon
+      ifShowSearch.value = !!_ifShowSearch
     } else {
       sectionWidth.value = widthSpan.min
     }
@@ -41,7 +52,9 @@ export const useMenu = ({ refreshRoute, router }) => {
           _sectionWidth: sectionWidth.value,
           _collapsed: collapsed.value,
           _inverted: inverted.value,
-          _ifHideIcon: ifHideIcon.value,
+          _accordion: accordion.value,
+          _ifShowIcon: ifShowIcon.value,
+          _ifShowSearch: ifShowSearch.value,
         }
         localStorage.setItem('menuSetting', JSON.stringify(menuSetting))
       }
@@ -71,7 +84,9 @@ export const useMenu = ({ refreshRoute, router }) => {
     widthChangeDone,
     collapsed,
     inverted,
-    ifHideIcon,
+    accordion,
+    ifShowIcon,
+    ifShowSearch,
     collapsedChange,
     navigateTo,
   }

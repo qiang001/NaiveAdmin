@@ -122,7 +122,9 @@ const {
   route,
   collapsed,
   inverted,
-  ifHideIcon,
+  accordion,
+  ifShowIcon,
+  ifShowSearch,
   widthSpan,
   sectionWidth,
   history,
@@ -141,9 +143,11 @@ const {
   closeSetting,
 } = initController()
 
-provide('inverted', inverted)
-provide('ifHideIcon', ifHideIcon)
 provide('collapsed', readonly(collapsed))
+provide('inverted', inverted)
+provide('accordion', accordion)
+provide('ifShowIcon', ifShowIcon)
+provide('ifShowSearch', ifShowSearch)
 
 import Menu from './components/menu.vue'
 

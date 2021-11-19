@@ -39,7 +39,7 @@
 
 <script setup lang="ts">
 import { NButton, NIcon } from 'naive-ui'
-import SettingIcon from '@vicons/material/BuildCircleRound'
+import SettingIcon from '@vicons/ionicons5/SettingsSharp'
 import { Ref, inject } from 'vue'
 import { useStore } from '@/hooks/useStore'
 const store = useStore()

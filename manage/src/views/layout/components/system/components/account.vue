@@ -11,6 +11,7 @@
       :render-icon="renderDropdownIcon"
       placement="bottom-start"
       trigger="click"
+      :show-arrow="true"
       :on-select="(key) => handleSelect(key)"
     >
       <n-button
@@ -53,7 +54,7 @@
 
 <script setup lang="ts">
 import { NDropdown, DropdownOption, NButton, NIcon } from 'naive-ui'
-import LogoutIcon from '@vicons/material/ExitToAppSharp'
+import LogoutIcon from '@vicons/material/PowerSettingsNewRound'
 import { Ref, inject, h } from 'vue'
 const collapsed = inject('collapsed') as Ref<boolean>
 const inverted = inject('inverted') as Ref<boolean>

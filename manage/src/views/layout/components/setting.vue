@@ -117,65 +117,47 @@
           </div>
         </div>
         <n-divider>「页面设置」</n-divider>
-        <div class="d-flex a-center j-center">
-          <n-space vertical>
-            <n-switch
-              v-model:value="ifPageTitle"
-              :on-update:value="ifPageTitleChange"
-              size="small"
-            >
-              <template #checked>
-                <span style="font-size: 12px">点击隐藏标题</span>
-              </template>
-              <template #unchecked>
-                <span style="font-size: 12px">点击显示标题</span>
-              </template>
-            </n-switch>
-            <n-switch
-              v-model:value="ifEmbedded"
-              :on-update:value="ifEmbeddedChange"
-              size="small"
-              :disabled="ifPageTitle"
-            >
-              <template #checked>
-                <span style="font-size: 12px">切为填充效果</span>
-              </template>
-              <template #unchecked>
-                <span style="font-size: 12px">切为嵌入效果</span>
-              </template>
-            </n-switch>
-          </n-space>
-        </div>
+        <n-space align="center">
+          <n-checkbox
+            v-model:checked="ifPageTitle"
+            :on-update:checked="ifPageTitleChange"
+          >
+            标题
+          </n-checkbox>
+          <n-checkbox
+            v-model:checked="ifEmbedded"
+            :on-update:checked="ifEmbeddedChange"
+          >
+            嵌入效果
+          </n-checkbox>
+        </n-space>
         <n-divider>「左侧菜单」</n-divider>
-        <div class="d-flex a-center j-center">
-          <n-space vertical>
-            <n-switch
-              v-model:value="inverted"
-              :on-update:value="invertedChange"
-              size="small"
-            >
-              <template #checked>
-                <span style="font-size: 12px">点击换回浅色</span>
-              </template>
-              <template #unchecked>
-                <span style="font-size: 12px">点击切为深色</span>
-              </template>
-            </n-switch>
-            <n-switch
-              v-model:value="ifHideIcon"
-              :on-update:value="ifHideIconChange"
-              size="small"
-              :disabled="collapsed"
-            >
-              <template #checked>
-                <span style="font-size: 12px">点击显示图标</span>
-              </template>
-              <template #unchecked>
-                <span style="font-size: 12px">点击隐藏图标</span>
-              </template>
-            </n-switch>
-          </n-space>
-        </div>
+        <n-space align="center">
+          <n-checkbox
+            v-model:checked="inverted"
+            :on-update:checked="invertedChange"
+          >
+            深色
+          </n-checkbox>
+          <n-checkbox
+            v-model:checked="accordion"
+            :on-update:checked="accordionChange"
+          >
+            手风琴
+          </n-checkbox>
+          <n-checkbox
+            v-model:checked="ifShowIcon"
+            :on-update:checked="ifShowIconChange"
+          >
+            图标
+          </n-checkbox>
+          <n-checkbox
+            v-model:checked="ifShowSearch"
+            :on-update:checked="ifShowSearchChange"
+          >
+            快捷搜索
+          </n-checkbox>
+        </n-space>
         <template #footer>
           <n-button
             @click="resetSetting"
@@ -281,16 +263,23 @@ const ifEmbeddedChange = (val: boolean) => {
   store.commit('SET_IFEMBEDDED', val)
 }
 
-const inverted = inject('inverted') as Ref<boolean>
-const ifHideIcon = inject('ifHideIcon') as Ref<boolean>
 const collapsed = inject('collapsed') as Ref<boolean>
+const inverted = inject('inverted') as Ref<boolean>
+const accordion = inject('accordion') as Ref<boolean>
+const ifShowIcon = inject('ifShowIcon') as Ref<boolean>
+const ifShowSearch = inject('ifShowSearch') as Ref<boolean>
 
 const invertedChange = (val: boolean) => {
   inverted.value = val
-  val && ifHideIconChange(false)
 }
-const ifHideIconChange = (val: boolean) => {
-  ifHideIcon.value = val
+const accordionChange = (val: boolean) => {
+  accordion.value = val
+}
+const ifShowIconChange = (val: boolean) => {
+  ifShowIcon.value = val
+}
+const ifShowSearchChange = (val: boolean) => {
+  ifShowSearch.value = val
 }
 
 import { useDebounce } from '@/hooks/useDebounce'
@@ -306,7 +295,8 @@ const { ifProcessing: loading, func: resetSetting } = useDebounce(() => {
   ifPageTitleChange(false)
   ifEmbeddedChange(false)
   invertedChange(false)
-  ifHideIconChange(false)
+  accordionChange(false)
+  ifShowIconChange(true)
   emit('close')
   window.$message.success('恭喜你，默认配置恢复成功！')
 })
