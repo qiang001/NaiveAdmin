@@ -3,7 +3,13 @@ import { ExtractPropTypes, PropType } from 'vue'
 export const statusTagProps = {
   type: {
     type: String as PropType<
-      'default' | 'success' | 'info' | 'warning' | 'error' | 'black'
+      | 'default'
+      | 'disabled'
+      | 'black'
+      | 'info'
+      | 'success'
+      | 'warning'
+      | 'error'
     >,
     default: 'default',
   },

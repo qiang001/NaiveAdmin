@@ -1,21 +1,31 @@
 .hita-status-tag-default-light {
+  background-color: #fafafa;
+  color: #808080;
+}
+
+.hita-status-tag-default-dark {
+  background-color: #212121;
+  color: #e3e3e3;
+}
+
+.hita-status-tag-disabled-light {
   background-color: #f2f2f2;
   color: #95a4aa;
 }
 
-.hita-status-tag-default-dark {
+.hita-status-tag-disabled-dark {
   background-color: #383838;
   color: #b2b2b2;
 }
 
-.hita-status-tag-success-light {
-  background-color: #e2f4e3;
-  color: #457a4c;
+.hita-status-tag-black-light {
+  background-color: #313131;
+  color: #ededed;
 }
 
-.hita-status-tag-success-dark {
-  background-color: #2c3c32;
-  color: #d0f0d1;
+.hita-status-tag-black-dark {
+  background-color: #000000;
+  color: #cdcdcd;
 }
 
 .hita-status-tag-info-light {
@@ -28,34 +38,34 @@
   color: #cce4f6;
 }
 
+.hita-status-tag-success-light {
+  background-color: #e2f4e3;
+  color: #457a4c;
+}
+
+.hita-status-tag-success-dark {
+  background-color: #2c3c32;
+  color: #d0f0d1;
+}
+
 .hita-status-tag-warning-light {
-  background-color: #ffe7da;
+  background-color: #fff4ef;
   color: #ff6207;
 }
 
 .hita-status-tag-warning-dark {
-  background-color: #574236;
+  background-color: #3b2e26;
   color: #ffceb1;
 }
 
 .hita-status-tag-error-light {
-  background-color: #ffe4e4;
+  background-color: #fff8f8;
   color: #f52d5b;
 }
 
 .hita-status-tag-error-dark {
-  background-color: #472930;
+  background-color: #3f161f;
   color: #f7a7b9;
-}
-
-.hita-status-tag-black-light {
-  background-color: #313131;
-  color: #ededed;
-}
-
-.hita-status-tag-black-dark {
-  background-color: #292a2b;
-  color: #cdcdcd;
 }
 
 .hita-status-tag-default-size {
