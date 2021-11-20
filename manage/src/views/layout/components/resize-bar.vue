@@ -65,6 +65,7 @@ const mouseUp = () => {
   -webkit-user-select: none;
   -ms-user-select: none;
   transition: all 0.3s ease;
+  z-index: 2;
 }
 .resize-bar:hover {
   background-color: var(--primary-color);
