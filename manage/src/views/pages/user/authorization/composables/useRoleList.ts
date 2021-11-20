@@ -33,9 +33,10 @@ export const useRoleList = ({
 }: Input) => {
   // 响应式表格
   const { maxHeight } = useResponsiveTable({
+    tool: false,
+    pagination: false,
     containerId: 'page-panel',
-    otherHeightTotalStatic: 95,
-    otherElementIds: [],
+    otherElementIds: ['action-header'],
   })
 
   // 核心方法

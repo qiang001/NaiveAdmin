@@ -1,6 +1,6 @@
 <template>
   <div>
-    <n-space justify="end" align="center">
+    <n-space justify="end" align="center" style="margin: 0">
       <n-button
         @click="refresh"
         size="tiny"
@@ -56,6 +56,7 @@
     </n-space>
     <n-data-table
       remote
+      :size="size"
       :row-key="(row) => row._id"
       :scroll-x="minWidth"
       :max-height="maxHeight"
@@ -92,6 +93,7 @@ import { computed, ref } from 'vue'
 
 // 核心属性
 interface IProp {
+  size?: 'large' | 'medium' | 'small'
   dynamicWidth?: number
   maxHeight?: number
   allColumns: Array<DataTableBaseColumn>
@@ -100,6 +102,7 @@ interface IProp {
   pagination: IPagination
 }
 const props = withDefaults(defineProps<IProp>(), {
+  size: 'medium',
   dynamicWidth: 0,
   maxHeight: undefined,
   allColumns: undefined,

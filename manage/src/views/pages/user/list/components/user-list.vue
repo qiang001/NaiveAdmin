@@ -1,5 +1,6 @@
 <template>
   <common-table
+    :size="size"
     :dynamicWidth="dynamicWidth"
     :maxHeight="maxHeight"
     :allColumns="allColumns"
@@ -35,6 +36,7 @@ import { IUserListItem } from '../interfaces/data'
 import { IPagination } from '@/hooks/usePagination'
 import { h, inject, Ref } from 'vue'
 
+const size = inject('size') as 'large' | 'medium' | 'small'
 const maxHeight = inject('maxHeight') as Ref<number>
 const dynamicWidth = inject('dynamicWidth') as Ref<number>
 const list = inject('users') as Ref<Array<IUserListItem>>

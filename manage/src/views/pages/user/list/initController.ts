@@ -97,6 +97,7 @@ export const initController = () => {
   const {
     dynamicWidth,
     maxHeight,
+    size,
     refresh: refreshList,
     edit: editUser,
     resetPassword,
@@ -131,6 +132,7 @@ export const initController = () => {
     searching,
     dynamicWidth,
     maxHeight,
+    size,
     resultOptions,
   }
   const methods = {

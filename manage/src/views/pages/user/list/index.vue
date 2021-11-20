@@ -54,6 +54,7 @@ const {
   loading,
   dynamicWidth,
   maxHeight,
+  size,
   pagination,
   changePage,
   changePageSize,
@@ -91,6 +92,7 @@ provide('users', users)
 provide('loading', readonly(loading))
 provide('dynamicWidth', readonly(dynamicWidth))
 provide('maxHeight', readonly(maxHeight))
+provide('size', size)
 provide('pagination', pagination)
 
 import EditModal from './components/edit-modal.vue'

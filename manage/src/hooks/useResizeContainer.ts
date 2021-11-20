@@ -42,6 +42,22 @@ export const useResizeContainer = (
       width.value -= pl + pr
       height.value -= pt + pb
     }
+    if (usage == 'outer') {
+      const ml = parseFloat(
+        getComputedStyle(container.value).marginLeft.replace('px', '')
+      )
+      const mr = parseFloat(
+        getComputedStyle(container.value).marginRight.replace('px', '')
+      )
+      const mt = parseFloat(
+        getComputedStyle(container.value).marginTop.replace('px', '')
+      )
+      const mb = parseFloat(
+        getComputedStyle(container.value).marginBottom.replace('px', '')
+      )
+      width.value += ml + mr
+      height.value += mt + mb
+    }
   }
 
   onBeforeUnmount(() => {

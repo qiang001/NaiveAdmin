@@ -41,11 +41,13 @@ export const useUserList = ({
   openResultModalAsync,
 }: Input) => {
   // 响应式表格
-  const { dynamicWidth, maxHeight } = useResponsiveTable({
-    dynamicWidth: 240,
+  const { dynamicWidth, maxHeight, size } = useResponsiveTable({
+    size: 'small',
+    tool: true,
+    pagination: true,
     containerId: 'page-panel',
-    otherHeightTotalStatic: 115,
     otherElementIds: ['action-header'],
+    dynamicWidth: 240,
   })
 
   // 核心方法
@@ -88,7 +90,7 @@ export const useUserList = ({
       },
     })
   }
-  const data = { dynamicWidth, maxHeight }
+  const data = { dynamicWidth, maxHeight, size }
   const method = { refresh, edit, resetPassword, _delete }
   return {
     ...data,
