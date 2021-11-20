@@ -30,7 +30,7 @@
       style="cursor: pointer"
       @click="() => emit('openSetting')"
     >
-      <n-icon :size="24">
+      <n-icon :size="20">
         <setting-icon />
       </n-icon>
     </div>

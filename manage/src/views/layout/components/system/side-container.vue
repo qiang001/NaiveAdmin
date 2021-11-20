@@ -1,6 +1,13 @@
 <template>
   <div class="d-flex" style="flex-direction: column; min-height: 100vh">
-    <div
+    <n-element
+      style="
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        background-color: var(--color);
+        box-shadow: 0 0 4px 0 #80808026;
+      "
       class="d-flex a-center py-1"
       :class="`${!collapsed ? 'pl-1' : 'j-center'}`"
     >
@@ -8,14 +15,16 @@
         <img src="@/assets/logo.png" alt="" style="width: 36px" />
       </div>
       <div v-if="!collapsed" class="ml" id="title">海獭.Design</div>
-    </div>
+    </n-element>
     <slot></slot>
     <n-element
       class="p-1 mt-auto"
-      :style="
-        inverted && !store.state.ifDark
-          ? 'border-top: 1px solid #1d2022'
-          : 'border-top: 1px solid var(--divider-color)'
+      style="
+        position: sticky;
+        bottom: 0;
+        z-index: 1;
+        background-color: var(--color);
+        box-shadow: 0 0 4px 0 #80808026;
       "
     >
       <div class="mb-1">
@@ -33,10 +42,7 @@ import { NElement } from 'naive-ui'
 import Account from './components/account.vue'
 import SettingTrigger from './components/setting-trigger.vue'
 import { Ref, inject } from 'vue'
-import { useStore } from '@/hooks/useStore'
-const store = useStore()
 const collapsed = inject('collapsed') as Ref<boolean>
-const inverted = inject('inverted') as Ref<boolean>
 const emit = defineEmits(['open'])
 </script>
 

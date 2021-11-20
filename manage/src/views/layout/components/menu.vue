@@ -1,11 +1,5 @@
 <template>
-  <n-element
-    :style="
-      inverted && !store.state.ifDark
-        ? 'border-top: 1px solid #1d2022'
-        : 'border-top: 1px solid var(--divider-color)'
-    "
-  >
+  <n-element>
     <div class="quick-search" v-if="!collapsed && ifShowSearch">
       <n-auto-complete
         :options="options"
@@ -128,6 +122,7 @@ const activeBarColor = computed(() =>
 }
 .n-menu {
   margin-top: -6px;
+  margin-bottom: -6px;
 }
 :deep(.n-menu .n-menu-item::before) {
   left: 0;

@@ -194,7 +194,7 @@ export const getColors: (ifDark: boolean) => IColorCollection = (ifDark) => {
         arrowColorChildActive: !ifDark ? '#116958' : '#30b695',
         arrowColorActive: !ifDark ? '#116958' : '#30b695',
         // 背景激活
-        itemColorActive: !ifDark ? '#f3f8f7' : '#111111',
+        itemColorActive: !ifDark ? '#f3f8f7' : '#101715',
         // 内容激活
         itemTextColorActive: !ifDark ? '#116958' : '#30b695',
         itemIconColorActive: !ifDark ? '#116958' : '#30b695',
@@ -225,7 +225,7 @@ export const getColors: (ifDark: boolean) => IColorCollection = (ifDark) => {
         arrowColorChildActive: !ifDark ? '#00c250' : '#4aba7bFF',
         arrowColorActive: !ifDark ? '#00c250' : '#4aba7bFF',
         // 背景激活
-        itemColorActive: !ifDark ? '#b4f7d01a' : '#111111',
+        itemColorActive: !ifDark ? '#b4f7d01a' : '#0e1914',
         // 内容激活
         itemTextColorActive: !ifDark ? '#00c250' : '#4aba7bFF',
         itemIconColorActive: !ifDark ? '#00c250' : '#4aba7bFF',
@@ -256,7 +256,7 @@ export const getColors: (ifDark: boolean) => IColorCollection = (ifDark) => {
         arrowColorChildActive: !ifDark ? '#1890FFFF' : '#6DB4F6FF',
         arrowColorActive: !ifDark ? '#1890FFFF' : '#6DB4F6FF',
         // 背景激活
-        itemColorActive: !ifDark ? '#afd5f91a' : '#111111',
+        itemColorActive: !ifDark ? '#afd5f91a' : '#172129',
         // 内容激活
         itemTextColorActive: !ifDark ? '#1890FFFF' : '#6DB4F6FF',
         itemIconColorActive: !ifDark ? '#1890FFFF' : '#6DB4F6FF',
@@ -287,7 +287,7 @@ export const getColors: (ifDark: boolean) => IColorCollection = (ifDark) => {
         arrowColorChildActive: !ifDark ? '#172991FF' : '#634fc2',
         arrowColorActive: !ifDark ? '#172991FF' : '#634fc2',
         // 背景激活
-        itemColorActive: !ifDark ? '#959ed31a' : '#111111',
+        itemColorActive: !ifDark ? '#959ed31a' : '#14121f',
         // 内容激活
         itemTextColorActive: !ifDark ? '#172991FF' : '#634fc2',
         itemIconColorActive: !ifDark ? '#172991FF' : '#634fc2',
@@ -320,7 +320,7 @@ export const getColors: (ifDark: boolean) => IColorCollection = (ifDark) => {
         arrowColorHover: !ifDark ? '#722ED1FF' : '#BE92FCFF',
         arrowColorChildActive: !ifDark ? '#722ED1FF' : '#BE92FCFF',
         arrowColorActive: !ifDark ? '#722ED1FF' : '#BE92FCFF',
-        itemColorActive: !ifDark ? '#ceb7ef1a' : '#111111',
+        itemColorActive: !ifDark ? '#ceb7ef1a' : '#17121f',
         itemTextColorActive: !ifDark ? '#722ED1FF' : '#BE92FCFF',
         itemIconColorActive: !ifDark ? '#722ED1FF' : '#BE92FCFF',
         itemTextColorChildActive: !ifDark ? '#722ED1FF' : '#BE92FCFF',
@@ -344,7 +344,7 @@ export const getColors: (ifDark: boolean) => IColorCollection = (ifDark) => {
       },
       Menu: {
         arrowColor: !ifDark ? '#333639' : '#ffffffd1',
-        itemColorActive: !ifDark ? '#f5eabe1a' : '#111111',
+        itemColorActive: !ifDark ? '#f5eabe1a' : '#171611',
         itemTextColorActiveInverted: '#000',
         itemIconColorActiveInverted: '#000',
       },
