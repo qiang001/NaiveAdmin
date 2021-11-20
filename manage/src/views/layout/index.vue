@@ -13,6 +13,7 @@
         "
       >
         <Header
+          @view="viewNotification"
           @open="openSetting"
           id="header"
           :style="`${
@@ -42,7 +43,7 @@
           bordered
           :show-trigger="false"
           collapse-mode="width"
-          :collapsed-width="48"
+          :collapsed-width="56"
           :width="sectionWidth"
           :inverted="inverted"
           :collapsed="collapsed"
@@ -58,7 +59,7 @@
               )
             "
           ></Menu>
-          <side-container @open="openSetting" v-else>
+          <side-container @view="viewNotification" @open="openSetting" v-else>
             <Menu @navigateTo="navigateTo"></Menu>
           </side-container>
           <resize-bar
@@ -142,6 +143,10 @@ const {
   openSetting,
   closeSetting,
 } = initController()
+
+const viewNotification = (ifOpen: boolean) => {
+  ifOpen && window.$message.success('加载通知详情')
+}
 
 provide('collapsed', readonly(collapsed))
 provide('inverted', inverted)

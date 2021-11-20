@@ -9,7 +9,9 @@
       v-if="store.state.userInfo"
       :options="options"
       :render-icon="renderDropdownIcon"
-      placement="bottom-start"
+      :placement="
+        store.state.layoutStyle === 'left-right' ? 'right-end' : 'bottom-start'
+      "
       trigger="click"
       :show-arrow="true"
       :on-select="(key) => handleSelect(key)"

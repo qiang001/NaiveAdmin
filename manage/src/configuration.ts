@@ -1,6 +1,6 @@
 // 路由-菜单
-import DesignStandardIcon from '@vicons/material/MenuBookRound'
-import ComponentIcon from '@vicons/fa/AppStoreIos'
+import DesignStandardIcon from '@vicons/tabler/LettersCase'
+import ComponentIcon from '@vicons/fluent/Box16Regular'
 import ButtonIcon from '@vicons/material/BoltRound'
 import TagIcon from '@vicons/fluent/TagMultiple20Regular'
 import ModalIcon from '@vicons/fluent/PositionBackward20Regular'

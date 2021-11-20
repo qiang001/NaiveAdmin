@@ -27,7 +27,10 @@
         box-shadow: 0 0 4px 0 #80808026;
       "
     >
-      <div class="mb-1">
+      <div class="mb-2 d-flex">
+        <notification @viewNotification="(bool) => emit('view', bool)" />
+      </div>
+      <div class="mb-2">
         <setting-trigger @openSetting="() => emit('open')" />
       </div>
       <div>
@@ -40,10 +43,11 @@
 <script setup lang="ts">
 import { NElement } from 'naive-ui'
 import Account from './components/account.vue'
+import Notification from './components/notification.vue'
 import SettingTrigger from './components/setting-trigger.vue'
 import { Ref, inject } from 'vue'
 const collapsed = inject('collapsed') as Ref<boolean>
-const emit = defineEmits(['open'])
+const emit = defineEmits(['view', 'open'])
 </script>
 
 <style scoped>

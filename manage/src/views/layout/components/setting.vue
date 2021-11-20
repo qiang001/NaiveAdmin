@@ -263,7 +263,6 @@ const ifEmbeddedChange = (val: boolean) => {
   store.commit('SET_IFEMBEDDED', val)
 }
 
-const collapsed = inject('collapsed') as Ref<boolean>
 const inverted = inject('inverted') as Ref<boolean>
 const accordion = inject('accordion') as Ref<boolean>
 const ifShowIcon = inject('ifShowIcon') as Ref<boolean>
@@ -297,6 +296,7 @@ const { ifProcessing: loading, func: resetSetting } = useDebounce(() => {
   invertedChange(false)
   accordionChange(false)
   ifShowIconChange(true)
+  ifShowSearchChange(true)
   emit('close')
   window.$message.success('恭喜你，默认配置恢复成功！')
 })

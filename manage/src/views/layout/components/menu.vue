@@ -16,7 +16,7 @@
       :collapsed-icon-size="20"
       :root-indent="18"
       :indent="24"
-      :collapsed-width="48"
+      :collapsed-width="56"
       :collapsed="collapsed"
       :inverted="inverted"
       :accordion="accordion"

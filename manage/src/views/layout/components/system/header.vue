@@ -12,10 +12,11 @@
       </div>
     </div>
     <div class="ml-auto d-flex a-center">
-      <div>
-        <setting-trigger @openSetting="() => emit('open')" />
-      </div>
-      <div class="ml-2">
+      <div class="d-flex a-center">
+        <notification @viewNotification="(bool) => emit('view', bool)" />
+        <div class="mx-2">
+          <setting-trigger @openSetting="() => emit('open')" />
+        </div>
         <Account />
       </div>
     </div>
@@ -24,13 +25,14 @@
 
 <script setup lang="ts">
 import Account from './components/account.vue'
+import Notification from './components/notification.vue'
 import SettingTrigger from './components/setting-trigger.vue'
-const emit = defineEmits(['open'])
+const emit = defineEmits(['view', 'open'])
 </script>
 
 <style scoped>
 .header {
-  padding: 0 24px 0 24px;
+  padding: 0 10px 0 10px;
   height: 100%;
   transition: all 0.3s ease;
 }
