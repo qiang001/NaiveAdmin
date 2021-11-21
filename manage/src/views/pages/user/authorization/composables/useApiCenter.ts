@@ -14,11 +14,15 @@ export const useApiCenter = () => {
     console.log('加载中...')
     return new Promise<boolean>((res) => {
       setTimeout(() => {
-        window.$message.success('恭喜你，导出成功！')
         res(true)
       }, 1500)
     })
   }
+  const {
+    ifProcessing: exportLoading,
+    func: _exportData,
+  }: { ifProcessing: Ref<boolean>; func: I_useApiCenter_exportData } =
+    useDebounce(exportData, 200)
 
   // 拉取角色列表
   const getRoles: I_useApiCenter_getRoles = async () => {
@@ -54,8 +58,8 @@ export const useApiCenter = () => {
     func: _deleteFromDB,
   }: { ifProcessing: Ref<boolean>; func: I_useApiCenter_deleteFromDB } =
     useDebounce(deleteFromDB)
-  const data = { loading, confirmLoading }
-  const method = { exportData, _getRoles, _saveToDB, _deleteFromDB }
+  const data = { exportLoading, loading, confirmLoading }
+  const method = { _exportData, _getRoles, _saveToDB, _deleteFromDB }
   return {
     ...data,
     ...method,

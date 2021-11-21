@@ -19,7 +19,8 @@ export const initController = () => {
   } = useResultModal()
   // 接口层
   const {
-    exportData,
+    exportLoading,
+    _exportData,
     loading,
     _getRoles,
     confirmLoading,
@@ -44,12 +45,8 @@ export const initController = () => {
     confirm: confirmEditModal,
   } = useEditModal({ queryRoles, _saveToDB })
   // 按钮组逻辑
-  const {
-    exportLoading,
-    exportExcel,
-    add: addRole,
-  } = useActionHeader({
-    exportData,
+  const { exportExcel, add: addRole } = useActionHeader({
+    _exportData,
     openEditModal,
   })
   // 表格逻辑

@@ -1,4 +1,3 @@
-import { ref } from 'vue'
 import {
   // Input
   I_useApiCenter_exportData,
@@ -8,20 +7,20 @@ import {
   I_useActionHeader_add,
 } from '../interfaces/method'
 interface Input {
-  exportData: I_useApiCenter_exportData
+  _exportData: I_useApiCenter_exportData
   openEditModal: I_useEditModal_open
 }
-export const useActionHeader = ({ exportData, openEditModal }: Input) => {
-  const exportLoading = ref(false)
+export const useActionHeader = ({ _exportData, openEditModal }: Input) => {
   const exportExcel: I_useActionHeader_exportExcel = async () => {
-    exportLoading.value = true
-    await exportData()
-    exportLoading.value = false
+    try {
+      await _exportData()
+      window.$message.success('恭喜你，导出成功！')
+    } catch (error) {}
   }
   const add: I_useActionHeader_add = () => {
     openEditModal({ type: 'create' })
   }
-  const data = { exportLoading }
+  const data = {}
   const method = { exportExcel, add }
   return {
     ...data,
