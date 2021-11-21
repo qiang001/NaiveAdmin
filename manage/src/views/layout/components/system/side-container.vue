@@ -27,7 +27,7 @@
         box-shadow: 0 0 4px 0 #80808026;
       "
     >
-      <div class="mb-2 d-flex">
+      <div class="mt-1 mb-2 d-flex">
         <notification @viewNotification="(bool) => emit('view', bool)" />
       </div>
       <div class="mb-2">
