@@ -2,7 +2,7 @@ import { createStore } from 'vuex'
 import { darkTheme } from 'naive-ui'
 import { useLoginApi, IUserInfo } from '@/api/useLoginApi'
 const { loginUser, getUserInfo } = useLoginApi()
-import { IColorCollection,colorName } from '@/configuration'
+import { IColorCollection, colorName } from '@/configuration'
 import {
   pageConfig,
   getStyles,
