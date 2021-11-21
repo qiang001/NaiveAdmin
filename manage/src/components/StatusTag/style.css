@@ -1,30 +1,30 @@
 .hita-status-tag-default-light {
-  background-color: #fafafa;
-  color: #808080;
+  background-color: #f2f2f2;
+  color: #5d6d78;
 }
 
 .hita-status-tag-default-dark {
-  background-color: #212121;
-  color: #e3e3e3;
+  background-color: #313131;
+  color: #fafafa;
 }
 
 .hita-status-tag-disabled-light {
-  background-color: #f2f2f2;
-  color: #95a4aa;
+  background-color: #e6e6e6;
+  color: #a1a1a1;
 }
 
 .hita-status-tag-disabled-dark {
-  background-color: #383838;
-  color: #b2b2b2;
+  background-color: #494949;
+  color: #8f8f8f;
 }
 
 .hita-status-tag-black-light {
   background-color: #313131;
-  color: #ededed;
+  color: #ffffff;
 }
 
 .hita-status-tag-black-dark {
-  background-color: #000000;
+  background-color: #111111;
   color: #cdcdcd;
 }
 
