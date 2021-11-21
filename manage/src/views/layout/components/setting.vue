@@ -223,6 +223,9 @@ const setColor = (item: IColorInfo, bool: boolean) => {
       ? ((item.checked = true), store.commit('SET_MAINCOLOR', item.key))
       : (color.checked = false)
   })
+  if (item.key === 'yellow') {
+    invertedChange(true)
+  }
 }
 
 const ifDark = ref(false)

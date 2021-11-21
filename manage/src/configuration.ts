@@ -156,8 +156,15 @@ export const getStyles: () => layoutStyleType[] = () => {
 }
 
 // 主题色预设
+type colorName =
+  | 'qingshandai'
+  | 'green'
+  | 'blue'
+  | 'luckin'
+  | 'purple'
+  | 'yellow'
 export interface IColorInfo {
-  key: string
+  key: colorName
   label: string
   common: {
     baseColor?: string
@@ -170,9 +177,7 @@ export interface IColorInfo {
   [otherComponentName: string]: any
 }
 
-export interface IColorCollection {
-  [colorName: string]: IColorInfo
-}
+export type IColorCollection = Record<colorName, IColorInfo>
 
 export const getColors: (ifDark: boolean) => IColorCollection = (ifDark) => {
   return {
@@ -206,6 +211,15 @@ export const getColors: (ifDark: boolean) => IColorCollection = (ifDark) => {
       Checkbox: {
         checkMarkColor: !ifDark ? '#fff' : '#CDCDD4FF',
       },
+      Pagination: {
+        itemColorActive: !ifDark ? '#116958' : '#1e8f76',
+        itemColorHover: !ifDark ? '#1e8f76' : '#116958',
+        itemColorPressed: !ifDark ? '#074239' : '#30b695',
+        itemColorActiveHover: !ifDark ? '#116958' : '#1e8f76',
+        itemTextColorActive: '#fff',
+        itemTextColorHover: '#fff',
+        itemTextColorPressed: '#fff',
+      },
     },
     green: {
       key: 'green',
@@ -237,6 +251,15 @@ export const getColors: (ifDark: boolean) => IColorCollection = (ifDark) => {
       Checkbox: {
         checkMarkColor: !ifDark ? '#fff' : '#CDCDD4FF',
       },
+      Pagination: {
+        itemColorActive: !ifDark ? '#00c250' : '#2aae67',
+        itemColorHover: !ifDark ? '#21cf64' : '#1a8750',
+        itemColorPressed: !ifDark ? '#009c46' : '#4aba7bFF',
+        itemColorActiveHover: !ifDark ? '#00c250' : '#2aae67',
+        itemTextColorActive: '#fff',
+        itemTextColorHover: '#fff',
+        itemTextColorPressed: '#fff',
+      },
     },
     blue: {
       key: 'blue',
@@ -267,6 +290,15 @@ export const getColors: (ifDark: boolean) => IColorCollection = (ifDark) => {
       },
       Checkbox: {
         checkMarkColor: !ifDark ? '#fff' : '#CDCDD4FF',
+      },
+      Pagination: {
+        itemColorActive: !ifDark ? '#1890ff' : '#1c8aef',
+        itemColorHover: !ifDark ? '#40a9ff' : '#1890ff',
+        itemColorPressed: !ifDark ? '#096dd9' : '#6DB4F6FF',
+        itemColorActiveHover: !ifDark ? '#1890ff' : '#1c8aef',
+        itemTextColorActive: '#fff',
+        itemTextColorHover: '#fff',
+        itemTextColorPressed: '#fff',
       },
     },
     luckin: {
@@ -304,6 +336,15 @@ export const getColors: (ifDark: boolean) => IColorCollection = (ifDark) => {
         tabTextColorHoverLine: !ifDark ? '#172991' : '#8873ee',
         barColor: !ifDark ? '#172991' : '#8873ee',
       },
+      Pagination: {
+        itemColorActive: !ifDark ? '#172991' : '#402db6',
+        itemColorHover: !ifDark ? '#33469e' : '#281d8f',
+        itemColorPressed: !ifDark ? '#0c176b' : '#634fc2',
+        itemColorActiveHover: !ifDark ? '#172991' : '#402db6',
+        itemTextColorActive: '#fff',
+        itemTextColorHover: '#fff',
+        itemTextColorPressed: '#fff',
+      },
     },
     purple: {
       key: 'purple',
@@ -330,6 +371,15 @@ export const getColors: (ifDark: boolean) => IColorCollection = (ifDark) => {
       },
       Checkbox: {
         checkMarkColor: !ifDark ? '#fff' : '#CDCDD4FF',
+      },
+      Pagination: {
+        itemColorActive: !ifDark ? '#722ed1' : '#9951ff',
+        itemColorHover: !ifDark ? '#9254de' : '#722ed1',
+        itemColorPressed: !ifDark ? '#531dab' : '#BE92FCFF',
+        itemColorActiveHover: !ifDark ? '#722ed1' : '#9951ff',
+        itemTextColorActive: '#fff',
+        itemTextColorHover: '#fff',
+        itemTextColorPressed: '#fff',
       },
     },
     yellow: {
@@ -362,6 +412,15 @@ export const getColors: (ifDark: boolean) => IColorCollection = (ifDark) => {
         borderInfo: !ifDark
           ? '1px solid rgba(199,223,251,1)'
           : '1px solid rgba(56,137,197,0.35)',
+      },
+      Pagination: {
+        itemColorActive: !ifDark ? '#ffd429' : '#ffd429',
+        itemColorHover: !ifDark ? '#ffe252' : '#ffc300',
+        itemColorPressed: !ifDark ? '#ffc300' : '#ffed7a',
+        itemColorActiveHover: !ifDark ? '#ffd429' : '#ffd429',
+        itemTextColorActive: '#000',
+        itemTextColorHover: '#000',
+        itemTextColorPressed: '#000',
       },
     },
   }
@@ -416,6 +475,9 @@ export const themeOverrides: (mainColor: string, ifDark: boolean) => any = (
   let Alert = {}
   if (setting.Alert) Alert = { ...Alert, ...setting.Alert }
 
+  let Pagination = {}
+  if (setting.Pagination) Pagination = { ...Pagination, ...setting.Pagination }
+
   let Spin = {
     sizeTiny: '18px',
   }
@@ -428,6 +490,7 @@ export const themeOverrides: (mainColor: string, ifDark: boolean) => any = (
     Switch,
     Tabs,
     Alert,
+    Pagination,
     Spin,
   }
 }

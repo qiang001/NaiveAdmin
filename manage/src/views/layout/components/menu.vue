@@ -114,6 +114,10 @@ const handleSelected = (key: string) => {
 const activeBarColor = computed(() =>
   inverted.value ? 'transparent' : themeVars.value.primaryColor
 )
+const itemPos = computed(() => (inverted.value ? '8px' : '0'))
+const itemRadius = computed(() =>
+  inverted.value ? 'var(--border-radius)' : '0'
+)
 </script>
 
 <style scoped>
@@ -125,9 +129,9 @@ const activeBarColor = computed(() =>
   margin-bottom: -6px;
 }
 :deep(.n-menu .n-menu-item::before) {
-  left: 0;
-  right: 0;
-  border-radius: 0;
+  left: v-bind(itemPos);
+  right: v-bind(itemPos);
+  border-radius: v-bind(itemRadius);
   border-right: 3px solid transparent;
   transition: all 0.3s var(--bezier);
 }
