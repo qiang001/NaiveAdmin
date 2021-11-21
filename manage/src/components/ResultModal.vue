@@ -59,6 +59,7 @@
           </div>
         </n-element>
         <n-button
+          type="primary"
           size="large"
           @click="confirm"
           style="width: 100%"

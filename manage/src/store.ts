@@ -2,7 +2,7 @@ import { createStore } from 'vuex'
 import { darkTheme } from 'naive-ui'
 import { useLoginApi, IUserInfo } from '@/api/useLoginApi'
 const { loginUser, getUserInfo } = useLoginApi()
-import { IColorCollection } from '@/configuration'
+import { IColorCollection,colorName } from '@/configuration'
 import {
   pageConfig,
   getStyles,
@@ -23,7 +23,7 @@ export type layoutStyleType =
   | 'left-right'
 export interface State {
   layoutStyle: layoutStyleType
-  mainColor: string
+  mainColor: colorName
   ifDark: boolean
   ifPageTitle: boolean
   ifEmbedded: boolean
@@ -62,7 +62,7 @@ export const buildStore = (router: Router) => {
     state() {
       return {
         layoutStyle: styles[0],
-        mainColor: Object.keys(getColors(false))[0],
+        mainColor: Object.keys(getColors(false))[0] as colorName,
         ifDark: false,
         ifPageTitle: false,
         ifEmbedded: false,

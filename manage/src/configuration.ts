@@ -156,7 +156,7 @@ export const getStyles: () => layoutStyleType[] = () => {
 }
 
 // 主题色预设
-type colorName =
+export type colorName =
   | 'qingshandai'
   | 'green'
   | 'blue'
