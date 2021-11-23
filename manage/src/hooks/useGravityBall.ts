@@ -1,7 +1,6 @@
 import { Ref, watchEffect } from 'vue'
 export const useGravityBall = (
-  width: Ref<number>,
-  height: Ref<number>,
+  rect: { width: number; height: number },
   mainColors: string[],
   ifUnload: Ref<boolean>
 ): void => {
@@ -95,8 +94,8 @@ export const useGravityBall = (
   animate()
 
   watchEffect(() => {
-    canvas.width = width.value || 0
-    canvas.height = height.value || innerHeight
+    canvas.width = rect.width || 0
+    canvas.height = rect.height || innerHeight
     if (new Date().getTime() - initedAt > 3000) {
       init()
     }

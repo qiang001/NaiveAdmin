@@ -123,7 +123,7 @@ import { gsap } from 'gsap'
 
 import { useGravityBall } from '@/hooks/useGravityBall'
 import { useResizeContainer } from '@/hooks/useResizeContainer'
-const { width, height } = useResizeContainer('login-left')
+const { rect } = useResizeContainer('login-left')
 const ifUnload = ref(false)
 onMounted(() => {
   if (store.state.loginPageMessage.type == 'error') {
@@ -137,8 +137,7 @@ onMounted(() => {
   gsap.to('#login-btn', { duration: 0.8, x: 0, opacity: 1, delay: 0.4 })
 
   useGravityBall(
-    width,
-    height,
+    rect,
     store.getters.getMainColors.map((color) => color.common.primaryColor),
     ifUnload
   )
