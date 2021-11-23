@@ -1,10 +1,10 @@
 <template>
-  <div class="d-flex a-center" :class="collapsed ? 'j-center' : ''">
-    <div
-      class="d-flex a-center j-center"
-      style="cursor: pointer"
-      @click="() => emit('openSetting')"
-    >
+  <div
+    @click.stop="() => emit('openSetting')"
+    class="p-1"
+    style="cursor: pointer"
+  >
+    <div class="d-flex a-center" :class="collapsed ? 'j-center' : ''">
       <n-icon :size="21" :color="iconColor">
         <setting-icon />
       </n-icon>

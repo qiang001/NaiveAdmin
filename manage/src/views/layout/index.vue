@@ -132,6 +132,7 @@ const {
   ifFullpage,
   refreshing,
   settingShow,
+  badgeNum,
   widthChange,
   widthChangeDone,
   collapsedChange,
@@ -142,11 +143,8 @@ const {
   setFullpage,
   openSetting,
   closeSetting,
+  viewNotification,
 } = initController()
-
-const viewNotification = (ifOpen: boolean) => {
-  ifOpen && window.$message.success('加载通知详情')
-}
 
 provide('collapsed', readonly(collapsed))
 provide('inverted', inverted)
@@ -166,6 +164,8 @@ provide('ifFullpage', readonly(ifFullpage))
 provide('refreshing', readonly(refreshing))
 
 import Page from './components/page.vue'
+
+provide('badgeNum', badgeNum)
 
 import Header from './components/system/header.vue'
 import SideContainer from './components/system/side-container.vue'

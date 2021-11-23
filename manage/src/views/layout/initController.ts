@@ -4,6 +4,7 @@ import { useFullscreen } from './composables/useFullscreen'
 import { useMenu } from './composables/useMenu'
 import { useHandleBar } from './composables/useHandleBar'
 import { useSetting } from './composables/useSetting'
+import { useNotification } from './composables/useNotification'
 import { useLoadingBar } from 'naive-ui'
 
 export const initController = () => {
@@ -47,6 +48,7 @@ export const initController = () => {
 
   const { settingShow, openSetting, closeSetting } = useSetting()
 
+  const { badgeNum, viewNotification } = useNotification()
   const data = {
     store,
     route,
@@ -61,6 +63,7 @@ export const initController = () => {
     widthSpan,
     sectionWidth,
     settingShow,
+    badgeNum,
   }
   const methods = {
     gotoTab,
@@ -73,6 +76,7 @@ export const initController = () => {
     widthChangeDone,
     openSetting,
     closeSetting,
+    viewNotification,
   }
   return {
     ...data,

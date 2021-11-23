@@ -27,13 +27,13 @@
         box-shadow: 0 0 4px 0 #80808026;
       "
     >
-      <div class="mt-1 mb-2 d-flex">
+      <div class="systemBtn">
         <notification @viewNotification="(bool) => emit('view', bool)" />
       </div>
-      <div class="mb-2">
+      <div class="systemBtn">
         <setting-trigger @openSetting="() => emit('open')" />
       </div>
-      <div>
+      <div class="p-1 systemBtn">
         <Account />
       </div>
     </n-element>
@@ -45,9 +45,17 @@ import { NElement } from 'naive-ui'
 import Account from './components/account.vue'
 import Notification from './components/notification.vue'
 import SettingTrigger from './components/setting-trigger.vue'
-import { Ref, inject } from 'vue'
+import { Ref, inject, computed } from 'vue'
 const collapsed = inject('collapsed') as Ref<boolean>
+const inverted = inject('inverted') as Ref<boolean>
+
 const emit = defineEmits(['view', 'open'])
+
+import { useStore } from '@/hooks/useStore'
+const store = useStore()
+const systemBtnColor = computed(() =>
+  inverted.value ? '#ffffff17' : !store.state.ifDark ? '#efeff5' : '#ffffff17'
+)
 </script>
 
 <style scoped>
@@ -56,5 +64,14 @@ const emit = defineEmits(['view', 'open'])
   font-size: 18px;
   font-weight: bold;
   font-family: PingFang SC;
+}
+.systemBtn {
+  border-radius: 3px;
+  transition: all 0.3 ease;
+  background-color: transparent;
+}
+.systemBtn:hover {
+  transition: all 0.3 ease;
+  background-color: v-bind(systemBtnColor);
 }
 </style>
