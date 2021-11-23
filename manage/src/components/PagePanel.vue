@@ -32,7 +32,7 @@ const { title, allowExpand } = toRefs(props)
 // 组件核心逻辑
 // 主要是自适应铺满屏幕, 顺便通知外界自己的实时宽高
 import { useResizeContainer } from '../hooks/useResizeContainer'
-const { width, height, container } = useResizeContainer('page-panel')
+const { rect, container } = useResizeContainer('page-panel')
 
 import { useStore } from '@/hooks/useStore'
 const store = useStore()
@@ -67,7 +67,7 @@ watchEffect(() => {
         setHeight('max-height', totalOtherHeight)
       }
     })
-    emit('resize', { width: width.value, height: height.value })
+    emit('resize', { width: rect.width, height: rect.height })
   }
 })
 

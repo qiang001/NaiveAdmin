@@ -1,71 +1,95 @@
-import { ref, onMounted, onBeforeUnmount, Ref } from 'vue'
+import { reactive, ref, onMounted, onBeforeUnmount } from 'vue'
+
 type usageType = 'inner' | 'outer'
-export const useResizeContainer = (
-  containerId: string,
-  usage?: usageType
-): { width: Ref<number>; height: Ref<number>; container: Ref<HTMLElement> } => {
-  const width = ref(null)
-  const height = ref(null)
-  let resizeObserver = null
-  let container = ref(null)
-  let resizeTimer = null
+
+// 适用于页面初始化时 [自动封装了生命周期]
+export const useResizeContainer = (containerId: string, usage?: usageType) => {
+  usage = containerId === 'page-panel' ? 'inner' : usage
+  const _container = ref<HTMLElement>(null)
+  const _rect = reactive({
+    width: 0,
+    height: 0,
+  })
+  let _resizeObserver = null
+
   onMounted(() => {
-    container.value = document.getElementById(containerId)
-    const ResizeObserver = window.ResizeObserver
-    resizeObserver = new ResizeObserver(() => {
-      if (resizeTimer) {
-        clearTimeout(resizeTimer)
-      }
-      resizeTimer = setTimeout(() => {
-        resizeHandler()
-      }, 100)
-    })
-    resizeObserver.observe(container.value)
+    const { resizeObserver, container } = observe(containerId, _rect, usage)
+    _resizeObserver = resizeObserver
+    _container.value = container
   })
 
+  onBeforeUnmount(() => {
+    _resizeObserver.unobserve(_container.value)
+  })
+
+  return {
+    rect: _rect,
+    container: _container,
+  }
+}
+
+// 核心能力单独提供
+export const observe = (
+  targetId: string,
+  rect: { width: number; height: number },
+  usage?: usageType
+) => {
+  const container = document.getElementById(targetId)
+
+  const ResizeObserver = window.ResizeObserver
+  let resizeObserver = null
+  let resizeTimer = null
+
+  resizeObserver = new ResizeObserver(() => {
+    if (resizeTimer) {
+      clearTimeout(resizeTimer)
+    }
+    resizeTimer = setTimeout(() => {
+      resizeHandler()
+    }, 10)
+  })
+
+  resizeObserver.observe(container)
+
   function resizeHandler() {
-    width.value = container.value.getBoundingClientRect().width
-    height.value = container.value.getBoundingClientRect().height
-    if (usage == 'inner' || containerId == 'page-panel') {
+    rect.width = container.getBoundingClientRect().width
+    rect.height = container.getBoundingClientRect().height
+    if (usage == 'inner') {
       const pl = parseFloat(
-        getComputedStyle(container.value).paddingLeft.replace('px', '')
+        getComputedStyle(container).paddingLeft.replace('px', '')
       )
       const pr = parseFloat(
-        getComputedStyle(container.value).paddingRight.replace('px', '')
+        getComputedStyle(container).paddingRight.replace('px', '')
       )
       const pt = parseFloat(
-        getComputedStyle(container.value).paddingTop.replace('px', '')
+        getComputedStyle(container).paddingTop.replace('px', '')
       )
       const pb = parseFloat(
-        getComputedStyle(container.value).paddingBottom.replace('px', '')
+        getComputedStyle(container).paddingBottom.replace('px', '')
       )
-      width.value -= pl + pr
-      height.value -= pt + pb
+      rect.width -= pl + pr
+      rect.height -= pt + pb
     }
     if (usage == 'outer') {
       const ml = parseFloat(
-        getComputedStyle(container.value).marginLeft.replace('px', '')
+        getComputedStyle(container).marginLeft.replace('px', '')
       )
       const mr = parseFloat(
-        getComputedStyle(container.value).marginRight.replace('px', '')
+        getComputedStyle(container).marginRight.replace('px', '')
       )
       const mt = parseFloat(
-        getComputedStyle(container.value).marginTop.replace('px', '')
+        getComputedStyle(container).marginTop.replace('px', '')
       )
       const mb = parseFloat(
-        getComputedStyle(container.value).marginBottom.replace('px', '')
+        getComputedStyle(container).marginBottom.replace('px', '')
       )
-      width.value += ml + mr
-      height.value += mt + mb
+      rect.width += ml + mr
+      rect.height += mt + mb
     }
   }
 
-  onBeforeUnmount(() => {
-    resizeObserver.unobserve(container.value)
-  })
   return {
-    width,
-    height,
+    resizeObserver,
     container,
   }
 }
