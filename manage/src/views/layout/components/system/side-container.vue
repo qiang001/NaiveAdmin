@@ -4,7 +4,7 @@
       style="
         position: sticky;
         top: 0;
-        z-index: 1;
+        z-index: 2;
         background-color: var(--color);
         box-shadow: 0 0 4px 0 #80808026;
       "
