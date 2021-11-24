@@ -53,5 +53,6 @@ const hoverColor = computed(
 .menu-item.actived {
   border-right: 3px solid var(--primary-color);
   background-color: v-bind(bgColor);
+  color: var(--primary-color);
 }
 </style>
