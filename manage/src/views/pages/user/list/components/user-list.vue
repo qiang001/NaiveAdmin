@@ -215,7 +215,7 @@ function createAllColumns(): Array<DataTableBaseColumn> {
               NButton,
               {
                 size: 'small',
-                ghost: true,
+                secondary: true,
                 onClick: () =>
                   emit('resetPassword', row as unknown as IUserListItem),
               },
@@ -228,7 +228,8 @@ function createAllColumns(): Array<DataTableBaseColumn> {
               NButton,
               {
                 size: 'small',
-                dashed: true,
+                type: 'tertiary',
+                secondary: true,
                 onClick: () => emit('_delete', row as unknown as IUserListItem),
               },
               {

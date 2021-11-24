@@ -8,15 +8,16 @@
         <div class="login-right d-flex a-center j-center">
           <div class="login-card">
             <div class="p-3">
-              <div class="d-flex a-center j-center mb-3">
+              <div id="logo" class="d-flex a-center j-center mb-3">
                 <img src="../assets/logo.png" alt="" style="width: 66px" />
               </div>
               <div class="d-flex a-center j-center mb-3">
                 <div>
-                  <div style="font-size: 22px; text-align: center">
+                  <div id="title" style="font-size: 22px; text-align: center">
                     通用后台管理系统
                   </div>
                   <div
+                    id="title-en"
                     style="
                       text-align: center;
                       font-size: 12px;
@@ -132,9 +133,13 @@ onMounted(() => {
   if (store.state.loginPageMessage.type == 'success') {
     window.$message.success(store.state.loginPageMessage.text)
   }
-  gsap.to('#username', { duration: 0.3, x: 0, opacity: 1, delay: 0.3 })
-  gsap.to('#password', { duration: 0.5, x: 0, opacity: 1, delay: 0.35 })
-  gsap.to('#login-btn', { duration: 0.8, x: 0, opacity: 1, delay: 0.4 })
+
+  gsap.to('#logo', { duration: 0.6, x: 0, opacity: 1, delay: 0.3 })
+  gsap.to('#title', { duration: 0.6, x: 0, opacity: 1, delay: 0.35 })
+  gsap.to('#title-en', { duration: 0.6, x: 0, opacity: 1, delay: 0.4 })
+  gsap.to('#username', { duration: 0.6, x: 0, opacity: 1, delay: 0.45 })
+  gsap.to('#password', { duration: 0.6, x: 0, opacity: 1, delay: 0.5 })
+  gsap.to('#login-btn', { duration: 0.6, x: 0, opacity: 1, delay: 0.6 })
 
   useGravityBall(
     rect,
@@ -209,6 +214,9 @@ const login = async () => {
   box-sizing: border-box;
 }
 
+#logo,
+#title,
+#title-en,
 #username,
 #password,
 #login-btn {

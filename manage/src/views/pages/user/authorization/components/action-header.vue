@@ -3,6 +3,9 @@
     <div class="ml-auto">
       <n-space>
         <n-button
+          type="primary"
+          strong
+          secondary
           @click="exportExcel"
           size="medium"
           :loading="exportLoading"
@@ -13,7 +16,7 @@
               <excel-icon />
             </n-icon>
           </template>
-          {{ exportLoading ? '云端下载中...' : '导出Excel' }}
+          {{ exportLoading ? '云端下载中...' : '导出 Excel' }}
         </n-button>
         <n-button type="primary" size="medium" @click="add">
           <template #icon>

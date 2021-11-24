@@ -22,7 +22,9 @@
       <template #default> <slot></slot> </template>
       <template #action v-if="footer">
         <n-space justify="end">
-          <n-button @click="cancel">{{ cancelBtnText || '取消' }}</n-button>
+          <n-button secondary @click="cancel">{{
+            cancelBtnText || '取消'
+          }}</n-button>
           <n-button
             @click="confirm"
             type="primary"

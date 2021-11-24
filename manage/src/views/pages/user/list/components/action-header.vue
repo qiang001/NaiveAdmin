@@ -40,7 +40,7 @@
             </n-radio-group>
           </div>
           <n-space>
-            <n-button @click="clear">
+            <n-button @click="clear" secondary>
               <template #icon>
                 <n-icon>
                   <reset-icon />

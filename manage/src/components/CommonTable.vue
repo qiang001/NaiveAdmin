@@ -56,6 +56,7 @@
     </n-space>
     <n-data-table
       remote
+      striped
       :size="size"
       :row-key="(row) => row._id"
       :scroll-x="minWidth"

@@ -46,7 +46,7 @@
             />
           </n-space>
           <n-space justify="end">
-            <n-button @click="() => open(false)">点击打开</n-button>
+            <n-button secondary @click="() => open(false)">点击打开</n-button>
             <n-button type="primary" @click="() => open()">点击打开</n-button>
           </n-space>
         </n-space>

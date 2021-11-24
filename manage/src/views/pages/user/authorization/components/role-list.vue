@@ -1,5 +1,6 @@
 <template>
   <n-data-table
+    striped
     :row-key="(row) => row._id"
     :max-height="maxHeight"
     :columns="columns"
@@ -238,7 +239,8 @@ function createColumns(): Array<DataTableColumn> {
                   NButton,
                   {
                     size: 'small',
-                    dashed: true,
+                    secondary: true,
+                    type: 'tertiary',
                     onClick: () =>
                       emit('_delete', row as unknown as IRoleListItem),
                   },
