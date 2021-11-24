@@ -94,25 +94,25 @@ const cardWidth = computed(() =>
 .close-btn {
   height: 32px;
   width: 32px;
-  border-radius: 50%;
+  border-radius: 3px;
   background-color: transparent;
   cursor: pointer;
-  transform: rotate(0);
-  transition: all 0.5s ease;
+  /* transform: rotate(0); */
+  transition: all 0.3s ease;
 }
 .fullscreen-btn:hover {
   background-color: var(--border-color);
-  transform: rotate(180deg);
-  transition: all 0.5s ease;
+  /* transform: rotate(180deg); */
+  transition: all 0.3s ease;
 }
 
 .close-btn:hover {
   background-color: var(--border-color);
-  transform: rotate(180deg);
-  transition: all 0.5s ease;
+  /* transform: rotate(180deg); */
+  transition: all 0.3s ease;
 }
 :deep(.n-card-header) {
-  padding: 10px;
+  padding: 12px;
   border-bottom: 1px solid var(--border-color);
 }
 :deep(.n-card__content) {
