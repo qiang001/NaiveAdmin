@@ -17,7 +17,7 @@
       :on-select="(key) => handleSelect(key)"
     >
       <n-button
-        size="small"
+        size="tiny"
         :text="true"
         :text-color="
           (inverted && store.state.layoutStyle === 'left-right') ||
@@ -31,7 +31,7 @@
             <img
               src="@/assets/avatar.svg"
               alt=""
-              style="width: 24px; border-radius: 50%"
+              style="width: 20px; border-radius: 50%"
             />
           </div>
           <div
@@ -48,9 +48,7 @@
         </div>
       </n-button>
     </n-dropdown>
-    <n-button size="tiny" type="primary" v-else @click="login">
-      立即登录
-    </n-button>
+    <n-button size="tiny" quaternary v-else @click="login"> 立即登录 </n-button>
   </div>
 </template>
 

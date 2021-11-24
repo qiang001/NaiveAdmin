@@ -18,11 +18,7 @@
                   </div>
                   <div
                     id="title-en"
-                    style="
-                      text-align: center;
-                      font-size: 12px;
-                      font-family: PingFang SC, Segoe UI;
-                    "
+                    style="text-align: center; font-size: 12px"
                   >
                     Common Content Manage System
                   </div>

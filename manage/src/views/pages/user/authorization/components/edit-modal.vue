@@ -23,7 +23,7 @@
       </n-form-item>
     </n-form>
     <n-tabs type="line">
-      <n-tab-pane name="menu" tab="菜单页面级权限">
+      <n-tab-pane name="menu" tab="菜单页面级权限" display-directive="show">
         <div>
           <n-tree
             block-line
@@ -35,7 +35,7 @@
           />
         </div>
       </n-tab-pane>
-      <n-tab-pane name="content" tab="内容显示级权限">
+      <n-tab-pane name="content" tab="内容显示级权限" display-directive="show">
         <div class="my-3">
           <n-collapse
             :default-expanded-names="contentPermission.map((item) => item.name)"
@@ -62,7 +62,11 @@
           </n-collapse>
         </div>
       </n-tab-pane>
-      <n-tab-pane name="operation" tab="逻辑操作级权限">
+      <n-tab-pane
+        name="operation"
+        tab="逻辑操作级权限"
+        display-directive="show"
+      >
         <div class="my-3">
           <n-collapse
             :default-expanded-names="logicPermission.map((item) => item.name)"

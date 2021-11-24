@@ -79,7 +79,7 @@
         </n-space>
       </n-element>
     </div>
-    <div class="ml-auto d-flex a-center">
+    <div class="ml-auto">
       <n-space>
         <n-button
           v-permission:logic.UserList-1="add"

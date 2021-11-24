@@ -68,16 +68,6 @@
   color: #f7a7b9;
 }
 
-.hita-status-tag-default-size {
-  font-size: 12px;
-  padding: 0 4px;
-}
-
-.hita-status-tag-large-size {
-  font-size: 14px;
-  padding: 1px 8px;
-}
-
 .hita-status-tag-default-shape {
   border-radius: 3px;
 }
@@ -90,6 +80,11 @@
   border-radius: 50px;
 }
 
-.hita-status-tag-default-size.hita-status-tag-round-shape {
+.hita-status-tag {
+  font-size: 12px;
+  padding: 0 4px;
+}
+
+.hita-status-tag.hita-status-tag-round-shape {
   padding: 0 6px;
 }

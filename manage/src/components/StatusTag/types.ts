@@ -13,17 +13,9 @@ export const statusTagProps = {
     >,
     default: 'default',
   },
-  size: {
-    type: String as PropType<'default' | 'large'>,
-    default: 'default',
-  },
   shape: {
     type: String as PropType<'default' | 'square' | 'round'>,
     default: 'default',
-  },
-  bold: {
-    type: Boolean as PropType<boolean>,
-    default: false,
   },
 }
 

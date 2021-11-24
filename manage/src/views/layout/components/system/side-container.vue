@@ -33,7 +33,7 @@
       <div class="systemBtn">
         <setting-trigger @openSetting="() => emit('open')" />
       </div>
-      <div class="p-1 systemBtn">
+      <div class="p systemBtn">
         <Account />
       </div>
     </n-element>
@@ -63,15 +63,14 @@ const systemBtnColor = computed(() =>
   min-width: 105px;
   font-size: 18px;
   font-weight: bold;
-  font-family: PingFang SC;
 }
 .systemBtn {
   border-radius: 3px;
-  transition: all 0.3 ease;
   background-color: transparent;
+  transition: all 0.3 ease;
 }
 .systemBtn:hover {
-  transition: all 0.3 ease;
   background-color: v-bind(systemBtnColor);
+  transition: all 0.3 ease;
 }
 </style>

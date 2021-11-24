@@ -8,18 +8,16 @@
     "
   >
     <template #trigger>
-      <div
-        style="cursor: pointer"
-        class="p-1 d-flex a-center"
-        :class="collapsed ? 'j-center' : ''"
-      >
-        <n-badge processing :value="badgeNum">
-          <div class="d-flex a-center j-center" style="cursor: pointer">
-            <n-icon :size="21" :color="iconColor">
-              <notification-icon />
-            </n-icon>
-          </div>
-        </n-badge>
+      <div class="p" style="cursor: pointer">
+        <div class="d-flex a-center" :class="collapsed ? 'j-center' : ''">
+          <n-badge processing :value="badgeNum">
+            <div class="d-flex a-center j-center" style="cursor: pointer">
+              <n-icon :size="21" :color="iconColor">
+                <notification-icon />
+              </n-icon>
+            </div>
+          </n-badge>
+        </div>
       </div>
     </template>
     <div>{{ badgeNum }} 条系统通知...</div>

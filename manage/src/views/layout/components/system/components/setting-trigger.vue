@@ -1,7 +1,7 @@
 <template>
   <div
     @click.stop="() => emit('openSetting')"
-    class="p-1"
+    class="p"
     style="cursor: pointer"
   >
     <div class="d-flex a-center" :class="collapsed ? 'j-center' : ''">

@@ -4,17 +4,15 @@
       <img src="@/assets/logo.png" alt="" style="width: 36px" />
     </div>
     <div class="ml-2 title">
-      <div style="font-size: 18px; font-weight: bold; font-family: PingFang SC">
-        海獭后台设计
-      </div>
-      <div style="font-size: 12px; font-family: PingFang SC, Segoe UI">
-        Content Manage System Design
-      </div>
+      <div style="font-size: 18px; font-weight: bold">海獭后台设计</div>
+      <div style="font-size: 12px">Content Manage System Design</div>
     </div>
     <div class="ml-auto d-flex a-center">
       <div class="d-flex a-center">
-        <notification @viewNotification="(bool) => emit('view', bool)" />
-        <div class="mx-2">
+        <div class="systemBtn">
+          <notification @viewNotification="(bool) => emit('view', bool)" />
+        </div>
+        <div class="mx-1 systemBtn">
           <setting-trigger @openSetting="() => emit('open')" />
         </div>
         <Account />
@@ -28,6 +26,13 @@ import Account from './components/account.vue'
 import Notification from './components/notification.vue'
 import SettingTrigger from './components/setting-trigger.vue'
 const emit = defineEmits(['view', 'open'])
+import { Ref, inject, computed } from 'vue'
+const inverted = inject('inverted') as Ref<boolean>
+import { useStore } from '@/hooks/useStore'
+const store = useStore()
+const systemBtnColor = computed(() =>
+  inverted.value ? '#ffffff17' : !store.state.ifDark ? '#efeff5' : '#ffffff17'
+)
 </script>
 
 <style scoped>
@@ -38,6 +43,16 @@ const emit = defineEmits(['view', 'open'])
 }
 .logo {
   margin-left: 5px;
+}
+
+.systemBtn {
+  border-radius: 3px;
+  background-color: transparent;
+  transition: all 0.3 ease;
+}
+.systemBtn:hover {
+  background-color: v-bind(systemBtnColor);
+  transition: all 0.3 ease;
 }
 
 @media only screen and (max-width: 500px) {

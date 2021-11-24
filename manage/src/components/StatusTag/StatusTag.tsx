@@ -9,16 +9,16 @@ export default defineComponent({
     const store = useStore()
     const theme = computed(() => (store.state.ifDark ? 'dark' : 'light'))
     const tagClass = computed(() => {
-      const { type, size, shape } = props
-      return `hita-status-tag-${type}-${theme.value} hita-status-tag-${size}-size hita-status-tag-${shape}-shape`
+      const { type, shape } = props
+      return `hita-status-tag hita-status-tag-${type}-${theme.value} hita-status-tag-${shape}-shape`
     })
     return () => {
-      const { type, bold } = props
+      const { type } = props
       return (
         <div
           class={tagClass.value}
           style={{
-            'font-weight': bold ? 'bold' : 'normal',
+            'font-weight': 'bold',
             cursor: type === 'disabled' ? 'not-allowed' : 'default',
             'user-select': 'none',
           }}
