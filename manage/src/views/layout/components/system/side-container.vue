@@ -67,10 +67,10 @@ const systemBtnColor = computed(() =>
 .systemBtn {
   border-radius: 3px;
   background-color: transparent;
-  transition: all 0.3 ease;
+  transition: all 0.3s ease;
 }
 .systemBtn:hover {
   background-color: v-bind(systemBtnColor);
-  transition: all 0.3 ease;
+  transition: all 0.3s ease;
 }
 </style>
