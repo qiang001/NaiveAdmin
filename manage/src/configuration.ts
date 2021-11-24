@@ -5,6 +5,7 @@ import ButtonIcon from '@vicons/material/BoltRound'
 import TagIcon from '@vicons/fluent/TagMultiple20Regular'
 import ModalIcon from '@vicons/fluent/PositionBackward20Regular'
 import TableIcon from '@vicons/fluent/TextBulletListSquare24Regular'
+import MenuIcon from '@vicons/material/MenuTwotone'
 
 import UserIcon from '@vicons/carbon/User'
 import UserListIcon from '@vicons/carbon/UserMultiple'
@@ -58,15 +59,22 @@ export const pageConfig: IPageItem[] = [
         name: 'Modal',
         path: 'component-collection/modal',
         label: '弹窗',
-        labelPinYin: 'tanchuang_tc',
+        labelPinYin: 'tanchuang_tc_modal',
         icon: ModalIcon,
       },
       {
         name: 'Table',
         path: 'component-collection/table',
         label: '表格',
-        labelPinYin: 'biaoge_bg',
+        labelPinYin: 'biaoge_bg_table',
         icon: TableIcon,
+      },
+      {
+        name: 'Menu',
+        path: 'component-collection/menu',
+        label: '菜单',
+        labelPinYin: 'caidan_cd_menu',
+        icon: MenuIcon,
       },
     ],
   },

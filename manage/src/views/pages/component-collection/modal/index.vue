@@ -10,11 +10,15 @@
         <n-space vertical size="large">
           <n-space align="center">
             <div>宽度</div>
-            <n-input-number
-              v-model:value="options.width"
-              :min="340"
-              :step="20"
-            />
+            <n-input-group>
+              <n-input-number
+                v-model:value="options.width"
+                :min="340"
+                :step="20"
+                :style="{ width: '40%' }"
+              />
+              <n-input-group-label>px</n-input-group-label>
+            </n-input-group>
           </n-space>
           <n-space align="center">
             <div>标题</div>
@@ -148,6 +152,8 @@ import {
   NSkeleton,
   NCard,
   NInputNumber,
+  NInputGroup,
+  NInputGroupLabel,
   NInput,
   NCheckbox,
 } from 'naive-ui'
