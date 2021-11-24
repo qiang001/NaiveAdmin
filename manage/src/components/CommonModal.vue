@@ -111,4 +111,15 @@ const cardWidth = computed(() =>
   transform: rotate(180deg);
   transition: all 0.5s ease;
 }
+:deep(.n-card-header) {
+  padding: 10px;
+  border-bottom: 1px solid var(--border-color);
+}
+:deep(.n-card__content) {
+  padding-top: 20px;
+}
+
+:deep(.n-card__action) {
+  padding: 12px;
+}
 </style>
