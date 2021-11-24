@@ -1,3 +1,5 @@
+import { h } from '@vue/runtime-core'
+import { NSpace, NButton } from 'naive-ui'
 import { useResponsiveTable } from '@/hooks/useResponsiveTable'
 import {
   // Input
@@ -14,11 +16,11 @@ import {
 } from '../interfaces/method'
 import {
   // Input
-  I_useResultModal_openResultModal,
   I_useResultModal_openResultModalAsync,
   I_useResultModal_setResultType,
   I_useResultModal_setTexts,
 } from '@/hooks/useResultModal'
+
 interface Input {
   openEditModal: I_useEditModal_open
   openResetPasswordModal: I_useResetPasswordModal_open
@@ -68,27 +70,61 @@ export const useUserList = ({
     const d = window.$dialog.warning({
       title: '警告',
       content: '确定删除？',
-      positiveText: '确定',
-      negativeText: '不确定',
-      maskClosable: false,
-      onPositiveClick: async () => {
-        d.loading = true
-        try {
-          await _deleteFromDB({ data: row })
-          setResultType('success')
-          setTexts({ description: '删除成功', confirmBtnText: '点击继续' })
-        } catch (error) {
-          setResultType('error')
-          setTexts({
-            content: '抱歉',
-            description: error,
-            confirmBtnText: 'OK，了解了',
-          })
-        }
-        await openResultModalAsync()
-        return await queryUsers()
+      bordered: true,
+      action: () => {
+        return h(
+          NSpace,
+          { align: 'center' },
+          {
+            default: () => [
+              h(
+                NButton,
+                {
+                  size: 'small',
+                  secondary: true,
+                  onClick: () => handler('cancel'),
+                },
+                { default: () => '不确定' }
+              ),
+              h(
+                NButton,
+                {
+                  size: 'small',
+                  loading: d.loading,
+                  disabled: d.loading,
+                  secondary: true,
+                  type: 'primary',
+                  onClick: () => handler('confirm'),
+                },
+                { default: () => '确定' }
+              ),
+            ],
+          }
+        )
       },
+      maskClosable: false,
     })
+    const handler = async (type: 'cancel' | 'confirm') => {
+      if (type === 'cancel') {
+        return d.destroy()
+      }
+      try {
+        d.loading = true
+        await _deleteFromDB({ data: row })
+        setResultType('success')
+        setTexts({ description: '删除成功', confirmBtnText: '点击继续' })
+      } catch (error) {
+        setResultType('error')
+        setTexts({
+          content: '抱歉',
+          description: error,
+          confirmBtnText: 'OK，了解了',
+        })
+      }
+      d.destroy()
+      await openResultModalAsync()
+      await queryUsers()
+    }
   }
   const data = { dynamicWidth, maxHeight, size }
   const method = { refresh, edit, resetPassword, _delete }

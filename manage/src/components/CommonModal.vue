@@ -29,7 +29,7 @@
             @click="confirm"
             type="primary"
             :loading="confirmLoading"
-            :disabled="confirmLoading"
+            :disabled="confirmDisabled || confirmLoading"
           >
             {{ confirmBtnText || '确认' }}
           </n-button>
@@ -56,6 +56,7 @@ interface IProp {
   cancelBtnText?: string
   confirmBtnText?: string
   confirmLoading?: boolean
+  confirmDisabled?: boolean
 }
 const props = withDefaults(defineProps<IProp>(), {
   showModal: false,
@@ -66,6 +67,7 @@ const props = withDefaults(defineProps<IProp>(), {
   cancelBtnText: '取消',
   confirmBtnText: '确认',
   confirmLoading: false,
+  confirmDisabled: false,
 })
 
 // 暴露事件

@@ -61,6 +61,7 @@
             v-model:value="ifDark"
             @update:value="handleSwitch"
             size="small"
+            :round="false"
           >
           </n-switch>
           <div class="ml-1">

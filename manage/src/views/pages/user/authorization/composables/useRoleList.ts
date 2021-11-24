@@ -1,5 +1,6 @@
 import { useResponsiveTable } from '@/hooks/useResponsiveTable'
-import { unref } from 'vue'
+import { unref, h } from 'vue'
+import { NSpace, NButton } from 'naive-ui'
 import {
   // Input
   I_initController_queryRoles,
@@ -48,23 +49,57 @@ export const useRoleList = ({
     const d = window.$dialog.warning({
       title: '警告',
       content: '确定删除？',
-      positiveText: '确定',
-      negativeText: '不确定',
-      maskClosable: false,
-      onPositiveClick: async () => {
-        d.loading = true
-        try {
-          await _deleteFromDB({ data: { ...unref(row) } })
-          setResultType('success')
-          setTexts({ description: '删除成功' })
-        } catch (error) {
-          setResultType('error')
-          setTexts({ description: error, confirmBtnText: '好吧，了解了' })
-        }
-        openResultModal()
-        return await queryRoles()
+      bordered: true,
+      action: () => {
+        return h(
+          NSpace,
+          { align: 'center' },
+          {
+            default: () => [
+              h(
+                NButton,
+                {
+                  size: 'small',
+                  secondary: true,
+                  onClick: () => handler('cancel'),
+                },
+                { default: () => '不确定，再想想' }
+              ),
+              h(
+                NButton,
+                {
+                  size: 'small',
+                  loading: d.loading,
+                  disabled: d.loading,
+                  secondary: true,
+                  type: 'primary',
+                  onClick: () => handler('confirm'),
+                },
+                { default: () => '立即删除' }
+              ),
+            ],
+          }
+        )
       },
+      maskClosable: false,
     })
+    const handler = async (type: 'cancel' | 'confirm') => {
+      if (type === 'cancel') {
+        return d.destroy()
+      }
+      try {
+        d.loading = true
+        await _deleteFromDB({ data: { ...unref(row) } })
+        setResultType('success')
+        setTexts({ description: '删除成功' })
+      } catch (error) {
+        setResultType('error')
+        setTexts({ description: error, confirmBtnText: '好吧，了解了' })
+      }
+      d.destroy()
+      openResultModal()
+      await queryRoles()
+    }
   }
   const data = { maxHeight }
   const method = { edit, _delete }

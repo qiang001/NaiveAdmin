@@ -5,6 +5,7 @@
     cancelBtnText="取消"
     :confirmBtnText="editModalType == 'edit' ? '确认保存' : '确认添加'"
     :confirmLoading="confirmLoading"
+    :confirmDisabled="rolesLoading"
     @cancel="cancel"
     @confirm="confirm"
   >
@@ -53,7 +54,7 @@
         </n-button>
       </n-form-item>
       <n-form-item label="当前状态">
-        <n-switch v-model:value="user.ifActive">
+        <n-switch v-model:value="user.ifActive" :round="false">
           <template #checked>已激活</template>
           <template #unchecked>已离职</template>
         </n-switch>
