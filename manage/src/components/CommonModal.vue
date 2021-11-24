@@ -21,19 +21,17 @@
       </template>
       <template #default> <slot></slot> </template>
       <template #action v-if="footer">
-        <div class="d-flex a-center j-center">
-          <n-space>
-            <n-button @click="cancel">{{ cancelBtnText || '取消' }}</n-button>
-            <n-button
-              @click="confirm"
-              type="primary"
-              :loading="confirmLoading"
-              :disabled="confirmLoading"
-            >
-              {{ confirmBtnText || '确认' }}
-            </n-button>
-          </n-space>
-        </div>
+        <n-space justify="end">
+          <n-button @click="cancel">{{ cancelBtnText || '取消' }}</n-button>
+          <n-button
+            @click="confirm"
+            type="primary"
+            :loading="confirmLoading"
+            :disabled="confirmLoading"
+          >
+            {{ confirmBtnText || '确认' }}
+          </n-button>
+        </n-space>
       </template>
     </n-card>
   </n-modal>
