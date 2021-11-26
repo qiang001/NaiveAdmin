@@ -34,8 +34,10 @@ const store = useStore()
 const bgColor = computed(
   () => store.getters.getTheme.overrides.Menu.itemColorActive
 )
-const hoverColor = computed(
-  () => store.getters.getTheme.overrides.Menu.itemTextColorHover
+const hoverColor = computed(() =>
+  store.state.mainColor === 'yellow'
+    ? store.getters.getTheme.overrides.common.primaryColor
+    : store.getters.getTheme.overrides.Menu.itemTextColorHover
 )
 </script>
 
@@ -51,8 +53,8 @@ const hoverColor = computed(
   transition: color 0.3s ease;
 }
 .menu-item.actived {
-  border-right: 3px solid var(--primary-color);
+  border-right: 3px solid v-bind(hoverColor);
   background-color: v-bind(bgColor);
-  color: var(--primary-color);
+  color: v-bind(hoverColor);
 }
 </style>

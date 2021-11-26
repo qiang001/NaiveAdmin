@@ -8,7 +8,7 @@
         shape - 'default' | 'square' | 'round' <br />
       </n-alert>
       <n-card title="演示">
-        <n-space vertical size="large">
+        <n-space>
           <n-space align="center">
             <status-tag>皮尔特沃夫</status-tag>
             <status-tag shape="square">皮尔特沃夫</status-tag>
