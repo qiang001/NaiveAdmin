@@ -173,9 +173,9 @@ export const getStyles: () => layoutStyleType[] = () => {
 
 // 主题色预设
 export type colorName =
+  | 'blue'
   | 'qingshandai'
   | 'green'
-  | 'blue'
   | 'luckin'
   | 'purple'
   | 'yellow'
@@ -197,6 +197,48 @@ export type IColorCollection = Record<colorName, IColorInfo>
 
 export const getColors: (ifDark: boolean) => IColorCollection = (ifDark) => {
   return {
+    blue: {
+      key: 'blue',
+      label: '很经典的蓝',
+      common: {
+        baseColor: '#fff',
+        primaryColor: !ifDark ? '#1f71e0' : '#1c8aef',
+        primaryColorHover: !ifDark ? '#4792ed' : '#1890ff',
+        primaryColorPressed: !ifDark ? '#1152ba' : '#6DB4F6FF',
+        primaryColorSuppl: !ifDark ? '#4792ed' : '#1890ff',
+      },
+      Menu: {
+        // 箭头原色
+        arrowColor: !ifDark ? '#333639' : '#ffffffd1',
+        // 箭头激活
+        arrowColorHover: !ifDark ? '#1f71e0FF' : '#6DB4F6FF',
+        arrowColorChildActive: !ifDark ? '#1f71e0FF' : '#6DB4F6FF',
+        arrowColorActive: !ifDark ? '#1f71e0FF' : '#6DB4F6FF',
+        // 背景激活
+        itemColorActive: !ifDark ? '#afd5f91a' : '#172129',
+        // 内容激活
+        itemTextColorActive: !ifDark ? '#1f71e0FF' : '#6DB4F6FF',
+        itemIconColorActive: !ifDark ? '#1f71e0FF' : '#6DB4F6FF',
+        itemTextColorChildActive: !ifDark ? '#1f71e0FF' : '#6DB4F6FF',
+        itemIconColorChildActive: !ifDark ? '#1f71e0FF' : '#6DB4F6FF',
+        itemTextColorHover: !ifDark ? '#1f71e0FF' : '#6DB4F6FF',
+        itemIconColorHover: !ifDark ? '#1f71e0FF' : '#6DB4F6FF',
+      },
+      Checkbox: {
+        checkMarkColor: !ifDark ? '#fff' : '#CDCDD4FF',
+      },
+      Pagination: {
+        itemBorderDisabled: '#0000',
+        itemBorderActive: '#0000',
+        itemColorActive: !ifDark ? '#1f71e0' : '#2d2d2d',
+        itemColorHover: !ifDark ? '#eeeeee' : '#2d2d2d',
+        itemColorPressed: !ifDark ? '#dddddd' : '#3d3d3d',
+        itemColorActiveHover: !ifDark ? '#1f71e0' : '#2d2d2d',
+        itemTextColorActive: '#fafafa',
+        itemTextColorHover: !ifDark ? '#666' : '#aaaaaa',
+        itemTextColorPressed: !ifDark ? '#000' : '#fafafa',
+      },
+    },
     qingshandai: {
       key: 'qingshandai',
       label: '华为青山黛',
@@ -281,48 +323,7 @@ export const getColors: (ifDark: boolean) => IColorCollection = (ifDark) => {
         itemTextColorPressed: !ifDark ? '#000' : '#fafafa',
       },
     },
-    blue: {
-      key: 'blue',
-      label: '很经典的蓝',
-      common: {
-        baseColor: '#fff',
-        primaryColor: !ifDark ? '#1f71e0' : '#1c8aef',
-        primaryColorHover: !ifDark ? '#4792ed' : '#1890ff',
-        primaryColorPressed: !ifDark ? '#1152ba' : '#6DB4F6FF',
-        primaryColorSuppl: !ifDark ? '#4792ed' : '#1890ff',
-      },
-      Menu: {
-        // 箭头原色
-        arrowColor: !ifDark ? '#333639' : '#ffffffd1',
-        // 箭头激活
-        arrowColorHover: !ifDark ? '#1f71e0FF' : '#6DB4F6FF',
-        arrowColorChildActive: !ifDark ? '#1f71e0FF' : '#6DB4F6FF',
-        arrowColorActive: !ifDark ? '#1f71e0FF' : '#6DB4F6FF',
-        // 背景激活
-        itemColorActive: !ifDark ? '#afd5f91a' : '#172129',
-        // 内容激活
-        itemTextColorActive: !ifDark ? '#1f71e0FF' : '#6DB4F6FF',
-        itemIconColorActive: !ifDark ? '#1f71e0FF' : '#6DB4F6FF',
-        itemTextColorChildActive: !ifDark ? '#1f71e0FF' : '#6DB4F6FF',
-        itemIconColorChildActive: !ifDark ? '#1f71e0FF' : '#6DB4F6FF',
-        itemTextColorHover: !ifDark ? '#1f71e0FF' : '#6DB4F6FF',
-        itemIconColorHover: !ifDark ? '#1f71e0FF' : '#6DB4F6FF',
-      },
-      Checkbox: {
-        checkMarkColor: !ifDark ? '#fff' : '#CDCDD4FF',
-      },
-      Pagination: {
-        itemBorderDisabled: '#0000',
-        itemBorderActive: '#0000',
-        itemColorActive: !ifDark ? '#1f71e0' : '#2d2d2d',
-        itemColorHover: !ifDark ? '#eeeeee' : '#2d2d2d',
-        itemColorPressed: !ifDark ? '#dddddd' : '#3d3d3d',
-        itemColorActiveHover: !ifDark ? '#1f71e0' : '#2d2d2d',
-        itemTextColorActive: '#fafafa',
-        itemTextColorHover: !ifDark ? '#666' : '#aaaaaa',
-        itemTextColorPressed: !ifDark ? '#000' : '#fafafa',
-      },
-    },
+
     luckin: {
       key: 'luckin',
       label: '瑞幸咖啡蓝',

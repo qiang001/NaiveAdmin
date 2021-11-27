@@ -351,6 +351,18 @@ const setFullpage = () => {
 const arrowBorderColor = computed(() => {
   return !store.state.ifDark ? '#f7f7f7' : '#1d1d20'
 })
+const tabWrapperBgColor = computed(() => {
+  return !store.state.ifDark ? '#f4f5f5' : '#1d1e1f'
+})
+const tabBgColor = computed(() => {
+  return !store.state.ifDark ? '#ffffff' : '#2e2f34'
+})
+const tabTextColor = computed(() => {
+  return !store.state.ifDark ? '#1C1F23' : '#f9f9f9'
+})
+const tabBorderColor = computed(() => {
+  return !store.state.ifDark ? '#e6e8e9' : '#33353a'
+})
 </script>
 
 <style scoped>
@@ -387,6 +399,7 @@ const arrowBorderColor = computed(() => {
   overflow: hidden;
   position: relative;
   flex: 1;
+  background-color: v-bind(tabWrapperBgColor);
 }
 #tab-bar {
   position: absolute;
@@ -398,13 +411,15 @@ const arrowBorderColor = computed(() => {
 }
 .tab {
   cursor: pointer;
-  padding: 3px 6px 3px 6px;
+  padding: 3px 10px 3px 10px;
   margin: 0 3px;
   user-select: none;
   font-size: 12px;
   border-radius: 1px;
-  color: var(--text-color);
-  background-color: var(--divider-color);
+  color: v-bind(tabTextColor);
+  background-color: v-bind(tabBgColor);
+  border-radius: 2px;
+  border: 1px solid v-bind(tabBorderColor);
   transition: all 0.1s ease;
 }
 
