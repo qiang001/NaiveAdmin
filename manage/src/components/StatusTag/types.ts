@@ -5,11 +5,11 @@ export const statusTagProps = {
     type: String as PropType<
       | 'default'
       | 'disabled'
-      | 'black'
       | 'info'
       | 'success'
       | 'warning'
       | 'error'
+      | 'black'
     >,
     default: 'default',
   },

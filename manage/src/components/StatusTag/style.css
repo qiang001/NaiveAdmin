@@ -1,6 +1,6 @@
 .hita-status-tag-default-light {
-  background-color: #f2f2f2;
-  color: #5d6d78;
+  background-color: #f1f1f1;
+  color: #2e3238;
 }
 
 .hita-status-tag-default-dark {
@@ -16,16 +16,6 @@
 .hita-status-tag-disabled-dark {
   background-color: #494949;
   color: #8f8f8f;
-}
-
-.hita-status-tag-black-light {
-  background-color: #313131;
-  color: #ffffff;
-}
-
-.hita-status-tag-black-dark {
-  background-color: #111111;
-  color: #cdcdcd;
 }
 
 .hita-status-tag-info-light {
@@ -66,6 +56,16 @@
 .hita-status-tag-error-dark {
   background-color: #3f161f;
   color: #f7a7b9;
+}
+
+.hita-status-tag-black-light {
+  background-color: #313131;
+  color: #ffffff;
+}
+
+.hita-status-tag-black-dark {
+  background-color: #111111;
+  color: #cdcdcd;
 }
 
 .hita-status-tag-default-shape {
