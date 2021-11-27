@@ -6,6 +6,7 @@ import TagIcon from '@vicons/fluent/TagMultiple20Regular'
 import ModalIcon from '@vicons/fluent/PositionBackward20Regular'
 import TableIcon from '@vicons/fluent/TextBulletListSquare24Regular'
 import MenuIcon from '@vicons/material/MenuTwotone'
+import SortIcon from '@vicons/fluent/ArrowSort20Filled'
 
 import UserIcon from '@vicons/carbon/User'
 import UserListIcon from '@vicons/carbon/UserMultiple'
@@ -75,6 +76,13 @@ export const pageConfig: IPageItem[] = [
         label: '菜单',
         labelPinYin: 'caidan_cd_menu',
         icon: MenuIcon,
+      },
+      {
+        name: 'Sort',
+        path: 'component-collection/sort',
+        label: '排序',
+        labelPinYin: 'paixu_px_sort',
+        icon: SortIcon,
       },
     ],
   },
