@@ -30,10 +30,12 @@ export const initController = () => {
   } = useApiCenter()
 
   // 引入导出进度框
-  const { start: startExportProcessing } = renderProcessing(
-    '导出中...',
-    exportLoading
-  )
+  const {
+    setText,
+    setIfDone,
+    setCallbackFn,
+    start: startExportProcessing,
+  } = renderProcessing()
 
   // 初始化数据
   const roles = ref<Array<IRoleListItem>>([])
@@ -54,6 +56,9 @@ export const initController = () => {
   } = useEditModal({ queryRoles, _saveToDB })
   // 按钮组逻辑
   const { exportExcel, add: addRole } = useActionHeader({
+    setText,
+    setIfDone,
+    setCallbackFn,
     startExportProcessing,
     _exportData,
     openEditModal,

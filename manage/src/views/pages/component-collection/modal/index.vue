@@ -55,6 +55,29 @@
           </n-space>
         </n-space>
       </n-card>
+      <n-alert
+        title="进度条弹窗 RenderProcessing (暂未考虑失败的情况...后续补上)"
+        type="info"
+      >
+        基于 Naive UI 的 NDialog + NProgress 组件封装的特定业务组件<br />
+        setText：(content:string) => void 设置内容文本<br />
+        setIfDone：(bool:boolean) => void 设置是否完成<br />
+        setCallbackFn：(fn:() => void) => void 设置回调函数<br />
+        start：() => void 弹出并开始<br />
+      </n-alert>
+      <n-card title="定制化演示" embedded>
+        <n-space>
+          <n-button type="primary" @click="handleProgressType(900)"
+            >保存按钮 (需要 0.9s)</n-button
+          >
+          <n-button type="primary" secondary @click="handleProgressType(7000)"
+            >导出按钮 (需要 7s)</n-button
+          >
+          <n-button secondary @click="handleProgressType(2000)"
+            >加载按钮 (需要 2s)</n-button
+          >
+        </n-space>
+      </n-card>
       <n-alert title="结果弹窗 ResultModal" type="info">
         基于 Naive UI 的模态框 NModal 组件封装的特定业务组件
       </n-alert>
@@ -185,6 +208,33 @@ const confirm = () => {
     options.confirmLoading = false
     close()
   }, 1000)
+}
+
+import { renderProcessing } from '@/hooks/renderProcessing'
+const { setText, setIfDone, start } = renderProcessing()
+const handleProgressType = async (time: 900 | 7000 | 2000) => {
+  if (time === 900) {
+    setText('保存中...')
+  }
+  if (time === 7000) {
+    setText('云端下载中...')
+  }
+  if (time === 2000) {
+    setText('努力加载中...')
+  }
+  setIfDone(false)
+  start()
+  await new Promise((resolve) => setTimeout(resolve, time))
+  if (time === 900) {
+    setText('保存成功')
+  }
+  if (time === 7000) {
+    setText('下载完成')
+  }
+  if (time === 2000) {
+    setText('数据已就绪')
+  }
+  setIfDone(true)
 }
 import ResultModal from '@/components/ResultModal.vue'
 import { useResultModal, resultType } from '@/hooks/useResultModal'

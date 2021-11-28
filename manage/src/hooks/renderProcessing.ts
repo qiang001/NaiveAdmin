@@ -1,9 +1,27 @@
 import { NSpace, useDialog, NProgress } from 'naive-ui'
-import { h, ref, Ref } from 'vue'
+import { h, ref } from 'vue'
+export interface I_renderProcessing_setText {
+  (content: string): void
+}
+export interface I_renderProcessing_setIfDone {
+  (bool: boolean): void
+}
+export interface I_renderProcessing_setCallbackFn {
+  (fn: () => void): void
+}
 export interface I_renderProcessing_start {
   (): void
 }
-export const renderProcessing = (text: string, loadingRef: Ref<boolean>) => {
+export const renderProcessing = () => {
+  const text = ref('')
+  const ifDone = ref(false)
+  const callbackFn = ref(null)
+  const setText: I_renderProcessing_setText = (content: string) =>
+    (text.value = content)
+  const setIfDone: I_renderProcessing_setIfDone = (bool: boolean) =>
+    (ifDone.value = bool)
+  const setCallbackFn: I_renderProcessing_setCallbackFn = (fn: () => void) =>
+    (callbackFn.value = fn)
   let percentage = ref(0)
   let renderContent = (per: number) => {
     return h(
@@ -15,7 +33,7 @@ export const renderProcessing = (text: string, loadingRef: Ref<boolean>) => {
             h(
               'div',
               { style: { fontWeight: 'bold' } },
-              { default: () => text || 'loading...' }
+              { default: () => text.value || 'loading...' }
             ),
             h(NProgress, {
               type: 'line',
@@ -31,7 +49,7 @@ export const renderProcessing = (text: string, loadingRef: Ref<boolean>) => {
     )
   }
   const dialog = useDialog()
-  const start = () => {
+  const start: I_renderProcessing_start = () => {
     const d = dialog.create({
       bordered: true,
       closable: false,
@@ -43,10 +61,8 @@ export const renderProcessing = (text: string, loadingRef: Ref<boolean>) => {
     startProgress()
 
     async function startProgress() {
-      if (!loadingRef.value) {
-        if (percentage.value) {
-          return await finishProgress()
-        }
+      if (ifDone.value) {
+        return await finishProgress()
       }
       await continueProgress()
     }
@@ -70,10 +86,13 @@ export const renderProcessing = (text: string, loadingRef: Ref<boolean>) => {
       d.content = () => renderContent(100)
       await sleep(500)
       d.destroy()
-      setTimeout(() => window.$message.success('恭喜你，导出成功！'), 200)
+      callbackFn.value && callbackFn.value()
     }
   }
   return {
+    setText,
+    setIfDone,
+    setCallbackFn,
     start,
   }
 }
