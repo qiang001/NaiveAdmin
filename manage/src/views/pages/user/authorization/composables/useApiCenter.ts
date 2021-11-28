@@ -15,7 +15,7 @@ export const useApiCenter = () => {
     return new Promise<boolean>((res) => {
       setTimeout(() => {
         res(true)
-      }, 1500)
+      }, 3000)
     })
   }
   const {

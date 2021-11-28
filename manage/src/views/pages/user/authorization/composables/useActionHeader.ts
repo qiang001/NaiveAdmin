@@ -6,15 +6,24 @@ import {
   I_useActionHeader_exportExcel,
   I_useActionHeader_add,
 } from '../interfaces/method'
+import {
+  // Input
+  I_renderProcessing_start,
+} from '@/hooks/renderProcessing'
 interface Input {
+  startExportProcessing: I_renderProcessing_start
   _exportData: I_useApiCenter_exportData
   openEditModal: I_useEditModal_open
 }
-export const useActionHeader = ({ _exportData, openEditModal }: Input) => {
+export const useActionHeader = ({
+  startExportProcessing,
+  _exportData,
+  openEditModal,
+}: Input) => {
   const exportExcel: I_useActionHeader_exportExcel = async () => {
     try {
+      startExportProcessing()
       await _exportData()
-      window.$message.success('恭喜你，导出成功！')
     } catch (error) {}
   }
   const add: I_useActionHeader_add = () => {

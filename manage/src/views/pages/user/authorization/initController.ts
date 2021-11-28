@@ -1,5 +1,6 @@
 import { ref, onMounted } from 'vue'
 import { useResultModal } from '@/hooks/useResultModal'
+import { renderProcessing } from '@/hooks/renderProcessing'
 import { useActionHeader } from './composables/useActionHeader'
 import { useApiCenter } from './composables/useApiCenter'
 import { useRoleList } from './composables/useRoleList'
@@ -27,6 +28,13 @@ export const initController = () => {
     _saveToDB,
     _deleteFromDB,
   } = useApiCenter()
+
+  // 引入导出进度框
+  const { start: startExportProcessing } = renderProcessing(
+    '导出中...',
+    exportLoading
+  )
+
   // 初始化数据
   const roles = ref<Array<IRoleListItem>>([])
   const queryRoles: I_initController_queryRoles = async () => {
@@ -46,6 +54,7 @@ export const initController = () => {
   } = useEditModal({ queryRoles, _saveToDB })
   // 按钮组逻辑
   const { exportExcel, add: addRole } = useActionHeader({
+    startExportProcessing,
     _exportData,
     openEditModal,
   })
