@@ -352,7 +352,7 @@ const arrowBorderColor = computed(() => {
   return !store.state.ifDark ? '#f7f7f7' : '#1d1d20'
 })
 const tabWrapperBgColor = computed(() => {
-  return !store.state.ifDark ? '#f4f5f5' : '#1d1e1f'
+  return !store.state.ifDark ? '#fafafc' : '#252528'
 })
 const tabBgColor = computed(() => {
   return !store.state.ifDark ? '#ffffff' : '#2e2f34'
