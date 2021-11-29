@@ -35,15 +35,6 @@
     semver "^6.3.0"
     source-map "^0.5.0"
 
-"@babel/eslint-parser@^7.15.8":
-  version "7.15.8"
-  resolved "https://registry.yarnpkg.com/@babel/eslint-parser/-/eslint-parser-7.15.8.tgz#8988660b59d739500b67d0585fd4daca218d9f11"
-  integrity sha512-fYP7QFngCvgxjUuw8O057SVH5jCXsbFFOoE77CFDcvzwBVgTOkMD/L4mIC5Ud1xf8chK/no2fRbSSn1wvNmKuQ==
-  dependencies:
-    eslint-scope "^5.1.1"
-    eslint-visitor-keys "^2.1.0"
-    semver "^6.3.0"
-
 "@babel/generator@^7.16.0":
   version "7.16.0"
   resolved "https://registry.yarnpkg.com/@babel/generator/-/generator-7.16.0.tgz#d40f3d1d5075e62d3500bccb67f3daa8a95265b2"
@@ -1056,36 +1047,6 @@ escape-string-regexp@^1.0.5:
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
   integrity sha1-G2HAViGQqN/2rjuyzwIAyhMLhtQ=
 
-eslint-scope@^5.1.1:
-  version "5.1.1"
-  resolved "https://registry.yarnpkg.com/eslint-scope/-/eslint-scope-5.1.1.tgz#e786e59a66cb92b3f6c1fb0d508aab174848f48c"
-  integrity sha512-2NxwbF/hZ0KpepYN0cNbo+FN6XoK7GaHlQhgx/hIZl6Va0bF45RQOOwhLIy8lQDbuCiadSLCBnH2CFYquit5bw==
-  dependencies:
-    esrecurse "^4.3.0"
-    estraverse "^4.1.1"
-
-eslint-visitor-keys@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/eslint-visitor-keys/-/eslint-visitor-keys-2.1.0.tgz#f65328259305927392c938ed44eb0a5c9b2bd303"
-  integrity sha512-0rSmRBzXgDzIsD6mGdJgevzgezI534Cer5L/vyMX0kHzT/jiB43jRhd9YUlMGYLQy2zprNmoT8qasCGtY+QaKw==
-
-esrecurse@^4.3.0:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/esrecurse/-/esrecurse-4.3.0.tgz#7ad7964d679abb28bee72cec63758b1c5d2c9921"
-  integrity sha512-KmfKL3b6G+RXvP8N1vr3Tq1kL/oCFgn2NYXEtqP8/L3pKapUA4G8cFVaoF3SU323CD4XypR/ffioHmkti6/Tag==
-  dependencies:
-    estraverse "^5.2.0"
-
-estraverse@^4.1.1:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/estraverse/-/estraverse-4.3.0.tgz#398ad3f3c5a24948be7725e83d11a7de28cdbd1d"
-  integrity sha512-39nnKffWz8xN1BU/2c79n9nB9HDzo0niYUqx6xyqUnyoAnQyyWpOTdZEeiCch8BBu515t4wp9ZmgVfVhn9EBpw==
-
-estraverse@^5.2.0:
-  version "5.3.0"
-  resolved "https://registry.yarnpkg.com/estraverse/-/estraverse-5.3.0.tgz#2eea5290702f26ab8fe5370370ff86c965d21123"
-  integrity sha512-MMdARuVEQziNTeJD8DgMqmhwR11BRQ/cBP+pLtYdSTnf3MIO8fFeiINEbX36ZdNlfU/7A9f3gUw49B3oQsvwBA==
-
 estree-walker@^2.0.1, estree-walker@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/estree-walker/-/estree-walker-2.0.2.tgz#52f010178c2a4c117a7757cfe942adb7d2da4cac"
@@ -1350,12 +1311,11 @@ ms@2.1.2:
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.2.tgz#d09d1f357b443f493382a8eb3ccd183872ae6009"
   integrity sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==
 
-naive-ui@^2.21.1:
-  version "2.21.1"
-  resolved "https://registry.yarnpkg.com/naive-ui/-/naive-ui-2.21.1.tgz#9435aaef452e9ebb8e9122c147dddf1a7de73919"
-  integrity sha512-lBVJ4OWEGVc+qBITAdIQHg2rcl4jqihdC1R/HtWAWBQJN68rclE/W44EWOw/EiFdje2nPigjyTPOU6srzxWP3g==
+naive-ui@^2.21.2:
+  version "2.21.2"
+  resolved "https://registry.yarnpkg.com/naive-ui/-/naive-ui-2.21.2.tgz#19f59d3efad6c0329f5e92bd1f116cfb28cf36b1"
+  integrity sha512-3wcXLsFdZvrFMO2k46QcjhM/ln9RnM4PIpCshhx9hfgVGEcLBzwmoYhf9fQC5k6MpPN3hG6AxhC2I5gbILqhzQ==
   dependencies:
-    "@babel/eslint-parser" "^7.15.8"
     "@css-render/plugin-bem" "^0.15.6"
     "@css-render/vue3-ssr" "^0.15.6"
     "@types/lodash" "^4.14.170"
@@ -1373,7 +1333,7 @@ naive-ui@^2.21.1:
     vdirs "^0.1.4"
     vfonts "^0.1.0"
     vooks "^0.2.10"
-    vueuc "^0.4.15"
+    vueuc "^0.4.18"
 
 nanoid@^3.1.30:
   version "3.1.30"
@@ -1900,10 +1860,10 @@ vuedraggable@^4.1.0:
   dependencies:
     sortablejs "1.14.0"
 
-vueuc@^0.4.15:
-  version "0.4.15"
-  resolved "https://registry.yarnpkg.com/vueuc/-/vueuc-0.4.15.tgz#7e98682eb54118c65a53c5d86163b1c49431a916"
-  integrity sha512-VTYDA2avdHRlkqJunsE4d9P3eBPgfW4tiA6sTt3iiVU69d+y25xMEbU8P+stQgptd34A9qMUwYSfvOXDbteW6w==
+vueuc@^0.4.18:
+  version "0.4.18"
+  resolved "https://registry.yarnpkg.com/vueuc/-/vueuc-0.4.18.tgz#6d6895e96ecea0abf3f1c2d415d95f23ef84899d"
+  integrity sha512-fHoMFbwfaVs4S3U5tCSu2i4Xm5GZDNw9FuFNjRwCXiLB1S3rYTYuhjUWdX/+38SL5d9ivEkpsvfve/Msp2lwwg==
   dependencies:
     css-render "^0.15.3"
     evtd "^0.2.2"

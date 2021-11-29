@@ -8,44 +8,47 @@
       <n-card title="定制化演示">
         <n-space vertical size="large">
           <n-space>
-            <n-space align="center">
-              <div>宽度</div>
-              <n-input-group>
-                <n-input-number
-                  v-model:value="width"
-                  :min="300"
-                  :step="20"
-                  :style="{ width: '40%' }"
-                />
-                <n-input-group-label>px</n-input-group-label>
-              </n-input-group>
-            </n-space>
-            <n-space align="center">
-              <div>最大高度</div>
-              <n-input-group>
-                <n-input-number
-                  v-model:value="height"
-                  :min="120"
-                  :step="20"
-                  :style="{ width: '40%' }"
-                />
-                <n-input-group-label>px</n-input-group-label>
-              </n-input-group>
-            </n-space>
-          </n-space>
-          <n-space align="center">
             <n-card embedded :style="`width:${width}px`">
-              <n-scrollbar :style="`max-height: ${height}px`">
-                <div class="px-2">
+              <n-scrollbar
+                :style="`max-height: ${height}px`"
+                style="background-color: var(--color-modal); border-radius: 4px"
+              >
+                <div class="p-1">
                   <sort :options="items" @change="onChange"></sort>
                 </div>
               </n-scrollbar>
             </n-card>
-            <div>
-              <div>结果：</div>
-              <div>{{ sortedData }}</div>
-            </div>
+            <n-space vertical>
+              <n-space align="center">
+                <div>外部容器宽度</div>
+                <n-input-group>
+                  <n-input-number
+                    v-model:value="width"
+                    :min="300"
+                    :step="20"
+                    :style="{ width: '40%' }"
+                  />
+                  <n-input-group-label>px</n-input-group-label>
+                </n-input-group>
+              </n-space>
+              <n-space align="center">
+                <div>内部最大高度</div>
+                <n-input-group>
+                  <n-input-number
+                    v-model:value="height"
+                    :min="300"
+                    :step="20"
+                    :style="{ width: '40%' }"
+                  />
+                  <n-input-group-label>px</n-input-group-label>
+                </n-input-group>
+              </n-space>
+            </n-space>
           </n-space>
+          <div>
+            <div>结果：</div>
+            <div>{{ sortedData }}</div>
+          </div>
         </n-space>
       </n-card>
     </n-space>
@@ -66,7 +69,7 @@ import PagePanel from '@/components/PagePanel.vue'
 import Sort from '@/components/Sort.vue'
 import { ref } from 'vue'
 const width = ref(300)
-const height = ref(120)
+const height = ref(300)
 const items = ref<Array<{ label: string; value: string }>>([])
 items.value = [
   {

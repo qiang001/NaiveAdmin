@@ -9,7 +9,13 @@
         blur-after-select
         clearable
         :on-select="handleSelected"
-      />
+      >
+        <template #prefix>
+          <n-icon>
+            <search-icon></search-icon>
+          </n-icon>
+        </template>
+      </n-auto-complete>
     </div>
     <n-menu
       :icon-size="14"
@@ -30,7 +36,8 @@
 </template>
 
 <script setup lang="ts">
-import { NElement, NMenu, NAutoComplete, useThemeVars } from 'naive-ui'
+import SearchIcon from '@vicons/ionicons5/SearchOutline'
+import { NElement, NMenu, NAutoComplete, useThemeVars, NIcon } from 'naive-ui'
 const themeVars = useThemeVars()
 import { ref, computed, watch, inject, Ref } from 'vue'
 
