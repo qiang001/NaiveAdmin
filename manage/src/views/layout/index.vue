@@ -116,11 +116,12 @@ import {
 
 window.$message = useMessage()
 window.$dialog = useDialog()
-
+import { useStore } from '@/hooks/useStore'
+const store = useStore()
+import { useRoute } from 'vue-router'
+const route = useRoute()
 import { initController } from './initController'
 const {
-  store,
-  route,
   collapsed,
   inverted,
   accordion,

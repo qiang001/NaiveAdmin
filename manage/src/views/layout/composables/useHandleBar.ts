@@ -1,14 +1,14 @@
 import { unref, ref, Ref } from 'vue'
-import { IHistory } from '../interfaces/handleBar'
+import { useStore } from '@/hooks/useStore'
+import { useLoadingBar } from 'naive-ui'
+import { useRouter, useRoute } from 'vue-router'
+import { IHistory } from '../interfaces/data'
 
-export const useHandleBar = ({
-  loadingBar,
-  router,
-  route,
-  store,
-  launchFullscreen,
-  exitFullscreen,
-}) => {
+export const useHandleBar = () => {
+  const loadingBar = useLoadingBar()
+  const router = useRouter()
+  const route = useRoute()
+  const store = useStore()
   const ifFullpage = ref(false)
   const refreshing = ref(false)
   const history: Ref<Array<IHistory>> = ref([])
@@ -16,7 +16,7 @@ export const useHandleBar = ({
   addHistory(route)
 
   router.beforeEach(async (to, from, next) => {
-    if (!['Redirect', 'Layout'].includes(to.name)) {
+    if (!['Redirect', 'Layout'].includes(to.name as string)) {
       loadingBar.start()
     }
     to.name == from.name ? (refreshRoute(to), next()) : next()
@@ -25,12 +25,15 @@ export const useHandleBar = ({
   router.afterEach((to, from, failure) => {
     failure ? error() : success()
     function error() {
-      if (!['Redirect', 'Layout'].includes(to.name) && to.name != from.name) {
+      if (
+        !['Redirect', 'Layout'].includes(to.name as string) &&
+        to.name != from.name
+      ) {
         loadingBar.error()
       }
     }
     function success() {
-      if (!['Redirect', 'Layout'].includes(to.name)) {
+      if (!['Redirect', 'Layout'].includes(to.name as string)) {
         loadingBar.finish()
       }
       addHistory(to)
@@ -143,6 +146,36 @@ export const useHandleBar = ({
   const setFullpage = (bool) => {
     bool ? launchFullscreen(document.body) : exitFullscreen()
     ifFullpage.value = bool
+    function launchFullscreen(element) {
+      if (element.requestFullscreen) {
+        element.requestFullscreen()
+      } else if (element.mozRequestFullScreen) {
+        element.mozRequestFullScreen()
+      } else if (element.msRequestFullscreen) {
+        element.msRequestFullscreen()
+      } else if (element.webkitRequestFullscreen) {
+        element.webkitRequestFullScreen()
+      }
+    }
+
+    function exitFullscreen() {
+      const fullscreenElement =
+        document.fullscreenElement ||
+        document.mozFullScreenElement ||
+        document.webkitFullscreenElement ||
+        document.msFullscreenElement
+      if (fullscreenElement) {
+        if (document.exitFullscreen) {
+          document.exitFullscreen()
+        } else if (document.msExitFullscreen) {
+          document.msExitFullscreen()
+        } else if (document.mozCancelFullScreen) {
+          document.mozCancelFullScreen()
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen()
+        }
+      }
+    }
   }
 
   return {

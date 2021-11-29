@@ -1,5 +1,7 @@
 import { ref, onMounted } from 'vue'
-export const useMenu = ({ refreshRoute, router }) => {
+import { useRouter } from 'vue-router'
+export const useMenu = (refreshRoute) => {
+  const router = useRouter()
   const widthSpan = {
     min: 180,
     max: 360,

@@ -1,13 +1,10 @@
-import { ref } from 'vue'
-
+import { useToggle } from '@/hooks/useToggle'
 export const useSetting = () => {
-  const settingShow = ref(false)
-  const openSetting = () => {
-    settingShow.value = true
-  }
-  const closeSetting = () => {
-    settingShow.value = false
-  }
+  const {
+    ifActive: settingShow,
+    switchOn: openSetting,
+    switchOff: closeSetting,
+  } = useToggle()
   return {
     settingShow,
     openSetting,

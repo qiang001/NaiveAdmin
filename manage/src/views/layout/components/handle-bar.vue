@@ -195,7 +195,7 @@ const setDrag = (bool: boolean) => {
 }
 
 // 渲染 tabs 以及交互动画
-import { IHistory } from '../interfaces/handleBar'
+import { IHistory } from '../interfaces/data'
 const history = inject('history') as Ref<Array<IHistory>>
 
 let updateTimer = null
