@@ -1,5 +1,14 @@
 <template>
-  <page-panel :title="'用户列表'" :allow-expand="!users.length">
+  <page-panel
+    :title="'用户列表'"
+    :allow-expand="!users.length"
+    :safe-height="dynamicElements['componentId'].height"
+  >
+    <div
+      id="componentId"
+      class="mb-2"
+      style="height: 240px; background-color: var(--color)"
+    ></div>
     <action-header
       @add="addUser"
       @changeStatus="changeStatus"
@@ -52,6 +61,7 @@ const {
   changeSort,
   users,
   loading,
+  dynamicElements,
   dynamicWidth,
   maxHeight,
   size,

@@ -43,14 +43,16 @@ export const useUserList = ({
   openResultModalAsync,
 }: Input) => {
   // 响应式表格
-  const { dynamicWidth, maxHeight, size } = useResponsiveTable({
-    size: 'small',
-    tool: true,
-    pagination: true,
-    containerId: 'page-panel',
-    otherElementIds: ['action-header'],
-    dynamicWidth: 240,
-  })
+  const { dynamicElements, dynamicWidth, maxHeight, size } = useResponsiveTable(
+    {
+      size: 'small',
+      tool: true,
+      pagination: true,
+      containerId: 'page-panel',
+      otherElementIds: ['componentId', 'action-header'],
+      dynamicWidth: 240,
+    }
+  )
 
   // 核心方法
   const refresh: I_useUserList_refresh = async () => {
@@ -126,7 +128,7 @@ export const useUserList = ({
       await queryUsers()
     }
   }
-  const data = { dynamicWidth, maxHeight, size }
+  const data = { dynamicElements, dynamicWidth, maxHeight, size }
   const method = { refresh, edit, resetPassword, _delete }
   return {
     ...data,

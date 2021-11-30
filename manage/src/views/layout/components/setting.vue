@@ -265,6 +265,7 @@ ifEmbedded.value = store.state.ifEmbedded
 const ifEmbeddedChange = (val: boolean) => {
   ifEmbedded.value = val
   store.commit('SET_IFEMBEDDED', val)
+  !val && ifPageTitleChange(false)
 }
 
 const inverted = inject('inverted') as Ref<boolean>

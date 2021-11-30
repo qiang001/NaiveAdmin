@@ -95,6 +95,7 @@ export const initController = () => {
 
   // 表格
   const {
+    dynamicElements,
     dynamicWidth,
     maxHeight,
     size,
@@ -130,6 +131,7 @@ export const initController = () => {
     resetLoading,
     resetUser,
     searching,
+    dynamicElements,
     dynamicWidth,
     maxHeight,
     size,

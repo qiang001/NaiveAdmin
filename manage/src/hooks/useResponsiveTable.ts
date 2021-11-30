@@ -23,8 +23,15 @@ export const useResponsiveTable = (config: ITableConfig) => {
     'inner'
   )
   let dynamicElementIds = config.otherElementIds ?? []
+  const dynamicElements: {
+    [id: string]: {
+      width: number
+      height: number
+    }
+  } = {}
   const dynamicHeights = dynamicElementIds.map((id) => {
     const { rect } = useResizeContainer(id, 'outer')
+    dynamicElements[id] = rect
     return rect
   })
   const toolHeight = config.tool ? 34 : 0
@@ -52,6 +59,7 @@ export const useResponsiveTable = (config: ITableConfig) => {
       2
   })
   return {
+    dynamicElements,
     dynamicWidth,
     maxHeight,
     size: config.size || 'medium',

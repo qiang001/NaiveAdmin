@@ -21,10 +21,12 @@ import { toRefs, watchEffect, inject, Ref, computed } from 'vue'
 interface IProp {
   title?: string
   allowExpand?: boolean
+  safeHeight?: number
 }
 const props = withDefaults(defineProps<IProp>(), {
   title: '',
   allowExpand: true,
+  safeHeight: 0,
 })
 
 const { title, allowExpand } = toRefs(props)
@@ -72,7 +74,10 @@ watchEffect(() => {
 })
 
 const setHeight = (key: string, val: number) => {
-  container.value.style.setProperty(key, `calc(100vh - ${val}px)`)
+  const final = val - props.safeHeight
+  const value =
+    final >= 0 ? `calc(100vh - ${final}px)` : `calc(100vh + ${-final}px)`
+  container.value.style.setProperty(key, value)
 }
 </script>
 
