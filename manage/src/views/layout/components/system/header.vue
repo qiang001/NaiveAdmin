@@ -31,7 +31,11 @@ const inverted = inject('inverted') as Ref<boolean>
 import { useStore } from '@/hooks/useStore'
 const store = useStore()
 const systemBtnColor = computed(() =>
-  inverted.value ? '#ffffff17' : !store.state.ifDark ? '#efeff5' : '#ffffff17'
+  store.state.layoutStyle === 'top-left-right-inverted'
+    ? '#ffffff17'
+    : !store.state.ifDark
+    ? '#efeff5'
+    : '#ffffff17'
 )
 </script>
 
