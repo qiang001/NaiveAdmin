@@ -46,12 +46,11 @@ const layoutStyle = computed(() => store.state.layoutStyle)
 const ifFullpage = inject('ifFullpage') as Ref<boolean>
 
 const emit = defineEmits(['resize'])
-
+const headerHeight = 64
+const handleBarHeight = 36
+const pageEmbedded = 28
 watchEffect(() => {
   if (container.value) {
-    let headerHeight = 64
-    let handleBarHeight = 36
-    let pageEmbedded = 28
     let totalOtherHeight = headerHeight + handleBarHeight
     if (ifEmbedded.value) {
       totalOtherHeight += pageEmbedded
@@ -74,7 +73,13 @@ watchEffect(() => {
 })
 
 const setHeight = (key: string, val: number) => {
-  const final = val - props.safeHeight
+  let final = val - props.safeHeight
+  if (final < 0) {
+    if (ifEmbedded.value) {
+      final = final - pageEmbedded
+      !(title.value && ifPageTitle.value) && (final = final + 15)
+    }
+  }
   const value =
     final >= 0 ? `calc(100vh - ${final}px)` : `calc(100vh + ${-final}px)`
   container.value.style.setProperty(key, value)
