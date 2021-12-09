@@ -1,6 +1,6 @@
 .hita-status-tag-default-light {
   background-color: #f1f1f1;
-  color: #2e3238;
+  color: #757575;
 }
 
 .hita-status-tag-default-dark {
@@ -49,8 +49,8 @@
 }
 
 .hita-status-tag-error-light {
-  background-color: #fff8f8;
-  color: #f52d5b;
+  background-color: #f20d0d0f;
+  color: #f01414;
 }
 
 .hita-status-tag-error-dark {
