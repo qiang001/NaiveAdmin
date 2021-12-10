@@ -58,16 +58,6 @@
   color: #f7a7b9;
 }
 
-.hita-status-tag-black-light {
-  background-color: #313131;
-  color: #ffffff;
-}
-
-.hita-status-tag-black-dark {
-  background-color: #111111;
-  color: #cdcdcd;
-}
-
 .hita-status-tag-default-shape {
   border-radius: 3px;
 }

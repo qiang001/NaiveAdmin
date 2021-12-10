@@ -39,12 +39,7 @@
             <status-tag type="error" shape="square">暗影岛</status-tag>
             <status-tag type="error" shape="round">暗影岛</status-tag>
           </n-space>
-          <n-space align="center">
-            <status-tag type="black">恕瑞玛</status-tag>
-            <status-tag type="black" shape="square">恕瑞玛</status-tag>
-            <status-tag type="black" shape="round">恕瑞玛</status-tag>
-          </n-space>
-          <n-space align="center" v-for="theme in store.getters.getMainColors">
+          <!-- <n-space align="center" v-for="theme in store.getters.getMainColors">
             <status-tag
               :style="{
                 backgroundColor: theme.common.primaryColor,
@@ -68,7 +63,7 @@
               }"
               >红领烬</status-tag
             >
-          </n-space>
+          </n-space> -->
         </n-space>
       </n-card>
     </n-space>
