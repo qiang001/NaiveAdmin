@@ -1,12 +1,11 @@
-import { ref } from 'vue'
-
+import { useState } from './useState'
 export const useToggle = () => {
-  const ifActive = ref(false)
+  const [ifActive, setIfActive] = useState<boolean>(false)
   const switchOn = () => {
-    ifActive.value = true
+    setIfActive(true)
   }
   const switchOff = () => {
-    ifActive.value = false
+    setIfActive(false)
   }
   return {
     ifActive,
