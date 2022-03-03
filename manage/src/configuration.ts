@@ -129,13 +129,13 @@ export const pageConfig: IPageItem[] = [
         labelPinYin: 'fangwenkongzhi_fwkz',
         icon: AccessControlIcon,
       },
-      {
-        name: 'Docs',
-        path: 'system/docs',
-        label: '文档中心',
-        labelPinYin: 'wendangzhongxin_wdzx',
-        icon: DocsIcon,
-      },
+      // {
+      //   name: 'Docs',
+      //   path: 'system/docs',
+      //   label: '文档中心',
+      //   labelPinYin: 'wendangzhongxin_wdzx',
+      //   icon: DocsIcon,
+      // },
     ],
   },
 ]
@@ -168,7 +168,7 @@ export const permissionConfig: IPermission[] = [
 // 布局模式
 import { layoutStyleType } from '@/store'
 export const getStyles: () => layoutStyleType[] = () => {
-  return ['left-right', 'top-left-right', 'top-left-right-inverted']
+  return ['top-left-right', 'left-right', 'top-left-right-inverted']
 }
 
 // 主题色预设

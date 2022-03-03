@@ -9,9 +9,9 @@
     </div>
     <div class="ml-auto d-flex a-center">
       <div class="d-flex a-center">
-        <div class="systemBtn">
+        <!-- <div class="systemBtn">
           <notification @viewNotification="(bool) => emit('view', bool)" />
-        </div>
+        </div> -->
         <div class="mx-1 systemBtn">
           <setting-trigger @openSetting="() => emit('open')" />
         </div>

@@ -4,7 +4,6 @@
     :theme-overrides="store.getters.getTheme.overrides"
     :locale="zhCN"
   >
-    <!-- <n-theme-editor> -->
     <n-loading-bar-provider>
       <n-message-provider>
         <n-dialog-provider>
@@ -12,16 +11,12 @@
         </n-dialog-provider>
       </n-message-provider>
     </n-loading-bar-provider>
-    <!-- </n-theme-editor> -->
-    <n-global-style />
   </n-config-provider>
 </template>
 
 <script setup lang="ts">
 import {
   NConfigProvider,
-  NGlobalStyle,
-  NThemeEditor,
   NLoadingBarProvider,
   NMessageProvider,
   NDialogProvider,
